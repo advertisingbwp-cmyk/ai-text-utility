@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Plexudo AI - Smart Text Utility & Grammar Fixer</title>
-  <meta name="description" content="Free AI-powered text utility: word counter, case converter, fancy font generator, grammar fixer, and professional tone enhancer powered by Experiential Labs AI.">
-  <meta name="keywords" content="word counter, case converter, grammar fixer, fancy font generator, AI text enhancer, text utility, plexudo">
+  <title>Text Utility - All Text Tools in One Place & AI Assistant</title>
+  <meta name="description" content="Instant, private, browser-based text tools: word counter, JSON formatter, regex tester, case converter, cleanup, hash generator, and Experiential Labs AI text tools.">
+  <meta name="keywords" content="text utility, word counter, json formatter, regex tester, case converter, slug generator, base64, hash generator, ai text assistant">
 
   <!-- Google AdSense Verification Script -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3168330263525370" crossorigin="anonymous"></script>
@@ -33,31 +33,45 @@
     }
   </script>
 
-  <!-- Phosphor Icons for Crisp UI Icons -->
+  <!-- Phosphor Icons -->
   <script src="https://unpkg.com/@phosphor-icons/web"></script>
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body class="bg-[#090d16] text-slate-100 min-h-screen flex flex-col font-sans selection:bg-indigo-500 selection:text-white">
 
-  <!-- Top Announcement / Brand Bar -->
-  <header class="sticky top-0 z-40 bg-[#090d16]/80 backdrop-blur-xl border-b border-slate-800">
+  <!-- Navbar -->
+  <header class="sticky top-0 z-40 bg-[#090d16]/90 backdrop-blur-xl border-b border-slate-800">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
       <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-purple-600 flex items-center justify-center text-white shadow-lg shadow-indigo-600/25">
-          <i class="ph ph-sparkle text-xl"></i>
-        </div>
-        <div>
-          <span class="text-xl font-black tracking-tight text-white">PLEX<span class="text-indigo-400">UDO</span></span>
-          <span class="ml-1.5 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider bg-indigo-500/10 text-indigo-300 border border-indigo-500/30 rounded-full">AI Text Studio</span>
-        </div>
+        <a href="#" class="flex items-center gap-2.5 group">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-purple-600 flex items-center justify-center text-white shadow-lg shadow-indigo-600/25 group-hover:scale-105 transition-transform">
+            <i class="ph ph-textbox text-xl font-bold"></i>
+          </div>
+          <div>
+            <span class="text-xl font-black tracking-tight text-white">Text<span class="text-indigo-400">Utility</span></span>
+            <span class="ml-1.5 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider bg-indigo-500/10 text-indigo-300 border border-indigo-500/30 rounded-full">Pro</span>
+          </div>
+        </a>
       </div>
 
+      <!-- Search Trigger Button (Ctrl+K) -->
+      <div class="flex-1 max-w-md mx-6 hidden sm:block">
+        <button id="searchTriggerBtn" class="w-full px-3.5 py-2 rounded-xl bg-slate-900/90 border border-slate-700/80 hover:border-indigo-500 text-slate-400 text-xs flex items-center justify-between transition-all group shadow-inner">
+          <span class="flex items-center gap-2">
+            <i class="ph ph-magnifying-glass text-sm text-slate-500 group-hover:text-indigo-400"></i>
+            <span>Search 50+ text tools...</span>
+          </span>
+          <kbd class="px-2 py-0.5 rounded bg-slate-800 border border-slate-700 font-mono text-[10px] text-slate-300">Ctrl K</kbd>
+        </button>
+      </div>
+
+      <!-- Right Nav Shortcuts -->
       <div class="flex items-center gap-3">
-        <a href="#ai-tools" class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg bg-indigo-600/20 text-indigo-300 border border-indigo-500/30 hover:bg-indigo-600/30 transition-all">
-          <i class="ph ph-lightning text-sm"></i>
-          AI Magic Tools
-        </a>
+        <button id="btnShortcutsNav" class="hidden md:inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg bg-slate-800/80 text-slate-300 hover:text-white hover:bg-slate-700 transition-all" title="Keyboard Shortcuts">
+          <i class="ph ph-keyboard text-sm"></i>
+          <span class="font-mono text-[10px]">Ctrl /</span>
+        </button>
         <button id="themeToggle" class="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-colors" title="Toggle Theme">
           <i class="ph ph-moon text-lg"></i>
         </button>
@@ -65,224 +79,219 @@
     </div>
   </header>
 
-  <!-- Hero Header Section -->
-  <div class="pt-8 pb-4 text-center max-w-3xl mx-auto px-4">
-    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/25 text-purple-300 text-xs font-semibold mb-3">
-      <i class="ph ph-cpu text-sm"></i>
-      Powered by Experiential Labs AI
+  <!-- Hero Section -->
+  <section class="pt-10 pb-6 text-center max-w-4xl mx-auto px-4">
+    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 text-xs font-semibold mb-4 animate-fade-in">
+      <i class="ph ph-shield-check text-sm text-emerald-400"></i>
+      100% Private, Client-Side & AI-Enhanced Suite
     </div>
-    <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight">
-      Smart Text Utility & <span class="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">AI Assistant</span>
+    <h1 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight leading-tight">
+      All Text Tools in <span class="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">One Place</span>
     </h1>
-    <p class="mt-2 text-sm sm:text-base text-slate-400">
-      Instant word count, case converter, fancy font generator, and intelligent grammar & tone enhancement.
+    <p class="mt-3 text-sm sm:text-base text-slate-400 max-w-2xl mx-auto">
+      Instant, private, browser-based text tools. Search, filter, format, clean up, convert, decode, and polish with Experiential Labs AI.
     </p>
-  </div>
 
-  <!-- Main Content Container -->
-  <main class="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 w-full space-y-6">
-
-    <!-- Top Live Stats Dashboard -->
-    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
-      <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-3.5 text-center">
-        <p class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Words</p>
-        <p id="statWords" class="text-2xl font-black text-white mt-0.5">0</p>
-      </div>
-      <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-3.5 text-center">
-        <p class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Characters</p>
-        <p id="statChars" class="text-2xl font-black text-indigo-400 mt-0.5">0</p>
-      </div>
-      <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-3.5 text-center">
-        <p class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">No Spaces</p>
-        <p id="statCharsNoSpaces" class="text-2xl font-black text-slate-300 mt-0.5">0</p>
-      </div>
-      <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-3.5 text-center">
-        <p class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Sentences</p>
-        <p id="statSentences" class="text-2xl font-black text-purple-400 mt-0.5">0</p>
-      </div>
-      <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-3.5 text-center">
-        <p class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Paragraphs</p>
-        <p id="statParagraphs" class="text-2xl font-black text-slate-300 mt-0.5">0</p>
-      </div>
-      <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-3.5 text-center">
-        <p class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Reading Time</p>
-        <p id="statReadingTime" class="text-2xl font-black text-emerald-400 mt-0.5">0s</p>
-      </div>
+    <!-- Mobile Search Bar -->
+    <div class="mt-5 sm:hidden">
+      <button id="searchTriggerBtnMobile" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-slate-400 text-xs flex items-center justify-between">
+        <span class="flex items-center gap-2">
+          <i class="ph ph-magnifying-glass text-sm"></i>
+          <span>Search tools...</span>
+        </span>
+        <kbd class="px-2 py-0.5 rounded bg-slate-800 font-mono text-[10px]">Search</kbd>
+      </button>
     </div>
+  </section>
 
-    <!-- Main Workspace Grid: Input Box on Left / Result on Right -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-
-      <!-- Left Column: Input Textarea + Controls -->
-      <div class="bg-slate-900/60 border border-slate-800 rounded-3xl p-5 sm:p-6 flex flex-col space-y-4 shadow-xl">
-        <div class="flex items-center justify-between">
-          <label for="inputText" class="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
-            <i class="ph ph-textbox text-base text-indigo-400"></i>
-            Source Text
-          </label>
-          <div class="flex items-center gap-1.5">
-            <button id="btnPaste" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold flex items-center gap-1 transition-all" title="Paste clipboard text">
-              <i class="ph ph-clipboard-text"></i> Paste
-            </button>
-            <button id="btnSample" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold flex items-center gap-1 transition-all" title="Load sample text">
-              <i class="ph ph-article"></i> Sample
-            </button>
-            <button id="btnClear" class="px-2.5 py-1 rounded-lg bg-rose-500/10 hover:bg-rose-500/20 text-rose-300 text-xs font-semibold flex items-center gap-1 transition-all" title="Clear text">
-              <i class="ph ph-trash"></i> Clear
-            </button>
+  <!-- Interactive Active Workspace Box -->
+  <section id="workspace" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full mb-8">
+    <div class="bg-slate-900/90 border border-slate-800 rounded-3xl p-5 sm:p-6 shadow-2xl relative overflow-hidden backdrop-blur-xl">
+      <!-- Active Tool Header -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-slate-800 gap-3">
+        <div class="flex items-center gap-3">
+          <div id="activeToolIcon" class="w-10 h-10 rounded-xl bg-indigo-600/20 text-indigo-400 border border-indigo-500/30 flex items-center justify-center text-xl">
+            <i class="ph ph-wrench"></i>
+          </div>
+          <div>
+            <h2 id="activeToolTitle" class="text-lg font-bold text-white flex items-center gap-2">
+              Word Counter & Text Tools
+              <span id="activeToolCategoryBadge" class="text-[10px] uppercase font-bold px-2 py-0.5 rounded-full bg-indigo-500/10 text-indigo-300 border border-indigo-500/20">
+                Text
+              </span>
+            </h2>
+            <p id="activeToolDesc" class="text-xs text-slate-400">
+              Count words, characters, sentences, paragraphs and run live text operations.
+            </p>
           </div>
         </div>
 
-        <div class="relative flex-1">
+        <div class="flex items-center gap-2">
+          <button id="btnSampleText" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold flex items-center gap-1.5 transition-all">
+            <i class="ph ph-file-text"></i> Sample
+          </button>
+          <button id="btnClearWorkspace" class="px-3 py-1.5 rounded-lg bg-rose-500/10 hover:bg-rose-500/20 text-rose-300 text-xs font-semibold flex items-center gap-1.5 transition-all">
+            <i class="ph ph-trash"></i> Clear
+          </button>
+          <button id="btnFavoriteActive" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-amber-500/20 hover:text-amber-300 text-slate-400 text-xs font-semibold flex items-center gap-1.5 transition-all">
+            <i class="ph ph-star"></i> Favorite
+          </button>
+        </div>
+      </div>
+
+      <!-- Real-Time Metrics Bar -->
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 my-4">
+        <div class="bg-slate-950/60 border border-slate-800/80 rounded-xl p-2.5 text-center">
+          <span class="text-[10px] font-semibold text-slate-400 uppercase tracking-wider block">Words</span>
+          <span id="statWords" class="text-xl font-bold text-white">0</span>
+        </div>
+        <div class="bg-slate-950/60 border border-slate-800/80 rounded-xl p-2.5 text-center">
+          <span class="text-[10px] font-semibold text-slate-400 uppercase tracking-wider block">Characters</span>
+          <span id="statChars" class="text-xl font-bold text-indigo-400">0</span>
+        </div>
+        <div class="bg-slate-950/60 border border-slate-800/80 rounded-xl p-2.5 text-center">
+          <span class="text-[10px] font-semibold text-slate-400 uppercase tracking-wider block">No Spaces</span>
+          <span id="statCharsNoSpaces" class="text-xl font-bold text-slate-300">0</span>
+        </div>
+        <div class="bg-slate-950/60 border border-slate-800/80 rounded-xl p-2.5 text-center">
+          <span class="text-[10px] font-semibold text-slate-400 uppercase tracking-wider block">Sentences</span>
+          <span id="statSentences" class="text-xl font-bold text-purple-400">0</span>
+        </div>
+        <div class="bg-slate-950/60 border border-slate-800/80 rounded-xl p-2.5 text-center">
+          <span class="text-[10px] font-semibold text-slate-400 uppercase tracking-wider block">Lines</span>
+          <span id="statLines" class="text-xl font-bold text-slate-300">0</span>
+        </div>
+        <div class="bg-slate-950/60 border border-slate-800/80 rounded-xl p-2.5 text-center">
+          <span class="text-[10px] font-semibold text-slate-400 uppercase tracking-wider block">Reading Time</span>
+          <span id="statReadingTime" class="text-xl font-bold text-emerald-400">0s</span>
+        </div>
+      </div>
+
+      <!-- Dynamic Options Bar for Active Tool -->
+      <div id="dynamicToolOptions" class="pb-3 hidden flex-wrap items-center gap-3 text-xs">
+        <!-- Injected dynamically per tool -->
+      </div>
+
+      <!-- Dual Textarea View (Input & Output) -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <!-- Input Area -->
+        <div class="space-y-1.5">
+          <div class="flex items-center justify-between text-xs text-slate-400 font-semibold uppercase tracking-wider">
+            <span>Input Text</span>
+            <span class="lowercase text-[11px] font-mono text-slate-500">utf-8</span>
+          </div>
           <textarea
-            id="inputText"
-            rows="10"
-            placeholder="Type or paste your text here to count words, convert cases, generate fancy fonts, or enhance with AI..."
-            class="w-full h-72 sm:h-80 p-4 rounded-2xl bg-slate-950/70 border border-slate-800 text-slate-100 placeholder-slate-500 text-sm focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 resize-none font-sans leading-relaxed"
+            id="workspaceInput"
+            rows="9"
+            placeholder="Type, paste, or drop your text, code, JSON, or data here..."
+            class="w-full p-4 rounded-2xl bg-slate-950/80 border border-slate-800 text-slate-100 placeholder-slate-600 text-sm focus:outline-none focus:border-indigo-500 font-mono leading-relaxed resize-y"
           ></textarea>
         </div>
 
-        <!-- Row 1: Fast Browser Tools (No API Needed) -->
-        <div class="pt-2 border-t border-slate-800/80 space-y-2">
-          <p class="text-[11px] font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1">
-            <i class="ph ph-wrench text-indigo-400"></i>
-            Instant Case & Formatting Tools
-          </p>
-          <div class="flex flex-wrap gap-2">
-            <button data-action="uppercase" class="tool-btn px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold transition-all">UPPERCASE</button>
-            <button data-action="lowercase" class="tool-btn px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold transition-all">lowercase</button>
-            <button data-action="titlecase" class="tool-btn px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold transition-all">Title Case</button>
-            <button data-action="sentencecase" class="tool-btn px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold transition-all">Sentence case</button>
-            <button data-action="camelcase" class="tool-btn px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold transition-all">camelCase</button>
-            <button data-action="clean_spaces" class="tool-btn px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold transition-all">Trim Spaces</button>
-            <button data-action="reverse" class="tool-btn px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold transition-all">Reverse</button>
+        <!-- Output Area -->
+        <div class="space-y-1.5 relative">
+          <div class="flex items-center justify-between text-xs text-slate-400 font-semibold uppercase tracking-wider">
+            <span>Output Result</span>
+            <button id="btnUseOutputAsInput" class="hidden text-indigo-400 hover:text-indigo-300 text-[11px] lowercase">
+              use as input ↑
+            </button>
           </div>
-        </div>
-
-        <!-- Fancy Fonts Picker -->
-        <div class="pt-2 border-t border-slate-800/80 space-y-2">
-          <p class="text-[11px] font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1">
-            <i class="ph ph-text-aa text-purple-400"></i>
-            Fancy Unicode Fonts (Instagram & Social Media)
-          </p>
-          <div class="flex flex-wrap gap-2">
-            <button data-font="gothic" class="font-btn px-3 py-1.5 rounded-xl bg-slate-800/80 hover:bg-purple-900/30 text-purple-300 border border-slate-700 text-xs font-serif transition-all">𝔉𝔞𝔫𝔠𝔶 𝔊𝔬𝔱𝔥𝔦𝔠</button>
-            <button data-font="bold_sans" class="font-btn px-3 py-1.5 rounded-xl bg-slate-800/80 hover:bg-purple-900/30 text-purple-300 border border-slate-700 text-xs font-bold transition-all">𝘽𝙤𝙡𝙙 𝙎𝙖𝙣𝙨</button>
-            <button data-font="script" class="font-btn px-3 py-1.5 rounded-xl bg-slate-800/80 hover:bg-purple-900/30 text-purple-300 border border-slate-700 text-xs italic transition-all">𝒮𝒸𝓇𝒾𝓅𝓉</button>
-            <button data-font="circled" class="font-btn px-3 py-1.5 rounded-xl bg-slate-800/80 hover:bg-purple-900/30 text-purple-300 border border-slate-700 text-xs transition-all">Ⓒⓘⓡⓒⓛⓔ</button>
-            <button data-font="double_struck" class="font-btn px-3 py-1.5 rounded-xl bg-slate-800/80 hover:bg-purple-900/30 text-purple-300 border border-slate-700 text-xs font-mono transition-all">𝔻𝕠𝕦𝕓𝕝𝕖</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Right Column: AI Magic Assistant + Result Output -->
-      <div id="ai-tools" class="bg-slate-900/60 border border-slate-800 rounded-3xl p-5 sm:p-6 flex flex-col space-y-4 shadow-xl">
-        <div class="flex items-center justify-between">
-          <label class="text-xs font-bold uppercase tracking-wider text-purple-300 flex items-center gap-1.5">
-            <i class="ph ph-magic-wand text-base text-purple-400"></i>
-            AI Magic Processing (Experiential Labs)
-          </label>
-          <span id="aiModelBadge" class="text-[10px] font-mono px-2 py-0.5 rounded bg-purple-500/10 border border-purple-500/20 text-purple-300">
-            claude-sonnet-5
-          </span>
-        </div>
-
-        <!-- AI Actions Toolbar -->
-        <div class="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
-          <button data-ai="grammar" class="ai-btn p-3 rounded-2xl bg-indigo-950/40 hover:bg-indigo-900/60 border border-indigo-500/30 text-left transition-all group">
-            <div class="flex items-center gap-2 text-indigo-300 font-bold text-xs">
-              <i class="ph ph-check-circle text-base text-indigo-400 group-hover:scale-110 transition-transform"></i>
-              Fix Grammar
-            </div>
-            <p class="text-[10px] text-slate-400 mt-1">Proofread & correct errors</p>
-          </button>
-
-          <button data-ai="professional" class="ai-btn p-3 rounded-2xl bg-purple-950/40 hover:bg-purple-900/60 border border-purple-500/30 text-left transition-all group">
-            <div class="flex items-center gap-2 text-purple-300 font-bold text-xs">
-              <i class="ph ph-briefcase text-base text-purple-400 group-hover:scale-110 transition-transform"></i>
-              Professional
-            </div>
-            <p class="text-[10px] text-slate-400 mt-1">Formal business tone</p>
-          </button>
-
-          <button data-ai="friendly" class="ai-btn p-3 rounded-2xl bg-pink-950/40 hover:bg-pink-900/60 border border-pink-500/30 text-left transition-all group">
-            <div class="flex items-center gap-2 text-pink-300 font-bold text-xs">
-              <i class="ph ph-smiley text-base text-pink-400 group-hover:scale-110 transition-transform"></i>
-              Make Friendly
-            </div>
-            <p class="text-[10px] text-slate-400 mt-1">Warm & casual vibe</p>
-          </button>
-
-          <button data-ai="summarize" class="ai-btn p-3 rounded-2xl bg-blue-950/40 hover:bg-blue-900/60 border border-blue-500/30 text-left transition-all group">
-            <div class="flex items-center gap-2 text-blue-300 font-bold text-xs">
-              <i class="ph ph-list-bullets text-base text-blue-400 group-hover:scale-110 transition-transform"></i>
-              Summarize
-            </div>
-            <p class="text-[10px] text-slate-400 mt-1">Key bullet points</p>
-          </button>
-
-          <button data-ai="paraphrase" class="ai-btn p-3 rounded-2xl bg-emerald-950/40 hover:bg-emerald-900/60 border border-emerald-500/30 text-left transition-all group">
-            <div class="flex items-center gap-2 text-emerald-300 font-bold text-xs">
-              <i class="ph ph-arrows-clockwise text-base text-emerald-400 group-hover:scale-110 transition-transform"></i>
-              Paraphrase
-            </div>
-            <p class="text-[10px] text-slate-400 mt-1">Unique rephrasing</p>
-          </button>
-
-          <button data-ai="expand" class="ai-btn p-3 rounded-2xl bg-amber-950/40 hover:bg-amber-900/60 border border-amber-500/30 text-left transition-all group">
-            <div class="flex items-center gap-2 text-amber-300 font-bold text-xs">
-              <i class="ph ph-arrows-out text-base text-amber-400 group-hover:scale-110 transition-transform"></i>
-              Expand Text
-            </div>
-            <p class="text-[10px] text-slate-400 mt-1">Add depth & clarity</p>
-          </button>
-        </div>
-
-        <!-- Result Text Area -->
-        <div class="relative flex-1">
-          <div class="flex items-center justify-between mb-1.5">
-            <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Output Result</span>
-            <div class="flex items-center gap-2">
-              <span id="outputStats" class="text-[11px] text-slate-400">0 words</span>
-              <button id="btnApplyAsInput" class="hidden px-2 py-0.5 rounded text-[11px] font-semibold bg-slate-800 hover:bg-slate-700 text-indigo-300 transition-all">
-                Use as Input ↑
-              </button>
-            </div>
-          </div>
-
           <textarea
-            id="outputText"
+            id="workspaceOutput"
             readonly
-            rows="8"
-            placeholder="Your transformed or AI-enhanced text will appear here automatically..."
-            class="w-full h-56 sm:h-64 p-4 rounded-2xl bg-slate-950/80 border border-slate-800 text-emerald-300 placeholder-slate-600 text-sm focus:outline-none resize-none font-sans leading-relaxed"
+            rows="9"
+            placeholder="Processed output will appear here automatically..."
+            class="w-full p-4 rounded-2xl bg-slate-950/90 border border-slate-800 text-emerald-300 placeholder-slate-600 text-sm focus:outline-none font-mono leading-relaxed resize-y"
           ></textarea>
 
-          <!-- Loading Overlay -->
-          <div id="loadingOverlay" class="hidden absolute inset-0 bg-slate-950/80 backdrop-blur-sm rounded-2xl flex flex-col items-center justify-center gap-3">
+          <!-- Loading Spinner Overlay for AI Tools -->
+          <div id="workspaceLoading" class="hidden absolute inset-0 bg-slate-950/85 backdrop-blur-sm rounded-2xl flex flex-col items-center justify-center gap-2 z-20">
             <div class="w-8 h-8 border-3 border-indigo-500 border-t-transparent rounded-full animate-spin"></div>
-            <p class="text-xs font-semibold text-indigo-300 animate-pulse">Generating with Experiential Labs AI...</p>
+            <p class="text-xs font-semibold text-indigo-300">Processing with Experiential Labs AI...</p>
           </div>
-        </div>
-
-        <!-- Bottom Action Bar -->
-        <div class="flex items-center justify-between pt-2">
-          <div id="toastMessage" class="text-xs font-semibold text-emerald-400 opacity-0 transition-opacity">
-            Copied to clipboard!
-          </div>
-          <button id="btnCopy" class="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs flex items-center gap-1.5 shadow-lg shadow-indigo-600/30 transition-all hover:scale-105">
-            <i class="ph ph-copy text-base"></i>
-            Copy Result
-          </button>
         </div>
       </div>
 
-    </div>
+      <!-- Action Footer -->
+      <div class="mt-4 pt-4 border-t border-slate-800/80 flex flex-col sm:flex-row items-center justify-between gap-3">
+        <div class="flex items-center gap-2">
+          <button id="btnRunActiveTool" class="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs flex items-center gap-2 shadow-lg shadow-indigo-600/30 transition-all hover:scale-[1.02]">
+            <i class="ph ph-play font-bold"></i> Run / Process
+          </button>
+          <span class="text-[11px] text-slate-500 hidden sm:inline">or press <kbd class="px-1.5 py-0.5 rounded bg-slate-800 font-mono text-[10px]">Ctrl+Enter</kbd></span>
+        </div>
 
-    <!-- AdSense Responsive Ad Placement Slot -->
-    <div class="w-full my-8 p-4 rounded-2xl bg-slate-900/40 border border-slate-800 text-center">
-      <p class="text-[10px] uppercase font-bold text-slate-400 tracking-wider mb-2">Advertisement</p>
-      <!-- Google AdSense Unit Container -->
+        <div class="flex items-center gap-2 w-full sm:w-auto justify-end">
+          <span id="toastWorkspace" class="text-xs font-semibold text-emerald-400 opacity-0 transition-opacity">
+            Copied!
+          </span>
+          <button id="btnCopyOutput" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold flex items-center gap-1.5 transition-all">
+            <i class="ph ph-copy"></i> Copy Output
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Category Navigation Tabs & Search Filter -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full mb-6">
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-slate-800/80">
+      <!-- Category Tabs -->
+      <div class="flex items-center gap-1.5 overflow-x-auto pb-1 md:pb-0 scrollbar-none">
+        <button data-category="ALL" class="cat-tab px-3.5 py-2 rounded-xl text-xs font-bold transition-all bg-indigo-600 text-white shadow-md">
+          All
+        </button>
+        <button data-category="FAVORITES" class="cat-tab px-3.5 py-2 rounded-xl text-xs font-bold transition-all text-slate-400 hover:text-white hover:bg-slate-800">
+          <i class="ph ph-star text-amber-400 mr-1"></i>Favorites
+        </button>
+        <button data-category="Text" class="cat-tab px-3.5 py-2 rounded-xl text-xs font-bold transition-all text-slate-400 hover:text-white hover:bg-slate-800">
+          Text
+        </button>
+        <button data-category="Format" class="cat-tab px-3.5 py-2 rounded-xl text-xs font-bold transition-all text-slate-400 hover:text-white hover:bg-slate-800">
+          Format
+        </button>
+        <button data-category="Cleanup" class="cat-tab px-3.5 py-2 rounded-xl text-xs font-bold transition-all text-slate-400 hover:text-white hover:bg-slate-800">
+          Cleanup
+        </button>
+        <button data-category="Transform" class="cat-tab px-3.5 py-2 rounded-xl text-xs font-bold transition-all text-slate-400 hover:text-white hover:bg-slate-800">
+          Transform
+        </button>
+        <button data-category="Date & Time" class="cat-tab px-3.5 py-2 rounded-xl text-xs font-bold transition-all text-slate-400 hover:text-white hover:bg-slate-800">
+          Date & Time
+        </button>
+        <button data-category="AI Magic" class="cat-tab px-3.5 py-2 rounded-xl text-xs font-bold transition-all text-purple-300 bg-purple-950/40 border border-purple-500/30 hover:bg-purple-900/50">
+          <i class="ph ph-sparkle mr-1"></i>AI Magic
+        </button>
+      </div>
+
+      <!-- Quick Inline Filter -->
+      <div class="relative w-full md:w-64">
+        <i class="ph ph-funnel text-slate-500 absolute left-3 top-1/2 -translate-y-1/2 text-xs"></i>
+        <input
+          id="toolsFilterInput"
+          type="text"
+          placeholder="Filter tools by name..."
+          class="w-full pl-8 pr-3 py-1.5 rounded-xl bg-slate-900 border border-slate-800 text-white placeholder-slate-500 text-xs focus:outline-none focus:border-indigo-500"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- Complete Tools Grid (50+ Tools from text-utility.com) -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex-1 mb-16">
+    <div id="toolsGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <!-- Tool cards will be generated by script.js -->
+    </div>
+    <div id="noToolsFound" class="hidden py-16 text-center text-slate-500 text-sm">
+      <i class="ph ph-magnifying-glass text-3xl mb-2 block"></i>
+      No tools match your search. Try another keyword or clear filter.
+    </div>
+  </section>
+
+  <!-- AdSense Responsive Ad Placement Slot -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full mb-12">
+    <div class="w-full p-4 rounded-2xl bg-slate-900/40 border border-slate-800 text-center">
+      <p class="text-[10px] uppercase font-bold text-slate-500 tracking-wider mb-2">Advertisement</p>
       <ins class="adsbygoogle"
            style="display:block"
            data-ad-client="ca-pub-3168330263525370"
@@ -293,114 +302,170 @@
            (adsbygoogle = window.adsbygoogle || []).push({});
       </script>
     </div>
+  </section>
 
-    <!-- Informational Content (Crucial for AdSense Quality Approval!) -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-6 border-t border-slate-800/80">
-      <div class="bg-slate-900/40 border border-slate-800 rounded-2xl p-6 space-y-2">
-        <div class="w-9 h-9 rounded-xl bg-indigo-500/10 text-indigo-400 flex items-center justify-center text-lg mb-3">
-          <i class="ph ph-lightning"></i>
-        </div>
-        <h3 class="text-base font-bold text-white">Ultra-Fast Execution</h3>
-        <p class="text-xs text-slate-400 leading-relaxed">
-          Standard case conversions and character counting happen instantly in your browser with zero latency or upload time.
+  <!-- Why Text Utility Section -->
+  <section class="bg-slate-950/60 border-t border-slate-800/80 py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-2xl mx-auto mb-10">
+        <h3 class="text-2xl font-bold text-white tracking-tight">Why Text Utility?</h3>
+        <p class="text-xs sm:text-sm text-slate-400 mt-1">
+          Built from the ground up for speed, privacy, and frictionless text workflows.
         </p>
       </div>
 
-      <div class="bg-slate-900/40 border border-slate-800 rounded-2xl p-6 space-y-2">
-        <div class="w-9 h-9 rounded-xl bg-purple-500/10 text-purple-400 flex items-center justify-center text-lg mb-3">
-          <i class="ph ph-brain"></i>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="bg-slate-900/50 border border-slate-800 p-5 rounded-2xl space-y-2">
+          <div class="w-10 h-10 rounded-xl bg-indigo-500/10 text-indigo-400 flex items-center justify-center text-xl mb-3">
+            <i class="ph ph-user-circle-slash"></i>
+          </div>
+          <h4 class="text-sm font-bold text-white">No Signup Required</h4>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Access all text manipulation tools instantly. No registration, no email verification, and no account creation required.
+          </p>
         </div>
-        <h3 class="text-base font-bold text-white">Next-Gen Language Models</h3>
-        <p class="text-xs text-slate-400 leading-relaxed">
-          Integrated with Experiential Labs AI to offer high-precision grammar checking, tone rewriting, and instant summaries.
-        </p>
-      </div>
 
-      <div class="bg-slate-900/40 border border-slate-800 rounded-2xl p-6 space-y-2">
-        <div class="w-9 h-9 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center text-lg mb-3">
-          <i class="ph ph-shield-check"></i>
+        <div class="bg-slate-900/50 border border-slate-800 p-5 rounded-2xl space-y-2">
+          <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center text-xl mb-3">
+            <i class="ph ph-lightning"></i>
+          </div>
+          <h4 class="text-sm font-bold text-white">Lightning Fast</h4>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Execute data transformations, formatting, and analysis instantly. All operations run directly in your local browser environment.
+          </p>
         </div>
-        <h3 class="text-base font-bold text-white">100% Secure & Private</h3>
-        <p class="text-xs text-slate-400 leading-relaxed">
-          Your content is never stored or used to train public models. Text is processed securely through encrypted endpoints.
-        </p>
+
+        <div class="bg-slate-900/50 border border-slate-800 p-5 rounded-2xl space-y-2">
+          <div class="w-10 h-10 rounded-xl bg-purple-500/10 text-purple-400 flex items-center justify-center text-xl mb-3">
+            <i class="ph ph-shield-check"></i>
+          </div>
+          <h4 class="text-sm font-bold text-white">100% Client-Side Privacy</h4>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Your sensitive text never leaves your device. Everything is processed locally client-side, making it highly secure and private.
+          </p>
+        </div>
+
+        <div class="bg-slate-900/50 border border-slate-800 p-5 rounded-2xl space-y-2">
+          <div class="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center text-xl mb-3">
+            <i class="ph ph-wifi-slash"></i>
+          </div>
+          <h4 class="text-sm font-bold text-white">Offline-First Utilities</h4>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Keep working even without an internet connection. Once loaded, our suite of browser-based utilities continues to function fully offline.
+          </p>
+        </div>
       </div>
     </div>
+  </section>
 
-  </main>
-
-  <!-- Footer with Mandatory AdSense Policy Links -->
-  <footer class="bg-slate-950 border-t border-slate-800 mt-12">
+  <!-- Footer -->
+  <footer class="bg-slate-950 border-t border-slate-800">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
       <div class="flex items-center gap-2 text-xs text-slate-400">
-        <span>© 2026 Plexudo AI Studio. All rights reserved.</span>
+        <span>© 2026 Text Utility. All rights reserved. All tools run locally in your browser.</span>
       </div>
 
       <div class="flex flex-wrap gap-4 text-xs font-semibold text-slate-400">
         <button onclick="openModal('privacyModal')" class="hover:text-indigo-400 transition-colors">Privacy Policy</button>
         <button onclick="openModal('termsModal')" class="hover:text-indigo-400 transition-colors">Terms of Service</button>
-        <button onclick="openModal('aboutModal')" class="hover:text-indigo-400 transition-colors">About Us</button>
-        <button onclick="openModal('contactModal')" class="hover:text-indigo-400 transition-colors">Contact</button>
+        <button onclick="openModal('aboutModal')" class="hover:text-indigo-400 transition-colors">About</button>
+        <button onclick="openModal('shortcutsModal')" class="hover:text-indigo-400 transition-colors">Shortcuts</button>
       </div>
     </div>
   </footer>
 
-  <!-- Modal Components for Google AdSense Policy Compliance -->
-  <!-- 1. Privacy Policy Modal -->
-  <div id="privacyModal" class="hidden fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4">
+  <!-- Command Palette Modal (Ctrl + K) -->
+  <div id="commandPaletteModal" class="hidden fixed inset-0 z-50 bg-black/75 backdrop-blur-md flex items-start justify-center pt-20 p-4">
+    <div class="bg-slate-900 border border-slate-700/80 rounded-2xl max-w-xl w-full shadow-2xl overflow-hidden animate-scale-in">
+      <div class="p-3.5 border-b border-slate-800 flex items-center gap-2.5">
+        <i class="ph ph-magnifying-glass text-slate-400 text-lg"></i>
+        <input
+          id="cmdPaletteInput"
+          type="text"
+          placeholder="Type to search tools or actions... (e.g. JSON, Case, Base64)"
+          class="w-full bg-transparent text-white placeholder-slate-500 text-sm focus:outline-none"
+        />
+        <kbd class="px-2 py-0.5 rounded bg-slate-800 text-[10px] text-slate-400 font-mono">ESC</kbd>
+      </div>
+
+      <div id="cmdPaletteResults" class="max-h-80 overflow-y-auto p-2 space-y-1 text-xs">
+        <!-- Injected via script -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Keyboard Shortcuts Modal (Ctrl + /) -->
+  <div id="shortcutsModal" class="hidden fixed inset-0 z-50 bg-black/75 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-md w-full p-6 space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <h3 class="text-base font-bold text-white flex items-center gap-2">
+          <i class="ph ph-keyboard text-indigo-400"></i> Keyboard Shortcuts
+        </h3>
+        <button onclick="closeModal('shortcutsModal')" class="text-slate-400 hover:text-white"><i class="ph ph-x text-lg"></i></button>
+      </div>
+      <div class="text-xs space-y-2.5 text-slate-300">
+        <div class="flex items-center justify-between py-1 border-b border-slate-800/60">
+          <span>Open command palette</span>
+          <kbd class="px-2 py-0.5 bg-slate-800 rounded font-mono text-[10px]">Ctrl + K</kbd>
+        </div>
+        <div class="flex items-center justify-between py-1 border-b border-slate-800/60">
+          <span>Run / Process active tool</span>
+          <kbd class="px-2 py-0.5 bg-slate-800 rounded font-mono text-[10px]">Ctrl + Enter</kbd>
+        </div>
+        <div class="flex items-center justify-between py-1 border-b border-slate-800/60">
+          <span>Copy output text</span>
+          <kbd class="px-2 py-0.5 bg-slate-800 rounded font-mono text-[10px]">Ctrl + Shift + C</kbd>
+        </div>
+        <div class="flex items-center justify-between py-1 border-b border-slate-800/60">
+          <span>Clear workspace</span>
+          <kbd class="px-2 py-0.5 bg-slate-800 rounded font-mono text-[10px]">Ctrl + Shift + X</kbd>
+        </div>
+        <div class="flex items-center justify-between py-1">
+          <span>Show keyboard shortcuts</span>
+          <kbd class="px-2 py-0.5 bg-slate-800 rounded font-mono text-[10px]">Ctrl + /</kbd>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AdSense Compliance Modals -->
+  <!-- Privacy Modal -->
+  <div id="privacyModal" class="hidden fixed inset-0 z-50 bg-black/75 backdrop-blur-sm flex items-center justify-center p-4">
     <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-2xl w-full max-h-[85vh] overflow-y-auto p-6 space-y-4">
       <div class="flex items-center justify-between border-b border-slate-800 pb-3">
         <h3 class="text-lg font-bold text-white">Privacy Policy</h3>
-        <button onclick="closeModal('privacyModal')" class="text-slate-400 hover:text-white"><i class="ph ph-x text-xl"></i></button>
+        <button onclick="closeModal('privacyModal')" class="text-slate-400 hover:text-white"><i class="ph ph-x text-lg"></i></button>
       </div>
       <div class="text-xs text-slate-300 space-y-3 leading-relaxed">
-        <p>At Plexudo AI Text Utility, accessible from plexudo.vercel.app, your privacy is our top priority. We do not store, sell, or monitor any personal text entered into our editor.</p>
-        <p><strong>Third-Party Vendors & Cookies:</strong> Google, as a third-party vendor, uses cookies to serve ads on this site. Google's use of advertising cookies enables it and its partners to serve ads to users based on their visit to our site and/or other sites on the Internet.</p>
-        <p>Users may opt out of personalized advertising by visiting Google Ads Settings.</p>
+        <p>Your privacy is paramount. All core utility operations (counting, formatting, sorting, cleanup, hashing, encoders) run 100% locally client-side inside your browser. No input text is stored or logged on any external servers.</p>
+        <p><strong>Cookies & Advertising:</strong> Google, as a third-party vendor, uses cookies to serve ads on this website. You may opt out of personalized ads at Google Ads Settings.</p>
       </div>
     </div>
   </div>
 
-  <!-- 2. Terms of Service Modal -->
-  <div id="termsModal" class="hidden fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4">
+  <!-- Terms Modal -->
+  <div id="termsModal" class="hidden fixed inset-0 z-50 bg-black/75 backdrop-blur-sm flex items-center justify-center p-4">
     <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-2xl w-full max-h-[85vh] overflow-y-auto p-6 space-y-4">
       <div class="flex items-center justify-between border-b border-slate-800 pb-3">
         <h3 class="text-lg font-bold text-white">Terms of Service</h3>
-        <button onclick="closeModal('termsModal')" class="text-slate-400 hover:text-white"><i class="ph ph-x text-xl"></i></button>
+        <button onclick="closeModal('termsModal')" class="text-slate-400 hover:text-white"><i class="ph ph-x text-lg"></i></button>
       </div>
       <div class="text-xs text-slate-300 space-y-3 leading-relaxed">
-        <p>By accessing and using Plexudo AI Text Utility, you agree to comply with our Terms of Service. Our services are provided "as is" without warranties of any kind.</p>
-        <p>You agree not to use the tools to generate unlawful, harassing, defamatory, or harmful content.</p>
+        <p>Text Utility is provided free of charge on an "as is" basis for personal and commercial productivity. You agree to use the utilities lawfully and responsibly.</p>
       </div>
     </div>
   </div>
 
-  <!-- 3. About Us Modal -->
-  <div id="aboutModal" class="hidden fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4">
+  <!-- About Modal -->
+  <div id="aboutModal" class="hidden fixed inset-0 z-50 bg-black/75 backdrop-blur-sm flex items-center justify-center p-4">
     <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-xl w-full p-6 space-y-4">
       <div class="flex items-center justify-between border-b border-slate-800 pb-3">
-        <h3 class="text-lg font-bold text-white">About Plexudo AI Studio</h3>
-        <button onclick="closeModal('aboutModal')" class="text-slate-400 hover:text-white"><i class="ph ph-x text-xl"></i></button>
+        <h3 class="text-lg font-bold text-white">About Text Utility</h3>
+        <button onclick="closeModal('aboutModal')" class="text-slate-400 hover:text-white"><i class="ph ph-x text-lg"></i></button>
       </div>
       <p class="text-xs text-slate-300 leading-relaxed">
-        Plexudo AI Studio is a modern web utility suite built for students, copywriters, marketers, and developers. We combine instant browser-based string manipulation with cutting-edge AI language models from Experiential Labs to streamline your writing workflow.
+        Text Utility is a comprehensive, client-first suite of over 50 text manipulation, formatting, security, and developer utilities coupled with Experiential Labs AI capabilities. Built for developers, content creators, researchers, and everyday writers.
       </p>
-    </div>
-  </div>
-
-  <!-- 4. Contact Modal -->
-  <div id="contactModal" class="hidden fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4">
-    <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-xl w-full p-6 space-y-4">
-      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
-        <h3 class="text-lg font-bold text-white">Contact Us</h3>
-        <button onclick="closeModal('contactModal')" class="text-slate-400 hover:text-white"><i class="ph ph-x text-xl"></i></button>
-      </div>
-      <p class="text-xs text-slate-300 leading-relaxed">
-        Have questions, feedback, or need custom enterprise integrations? Reach out to our team at:
-      </p>
-      <div class="p-3 bg-slate-950 rounded-xl font-mono text-xs text-indigo-400">
-        support@plexudo.com
-      </div>
     </div>
   </div>
 
