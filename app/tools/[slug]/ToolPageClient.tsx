@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useCallback, useMemo } from "react";
 import { ToolDefinition } from "@/data/toolsRegistry";
 import { ToolLayout } from "@/components/ToolLayout";
+import { CopyButton } from "@/components/CopyButton";
 
 // Import pure Phase 2, 3 & 4 tools
 import {
@@ -36,6 +37,25 @@ import {
   stripHtmlTags,
   removeLineBreaks,
   removeSpecialChars,
+  convertCase,
+  CaseMode,
+  sortLines,
+  SortOrder,
+  reverseText,
+  ReverseMode,
+  transformBase64,
+  transformUrl,
+  generateHash,
+  HashAlgorithm,
+  decodeJwt,
+  generatePasswords,
+  generateUuids,
+  generateLoremIpsum,
+  LoremUnit,
+  rot13,
+  convertFancyFont,
+  generateAllFancyFonts,
+  FancyFontStyle,
 } from "@/lib/tools/index";
 
 export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
@@ -99,6 +119,34 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
   const [lineBreaksParagraphs, setLineBreaksParagraphs] = useState<boolean>(false);
   const [specialCharsMode, setSpecialCharsMode] = useState<"alphanumeric-only" | "keep-punctuation" | "custom">("alphanumeric-only");
   const [specialCharsCustom, setSpecialCharsCustom] = useState<string>("");
+
+  // === Transform Tools State ===
+  const [caseMode, setCaseMode] = useState<CaseMode>("uppercase");
+  const [sortOrder, setSortOrder] = useState<SortOrder>("az");
+  const [sortCase, setSortCase] = useState<boolean>(false);
+  const [sortPreserveDups, setSortPreserveDups] = useState<boolean>(true);
+  const [reverseMode, setReverseMode] = useState<ReverseMode>("characters");
+  const [base64Mode, setBase64Mode] = useState<"encode" | "decode">("encode");
+  const [base64UrlSafe, setBase64UrlSafe] = useState<boolean>(false);
+  const [urlMode, setUrlMode] = useState<"encode" | "decode">("encode");
+  const [urlScope, setUrlScope] = useState<"component" | "full">("component");
+  const [hashAlgo, setHashAlgo] = useState<HashAlgorithm>("SHA-256");
+  const [hashUpper, setHashUpper] = useState<boolean>(false);
+  const [jwtView, setJwtView] = useState<"visual" | "raw">("visual");
+  const [pwLength, setPwLength] = useState<number>(16);
+  const [pwUpper, setPwUpper] = useState<boolean>(true);
+  const [pwLower, setPwLower] = useState<boolean>(true);
+  const [pwNumbers, setPwNumbers] = useState<boolean>(true);
+  const [pwSymbols, setPwSymbols] = useState<boolean>(true);
+  const [pwExcludeAmbiguous, setPwExcludeAmbiguous] = useState<boolean>(false);
+  const [pwCount, setPwCount] = useState<number>(1);
+  const [uuidCount, setUuidCount] = useState<number>(5);
+  const [uuidUpper, setUuidUpper] = useState<boolean>(false);
+  const [uuidNoHyphens, setUuidNoHyphens] = useState<boolean>(false);
+  const [loremUnit, setLoremUnit] = useState<LoremUnit>("paragraphs");
+  const [loremCount, setLoremCount] = useState<number>(3);
+  const [loremStartWith, setLoremStartWith] = useState<boolean>(true);
+  const [fancyStyle, setFancyStyle] = useState<FancyFontStyle | "all">("all");
 
   // Pure execution router
   const executeTool = useCallback(
@@ -277,6 +325,139 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
             break;
           }
 
+          // --- Transform Tools ---
+          case "case-converter": {
+            setOutput(convertCase(currentInput, caseMode));
+            break;
+          }
+
+          case "sort-lines": {
+            setOutput(
+              sortLines(currentInput, {
+                order: sortOrder,
+                caseSensitive: sortCase,
+                preserveDuplicates: sortPreserveDups,
+              })
+            );
+            break;
+          }
+
+          case "reverse-text": {
+            setOutput(reverseText(currentInput, reverseMode));
+            break;
+          }
+
+          case "base64": {
+            const res = transformBase64(currentInput, {
+              mode: base64Mode,
+              urlSafe: base64UrlSafe,
+            });
+            if (res.error) {
+              setError(res.error);
+              setOutput("");
+            } else {
+              setOutput(res.result);
+            }
+            break;
+          }
+
+          case "url-encoder": {
+            const res = transformUrl(currentInput, {
+              mode: urlMode,
+              scope: urlScope,
+            });
+            if (res.error) {
+              setError(res.error);
+              setOutput("");
+            } else {
+              setOutput(res.result);
+            }
+            break;
+          }
+
+          case "hash-generator": {
+            generateHash(currentInput, {
+              algorithm: hashAlgo,
+              uppercase: hashUpper,
+            })
+              .then((res) => {
+                setOutput(res.hash);
+              })
+              .catch((err) => {
+                setError(err instanceof Error ? err.message : "Hashing failed");
+              });
+            break;
+          }
+
+          case "jwt-decoder": {
+            const res = decodeJwt(currentInput);
+            if (res.error) {
+              setError(res.error);
+            }
+            if (res.payload) {
+              setOutput(res.formattedPayload);
+            } else if (res.header) {
+              setOutput(res.formattedHeader);
+            } else {
+              setOutput("");
+            }
+            break;
+          }
+
+          case "password-generator": {
+            const res = generatePasswords({
+              length: pwLength,
+              uppercase: pwUpper,
+              lowercase: pwLower,
+              numbers: pwNumbers,
+              symbols: pwSymbols,
+              excludeAmbiguous: pwExcludeAmbiguous,
+              count: pwCount,
+            });
+            setOutput(res.passwords.join("\n"));
+            break;
+          }
+
+          case "uuid-generator": {
+            const uuids = generateUuids({
+              count: uuidCount,
+              uppercase: uuidUpper,
+              removeHyphens: uuidNoHyphens,
+            });
+            setOutput(uuids.join("\n"));
+            break;
+          }
+
+          case "lorem-ipsum": {
+            setOutput(
+              generateLoremIpsum({
+                unit: loremUnit,
+                count: loremCount,
+                startWithLoremIpsum: loremStartWith,
+              })
+            );
+            break;
+          }
+
+          case "rot13": {
+            setOutput(rot13(currentInput));
+            break;
+          }
+
+          case "fancy-fonts": {
+            if (fancyStyle === "all") {
+              const all = generateAllFancyFonts(currentInput);
+              setOutput(
+                all
+                  .map((item) => `[${item.name}]\n${item.preview}`)
+                  .join("\n\n")
+              );
+            } else {
+              setOutput(convertFancyFont(currentInput, fancyStyle));
+            }
+            break;
+          }
+
           default:
             // Placeholder for remaining phases
             setOutput(
@@ -329,6 +510,32 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
       lineBreaksParagraphs,
       specialCharsMode,
       specialCharsCustom,
+      caseMode,
+      sortOrder,
+      sortCase,
+      sortPreserveDups,
+      reverseMode,
+      base64Mode,
+      base64UrlSafe,
+      urlMode,
+      urlScope,
+      hashAlgo,
+      hashUpper,
+      jwtView,
+      pwLength,
+      pwUpper,
+      pwLower,
+      pwNumbers,
+      pwSymbols,
+      pwExcludeAmbiguous,
+      pwCount,
+      uuidCount,
+      uuidUpper,
+      uuidNoHyphens,
+      loremUnit,
+      loremCount,
+      loremStartWith,
+      fancyStyle,
     ]
   );
 
@@ -968,6 +1175,449 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
           </div>
         );
 
+      // --- Transform Tools Controls ---
+      case "case-converter":
+        return (
+          <div className="flex flex-wrap items-center gap-2 text-xs">
+            <span className="text-slate-400">Target Case:</span>
+            {(
+              [
+                ["uppercase", "UPPERCASE"],
+                ["lowercase", "lowercase"],
+                ["title", "Title Case"],
+                ["sentence", "Sentence case"],
+                ["camel", "camelCase"],
+                ["pascal", "PascalCase"],
+                ["snake", "snake_case"],
+                ["kebab", "kebab-case"],
+              ] as const
+            ).map(([mode, label]) => (
+              <button
+                key={mode}
+                type="button"
+                onClick={() => setCaseMode(mode)}
+                className={`px-2.5 py-1 rounded-lg font-medium transition-colors ${
+                  caseMode === mode
+                    ? "bg-brand-600 text-white shadow-sm"
+                    : "bg-slate-800 text-slate-400 hover:text-white"
+                }`}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+        );
+
+      case "sort-lines":
+        return (
+          <div className="flex flex-wrap items-center gap-4 text-xs">
+            <div className="flex items-center gap-2">
+              <span className="text-slate-400">Sort By:</span>
+              <select
+                value={sortOrder}
+                onChange={(e) => setSortOrder(e.target.value as SortOrder)}
+                className="bg-slate-800 border border-slate-700 rounded-lg px-2.5 py-1 text-slate-200 focus:outline-none focus:border-brand-500"
+              >
+                <option value="az">A → Z (Alphabetical)</option>
+                <option value="za">Z → A (Reverse Alphabetical)</option>
+                <option value="shortest-first">Shortest → Longest</option>
+                <option value="longest-first">Longest → Shortest</option>
+                <option value="numeric">Natural / Numeric</option>
+              </select>
+            </div>
+            <label className="flex items-center gap-2 cursor-pointer text-slate-300">
+              <input
+                type="checkbox"
+                checked={sortCase}
+                onChange={(e) => setSortCase(e.target.checked)}
+                className="rounded border-slate-700 text-brand-600 focus:ring-brand-500 bg-slate-800"
+              />
+              <span>Case-Sensitive</span>
+            </label>
+            <label className="flex items-center gap-2 cursor-pointer text-slate-300">
+              <input
+                type="checkbox"
+                checked={sortPreserveDups}
+                onChange={(e) => setSortPreserveDups(e.target.checked)}
+                className="rounded border-slate-700 text-brand-600 focus:ring-brand-500 bg-slate-800"
+              />
+              <span>Preserve Duplicates</span>
+            </label>
+          </div>
+        );
+
+      case "reverse-text":
+        return (
+          <div className="flex items-center gap-2 text-xs">
+            <span className="text-slate-400">Reverse:</span>
+            {(
+              [
+                ["characters", "Characters (Mirror)"],
+                ["words", "Word Order"],
+                ["lines", "Line Sequence"],
+              ] as const
+            ).map(([mode, label]) => (
+              <button
+                key={mode}
+                type="button"
+                onClick={() => setReverseMode(mode)}
+                className={`px-2.5 py-1 rounded-lg font-medium transition-colors ${
+                  reverseMode === mode
+                    ? "bg-brand-600 text-white"
+                    : "bg-slate-800 text-slate-400 hover:text-white"
+                }`}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+        );
+
+      case "base64":
+        return (
+          <div className="flex flex-wrap items-center gap-4 text-xs">
+            <div className="flex items-center gap-1">
+              <button
+                type="button"
+                onClick={() => setBase64Mode("encode")}
+                className={`px-3 py-1 rounded-lg font-medium transition-colors ${
+                  base64Mode === "encode"
+                    ? "bg-brand-600 text-white"
+                    : "bg-slate-800 text-slate-400 hover:text-white"
+                }`}
+              >
+                Encode
+              </button>
+              <button
+                type="button"
+                onClick={() => setBase64Mode("decode")}
+                className={`px-3 py-1 rounded-lg font-medium transition-colors ${
+                  base64Mode === "decode"
+                    ? "bg-brand-600 text-white"
+                    : "bg-slate-800 text-slate-400 hover:text-white"
+                }`}
+              >
+                Decode
+              </button>
+            </div>
+            <label className="flex items-center gap-2 cursor-pointer text-slate-300">
+              <input
+                type="checkbox"
+                checked={base64UrlSafe}
+                onChange={(e) => setBase64UrlSafe(e.target.checked)}
+                className="rounded border-slate-700 text-brand-600 focus:ring-brand-500 bg-slate-800"
+              />
+              <span>URL-Safe Base64 (- and _)</span>
+            </label>
+          </div>
+        );
+
+      case "url-encoder":
+        return (
+          <div className="flex flex-wrap items-center gap-4 text-xs">
+            <div className="flex items-center gap-1">
+              <button
+                type="button"
+                onClick={() => setUrlMode("encode")}
+                className={`px-3 py-1 rounded-lg font-medium transition-colors ${
+                  urlMode === "encode"
+                    ? "bg-brand-600 text-white"
+                    : "bg-slate-800 text-slate-400 hover:text-white"
+                }`}
+              >
+                Encode
+              </button>
+              <button
+                type="button"
+                onClick={() => setUrlMode("decode")}
+                className={`px-3 py-1 rounded-lg font-medium transition-colors ${
+                  urlMode === "decode"
+                    ? "bg-brand-600 text-white"
+                    : "bg-slate-800 text-slate-400 hover:text-white"
+                }`}
+              >
+                Decode
+              </button>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-slate-400">Encoding Scope:</span>
+              <select
+                value={urlScope}
+                onChange={(e) => setUrlScope(e.target.value as "component" | "full")}
+                className="bg-slate-800 border border-slate-700 rounded-lg px-2.5 py-1 text-slate-200 focus:outline-none focus:border-brand-500"
+              >
+                <option value="component">Component (encodeURIComponent - converts ?, &, =)</option>
+                <option value="full">Full URI (encodeURI - preserves URL structure)</option>
+              </select>
+            </div>
+          </div>
+        );
+
+      case "hash-generator":
+        return (
+          <div className="flex flex-wrap items-center gap-4 text-xs">
+            <div className="flex items-center gap-1">
+              {(["SHA-256", "SHA-1", "SHA-384", "SHA-512"] as const).map((algo) => (
+                <button
+                  key={algo}
+                  type="button"
+                  onClick={() => setHashAlgo(algo)}
+                  className={`px-2.5 py-1 rounded-lg font-medium transition-colors ${
+                    hashAlgo === algo
+                      ? algo === "SHA-1"
+                        ? "bg-amber-600 text-white"
+                        : "bg-brand-600 text-white"
+                      : "bg-slate-800 text-slate-400 hover:text-white"
+                  }`}
+                >
+                  {algo}
+                </button>
+              ))}
+            </div>
+            <label className="flex items-center gap-2 cursor-pointer text-slate-300">
+              <input
+                type="checkbox"
+                checked={hashUpper}
+                onChange={(e) => setHashUpper(e.target.checked)}
+                className="rounded border-slate-700 text-brand-600 focus:ring-brand-500 bg-slate-800"
+              />
+              <span>UPPERCASE Hex</span>
+            </label>
+            {hashAlgo === "SHA-1" && (
+              <span className="text-[11px] text-amber-400 bg-amber-500/10 border border-amber-500/20 px-2 py-0.5 rounded">
+                ⚠️ Legacy: SHA-1 is weak for security
+              </span>
+            )}
+          </div>
+        );
+
+      case "jwt-decoder":
+        return (
+          <div className="flex flex-wrap items-center justify-between gap-3 text-xs w-full">
+            <div className="flex items-center gap-1.5 text-[11px] text-amber-400 bg-amber-500/10 border border-amber-500/20 px-2.5 py-1 rounded-lg">
+              <span>⚠️ Decoding Only: Does NOT verify cryptographic signature.</span>
+            </div>
+            <div className="flex items-center gap-1">
+              <button
+                type="button"
+                onClick={() => setJwtView("visual")}
+                className={`px-2.5 py-1 rounded-lg text-xs font-medium transition-colors ${
+                  jwtView === "visual"
+                    ? "bg-brand-600 text-white"
+                    : "bg-slate-800 text-slate-400 hover:text-white"
+                }`}
+              >
+                Visual Inspector
+              </button>
+              <button
+                type="button"
+                onClick={() => setJwtView("raw")}
+                className={`px-2.5 py-1 rounded-lg text-xs font-medium transition-colors ${
+                  jwtView === "raw"
+                    ? "bg-brand-600 text-white"
+                    : "bg-slate-800 text-slate-400 hover:text-white"
+                }`}
+              >
+                Raw JSON
+              </button>
+            </div>
+          </div>
+        );
+
+      case "password-generator":
+        return (
+          <div className="flex flex-wrap items-center gap-4 text-xs">
+            <div className="flex items-center gap-2">
+              <span className="text-slate-400">Length:</span>
+              <input
+                type="number"
+                min={4}
+                max={128}
+                value={pwLength}
+                onChange={(e) => setPwLength(Math.max(4, parseInt(e.target.value) || 16))}
+                className="w-16 bg-slate-800 border border-slate-700 rounded-lg px-2 py-1 text-slate-200 text-center font-mono focus:outline-none focus:border-brand-500"
+              />
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-slate-400">Count:</span>
+              <input
+                type="number"
+                min={1}
+                max={50}
+                value={pwCount}
+                onChange={(e) => setPwCount(Math.max(1, parseInt(e.target.value) || 1))}
+                className="w-14 bg-slate-800 border border-slate-700 rounded-lg px-2 py-1 text-slate-200 text-center font-mono focus:outline-none focus:border-brand-500"
+              />
+            </div>
+            <label className="flex items-center gap-1.5 cursor-pointer text-slate-300">
+              <input
+                type="checkbox"
+                checked={pwUpper}
+                onChange={(e) => setPwUpper(e.target.checked)}
+                className="rounded border-slate-700 text-brand-600 bg-slate-800"
+              />
+              <span>A-Z</span>
+            </label>
+            <label className="flex items-center gap-1.5 cursor-pointer text-slate-300">
+              <input
+                type="checkbox"
+                checked={pwLower}
+                onChange={(e) => setPwLower(e.target.checked)}
+                className="rounded border-slate-700 text-brand-600 bg-slate-800"
+              />
+              <span>a-z</span>
+            </label>
+            <label className="flex items-center gap-1.5 cursor-pointer text-slate-300">
+              <input
+                type="checkbox"
+                checked={pwNumbers}
+                onChange={(e) => setPwNumbers(e.target.checked)}
+                className="rounded border-slate-700 text-brand-600 bg-slate-800"
+              />
+              <span>0-9</span>
+            </label>
+            <label className="flex items-center gap-1.5 cursor-pointer text-slate-300">
+              <input
+                type="checkbox"
+                checked={pwSymbols}
+                onChange={(e) => setPwSymbols(e.target.checked)}
+                className="rounded border-slate-700 text-brand-600 bg-slate-800"
+              />
+              <span>!@#$</span>
+            </label>
+            <label className="flex items-center gap-1.5 cursor-pointer text-slate-300">
+              <input
+                type="checkbox"
+                checked={pwExcludeAmbiguous}
+                onChange={(e) => setPwExcludeAmbiguous(e.target.checked)}
+                className="rounded border-slate-700 text-brand-600 bg-slate-800"
+              />
+              <span>No Ambiguous (il1Lo0O)</span>
+            </label>
+            <button
+              type="button"
+              onClick={() => handleRun()}
+              className="px-2.5 py-1 rounded-lg bg-brand-600 hover:bg-brand-500 text-white font-medium"
+            >
+              Regenerate
+            </button>
+          </div>
+        );
+
+      case "uuid-generator":
+        return (
+          <div className="flex flex-wrap items-center gap-4 text-xs">
+            <div className="flex items-center gap-2">
+              <span className="text-slate-400">Quantity:</span>
+              <input
+                type="number"
+                min={1}
+                max={100}
+                value={uuidCount}
+                onChange={(e) => setUuidCount(Math.max(1, parseInt(e.target.value) || 1))}
+                className="w-16 bg-slate-800 border border-slate-700 rounded-lg px-2 py-1 text-slate-200 text-center font-mono focus:outline-none focus:border-brand-500"
+              />
+            </div>
+            <label className="flex items-center gap-2 cursor-pointer text-slate-300">
+              <input
+                type="checkbox"
+                checked={uuidUpper}
+                onChange={(e) => setUuidUpper(e.target.checked)}
+                className="rounded border-slate-700 text-brand-600 bg-slate-800"
+              />
+              <span>UPPERCASE</span>
+            </label>
+            <label className="flex items-center gap-2 cursor-pointer text-slate-300">
+              <input
+                type="checkbox"
+                checked={uuidNoHyphens}
+                onChange={(e) => setUuidNoHyphens(e.target.checked)}
+                className="rounded border-slate-700 text-brand-600 bg-slate-800"
+              />
+              <span>Remove Hyphens</span>
+            </label>
+            <button
+              type="button"
+              onClick={() => handleRun()}
+              className="px-2.5 py-1 rounded-lg bg-brand-600 hover:bg-brand-500 text-white font-medium"
+            >
+              Generate Fresh UUIDs
+            </button>
+          </div>
+        );
+
+      case "lorem-ipsum":
+        return (
+          <div className="flex flex-wrap items-center gap-4 text-xs">
+            <div className="flex items-center gap-2">
+              <span className="text-slate-400">Unit:</span>
+              <select
+                value={loremUnit}
+                onChange={(e) => setLoremUnit(e.target.value as LoremUnit)}
+                className="bg-slate-800 border border-slate-700 rounded-lg px-2.5 py-1 text-slate-200 focus:outline-none focus:border-brand-500"
+              >
+                <option value="paragraphs">Paragraphs</option>
+                <option value="sentences">Sentences</option>
+                <option value="words">Words</option>
+              </select>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-slate-400">Count:</span>
+              <input
+                type="number"
+                min={1}
+                max={100}
+                value={loremCount}
+                onChange={(e) => setLoremCount(Math.max(1, parseInt(e.target.value) || 1))}
+                className="w-16 bg-slate-800 border border-slate-700 rounded-lg px-2 py-1 text-slate-200 text-center font-mono focus:outline-none focus:border-brand-500"
+              />
+            </div>
+            <label className="flex items-center gap-2 cursor-pointer text-slate-300">
+              <input
+                type="checkbox"
+                checked={loremStartWith}
+                onChange={(e) => setLoremStartWith(e.target.checked)}
+                className="rounded border-slate-700 text-brand-600 bg-slate-800"
+              />
+              <span>Start with &ldquo;Lorem ipsum...&rdquo;</span>
+            </label>
+            <button
+              type="button"
+              onClick={() => handleRun()}
+              className="px-2.5 py-1 rounded-lg bg-brand-600 hover:bg-brand-500 text-white font-medium"
+            >
+              Generate
+            </button>
+          </div>
+        );
+
+      case "rot13":
+        return (
+          <div className="text-xs text-slate-400 flex items-center gap-2">
+            <span>Caesar Cipher: Rotates ASCII letters by 13 positions (A ↔ N). Numbers, emojis, and Unicode are preserved intact.</span>
+          </div>
+        );
+
+      case "fancy-fonts":
+        return (
+          <div className="flex items-center gap-3 text-xs">
+            <span className="text-slate-400">Style:</span>
+            <select
+              value={fancyStyle}
+              onChange={(e) => setFancyStyle(e.target.value as FancyFontStyle | "all")}
+              className="bg-slate-800 border border-slate-700 rounded-lg px-2.5 py-1 text-slate-200 focus:outline-none focus:border-brand-500"
+            >
+              <option value="all">All Styles (Overview Cards)</option>
+              <option value="gothic">Gothic / Fraktur</option>
+              <option value="bold-sans">Bold Sans-Serif</option>
+              <option value="script">Script / Cursive</option>
+              <option value="circled">Circled / Bubble</option>
+              <option value="double-struck">Double-Struck / Blackboard</option>
+              <option value="monospace">Monospace / Typewriter</option>
+            </select>
+          </div>
+        );
+
       default:
         return null;
     }
@@ -1012,6 +1662,32 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
     lineBreaksParagraphs,
     specialCharsMode,
     specialCharsCustom,
+    caseMode,
+    sortOrder,
+    sortCase,
+    sortPreserveDups,
+    reverseMode,
+    base64Mode,
+    base64UrlSafe,
+    urlMode,
+    urlScope,
+    hashAlgo,
+    hashUpper,
+    jwtView,
+    pwLength,
+    pwCount,
+    pwUpper,
+    pwLower,
+    pwNumbers,
+    pwSymbols,
+    pwExcludeAmbiguous,
+    uuidCount,
+    uuidUpper,
+    uuidNoHyphens,
+    loremUnit,
+    loremCount,
+    loremStartWith,
+    fancyStyle,
   ]);
 
   // Custom Interactive Previews
@@ -1191,8 +1867,190 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
       );
     }
 
+    if (tool.slug === "jwt-decoder" && jwtView === "visual") {
+      const decoded = decodeJwt(input);
+      if (!input.trim()) {
+        return (
+          <div className="text-slate-400 text-xs py-8 text-center font-mono">
+            Paste a JWT (JSON Web Token) to inspect header, claims, and payload.
+          </div>
+        );
+      }
+
+      if (!decoded.isValid) {
+        return (
+          <div className="p-4 rounded-xl border border-rose-500/20 bg-rose-500/5 text-rose-300 text-xs space-y-2">
+            <div className="font-semibold flex items-center gap-1.5">
+              <span>✕ Invalid JWT</span>
+            </div>
+            <p className="text-slate-400">{decoded.error}</p>
+          </div>
+        );
+      }
+
+      return (
+        <div className="space-y-4">
+          <div className="p-3 rounded-xl border border-amber-500/20 bg-amber-500/10 text-amber-300 text-xs">
+            {decoded.warning}
+          </div>
+
+          <div className="flex flex-wrap items-center gap-2 text-xs">
+            {decoded.algorithm && (
+              <span className="px-2.5 py-1 rounded-lg bg-pink-500/10 border border-pink-500/20 text-pink-400 font-mono font-medium">
+                Algorithm: {decoded.algorithm}
+              </span>
+            )}
+            {decoded.isExpired !== undefined && (
+              <span
+                className={`px-2.5 py-1 rounded-lg font-mono font-medium border ${
+                  decoded.isExpired
+                    ? "bg-rose-500/10 border-rose-500/20 text-rose-400"
+                    : "bg-emerald-500/10 border-emerald-500/20 text-emerald-400"
+                }`}
+              >
+                {decoded.isExpired ? "Status: Expired" : "Status: Active (Not Expired)"}
+              </span>
+            )}
+            {decoded.expiresAt && (
+              <span className="text-slate-400 text-[11px]">
+                Exp: {decoded.expiresAt}
+              </span>
+            )}
+          </div>
+
+          {/* Header Card */}
+          <div className="p-3.5 rounded-xl border border-pink-500/20 bg-pink-950/10 space-y-2">
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-semibold text-pink-400 uppercase tracking-wider">
+                Header: Algorithm & Token Type
+              </span>
+            </div>
+            <pre className="text-xs font-mono text-pink-200 bg-slate-950/50 p-3 rounded-lg overflow-x-auto border border-pink-500/10">
+              {decoded.formattedHeader}
+            </pre>
+          </div>
+
+          {/* Payload Card */}
+          <div className="p-3.5 rounded-xl border border-purple-500/20 bg-purple-950/10 space-y-2">
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-semibold text-purple-400 uppercase tracking-wider">
+                Payload: Data Claims
+              </span>
+            </div>
+            <pre className="text-xs font-mono text-purple-200 bg-slate-950/50 p-3 rounded-lg overflow-x-auto border border-purple-500/10">
+              {decoded.formattedPayload}
+            </pre>
+          </div>
+
+          {/* Signature Card */}
+          <div className="p-3.5 rounded-xl border border-cyan-500/20 bg-cyan-950/10 space-y-2">
+            <span className="text-xs font-semibold text-cyan-400 uppercase tracking-wider">
+              Signature (Raw Base64)
+            </span>
+            <div className="text-xs font-mono text-cyan-200 bg-slate-950/50 p-2.5 rounded-lg break-all border border-cyan-500/10">
+              {decoded.signature || "(No signature)"}
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    if (tool.slug === "fancy-fonts" && fancyStyle === "all") {
+      const styles = generateAllFancyFonts(input || "Text Tools");
+      return (
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-96 overflow-y-auto pr-1">
+          {styles.map((item) => (
+            <div
+              key={item.id}
+              className="p-3.5 rounded-xl border border-slate-800 bg-slate-950/60 hover:border-slate-700 transition-colors flex flex-col justify-between gap-3"
+            >
+              <div className="flex items-center justify-between">
+                <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">
+                  {item.name}
+                </span>
+                <CopyButton text={item.preview} variant="ghost" />
+              </div>
+              <div className="text-sm font-medium text-slate-100 break-words font-mono">
+                {item.preview}
+              </div>
+            </div>
+          ))}
+        </div>
+      );
+    }
+
+    if (tool.slug === "password-generator") {
+      const res = generatePasswords({
+        length: pwLength,
+        uppercase: pwUpper,
+        lowercase: pwLower,
+        numbers: pwNumbers,
+        symbols: pwSymbols,
+        excludeAmbiguous: pwExcludeAmbiguous,
+        count: pwCount,
+      });
+
+      const strengthColors = {
+        "very-weak": "text-rose-500 bg-rose-500/10 border-rose-500/20",
+        weak: "text-amber-500 bg-amber-500/10 border-amber-500/20",
+        medium: "text-yellow-400 bg-yellow-400/10 border-yellow-400/20",
+        strong: "text-emerald-400 bg-emerald-500/10 border-emerald-500/20",
+        "very-strong": "text-cyan-400 bg-cyan-500/10 border-cyan-500/20",
+      };
+
+      return (
+        <div className="space-y-3">
+          <div className="flex items-center justify-between text-xs">
+            <div className="flex items-center gap-2">
+              <span className="text-slate-400">Strength:</span>
+              <span
+                className={`px-2.5 py-0.5 rounded-md font-semibold text-xs border uppercase tracking-wider ${
+                  strengthColors[res.strength]
+                }`}
+              >
+                {res.strength.replace("-", " ")}
+              </span>
+            </div>
+            <span className="text-slate-400 font-mono text-[11px]">
+              ~{res.entropyBits} bits of entropy
+            </span>
+          </div>
+
+          <div className="space-y-2 max-h-72 overflow-y-auto pr-1">
+            {res.passwords.map((pw, idx) => (
+              <div
+                key={idx}
+                className="flex items-center justify-between p-3 rounded-xl border border-slate-800 bg-slate-950/60 text-xs font-mono"
+              >
+                <span className="text-slate-100 font-semibold tracking-wider break-all select-all">
+                  {pw}
+                </span>
+                <CopyButton text={pw} variant="ghost" />
+              </div>
+            ))}
+          </div>
+        </div>
+      );
+    }
+
     return null;
-  }, [tool.slug, input, regexPattern, regexFlags, queryView, markdownView]);
+  }, [
+    tool.slug,
+    input,
+    regexPattern,
+    regexFlags,
+    queryView,
+    markdownView,
+    jwtView,
+    fancyStyle,
+    pwLength,
+    pwUpper,
+    pwLower,
+    pwNumbers,
+    pwSymbols,
+    pwExcludeAmbiguous,
+    pwCount,
+  ]);
 
   return (
     <ToolLayout

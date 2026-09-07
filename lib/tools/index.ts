@@ -26,3 +26,17 @@ export * from "./removeExtraSpaces.ts";
 export * from "./stripHtmlTags.ts";
 export * from "./removeLineBreaks.ts";
 export * from "./removeSpecialChars.ts";
+
+// Transform Tools
+export * from "./caseConverter.ts";
+export * from "./sortLines.ts";
+export * from "./reverseText.ts";
+export * from "./base64Tool.ts";
+export * from "./urlEncoderTool.ts";
+export * from "./hashGenerator.ts";
+export * from "./jwtDecoder.ts";
+export * from "./passwordGenerator.ts";
+export * from "./uuidGenerator.ts";
+export * from "./loremIpsum.ts";
+export * from "./rot13.ts";
+export * from "./fancyFonts.ts";
