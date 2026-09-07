@@ -68,7 +68,9 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
               className="w-full bg-transparent text-sm text-slate-100 placeholder-slate-500 outline-none"
             />
             <button
+              type="button"
               onClick={() => setIsOpen(false)}
+              aria-label="Close command palette"
               className="p-1 text-slate-400 hover:text-slate-200 rounded-md transition-colors"
             >
               <X size={18} />

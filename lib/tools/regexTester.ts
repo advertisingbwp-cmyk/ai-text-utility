@@ -65,6 +65,7 @@ export function testRegex(
   const matches: RegexMatchItem[] = [];
   let match: RegExpExecArray | null;
   let safetyLimit = 2000;
+  const startTime = Date.now();
 
   while ((match = regex.exec(text)) !== null) {
     const groups: RegexMatchGroup[] = [];
@@ -104,7 +105,7 @@ export function testRegex(
       regex.lastIndex++;
     }
 
-    if (--safetyLimit <= 0) break;
+    if (--safetyLimit <= 0 || Date.now() - startTime > 1000) break;
   }
 
   return {

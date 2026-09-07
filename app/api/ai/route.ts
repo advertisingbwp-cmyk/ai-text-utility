@@ -29,9 +29,12 @@ export async function POST(req: Request): Promise<NextResponse<AiResponseBody>> 
     }
 
     // 2. Parse and Validate Request Payload
-    let body: any;
+    let body: Record<string, unknown> | null = null;
     try {
-      body = await req.json();
+      const parsed = await req.json();
+      if (parsed && typeof parsed === "object" && !Array.isArray(parsed)) {
+        body = parsed as Record<string, unknown>;
+      }
     } catch {
       return NextResponse.json(
         {
@@ -42,7 +45,7 @@ export async function POST(req: Request): Promise<NextResponse<AiResponseBody>> 
       );
     }
 
-    if (!body || typeof body !== "object") {
+    if (!body) {
       return NextResponse.json(
         {
           success: false,
@@ -53,7 +56,7 @@ export async function POST(req: Request): Promise<NextResponse<AiResponseBody>> 
     }
 
     // Support 'mode' with fallback to 'action'
-    const mode = body.mode || body.action;
+    const mode = typeof body.mode === "string" ? body.mode : typeof body.action === "string" ? body.action : undefined;
     const text = body.text;
 
     // 3. Strict Mode Validation

@@ -29,8 +29,8 @@ export const AdUnit: React.FC<AdUnitProps> = ({
     // Only attempt ad push if publisher ID is configured and in browser
     if (publisherId && typeof window !== "undefined" && !pushedRef.current) {
       try {
-        const adsbygoogle = (window as any).adsbygoogle || [];
-        adsbygoogle.push({});
+        window.adsbygoogle = window.adsbygoogle || [];
+        window.adsbygoogle.push({});
         pushedRef.current = true;
       } catch {
         // Suppress AdSense push errors gracefully

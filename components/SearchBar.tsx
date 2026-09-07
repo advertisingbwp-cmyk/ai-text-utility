@@ -49,6 +49,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
           <button
             type="button"
             onClick={onOpenPalette}
+            aria-label="Open Command Palette"
             className="hidden sm:inline-flex items-center gap-1 px-1.5 py-0.5 rounded border border-slate-700/80 bg-slate-800/80 text-[10px] font-mono text-slate-400 hover:text-slate-200 hover:border-slate-600 transition-colors"
             title="Open Command Palette"
           >

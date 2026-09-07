@@ -42,8 +42,8 @@ class LocalAnalyticsProvider implements AnalyticsProvider {
 class WindowAnalyticsProvider implements AnalyticsProvider {
   track(event: AnalyticsEventType, data: AnalyticsEventData): void {
     try {
-      if (typeof window !== "undefined" && (window as any).gtag) {
-        (window as any).gtag("event", event, {
+      if (typeof window !== "undefined" && window.gtag) {
+        window.gtag("event", event, {
           tool_slug: data.toolSlug,
           category: data.category,
           action: data.action,
@@ -58,7 +58,7 @@ class WindowAnalyticsProvider implements AnalyticsProvider {
 }
 
 let activeProvider: AnalyticsProvider =
-  typeof window !== "undefined" && (window as any).gtag
+  typeof window !== "undefined" && window.gtag
     ? new WindowAnalyticsProvider()
     : new LocalAnalyticsProvider();
 

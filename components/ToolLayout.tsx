@@ -165,6 +165,7 @@ export const ToolLayout: React.FC<ToolLayoutProps> = ({
         <button
           type="button"
           onClick={() => setShowShortcutsHelp(true)}
+          aria-label="View keyboard shortcuts"
           className="inline-flex items-center gap-1 text-slate-400 hover:text-slate-200 transition-colors"
           title="Keyboard shortcuts"
         >
@@ -264,6 +265,7 @@ export const ToolLayout: React.FC<ToolLayoutProps> = ({
                   type="button"
                   onClick={onClear}
                   disabled={!input && !output}
+                  aria-label="Clear input and output"
                   className="px-2 py-1 text-[11px] font-medium text-slate-400 hover:text-rose-400 disabled:opacity-30 disabled:hover:text-slate-400 rounded-md transition-colors"
                   title="Clear (Ctrl+Shift+X)"
                 >
@@ -311,6 +313,7 @@ export const ToolLayout: React.FC<ToolLayoutProps> = ({
                     type="button"
                     onClick={onSwap}
                     disabled={!output}
+                    aria-label="Swap output to input"
                     className="p-1.5 text-slate-400 hover:text-slate-200 disabled:opacity-30 rounded-md transition-colors"
                     title="Swap Output to Input"
                   >
@@ -322,6 +325,7 @@ export const ToolLayout: React.FC<ToolLayoutProps> = ({
                     type="button"
                     onClick={handleDownload}
                     disabled={!output && !input}
+                    aria-label="Download result as text file"
                     className="p-1.5 text-slate-400 hover:text-slate-200 disabled:opacity-30 rounded-md transition-colors"
                     title="Download output as .txt"
                   >
@@ -419,6 +423,7 @@ export const ToolLayout: React.FC<ToolLayoutProps> = ({
               <button
                 type="button"
                 onClick={() => setShowShortcutsHelp(false)}
+                aria-label="Close keyboard shortcuts dialog"
                 className="p-1 text-slate-400 hover:text-white rounded-lg"
               >
                 <X size={18} />

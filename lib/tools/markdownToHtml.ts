@@ -1,10 +1,25 @@
-function sanitizeSafeUrl(url: string): string {
-  const trimmed = url.trim();
-  // Disallow javascript: and data: (except safe image data)
-  if (/^(?:javascript|vbscript|data(?!\:image\/(?:png|jpe?g|gif|webp|svg\+xml);base64)):/i.test(trimmed)) {
+function sanitizeSafeUrl(url: string, isImage = false): string {
+  // Strip control characters and whitespace
+  const trimmed = url.replace(/[\u0000-\u001F\u007F-\u009F\s]/g, "");
+
+  if (!isImage) {
+    // Links: only allow http, https, mailto, relative paths, or anchors
+    if (/^(https?:|\/|#|mailto:)/i.test(trimmed)) {
+      return trimmed.replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+    }
     return "#unsafe-url";
   }
-  return trimmed.replace(/"/g, "&quot;");
+
+  // Images: allow http, https, relative paths, or raster base64 (no SVG data URIs to prevent XSS)
+  if (/^(https?:|\/)/i.test(trimmed)) {
+    return trimmed.replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+  }
+
+  if (/^data:image\/(?:png|jpe?g|gif|webp);base64,[A-Za-z0-9+/=]+$/i.test(trimmed)) {
+    return trimmed;
+  }
+
+  return "#unsafe-url";
 }
 
 function escapeHtml(str: string): string {
@@ -159,12 +174,12 @@ function processInline(text: string): string {
 
   // Images: ![alt](url)
   str = str.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (_, alt, url) => {
-    return `<img src="${sanitizeSafeUrl(url)}" alt="${escapeHtml(alt)}" loading="lazy" />`;
+    return `<img src="${sanitizeSafeUrl(url, true)}" alt="${escapeHtml(alt)}" loading="lazy" />`;
   });
 
   // Links: [title](url)
   str = str.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_, title, url) => {
-    return `<a href="${sanitizeSafeUrl(url)}" target="_blank" rel="noopener noreferrer">${title}</a>`;
+    return `<a href="${sanitizeSafeUrl(url, false)}" target="_blank" rel="noopener noreferrer">${title}</a>`;
   });
 
   // Inline Code: `code`

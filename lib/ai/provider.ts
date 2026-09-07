@@ -57,9 +57,17 @@ export class OpenAiCompatibleProvider implements AiProvider {
         throw new Error(errMessage);
       }
 
-      let data: any;
+      interface ProviderResponse {
+        choices?: Array<{
+          message?: {
+            content?: string;
+          };
+        }>;
+      }
+
+      let data: ProviderResponse | null = null;
       try {
-        data = await response.json();
+        data = (await response.json()) as ProviderResponse;
       } catch {
         throw new Error("Malformed response from AI provider (Invalid JSON payload).");
       }

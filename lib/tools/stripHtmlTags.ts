@@ -58,12 +58,26 @@ export function stripHtmlTags(
       text = text.replaceAll(entity, replacement);
     }
     // Decode decimal/hex numeric entities safely
-    text = text.replace(/&#(\d+);/g, (_, code) =>
-      String.fromCharCode(parseInt(code, 10))
-    );
-    text = text.replace(/&#x([0-9a-fA-F]+);/g, (_, code) =>
-      String.fromCharCode(parseInt(code, 16))
-    );
+    text = text.replace(/&#(\d+);/g, (match, code) => {
+      try {
+        const num = parseInt(code, 10);
+        return Number.isFinite(num) && num >= 0 && num <= 0x10ffff
+          ? String.fromCodePoint(num)
+          : match;
+      } catch {
+        return match;
+      }
+    });
+    text = text.replace(/&#x([0-9a-fA-F]+);/g, (match, code) => {
+      try {
+        const num = parseInt(code, 16);
+        return Number.isFinite(num) && num >= 0 && num <= 0x10ffff
+          ? String.fromCodePoint(num)
+          : match;
+      } catch {
+        return match;
+      }
+    });
   }
 
   // 5. Clean up multiple newlines/whitespace

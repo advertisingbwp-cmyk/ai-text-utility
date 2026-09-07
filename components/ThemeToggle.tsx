@@ -10,11 +10,17 @@ export const ThemeToggle: React.FC<{ className?: string }> = ({ className = "" }
 
   useEffect(() => {
     setMounted(true);
-    const saved = localStorage.getItem("omnitext_theme");
-    if (saved === "light") {
-      setTheme("light");
-      document.documentElement.classList.remove("dark");
-    } else {
+    try {
+      const saved = localStorage.getItem("omnitext_theme");
+      if (saved === "light") {
+        setTheme("light");
+        document.documentElement.classList.remove("dark");
+      } else {
+        setTheme("dark");
+        document.documentElement.classList.add("dark");
+      }
+    } catch {
+      // Fallback to dark theme if localStorage is disabled
       setTheme("dark");
       document.documentElement.classList.add("dark");
     }
@@ -23,7 +29,11 @@ export const ThemeToggle: React.FC<{ className?: string }> = ({ className = "" }
   const toggleTheme = () => {
     const next = theme === "dark" ? "light" : "dark";
     setTheme(next);
-    localStorage.setItem("omnitext_theme", next);
+    try {
+      localStorage.setItem("omnitext_theme", next);
+    } catch {
+      // Ignore storage write error in private mode
+    }
     if (next === "dark") {
       document.documentElement.classList.add("dark");
     } else {

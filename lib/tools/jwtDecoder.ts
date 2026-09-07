@@ -115,13 +115,21 @@ export function decodeJwt(token: string): JwtDecodeResult {
   let isExpired: boolean | undefined;
 
   if (payloadObj) {
-    if (typeof payloadObj.iat === "number") {
-      issuedAt = new Date(payloadObj.iat * 1000).toISOString();
+    if (typeof payloadObj.iat === "number" && Number.isFinite(payloadObj.iat)) {
+      try {
+        issuedAt = new Date(payloadObj.iat * 1000).toISOString();
+      } catch {
+        // Ignore invalid range timestamp
+      }
     }
-    if (typeof payloadObj.exp === "number") {
-      const expDate = new Date(payloadObj.exp * 1000);
-      expiresAt = expDate.toISOString();
-      isExpired = Date.now() > expDate.getTime();
+    if (typeof payloadObj.exp === "number" && Number.isFinite(payloadObj.exp)) {
+      try {
+        const expDate = new Date(payloadObj.exp * 1000);
+        expiresAt = expDate.toISOString();
+        isExpired = Date.now() > expDate.getTime();
+      } catch {
+        // Ignore invalid range timestamp
+      }
     }
   }
 
