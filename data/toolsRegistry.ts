@@ -559,7 +559,7 @@ export const TOOLS_REGISTRY: ToolDefinition[] = [
     keywords: ["date difference", "days between", "duration", "time interval", "countdown"],
     featured: false,
     logicReference: "dateDifference",
-    supportsLiveMode: false,
+    supportsLiveMode: true,
     requiresAI: false,
     customComponent: "date-calculator",
     sampleInput: "2026-01-01 to 2026-12-31",
