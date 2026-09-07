@@ -4,7 +4,7 @@ import React, { useState, useEffect, useCallback, useMemo } from "react";
 import { ToolDefinition } from "@/data/toolsRegistry";
 import { ToolLayout } from "@/components/ToolLayout";
 
-// Import pure Phase 2 & Phase 3 tools
+// Import pure Phase 2, 3 & 4 tools
 import {
   convertTabsAndSpaces,
   removeLetterAccents,
@@ -29,6 +29,13 @@ import {
   convertMarkdownToHtml,
   minifyHtml,
   HtmlMinifierResult,
+  removeDuplicateLines,
+  removeEmptyLines,
+  trimLines,
+  removeExtraSpaces,
+  stripHtmlTags,
+  removeLineBreaks,
+  removeSpecialChars,
 } from "@/lib/tools/index";
 
 export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
@@ -78,6 +85,20 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
   const [htmlMinifyComments, setHtmlMinifyComments] = useState<boolean>(true);
   const [htmlMinifyWs, setHtmlMinifyWs] = useState<boolean>(true);
   const [htmlMinifyStats, setHtmlMinifyStats] = useState<HtmlMinifierResult | null>(null);
+
+  // === Cleanup Tools State ===
+  const [dedupeCase, setDedupeCase] = useState<boolean>(true);
+  const [dedupeTrim, setDedupeTrim] = useState<boolean>(false);
+  const [emptyLinesMode, setEmptyLinesMode] = useState<"remove-all" | "preserve-paragraphs">("remove-all");
+  const [trimMode, setTrimMode] = useState<"both" | "leading" | "trailing">("both");
+  const [trimRemoveEmpty, setTrimRemoveEmpty] = useState<boolean>(false);
+  const [spacesMode, setSpacesMode] = useState<"spaces-only" | "all-whitespace">("spaces-only");
+  const [stripHtmlBreaks, setStripHtmlBreaks] = useState<boolean>(true);
+  const [stripHtmlEntities, setStripHtmlEntities] = useState<boolean>(true);
+  const [lineBreaksSep, setLineBreaksSep] = useState<string>(" ");
+  const [lineBreaksParagraphs, setLineBreaksParagraphs] = useState<boolean>(false);
+  const [specialCharsMode, setSpecialCharsMode] = useState<"alphanumeric-only" | "keep-punctuation" | "custom">("alphanumeric-only");
+  const [specialCharsCustom, setSpecialCharsCustom] = useState<string>("");
 
   // Pure execution router
   const executeTool = useCallback(
@@ -217,6 +238,45 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
             break;
           }
 
+          // --- Cleanup Tools ---
+          case "remove-duplicate-lines": {
+            setOutput(removeDuplicateLines(currentInput, { caseSensitive: dedupeCase, trimBeforeCompare: dedupeTrim }));
+            break;
+          }
+
+          case "remove-empty-lines": {
+            setOutput(removeEmptyLines(currentInput, { mode: emptyLinesMode }));
+            break;
+          }
+
+          case "trim-lines": {
+            setOutput(trimLines(currentInput, { mode: trimMode, removeEmptyLines: trimRemoveEmpty }));
+            break;
+          }
+
+          case "remove-extra-spaces": {
+            setOutput(removeExtraSpaces(currentInput, { collapseType: spacesMode }));
+            break;
+          }
+
+          case "strip-html-tags": {
+            setOutput(stripHtmlTags(currentInput, { preserveLineBreaks: stripHtmlBreaks, decodeEntities: stripHtmlEntities }));
+            break;
+          }
+
+          case "remove-line-breaks": {
+            setOutput(removeLineBreaks(currentInput, { separator: lineBreaksSep, collapseParagraphs: lineBreaksParagraphs }));
+            break;
+          }
+
+          case "remove-special-chars": {
+            setOutput(removeSpecialChars(currentInput, {
+              mode: specialCharsMode,
+              customAllowedChars: specialCharsCustom,
+            }));
+            break;
+          }
+
           default:
             // Placeholder for remaining phases
             setOutput(
@@ -257,6 +317,18 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
       lineNumPadZeros,
       htmlMinifyComments,
       htmlMinifyWs,
+      dedupeCase,
+      dedupeTrim,
+      emptyLinesMode,
+      trimMode,
+      trimRemoveEmpty,
+      spacesMode,
+      stripHtmlBreaks,
+      stripHtmlEntities,
+      lineBreaksSep,
+      lineBreaksParagraphs,
+      specialCharsMode,
+      specialCharsCustom,
     ]
   );
 
@@ -696,6 +768,206 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
           </div>
         );
 
+      // --- Cleanup Controls ---
+      case "remove-duplicate-lines":
+        return (
+          <div className="flex flex-wrap items-center gap-4 text-xs">
+            <label className="flex items-center gap-2 cursor-pointer text-slate-300">
+              <input
+                type="checkbox"
+                checked={dedupeCase}
+                onChange={(e) => setDedupeCase(e.target.checked)}
+                className="rounded border-slate-700 text-brand-600 focus:ring-brand-500 bg-slate-800"
+              />
+              <span>Case Sensitive</span>
+            </label>
+            <label className="flex items-center gap-2 cursor-pointer text-slate-300">
+              <input
+                type="checkbox"
+                checked={dedupeTrim}
+                onChange={(e) => setDedupeTrim(e.target.checked)}
+                className="rounded border-slate-700 text-brand-600 focus:ring-brand-500 bg-slate-800"
+              />
+              <span>Trim Lines Before Comparing</span>
+            </label>
+          </div>
+        );
+
+      case "remove-empty-lines":
+        return (
+          <div className="flex items-center gap-3 text-xs">
+            <span className="text-slate-400">Mode:</span>
+            <div className="flex items-center gap-1">
+              <button
+                type="button"
+                onClick={() => setEmptyLinesMode("remove-all")}
+                className={`px-2.5 py-1 rounded-lg text-xs font-medium transition-colors ${
+                  emptyLinesMode === "remove-all"
+                    ? "bg-brand-600 text-white"
+                    : "bg-slate-800 text-slate-400 hover:text-white"
+                }`}
+              >
+                Remove All Blank Lines
+              </button>
+              <button
+                type="button"
+                onClick={() => setEmptyLinesMode("preserve-paragraphs")}
+                className={`px-2.5 py-1 rounded-lg text-xs font-medium transition-colors ${
+                  emptyLinesMode === "preserve-paragraphs"
+                    ? "bg-brand-600 text-white"
+                    : "bg-slate-800 text-slate-400 hover:text-white"
+                }`}
+              >
+                Preserve Paragraphs (Keep 1 Blank)
+              </button>
+            </div>
+          </div>
+        );
+
+      case "trim-lines":
+        return (
+          <div className="flex flex-wrap items-center gap-4 text-xs">
+            <div className="flex items-center gap-2">
+              <span className="text-slate-400">Trim:</span>
+              <select
+                value={trimMode}
+                onChange={(e) => setTrimMode(e.target.value as "both" | "leading" | "trailing")}
+                className="bg-slate-800 border border-slate-700 rounded-lg px-2.5 py-1 text-slate-200 focus:outline-none focus:border-brand-500"
+              >
+                <option value="both">Both Ends</option>
+                <option value="leading">Leading Only</option>
+                <option value="trailing">Trailing Only</option>
+              </select>
+            </div>
+            <label className="flex items-center gap-2 cursor-pointer text-slate-300">
+              <input
+                type="checkbox"
+                checked={trimRemoveEmpty}
+                onChange={(e) => setTrimRemoveEmpty(e.target.checked)}
+                className="rounded border-slate-700 text-brand-600 focus:ring-brand-500 bg-slate-800"
+              />
+              <span>Remove Empty Lines</span>
+            </label>
+          </div>
+        );
+
+      case "remove-extra-spaces":
+        return (
+          <div className="flex items-center gap-3 text-xs">
+            <span className="text-slate-400">Scope:</span>
+            <div className="flex items-center gap-1">
+              <button
+                type="button"
+                onClick={() => setSpacesMode("spaces-only")}
+                className={`px-2.5 py-1 rounded-lg text-xs font-medium transition-colors ${
+                  spacesMode === "spaces-only"
+                    ? "bg-brand-600 text-white"
+                    : "bg-slate-800 text-slate-400 hover:text-white"
+                }`}
+              >
+                Spaces Only (Keep Tabs & Newlines)
+              </button>
+              <button
+                type="button"
+                onClick={() => setSpacesMode("all-whitespace")}
+                className={`px-2.5 py-1 rounded-lg text-xs font-medium transition-colors ${
+                  spacesMode === "all-whitespace"
+                    ? "bg-brand-600 text-white"
+                    : "bg-slate-800 text-slate-400 hover:text-white"
+                }`}
+              >
+                All Whitespace (One Single Line)
+              </button>
+            </div>
+          </div>
+        );
+
+      case "strip-html-tags":
+        return (
+          <div className="flex flex-wrap items-center gap-4 text-xs">
+            <label className="flex items-center gap-2 cursor-pointer text-slate-300">
+              <input
+                type="checkbox"
+                checked={stripHtmlBreaks}
+                onChange={(e) => setStripHtmlBreaks(e.target.checked)}
+                className="rounded border-slate-700 text-brand-600 focus:ring-brand-500 bg-slate-800"
+              />
+              <span>Preserve Line Breaks on Blocks</span>
+            </label>
+            <label className="flex items-center gap-2 cursor-pointer text-slate-300">
+              <input
+                type="checkbox"
+                checked={stripHtmlEntities}
+                onChange={(e) => setStripHtmlEntities(e.target.checked)}
+                className="rounded border-slate-700 text-brand-600 focus:ring-brand-500 bg-slate-800"
+              />
+              <span>Decode Entities (e.g. &amp; → &)</span>
+            </label>
+          </div>
+        );
+
+      case "remove-line-breaks":
+        return (
+          <div className="flex flex-wrap items-center gap-4 text-xs">
+            <div className="flex items-center gap-2">
+              <span className="text-slate-400">Replace With:</span>
+              <select
+                value={lineBreaksSep}
+                onChange={(e) => setLineBreaksSep(e.target.value)}
+                className="bg-slate-800 border border-slate-700 rounded-lg px-2.5 py-1 text-slate-200 focus:outline-none focus:border-brand-500"
+              >
+                <option value=" ">Space (&ldquo; &rdquo;)</option>
+                <option value=", ">Comma & Space (&ldquo;, &rdquo;)</option>
+                <option value="; ">Semicolon & Space (&ldquo;; &rdquo;)</option>
+                <option value="">Nothing (Join Directly)</option>
+              </select>
+            </div>
+            <label className="flex items-center gap-2 cursor-pointer text-slate-300">
+              <input
+                type="checkbox"
+                checked={lineBreaksParagraphs}
+                onChange={(e) => setLineBreaksParagraphs(e.target.checked)}
+                className="rounded border-slate-700 text-brand-600 focus:ring-brand-500 bg-slate-800"
+              />
+              <span>Keep Double Line Breaks (Paragraphs)</span>
+            </label>
+          </div>
+        );
+
+      case "remove-special-chars":
+        return (
+          <div className="flex flex-wrap items-center gap-4 text-xs">
+            <div className="flex items-center gap-2">
+              <span className="text-slate-400">Preset:</span>
+              <select
+                value={specialCharsMode}
+                onChange={(e) =>
+                  setSpecialCharsMode(
+                    e.target.value as "alphanumeric-only" | "keep-punctuation" | "custom"
+                  )
+                }
+                className="bg-slate-800 border border-slate-700 rounded-lg px-2.5 py-1 text-slate-200 focus:outline-none focus:border-brand-500"
+              >
+                <option value="alphanumeric-only">Alphanumeric Only (Letters & Numbers)</option>
+                <option value="keep-punctuation">Keep Standard Punctuation</option>
+                <option value="custom">Custom Allowed Characters</option>
+              </select>
+            </div>
+            {specialCharsMode === "custom" && (
+              <div className="flex items-center gap-2">
+                <span className="text-slate-400">Allowed:</span>
+                <input
+                  type="text"
+                  value={specialCharsCustom}
+                  onChange={(e) => setSpecialCharsCustom(e.target.value)}
+                  placeholder="e.g. @._-/"
+                  className="w-28 bg-slate-800 border border-slate-700 rounded-lg px-2.5 py-1 text-slate-200 font-mono text-xs focus:outline-none focus:border-brand-500"
+                />
+              </div>
+            )}
+          </div>
+        );
+
       default:
         return null;
     }
@@ -728,6 +1000,18 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
     htmlMinifyComments,
     htmlMinifyWs,
     htmlMinifyStats,
+    dedupeCase,
+    dedupeTrim,
+    emptyLinesMode,
+    trimMode,
+    trimRemoveEmpty,
+    spacesMode,
+    stripHtmlBreaks,
+    stripHtmlEntities,
+    lineBreaksSep,
+    lineBreaksParagraphs,
+    specialCharsMode,
+    specialCharsCustom,
   ]);
 
   // Custom Interactive Previews

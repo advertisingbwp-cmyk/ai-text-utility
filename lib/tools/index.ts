@@ -17,3 +17,12 @@ export * from "./csvToJson.ts";
 export * from "./addLineNumbers.ts";
 export * from "./markdownToHtml.ts";
 export * from "./htmlMinifier.ts";
+
+// Cleanup Tools
+export * from "./removeDuplicateLines.ts";
+export * from "./removeEmptyLines.ts";
+export * from "./trimLines.ts";
+export * from "./removeExtraSpaces.ts";
+export * from "./stripHtmlTags.ts";
+export * from "./removeLineBreaks.ts";
+export * from "./removeSpecialChars.ts";
