@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { Star } from "lucide-react";
 import { isFavorite, toggleFavorite } from "@/lib/storage";
+import { trackEvent } from "@/lib/analytics";
 import { cn } from "@/lib/utils";
 
 interface FavoriteStarProps {
@@ -40,6 +41,9 @@ export const FavoriteStar: React.FC<FavoriteStarProps> = ({
     e.stopPropagation();
     const newState = toggleFavorite(toolId);
     setFavorite(newState);
+    if (newState) {
+      trackEvent("favorite_added", { toolSlug: toolId });
+    }
   };
 
   return (

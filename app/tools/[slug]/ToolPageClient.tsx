@@ -63,6 +63,7 @@ import {
   requestAiTool,
   SLUG_TO_AI_MODE,
 } from "@/lib/tools/index";
+import { trackEvent } from "@/lib/analytics";
 import { Sparkles, RefreshCw, AlertTriangle } from "lucide-react";
 
 export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
@@ -607,6 +608,14 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
     ]
   );
 
+  // Track tool_opened on mount
+  useEffect(() => {
+    trackEvent("tool_opened", {
+      toolSlug: tool.slug,
+      category: tool.category,
+    });
+  }, [tool.slug, tool.category]);
+
   // Live Auto-Run for tools supporting live mode
   useEffect(() => {
     if (tool.supportsLiveMode) {
@@ -616,6 +625,11 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
 
   const handleRun = () => {
     setIsLoading(true);
+    trackEvent(tool.category === "AI Magic" ? "ai_tool_used" : "tool_used", {
+      toolSlug: tool.slug,
+      category: tool.category,
+      inputLength: input.length,
+    });
     executeTool(input);
     setIsLoading(false);
   };

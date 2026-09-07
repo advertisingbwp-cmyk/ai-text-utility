@@ -173,9 +173,15 @@ export const Sidebar: React.FC<SidebarProps> = ({ onOpenCommandPalette }) => {
           </span>
           <span className="font-mono text-[10px]">100% Private</span>
         </div>
-        <p className="text-[10px] leading-relaxed text-slate-600">
-          Zero data transmitted to servers for standard utilities. Fast and secure.
-        </p>
+        <div className="flex items-center gap-3 pt-1 text-[10px] text-slate-500">
+          <Link href="/privacy" onClick={closeMobile} className="hover:text-slate-300 transition-colors">
+            Privacy Policy
+          </Link>
+          <span>•</span>
+          <Link href="/terms" onClick={closeMobile} className="hover:text-slate-300 transition-colors">
+            Terms of Service
+          </Link>
+        </div>
       </div>
     </aside>
   );

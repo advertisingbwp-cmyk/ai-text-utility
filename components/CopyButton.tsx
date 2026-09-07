@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { Copy, Check } from "lucide-react";
+import { trackEvent } from "@/lib/analytics";
 import { cn } from "@/lib/utils";
 
 interface CopyButtonProps {
@@ -36,6 +37,7 @@ export const CopyButton: React.FC<CopyButtonProps> = ({
         document.body.removeChild(textarea);
       }
       setCopied(true);
+      trackEvent("tool_copied", { toolSlug: "clipboard", outputLength: text.length });
       setTimeout(() => setCopied(false), 2000);
     } catch {
       // Fallback
