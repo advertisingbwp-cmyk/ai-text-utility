@@ -10,9 +10,16 @@ interface PageProps {
 }
 
 export async function generateStaticParams() {
-  return TOOLS_REGISTRY.map((tool) => ({
-    slug: tool.slug,
-  }));
+  const params: { slug: string }[] = [];
+  for (const tool of TOOLS_REGISTRY) {
+    params.push({ slug: tool.slug });
+    if (tool.aliases) {
+      for (const alias of tool.aliases) {
+        params.push({ slug: alias });
+      }
+    }
+  }
+  return params;
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {

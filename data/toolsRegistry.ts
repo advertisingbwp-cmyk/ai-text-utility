@@ -19,6 +19,7 @@ export interface ToolDefinition {
   supportsLiveMode?: boolean;
   requiresAI?: boolean;
   sampleInput?: string;
+  aliases?: string[];
   customComponent?: "regex-tester" | "json-formatter" | "password-generator" | "date-calculator" | "query-parser" | "default";
 }
 
@@ -432,6 +433,7 @@ export const TOOLS_REGISTRY: ToolDefinition[] = [
     logicReference: "base64",
     supportsLiveMode: true,
     requiresAI: false,
+    aliases: ["base64-encoder-decoder", "base64-encoder", "base64-decoder"],
     sampleInput: "Next.js App Router Text Tools 🚀",
   },
   {
@@ -547,6 +549,7 @@ export const TOOLS_REGISTRY: ToolDefinition[] = [
     logicReference: "unixTimestamp",
     supportsLiveMode: true,
     requiresAI: false,
+    aliases: ["unix-timestamp-converter"],
     sampleInput: "1773000000",
   },
   {
@@ -561,6 +564,7 @@ export const TOOLS_REGISTRY: ToolDefinition[] = [
     logicReference: "dateDifference",
     supportsLiveMode: true,
     requiresAI: false,
+    aliases: ["date-difference-calculator"],
     customComponent: "date-calculator",
     sampleInput: "2026-01-01 to 2026-12-31",
   },
@@ -578,6 +582,7 @@ export const TOOLS_REGISTRY: ToolDefinition[] = [
     logicReference: "aiGrammar",
     supportsLiveMode: false,
     requiresAI: true,
+    aliases: ["grammar-spelling-fixer", "grammar-fixer"],
     sampleInput: "They was going to the market yesterday but they didnt saw no cars on the street.",
   },
   {
@@ -620,6 +625,7 @@ export const TOOLS_REGISTRY: ToolDefinition[] = [
     logicReference: "aiSummarize",
     supportsLiveMode: false,
     requiresAI: true,
+    aliases: ["ai-summarizer"],
     sampleInput: "Next.js is an open-source React front-end development web framework created by Vercel that enables functionality such as server-side rendering and static site generation for React-based web applications. Next.js App Router utilizes React Server Components to deliver high performance, modular architecture, and instantaneous page transitions.",
   },
   {
@@ -658,7 +664,9 @@ export function getAllTools(): ToolDefinition[] {
 }
 
 export function getToolBySlug(slug: string): ToolDefinition | undefined {
-  return TOOLS_REGISTRY.find((t) => t.slug === slug || t.id === slug);
+  return TOOLS_REGISTRY.find(
+    (t) => t.slug === slug || t.id === slug || t.aliases?.includes(slug)
+  );
 }
 
 export function getToolsByCategory(category: ToolCategory): ToolDefinition[] {
