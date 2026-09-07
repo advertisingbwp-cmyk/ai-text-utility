@@ -39,8 +39,10 @@ export interface ToolLayoutProps {
   outputPlaceholder?: string;
   customControls?: React.ReactNode;
   customPreview?: React.ReactNode;
+  customWorkspace?: React.ReactNode;
   hideDefaultInput?: boolean;
   hideDefaultOutput?: boolean;
+  hideActionBar?: boolean;
 }
 
 export const ToolLayout: React.FC<ToolLayoutProps> = ({
@@ -60,8 +62,10 @@ export const ToolLayout: React.FC<ToolLayoutProps> = ({
   outputPlaceholder = "Output will appear here automatically or after clicking Run...",
   customControls,
   customPreview,
+  customWorkspace,
   hideDefaultInput = false,
   hideDefaultOutput = false,
+  hideActionBar = false,
 }) => {
   const [showShortcutsHelp, setShowShortcutsHelp] = useState(false);
 
@@ -242,168 +246,174 @@ export const ToolLayout: React.FC<ToolLayoutProps> = ({
       )}
 
       {/* Main Workspace Panels */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-        {/* Input Panel */}
-        {!hideDefaultInput && (
-          <div className="flex flex-col rounded-2xl border border-slate-800 bg-slate-900/60 overflow-hidden shadow-sm">
-            <div className="flex items-center justify-between px-4 py-3 border-b border-slate-800 bg-slate-950/40">
-              <span className="text-xs font-semibold text-slate-300 flex items-center gap-2">
-                <FileText size={14} className="text-slate-400" />
-                Input Text
-              </span>
-              <div className="flex items-center gap-1.5">
-                {tool.sampleInput && (
+      {customWorkspace ? (
+        customWorkspace
+      ) : (
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+          {/* Input Panel */}
+          {!hideDefaultInput && (
+            <div className="flex flex-col rounded-2xl border border-slate-800 bg-slate-900/60 overflow-hidden shadow-sm">
+              <div className="flex items-center justify-between px-4 py-3 border-b border-slate-800 bg-slate-950/40">
+                <span className="text-xs font-semibold text-slate-300 flex items-center gap-2">
+                  <FileText size={14} className="text-slate-400" />
+                  Input Text
+                </span>
+                <div className="flex items-center gap-1.5">
+                  {tool.sampleInput && (
+                    <button
+                      type="button"
+                      onClick={() => onInputChange(tool.sampleInput || "")}
+                      className="px-2 py-1 text-[11px] font-medium text-slate-400 hover:text-slate-200 bg-slate-800/60 hover:bg-slate-800 rounded-md transition-colors"
+                    >
+                      Load Sample
+                    </button>
+                  )}
                   <button
                     type="button"
-                    onClick={() => onInputChange(tool.sampleInput || "")}
-                    className="px-2 py-1 text-[11px] font-medium text-slate-400 hover:text-slate-200 bg-slate-800/60 hover:bg-slate-800 rounded-md transition-colors"
+                    onClick={onClear}
+                    disabled={!input && !output}
+                    aria-label="Clear input and output"
+                    className="px-2 py-1 text-[11px] font-medium text-slate-400 hover:text-rose-400 disabled:opacity-30 disabled:hover:text-slate-400 rounded-md transition-colors"
+                    title="Clear (Ctrl+Shift+X)"
                   >
-                    Load Sample
+                    <Trash2 size={13} />
                   </button>
-                )}
-                <button
-                  type="button"
-                  onClick={onClear}
-                  disabled={!input && !output}
-                  aria-label="Clear input and output"
-                  className="px-2 py-1 text-[11px] font-medium text-slate-400 hover:text-rose-400 disabled:opacity-30 disabled:hover:text-slate-400 rounded-md transition-colors"
-                  title="Clear (Ctrl+Shift+X)"
-                >
-                  <Trash2 size={13} />
-                </button>
+                </div>
               </div>
-            </div>
 
-            <textarea
-              value={input}
-              onChange={(e) => onInputChange(e.target.value)}
-              placeholder={inputPlaceholder}
-              aria-label="Text input"
-              rows={12}
-              className="w-full p-4 bg-transparent text-slate-100 placeholder-slate-500 font-mono text-xs sm:text-sm resize-y focus:outline-none leading-relaxed"
-            />
-
-            {/* Input Live Stats Bar */}
-            <div className="flex items-center justify-between px-4 py-2 border-t border-slate-800/80 bg-slate-950/60 text-[11px] text-slate-400 font-mono flex-wrap gap-2">
-              <div className="flex items-center gap-3">
-                <span>{stats.words.toLocaleString()} words</span>
-                <span>•</span>
-                <span>{stats.chars.toLocaleString()} chars</span>
-                <span>•</span>
-                <span>{stats.lines.toLocaleString()} lines</span>
-              </div>
-              <div className="flex items-center gap-1 text-slate-400">
-                <Clock size={12} />
-                <span>{stats.readingTimeSec}s read</span>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Output Panel / Preview */}
-        {!hideDefaultOutput && (
-          <div className="flex flex-col rounded-2xl border border-slate-800 bg-slate-900/60 overflow-hidden shadow-sm">
-            <div className="flex items-center justify-between px-4 py-3 border-b border-slate-800 bg-slate-950/40">
-              <span className="text-xs font-semibold text-slate-300">
-                Output Result
-              </span>
-              <div className="flex items-center gap-1.5">
-                {canSwap && onSwap && (
-                  <button
-                    type="button"
-                    onClick={onSwap}
-                    disabled={!output}
-                    aria-label="Swap output to input"
-                    className="p-1.5 text-slate-400 hover:text-slate-200 disabled:opacity-30 rounded-md transition-colors"
-                    title="Swap Output to Input"
-                  >
-                    <ArrowLeftRight size={14} />
-                  </button>
-                )}
-                {canDownload && (
-                  <button
-                    type="button"
-                    onClick={handleDownload}
-                    disabled={!output && !input}
-                    aria-label="Download result as text file"
-                    className="p-1.5 text-slate-400 hover:text-slate-200 disabled:opacity-30 rounded-md transition-colors"
-                    title="Download output as .txt"
-                  >
-                    <Download size={14} />
-                  </button>
-                )}
-                <CopyButton text={output} />
-              </div>
-            </div>
-
-            {customPreview ? (
-              <div className="p-4 flex-1 overflow-auto">{customPreview}</div>
-            ) : (
               <textarea
-                readOnly
-                value={output}
-                placeholder={outputPlaceholder}
-                aria-label="Text output"
+                value={input}
+                onChange={(e) => onInputChange(e.target.value)}
+                placeholder={inputPlaceholder}
+                aria-label="Text input"
                 rows={12}
                 className="w-full p-4 bg-transparent text-slate-100 placeholder-slate-500 font-mono text-xs sm:text-sm resize-y focus:outline-none leading-relaxed"
               />
-            )}
 
-            <div className="flex items-center justify-between px-4 py-2 border-t border-slate-800/80 bg-slate-950/60 text-[11px] text-slate-400 font-mono">
-              <span>{output ? `${output.length} characters generated` : "Waiting for input"}</span>
-              <span className="text-[10px] text-slate-400">Read-only</span>
+              {/* Input Live Stats Bar */}
+              <div className="flex items-center justify-between px-4 py-2 border-t border-slate-800/80 bg-slate-950/60 text-[11px] text-slate-400 font-mono flex-wrap gap-2">
+                <div className="flex items-center gap-3">
+                  <span>{stats.words.toLocaleString()} words</span>
+                  <span>•</span>
+                  <span>{stats.chars.toLocaleString()} chars</span>
+                  <span>•</span>
+                  <span>{stats.lines.toLocaleString()} lines</span>
+                </div>
+                <div className="flex items-center gap-1 text-slate-400">
+                  <Clock size={12} />
+                  <span>{stats.readingTimeSec}s read</span>
+                </div>
+              </div>
             </div>
-          </div>
-        )}
-      </div>
+          )}
+
+          {/* Output Panel / Preview */}
+          {!hideDefaultOutput && (
+            <div className="flex flex-col rounded-2xl border border-slate-800 bg-slate-900/60 overflow-hidden shadow-sm">
+              <div className="flex items-center justify-between px-4 py-3 border-b border-slate-800 bg-slate-950/40">
+                <span className="text-xs font-semibold text-slate-300">
+                  Output Result
+                </span>
+                <div className="flex items-center gap-1.5">
+                  {canSwap && onSwap && (
+                    <button
+                      type="button"
+                      onClick={onSwap}
+                      disabled={!output}
+                      aria-label="Swap output to input"
+                      className="p-1.5 text-slate-400 hover:text-slate-200 disabled:opacity-30 rounded-md transition-colors"
+                      title="Swap Output to Input"
+                    >
+                      <ArrowLeftRight size={14} />
+                    </button>
+                  )}
+                  {canDownload && (
+                    <button
+                      type="button"
+                      onClick={handleDownload}
+                      disabled={!output && !input}
+                      aria-label="Download result as text file"
+                      className="p-1.5 text-slate-400 hover:text-slate-200 disabled:opacity-30 rounded-md transition-colors"
+                      title="Download output as .txt"
+                    >
+                      <Download size={14} />
+                    </button>
+                  )}
+                  <CopyButton text={output} />
+                </div>
+              </div>
+
+              {customPreview ? (
+                <div className="p-4 flex-1 overflow-auto">{customPreview}</div>
+              ) : (
+                <textarea
+                  readOnly
+                  value={output}
+                  placeholder={outputPlaceholder}
+                  aria-label="Text output"
+                  rows={12}
+                  className="w-full p-4 bg-transparent text-slate-100 placeholder-slate-500 font-mono text-xs sm:text-sm resize-y focus:outline-none leading-relaxed"
+                />
+              )}
+
+              <div className="flex items-center justify-between px-4 py-2 border-t border-slate-800/80 bg-slate-950/60 text-[11px] text-slate-400 font-mono">
+                <span>{output ? `${output.length} characters generated` : "Waiting for input"}</span>
+                <span className="text-[10px] text-slate-400">Read-only</span>
+              </div>
+            </div>
+          )}
+        </div>
+      )}
 
       {/* Main Action Bar */}
-      <div className="flex items-center justify-between gap-3 p-4 rounded-2xl border border-slate-800 bg-slate-900/40">
-        <div className="text-xs text-slate-400 hidden sm:block">
-          Press{" "}
-          <kbd className="font-mono bg-slate-800 px-1.5 py-0.5 rounded border border-slate-700 text-slate-300">
-            Ctrl+Enter
-          </kbd>{" "}
-          to run
-        </div>
+      {!hideActionBar && (
+        <div className="flex items-center justify-between gap-3 p-4 rounded-2xl border border-slate-800 bg-slate-900/40">
+          <div className="text-xs text-slate-400 hidden sm:block">
+            Press{" "}
+            <kbd className="font-mono bg-slate-800 px-1.5 py-0.5 rounded border border-slate-700 text-slate-300">
+              Ctrl+Enter
+            </kbd>{" "}
+            to run
+          </div>
 
-        <div className="flex items-center gap-2.5 w-full sm:w-auto justify-end">
-          {onClear && (
-            <button
-              type="button"
-              onClick={onClear}
-              className="px-4 py-2 text-xs font-semibold text-slate-400 hover:text-slate-200 border border-slate-700/80 bg-slate-800/80 hover:bg-slate-800 rounded-xl transition-colors"
-            >
-              Clear
-            </button>
-          )}
+          <div className="flex items-center gap-2.5 w-full sm:w-auto justify-end">
+            {onClear && (
+              <button
+                type="button"
+                onClick={onClear}
+                className="px-4 py-2 text-xs font-semibold text-slate-400 hover:text-slate-200 border border-slate-700/80 bg-slate-800/80 hover:bg-slate-800 rounded-xl transition-colors"
+              >
+                Clear
+              </button>
+            )}
 
-          {onRun && (
-            <button
-              type="button"
-              onClick={onRun}
-              disabled={isLoading || !input}
-              className={`flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-xl text-xs font-bold text-white transition-all shadow-md disabled:opacity-40 disabled:cursor-not-allowed ${
-                isAI
-                  ? "bg-purple-600 hover:bg-purple-500 shadow-purple-600/20"
-                  : "bg-brand-600 hover:bg-brand-500 shadow-brand-600/20"
-              }`}
-            >
-              {isLoading ? (
-                <>
-                  <div className="w-3.5 h-3.5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                  <span>Processing...</span>
-                </>
-              ) : (
-                <>
-                  {isAI ? <Sparkles size={14} /> : <Play size={14} />}
-                  <span>{isAI ? "Generate with AI" : "Process Text"}</span>
-                </>
-              )}
-            </button>
-          )}
+            {onRun && (
+              <button
+                type="button"
+                onClick={onRun}
+                disabled={isLoading || !input}
+                className={`flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-xl text-xs font-bold text-white transition-all shadow-md disabled:opacity-40 disabled:cursor-not-allowed ${
+                  isAI
+                    ? "bg-purple-600 hover:bg-purple-500 shadow-purple-600/20"
+                    : "bg-brand-600 hover:bg-brand-500 shadow-brand-600/20"
+                }`}
+              >
+                {isLoading ? (
+                  <>
+                    <div className="w-3.5 h-3.5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                    <span>Processing...</span>
+                  </>
+                ) : (
+                  <>
+                    {isAI ? <Sparkles size={14} /> : <Play size={14} />}
+                    <span>{isAI ? "Generate with AI" : "Process Text"}</span>
+                  </>
+                )}
+              </button>
+            )}
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Shortcuts Modal */}
       {showShortcutsHelp && (

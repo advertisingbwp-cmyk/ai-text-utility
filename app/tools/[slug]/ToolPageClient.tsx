@@ -2243,97 +2243,6 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
       );
     }
 
-    if (tool.slug === "fancy-fonts" && fancyStyle === "all") {
-      const allStyles = generateAllFancyFonts(input || "Text Tools");
-      const filteredStyles = allStyles.filter((item) => {
-        const matchesCat =
-          fancyCategoryFilter === "all" || item.category === fancyCategoryFilter;
-        const matchesSearch =
-          !fancySearch.trim() ||
-          item.name.toLowerCase().includes(fancySearch.toLowerCase()) ||
-          item.preview.toLowerCase().includes(fancySearch.toLowerCase());
-        return matchesCat && matchesSearch;
-      });
-
-      const categories: { id: FancyFontCategory; label: string }[] = [
-        { id: "all", label: `All (${allStyles.length})` },
-        { id: "alphabets", label: "🔤 Alphabets" },
-        { id: "circled-squared", label: "⭕ Circled & Boxed" },
-        { id: "combining-lines", label: "✂️ Lines & Glitch" },
-        { id: "brackets-boxes", label: "📦 Brackets" },
-        { id: "joiners", label: "🔗 Connectors" },
-        { id: "decorations-wings", label: "🌟 Wings & Cute" },
-      ];
-
-      return (
-        <div className="space-y-3">
-          {/* Controls Bar: Category Pills & Search */}
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5 pb-1 border-b border-slate-800/80">
-            <div className="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0 scrollbar-thin text-xs">
-              {categories.map((cat) => (
-                <button
-                  key={cat.id}
-                  type="button"
-                  onClick={() => setFancyCategoryFilter(cat.id)}
-                  className={`px-2.5 py-1 rounded-lg font-medium whitespace-nowrap transition-colors ${
-                    fancyCategoryFilter === cat.id
-                      ? "bg-brand-500 text-white shadow-sm"
-                      : "bg-slate-900 text-slate-400 hover:text-slate-200 hover:bg-slate-800"
-                  }`}
-                >
-                  {cat.label}
-                </button>
-              ))}
-            </div>
-
-            <div className="relative min-w-[180px] max-w-xs">
-              <input
-                type="text"
-                placeholder="Search styles..."
-                value={fancySearch}
-                onChange={(e) => setFancySearch(e.target.value)}
-                className="w-full bg-slate-900 border border-slate-800 focus:border-brand-500 rounded-lg pl-3 pr-7 py-1 text-xs text-slate-200 placeholder-slate-500 focus:outline-none"
-              />
-              {fancySearch && (
-                <button
-                  type="button"
-                  onClick={() => setFancySearch("")}
-                  className="absolute right-2 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-300 text-xs"
-                >
-                  ✕
-                </button>
-              )}
-            </div>
-          </div>
-
-          {/* Cards Grid */}
-          {filteredStyles.length === 0 ? (
-            <div className="p-8 text-center text-slate-500 text-xs">
-              No font styles match your search &quot;{fancySearch}&quot;.
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-[480px] overflow-y-auto pr-1 scrollbar-thin">
-              {filteredStyles.map((item) => (
-                <div
-                  key={item.id}
-                  className="p-3.5 rounded-xl border border-slate-800 bg-slate-950/60 hover:border-slate-700/80 transition-all flex flex-col justify-between gap-3 group"
-                >
-                  <div className="flex items-center justify-between gap-2">
-                    <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider truncate">
-                      {item.name}
-                    </span>
-                    <CopyButton text={item.preview} variant="ghost" />
-                  </div>
-                  <div className="text-base font-medium text-slate-100 break-words leading-relaxed select-all">
-                    {item.preview}
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-      );
-    }
 
     if (tool.slug === "password-generator") {
       const res = generatePasswords({
@@ -2519,6 +2428,151 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
     dateDiffIncludeEnd,
   ]);
 
+  const isFancyFonts = tool.slug === "fancy-fonts";
+
+  const renderFancyFontsWorkspace = () => {
+    const currentInput = input || "Text Tools Platform 2026";
+    const allStyles = generateAllFancyFonts(currentInput);
+    const filteredStyles = allStyles.filter((item) => {
+      const matchesCat =
+        fancyCategoryFilter === "all" || item.category === fancyCategoryFilter;
+      const matchesSearch =
+        !fancySearch.trim() ||
+        item.name.toLowerCase().includes(fancySearch.toLowerCase()) ||
+        item.preview.toLowerCase().includes(fancySearch.toLowerCase());
+      return matchesCat && matchesSearch;
+    });
+
+    const categories: { id: FancyFontCategory; label: string }[] = [
+      { id: "all", label: `All (${allStyles.length})` },
+      { id: "alphabets", label: "🔤 Alphabets" },
+      { id: "circled-squared", label: "⭕ Circled & Boxed" },
+      { id: "combining-lines", label: "✂️ Lines & Glitch" },
+      { id: "brackets-boxes", label: "📦 Brackets" },
+      { id: "joiners", label: "🔗 Connectors" },
+      { id: "decorations-wings", label: "🌟 Wings & Cute" },
+    ];
+
+    return (
+      <div className="space-y-6">
+        {/* Full-Width Top Input Box */}
+        <div className="rounded-2xl border border-slate-800 bg-slate-900/60 overflow-hidden shadow-lg">
+          <div className="flex items-center justify-between px-4 py-3 border-b border-slate-800 bg-slate-950/50">
+            <span className="text-xs font-semibold text-slate-200 flex items-center gap-2">
+              <Sparkles size={14} className="text-brand-400" />
+              Type or Paste Text to Stylize
+            </span>
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={() => setInput("Stylish Text 2026")}
+                className="px-2.5 py-1 text-[11px] font-medium text-slate-400 hover:text-slate-200 bg-slate-800/80 hover:bg-slate-800 rounded-lg transition-colors"
+              >
+                Load Sample
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setInput("");
+                  setOutput("");
+                }}
+                disabled={!input}
+                className="px-2.5 py-1 text-[11px] font-medium text-slate-400 hover:text-rose-400 disabled:opacity-30 rounded-lg transition-colors"
+                title="Clear text"
+              >
+                Clear
+              </button>
+            </div>
+          </div>
+
+          <div className="p-4 bg-slate-950/20">
+            <textarea
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              placeholder="Type your text here (e.g. your name, bio, gaming nickname, or message)..."
+              rows={3}
+              className="w-full bg-transparent text-slate-100 placeholder-slate-500 font-sans text-base sm:text-lg resize-y focus:outline-none leading-relaxed"
+            />
+          </div>
+
+          <div className="flex items-center justify-between px-4 py-2 border-t border-slate-800/80 bg-slate-950/60 text-[11px] text-slate-400 font-mono">
+            <span>
+              {(input || "").length} characters • {(input || "").trim().split(/\s+/).filter(Boolean).length} words
+            </span>
+            <span className="text-emerald-400 flex items-center gap-1">
+              ● Live preview enabled (48+ styles)
+            </span>
+          </div>
+        </div>
+
+        {/* Filter Bar: Category Tabs & Quick Search */}
+        <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 p-3 rounded-2xl border border-slate-800 bg-slate-900/40">
+          <div className="flex items-center gap-1.5 overflow-x-auto pb-1 md:pb-0 scrollbar-thin text-xs">
+            {categories.map((cat) => (
+              <button
+                key={cat.id}
+                type="button"
+                onClick={() => setFancyCategoryFilter(cat.id)}
+                className={`px-3 py-1.5 rounded-xl font-medium whitespace-nowrap transition-all ${
+                  fancyCategoryFilter === cat.id
+                    ? "bg-brand-500 text-white shadow-md shadow-brand-500/20"
+                    : "bg-slate-800/80 text-slate-400 hover:text-slate-200 hover:bg-slate-800"
+                }`}
+              >
+                {cat.label}
+              </button>
+            ))}
+          </div>
+
+          <div className="relative min-w-[200px] md:w-64">
+            <input
+              type="text"
+              placeholder="Search 48+ styles..."
+              value={fancySearch}
+              onChange={(e) => setFancySearch(e.target.value)}
+              className="w-full bg-slate-900 border border-slate-800 focus:border-brand-500 rounded-xl pl-3.5 pr-8 py-1.5 text-xs text-slate-200 placeholder-slate-500 focus:outline-none"
+            />
+            {fancySearch && (
+              <button
+                type="button"
+                onClick={() => setFancySearch("")}
+                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-300 text-xs"
+              >
+                ✕
+              </button>
+            )}
+          </div>
+        </div>
+
+        {/* Cards Grid: NO max-height, NO overflow-y-auto! Flows on main page */}
+        {filteredStyles.length === 0 ? (
+          <div className="p-12 text-center rounded-2xl border border-slate-800 bg-slate-900/20 text-slate-400 text-sm">
+            No font styles found matching &quot;{fancySearch}&quot;.
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+            {filteredStyles.map((item) => (
+              <div
+                key={item.id}
+                className="p-4 rounded-2xl border border-slate-800/90 bg-slate-900/50 hover:bg-slate-900/80 hover:border-slate-700 transition-all flex flex-col justify-between gap-3.5 group shadow-sm hover:shadow-md"
+              >
+                <div className="flex items-center justify-between gap-2 border-b border-slate-800/60 pb-2.5">
+                  <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider truncate">
+                    {item.name}
+                  </span>
+                  <CopyButton text={item.preview} />
+                </div>
+                <div className="text-base sm:text-lg font-medium text-slate-100 break-words select-all leading-relaxed py-1 min-h-[44px] flex items-center font-sans">
+                  {item.preview}
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    );
+  };
+
   return (
     <ToolLayout
       tool={tool}
@@ -2530,8 +2584,10 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
       onSwap={handleSwap}
       isLoading={isLoading}
       error={error}
-      customControls={customControls}
+      customControls={isFancyFonts ? null : customControls}
       customPreview={customPreview}
+      customWorkspace={isFancyFonts ? renderFancyFontsWorkspace() : undefined}
+      hideActionBar={isFancyFonts}
     />
   );
 };
