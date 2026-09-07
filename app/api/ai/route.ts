@@ -1,110 +1,147 @@
 import { NextResponse } from "next/server";
+import { isAllowedAiMode, ALLOWED_AI_MODES, AiMode, AiResponseBody } from "@/lib/ai/types";
+import { getAiProvider } from "@/lib/ai/provider";
+import { globalAiRateLimiter } from "@/lib/ai/rateLimiter";
 
-export async function POST(req: Request) {
+export const dynamic = "force-dynamic";
+
+export async function POST(req: Request): Promise<NextResponse<AiResponseBody>> {
   try {
+    // 1. IP-based Abuse Protection & Rate Limiting
+    const forwarded = req.headers.get("x-forwarded-for");
+    const realIp = req.headers.get("x-real-ip");
+    const clientIp = (forwarded ? forwarded.split(",")[0].trim() : realIp) || "127.0.0.1";
+
+    const rateLimit = globalAiRateLimiter.check(clientIp);
+    if (!rateLimit.allowed) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: "Rate limit exceeded. Too many AI requests from this IP. Please wait a minute before trying again.",
+        },
+        {
+          status: 429,
+          headers: {
+            "Retry-After": Math.ceil(rateLimit.resetMs / 1000).toString(),
+          },
+        }
+      );
+    }
+
+    // 2. Parse and Validate Request Payload
+    let body: any;
+    try {
+      body = await req.json();
+    } catch {
+      return NextResponse.json(
+        {
+          success: false,
+          error: "Invalid request payload. Expected JSON object with 'mode' and 'text'.",
+        },
+        { status: 400 }
+      );
+    }
+
+    if (!body || typeof body !== "object") {
+      return NextResponse.json(
+        {
+          success: false,
+          error: "Invalid request body. Expected a JSON object.",
+        },
+        { status: 400 }
+      );
+    }
+
+    // Support 'mode' with fallback to 'action'
+    const mode = body.mode || body.action;
+    const text = body.text;
+
+    // 3. Strict Mode Validation
+    if (!mode || !isAllowedAiMode(mode)) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: `Invalid or missing mode '${String(mode)}'. Allowed modes: ${ALLOWED_AI_MODES.join(", ")}.`,
+        },
+        { status: 400 }
+      );
+    }
+
+    // 4. Input Text Validation & Length Constraints
+    if (typeof text !== "string" || !text.trim()) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: "Please provide valid, non-empty text to process.",
+        },
+        { status: 400 }
+      );
+    }
+
+    const maxInputChars = parseInt(process.env.AI_MAX_INPUT_CHARS || "10000", 10);
+    const limit = isNaN(maxInputChars) ? 10000 : maxInputChars;
+
+    if (text.length > limit) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: `Input text length (${text.length.toLocaleString()} chars) exceeds the maximum allowed limit of ${limit.toLocaleString()} characters.`,
+        },
+        { status: 413 }
+      );
+    }
+
+    // 5. Server-Side Credentials & Config
     const apiKey =
       process.env.EXPLABS_API_KEY ||
+      process.env.AI_API_KEY ||
       process.env.EXPERIENTIAL_API_KEY ||
       process.env.EXPERIENTIAL_LABS_API_KEY;
 
     if (!apiKey) {
       return NextResponse.json(
         {
-          error:
-            "Experiential Labs API Key not configured. Please set EXPLABS_API_KEY in environment variables.",
+          success: false,
+          error: "AI service is currently unconfigured. Set EXPLABS_API_KEY in environment variables.",
         },
-        { status: 500 }
+        { status: 503 }
       );
     }
 
-    const body = await req.json().catch(() => null);
-    if (!body || typeof body !== "object") {
-      return NextResponse.json(
-        { error: "Invalid JSON payload." },
-        { status: 400 }
-      );
-    }
+    const baseUrl =
+      process.env.AI_BASE_URL ||
+      process.env.EXPLABS_BASE_URL ||
+      "https://api.experientiallabs.ai/v1";
 
-    const { action, text, model: requestedModel } = body;
+    const model = process.env.AI_MODEL || "claude-sonnet-5";
 
-    if (!text || typeof text !== "string" || !text.trim()) {
-      return NextResponse.json(
-        { error: "Please provide valid text to process." },
-        { status: 400 }
-      );
-    }
+    const timeoutMs = parseInt(process.env.AI_TIMEOUT_MS || "25000", 10);
+    const maxOutputTokens = parseInt(process.env.AI_MAX_OUTPUT_TOKENS || "2000", 10);
 
-    if (text.length > 30000) {
-      return NextResponse.json(
-        { error: "Input text exceeds maximum allowed limit (30,000 characters)." },
-        { status: 413 }
-      );
-    }
-
-    const systemPrompts: Record<string, string> = {
-      grammar:
-        "You are an expert copyeditor and proofreader. Correct all spelling, punctuation, capitalization, and grammar mistakes in the provided text while strictly preserving its original meaning and voice. Return ONLY the corrected text without any pleasantries, intro, or explanations.",
-      professional:
-        "You are an executive business communications expert. Rewrite the text into a clear, professional, authoritative, and polished tone suitable for formal workplace communications. Return ONLY the rewritten text.",
-      friendly:
-        "You are an engaging and warm communicator. Rewrite the text in a friendly, conversational, warm, and approachable tone while keeping the core message intact. Return ONLY the rewritten text.",
-      summarize:
-        "You are a master summarizer. Summarize the key points of the text into concise, high-impact bullet points followed by a one-sentence core takeaway. Return ONLY the summary.",
-      expand:
-        "You are an articulate content writer. Expand, elaborate, and add depth to the provided text. Provide helpful context and structure without fluff. Return ONLY the expanded text.",
-      paraphrase:
-        "You are a creative linguist. Paraphrase and rewrite the text with fresh vocabulary and varied sentence structure while maintaining the exact original meaning. Return ONLY the paraphrased text.",
-    };
-
-    const systemPrompt =
-      systemPrompts[action] ||
-      "You are a helpful AI text utility assistant. Improve the text as requested. Return ONLY the final output.";
-
-    const model = requestedModel || "claude-sonnet-5";
-
-    const response = await fetch(
-      "https://api.experientiallabs.ai/v1/chat/completions",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${apiKey}`,
-        },
-        body: JSON.stringify({
-          model,
-          messages: [
-            { role: "system", content: systemPrompt },
-            { role: "user", content: text },
-          ],
-          temperature: 0.7,
-        }),
-      }
-    );
-
-    if (!response.ok) {
-      const errText = await response.text();
-      return NextResponse.json(
-        {
-          error: `Upstream AI provider error (${response.status}): ${errText}`,
-        },
-        { status: response.status }
-      );
-    }
-
-    const data = await response.json();
-    const result = data?.choices?.[0]?.message?.content || "";
+    // 6. Execute via Pluggable Provider Layer
+    const provider = getAiProvider();
+    const result = await provider.execute(mode as AiMode, text, {
+      apiKey,
+      baseUrl,
+      model,
+      timeoutMs: isNaN(timeoutMs) ? 25000 : timeoutMs,
+      maxOutputTokens: isNaN(maxOutputTokens) ? 2000 : maxOutputTokens,
+    });
 
     return NextResponse.json({
       success: true,
-      result: result.trim(),
-      model: data?.model || model,
+      result,
+      model,
     });
-  } catch (error) {
+  } catch (err: unknown) {
+    // Sanitized error logging without logging full user text
+    const message = err instanceof Error ? err.message : "An unexpected server error occurred.";
+    console.error("[AI Route Error]:", message);
+
     return NextResponse.json(
       {
-        error:
-          "Internal Server Error: " +
-          (error instanceof Error ? error.message : String(error)),
+        success: false,
+        error: message,
       },
       { status: 500 }
     );

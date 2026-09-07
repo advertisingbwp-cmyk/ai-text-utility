@@ -60,7 +60,10 @@ import {
   getCurrentTimestamp,
   calculateDateDifference,
   parseDualDateString,
+  requestAiTool,
+  SLUG_TO_AI_MODE,
 } from "@/lib/tools/index";
+import { Sparkles, RefreshCw, AlertTriangle } from "lucide-react";
 
 export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
   const [input, setInput] = useState<string>(tool.sampleInput || "");
@@ -494,6 +497,28 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
               setError(res.error);
             }
             setOutput(res.formattedReport);
+            break;
+          }
+
+          // --- AI Magic Tools ---
+          case "ai-grammar":
+          case "ai-professional":
+          case "ai-friendly":
+          case "ai-summarize":
+          case "ai-paraphrase":
+          case "ai-expand": {
+            const aiMode = SLUG_TO_AI_MODE[tool.slug] || "grammar";
+            setIsLoading(true);
+            requestAiTool(aiMode, currentInput)
+              .then((aiResult) => {
+                setOutput(aiResult);
+              })
+              .catch((err) => {
+                setError(err instanceof Error ? err.message : "AI transformation failed.");
+              })
+              .finally(() => {
+                setIsLoading(false);
+              });
             break;
           }
 
@@ -1746,6 +1771,52 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
               >
                 Christmas 2026
               </button>
+            </div>
+          </div>
+        );
+
+      // --- AI Magic Tools Controls ---
+      case "ai-grammar":
+      case "ai-professional":
+      case "ai-friendly":
+      case "ai-summarize":
+      case "ai-paraphrase":
+      case "ai-expand":
+        return (
+          <div className="flex flex-wrap items-center justify-between gap-3 text-xs w-full">
+            <div className="flex items-center gap-2 flex-wrap">
+              <span className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-purple-500/10 border border-purple-500/20 text-purple-300 font-medium">
+                <Sparkles size={13} className="text-purple-400" />
+                Experiential Labs AI
+              </span>
+              <span className="text-slate-400">
+                Model: <strong className="text-slate-200">Claude Sonnet 5</strong>
+              </span>
+              {input.length > 10000 ? (
+                <span className="flex items-center gap-1 text-rose-400 bg-rose-500/10 border border-rose-500/20 px-2.5 py-0.5 rounded">
+                  <AlertTriangle size={13} />
+                  Input exceeds limit ({input.length.toLocaleString()} / 10,000 chars)
+                </span>
+              ) : input.length > 8000 ? (
+                <span className="flex items-center gap-1 text-amber-400 bg-amber-500/10 border border-amber-500/20 px-2.5 py-0.5 rounded">
+                  <AlertTriangle size={13} />
+                  Approaching limit ({input.length.toLocaleString()} / 10,000 chars)
+                </span>
+              ) : null}
+            </div>
+
+            <div className="flex items-center gap-2">
+              {error && (
+                <button
+                  type="button"
+                  onClick={() => handleRun()}
+                  disabled={isLoading}
+                  className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-rose-600 hover:bg-rose-500 text-white font-medium transition-colors"
+                >
+                  <RefreshCw size={12} className={isLoading ? "animate-spin" : ""} />
+                  Retry
+                </button>
+              )}
             </div>
           </div>
         );
