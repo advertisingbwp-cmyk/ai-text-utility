@@ -4,7 +4,7 @@ import React, { useState, useEffect, useCallback, useMemo } from "react";
 import { ToolDefinition } from "@/data/toolsRegistry";
 import { ToolLayout } from "@/components/ToolLayout";
 
-// Import pure Phase 2 tools
+// Import pure Phase 2 & Phase 3 tools
 import {
   convertTabsAndSpaces,
   removeLetterAccents,
@@ -22,6 +22,13 @@ import {
   formatExtractionResult,
   parseQueryString,
   formatQueryParserReport,
+  formatAndValidateJson,
+  convertJsonToCsv,
+  convertCsvToJson,
+  addLineNumbers,
+  convertMarkdownToHtml,
+  minifyHtml,
+  HtmlMinifierResult,
 } from "@/lib/tools/index";
 
 export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
@@ -55,6 +62,22 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
 
   // 6. Query String Parser
   const [queryView, setQueryView] = useState<"table" | "json" | "text">("table");
+
+  // === Format Tools State ===
+  const [jsonIndent, setJsonIndent] = useState<2 | 4 | "minify">(2);
+  const [jsonSortKeys, setJsonSortKeys] = useState<boolean>(false);
+  const [jsonToCsvDelim, setJsonToCsvDelim] = useState<string>(",");
+  const [jsonToCsvQuoteAll, setJsonToCsvQuoteAll] = useState<boolean>(false);
+  const [csvToJsonDelim, setCsvToJsonDelim] = useState<string>(",");
+  const [csvToJsonHeaders, setCsvToJsonHeaders] = useState<boolean>(true);
+  const [csvToJsonParseTypes, setCsvToJsonParseTypes] = useState<boolean>(true);
+  const [lineNumStart, setLineNumStart] = useState<number>(1);
+  const [lineNumDelim, setLineNumDelim] = useState<string>(". ");
+  const [lineNumPadZeros, setLineNumPadZeros] = useState<boolean>(false);
+  const [markdownView, setMarkdownView] = useState<"preview" | "source">("source");
+  const [htmlMinifyComments, setHtmlMinifyComments] = useState<boolean>(true);
+  const [htmlMinifyWs, setHtmlMinifyWs] = useState<boolean>(true);
+  const [htmlMinifyStats, setHtmlMinifyStats] = useState<HtmlMinifierResult | null>(null);
 
   // Pure execution router
   const executeTool = useCallback(
@@ -134,6 +157,66 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
             break;
           }
 
+          // --- Format Tools ---
+          case "json-formatter": {
+            const res = formatAndValidateJson(currentInput, {
+              indentation: jsonIndent,
+              sortKeys: jsonSortKeys,
+            });
+            if (!res.isValid) {
+              setError(res.error || "Invalid JSON syntax");
+              setOutput("");
+            } else {
+              setOutput(res.formatted);
+            }
+            break;
+          }
+
+          case "json-to-csv": {
+            const res = convertJsonToCsv(currentInput, {
+              delimiter: jsonToCsvDelim,
+              quoteAll: jsonToCsvQuoteAll,
+            });
+            setOutput(res);
+            break;
+          }
+
+          case "csv-to-json": {
+            const res = convertCsvToJson(currentInput, {
+              delimiter: csvToJsonDelim,
+              hasHeaders: csvToJsonHeaders,
+              parseNumbersAndBooleans: csvToJsonParseTypes,
+            });
+            setOutput(res);
+            break;
+          }
+
+          case "add-line-numbers": {
+            setOutput(
+              addLineNumbers(currentInput, {
+                startNumber: lineNumStart,
+                delimiter: lineNumDelim,
+                padWithZeros: lineNumPadZeros,
+              })
+            );
+            break;
+          }
+
+          case "markdown-to-html": {
+            setOutput(convertMarkdownToHtml(currentInput));
+            break;
+          }
+
+          case "html-minifier": {
+            const res = minifyHtml(currentInput, {
+              stripComments: htmlMinifyComments,
+              collapseWhitespace: htmlMinifyWs,
+            });
+            setHtmlMinifyStats(res);
+            setOutput(res.minified);
+            break;
+          }
+
           default:
             // Placeholder for remaining phases
             setOutput(
@@ -162,6 +245,18 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
       regexPattern,
       regexFlags,
       queryView,
+      jsonIndent,
+      jsonSortKeys,
+      jsonToCsvDelim,
+      jsonToCsvQuoteAll,
+      csvToJsonDelim,
+      csvToJsonHeaders,
+      csvToJsonParseTypes,
+      lineNumStart,
+      lineNumDelim,
+      lineNumPadZeros,
+      htmlMinifyComments,
+      htmlMinifyWs,
     ]
   );
 
@@ -396,6 +491,211 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
           </div>
         );
 
+      // --- Format Controls ---
+      case "json-formatter":
+        return (
+          <div className="flex flex-wrap items-center gap-4 text-xs">
+            <div className="flex items-center gap-2">
+              <span className="text-slate-400">Indentation:</span>
+              <select
+                value={jsonIndent}
+                onChange={(e) =>
+                  setJsonIndent(
+                    e.target.value === "minify" ? "minify" : (parseInt(e.target.value) as 2 | 4)
+                  )
+                }
+                className="bg-slate-800 border border-slate-700 rounded-lg px-2.5 py-1 text-slate-200 focus:outline-none focus:border-brand-500"
+              >
+                <option value="2">2 Spaces</option>
+                <option value="4">4 Spaces</option>
+                <option value="minify">Minify (Compact)</option>
+              </select>
+            </div>
+
+            <label className="flex items-center gap-2 cursor-pointer text-slate-300">
+              <input
+                type="checkbox"
+                checked={jsonSortKeys}
+                onChange={(e) => setJsonSortKeys(e.target.checked)}
+                className="rounded border-slate-700 text-brand-600 focus:ring-brand-500 bg-slate-800"
+              />
+              <span>Sort Keys A-Z</span>
+            </label>
+          </div>
+        );
+
+      case "json-to-csv":
+        return (
+          <div className="flex flex-wrap items-center gap-4 text-xs">
+            <div className="flex items-center gap-2">
+              <span className="text-slate-400">Delimiter:</span>
+              <select
+                value={jsonToCsvDelim}
+                onChange={(e) => setJsonToCsvDelim(e.target.value)}
+                className="bg-slate-800 border border-slate-700 rounded-lg px-2.5 py-1 text-slate-200 focus:outline-none focus:border-brand-500"
+              >
+                <option value=",">Comma (,)</option>
+                <option value=";">Semicolon (;)</option>
+                <option value="&#9;">Tab (\t)</option>
+                <option value="|">Pipe (|)</option>
+              </select>
+            </div>
+
+            <label className="flex items-center gap-2 cursor-pointer text-slate-300">
+              <input
+                type="checkbox"
+                checked={jsonToCsvQuoteAll}
+                onChange={(e) => setJsonToCsvQuoteAll(e.target.checked)}
+                className="rounded border-slate-700 text-brand-600 focus:ring-brand-500 bg-slate-800"
+              />
+              <span>Quote All Fields</span>
+            </label>
+          </div>
+        );
+
+      case "csv-to-json":
+        return (
+          <div className="flex flex-wrap items-center gap-4 text-xs">
+            <div className="flex items-center gap-2">
+              <span className="text-slate-400">Delimiter:</span>
+              <select
+                value={csvToJsonDelim}
+                onChange={(e) => setCsvToJsonDelim(e.target.value)}
+                className="bg-slate-800 border border-slate-700 rounded-lg px-2.5 py-1 text-slate-200 focus:outline-none focus:border-brand-500"
+              >
+                <option value=",">Comma (,)</option>
+                <option value=";">Semicolon (;)</option>
+                <option value="&#9;">Tab (\t)</option>
+                <option value="|">Pipe (|)</option>
+              </select>
+            </div>
+
+            <label className="flex items-center gap-2 cursor-pointer text-slate-300">
+              <input
+                type="checkbox"
+                checked={csvToJsonHeaders}
+                onChange={(e) => setCsvToJsonHeaders(e.target.checked)}
+                className="rounded border-slate-700 text-brand-600 focus:ring-brand-500 bg-slate-800"
+              />
+              <span>First Row is Header</span>
+            </label>
+
+            <label className="flex items-center gap-2 cursor-pointer text-slate-300">
+              <input
+                type="checkbox"
+                checked={csvToJsonParseTypes}
+                onChange={(e) => setCsvToJsonParseTypes(e.target.checked)}
+                className="rounded border-slate-700 text-brand-600 focus:ring-brand-500 bg-slate-800"
+              />
+              <span>Auto-parse Numbers & Booleans</span>
+            </label>
+          </div>
+        );
+
+      case "add-line-numbers":
+        return (
+          <div className="flex flex-wrap items-center gap-4 text-xs">
+            <div className="flex items-center gap-2">
+              <span className="text-slate-400">Start Number:</span>
+              <input
+                type="number"
+                min={0}
+                value={lineNumStart}
+                onChange={(e) => setLineNumStart(Math.max(0, parseInt(e.target.value) || 1))}
+                className="w-16 bg-slate-800 border border-slate-700 rounded-lg px-2 py-1 text-slate-200 font-mono text-center focus:outline-none focus:border-brand-500"
+              />
+            </div>
+
+            <div className="flex items-center gap-2">
+              <span className="text-slate-400">Delimiter:</span>
+              <select
+                value={lineNumDelim}
+                onChange={(e) => setLineNumDelim(e.target.value)}
+                className="bg-slate-800 border border-slate-700 rounded-lg px-2.5 py-1 text-slate-200 focus:outline-none focus:border-brand-500"
+              >
+                <option value=". ">Period & Space (&ldquo;. &rdquo;)</option>
+                <option value=" | ">Pipe (&ldquo; | &rdquo;)</option>
+                <option value=": ">Colon (&ldquo;: &rdquo;)</option>
+                <option value=") ">Parenthesis (&ldquo;) &rdquo;)</option>
+                <option value="	">Tab</option>
+              </select>
+            </div>
+
+            <label className="flex items-center gap-2 cursor-pointer text-slate-300">
+              <input
+                type="checkbox"
+                checked={lineNumPadZeros}
+                onChange={(e) => setLineNumPadZeros(e.target.checked)}
+                className="rounded border-slate-700 text-brand-600 focus:ring-brand-500 bg-slate-800"
+              />
+              <span>Pad with Zeros</span>
+            </label>
+          </div>
+        );
+
+      case "markdown-to-html":
+        return (
+          <div className="flex items-center gap-3 text-xs">
+            <span className="text-slate-400">Output View:</span>
+            <div className="flex items-center gap-1">
+              <button
+                type="button"
+                onClick={() => setMarkdownView("source")}
+                className={`px-2.5 py-1 rounded-lg text-xs font-medium transition-colors ${
+                  markdownView === "source"
+                    ? "bg-brand-600 text-white"
+                    : "bg-slate-800 text-slate-400 hover:text-white"
+                }`}
+              >
+                HTML Source
+              </button>
+              <button
+                type="button"
+                onClick={() => setMarkdownView("preview")}
+                className={`px-2.5 py-1 rounded-lg text-xs font-medium transition-colors ${
+                  markdownView === "preview"
+                    ? "bg-brand-600 text-white"
+                    : "bg-slate-800 text-slate-400 hover:text-white"
+                }`}
+              >
+                Rendered Preview
+              </button>
+            </div>
+          </div>
+        );
+
+      case "html-minifier":
+        return (
+          <div className="flex flex-wrap items-center gap-4 text-xs">
+            <label className="flex items-center gap-2 cursor-pointer text-slate-300">
+              <input
+                type="checkbox"
+                checked={htmlMinifyComments}
+                onChange={(e) => setHtmlMinifyComments(e.target.checked)}
+                className="rounded border-slate-700 text-brand-600 focus:ring-brand-500 bg-slate-800"
+              />
+              <span>Strip Comments</span>
+            </label>
+
+            <label className="flex items-center gap-2 cursor-pointer text-slate-300">
+              <input
+                type="checkbox"
+                checked={htmlMinifyWs}
+                onChange={(e) => setHtmlMinifyWs(e.target.checked)}
+                className="rounded border-slate-700 text-brand-600 focus:ring-brand-500 bg-slate-800"
+              />
+              <span>Collapse Whitespace</span>
+            </label>
+
+            {htmlMinifyStats && htmlMinifyStats.originalSizeBytes > 0 && (
+              <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[11px] font-mono font-semibold">
+                Saved {htmlMinifyStats.savedPercentage}% (
+                {htmlMinifyStats.originalSizeBytes} → {htmlMinifyStats.minifiedSizeBytes} B)
+              </span>
+            )}
+          </div>
+        );
+
       default:
         return null;
     }
@@ -414,6 +714,20 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
     regexPattern,
     regexFlags,
     queryView,
+    jsonIndent,
+    jsonSortKeys,
+    jsonToCsvDelim,
+    jsonToCsvQuoteAll,
+    csvToJsonDelim,
+    csvToJsonHeaders,
+    csvToJsonParseTypes,
+    lineNumStart,
+    lineNumDelim,
+    lineNumPadZeros,
+    markdownView,
+    htmlMinifyComments,
+    htmlMinifyWs,
+    htmlMinifyStats,
   ]);
 
   // Custom Interactive Previews
@@ -584,8 +898,17 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
       );
     }
 
+    if (tool.slug === "markdown-to-html" && markdownView === "preview") {
+      const html = convertMarkdownToHtml(input);
+      return (
+        <div className="prose prose-invert max-w-none text-xs sm:text-sm text-slate-200 leading-relaxed space-y-3 p-2">
+          <div dangerouslySetInnerHTML={{ __html: html }} />
+        </div>
+      );
+    }
+
     return null;
-  }, [tool.slug, input, regexPattern, regexFlags, queryView]);
+  }, [tool.slug, input, regexPattern, regexFlags, queryView, markdownView]);
 
   return (
     <ToolLayout
