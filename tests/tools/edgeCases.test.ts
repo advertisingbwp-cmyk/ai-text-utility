@@ -131,7 +131,7 @@ test("Edge Cases 2: Empty Input Handling Across All Pure Tools", async () => {
 
 test("Edge Cases 3: Very Large Input (100k+ chars)", async () => {
   // Generate 100,000 character string
-  const baseChunk = "OmniText high performance browser text utility toolkit! 1234567890.\n";
+  const baseChunk = "AI Text Utility high performance browser text utility toolkit! 1234567890.\n";
   const repeatCount = Math.ceil(100000 / baseChunk.length);
   const largeText = baseChunk.repeat(repeatCount);
   assert.ok(largeText.length >= 100000);

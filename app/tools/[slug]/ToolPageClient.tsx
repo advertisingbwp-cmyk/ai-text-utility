@@ -2032,52 +2032,52 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
       return (
         <div className="space-y-5">
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-            <div className="p-3.5 rounded-xl border border-slate-800 bg-slate-950/40">
-              <div className="text-[11px] text-slate-400">Words</div>
-              <div className="text-xl font-bold text-emerald-400 font-mono">
+            <div className="p-3.5 rounded-xl border border-slate-200/90 dark:border-slate-800 bg-slate-50/90 dark:bg-slate-950/40">
+              <div className="text-[11px] font-medium text-slate-500 dark:text-slate-400">Words</div>
+              <div className="text-xl font-bold text-emerald-600 dark:text-emerald-400 font-mono">
                 {stats.words.toLocaleString()}
               </div>
             </div>
 
-            <div className="p-3.5 rounded-xl border border-slate-800 bg-slate-950/40">
-              <div className="text-[11px] text-slate-400">Characters</div>
-              <div className="text-xl font-bold text-slate-100 font-mono">
+            <div className="p-3.5 rounded-xl border border-slate-200/90 dark:border-slate-800 bg-slate-50/90 dark:bg-slate-950/40">
+              <div className="text-[11px] font-medium text-slate-500 dark:text-slate-400">Characters</div>
+              <div className="text-xl font-bold text-slate-900 dark:text-slate-100 font-mono">
                 {stats.characters.toLocaleString()}
               </div>
             </div>
 
-            <div className="p-3.5 rounded-xl border border-slate-800 bg-slate-950/40">
-              <div className="text-[11px] text-slate-400">No Spaces</div>
-              <div className="text-xl font-bold text-slate-100 font-mono">
+            <div className="p-3.5 rounded-xl border border-slate-200/90 dark:border-slate-800 bg-slate-50/90 dark:bg-slate-950/40">
+              <div className="text-[11px] font-medium text-slate-500 dark:text-slate-400">No Spaces</div>
+              <div className="text-xl font-bold text-slate-900 dark:text-slate-100 font-mono">
                 {stats.charactersNoSpaces.toLocaleString()}
               </div>
             </div>
 
-            <div className="p-3.5 rounded-xl border border-slate-800 bg-slate-950/40">
-              <div className="text-[11px] text-slate-400">Sentences</div>
-              <div className="text-xl font-bold text-blue-400 font-mono">
+            <div className="p-3.5 rounded-xl border border-slate-200/90 dark:border-slate-800 bg-slate-50/90 dark:bg-slate-950/40">
+              <div className="text-[11px] font-medium text-slate-500 dark:text-slate-400">Sentences</div>
+              <div className="text-xl font-bold text-blue-600 dark:text-blue-400 font-mono">
                 {stats.sentences.toLocaleString()}
               </div>
             </div>
 
-            <div className="p-3.5 rounded-xl border border-slate-800 bg-slate-950/40">
-              <div className="text-[11px] text-slate-400">Paragraphs</div>
-              <div className="text-xl font-bold text-purple-400 font-mono">
+            <div className="p-3.5 rounded-xl border border-slate-200/90 dark:border-slate-800 bg-slate-50/90 dark:bg-slate-950/40">
+              <div className="text-[11px] font-medium text-slate-500 dark:text-slate-400">Paragraphs</div>
+              <div className="text-xl font-bold text-indigo-600 dark:text-indigo-400 font-mono">
                 {stats.paragraphs.toLocaleString()}
               </div>
             </div>
 
-            <div className="p-3.5 rounded-xl border border-slate-800 bg-slate-950/40">
-              <div className="text-[11px] text-slate-400">Lines</div>
-              <div className="text-xl font-bold text-slate-100 font-mono">
+            <div className="p-3.5 rounded-xl border border-slate-200/90 dark:border-slate-800 bg-slate-50/90 dark:bg-slate-950/40">
+              <div className="text-[11px] font-medium text-slate-500 dark:text-slate-400">Lines</div>
+              <div className="text-xl font-bold text-slate-900 dark:text-slate-100 font-mono">
                 {stats.lines.toLocaleString()}
               </div>
             </div>
           </div>
 
-          <div className="flex items-center justify-between p-3 rounded-xl border border-slate-800 bg-slate-950/60 text-xs">
-            <span className="text-slate-400">Reading Time (~200 WPM):</span>
-            <span className="font-semibold text-amber-400">{stats.readingTimeFormatted}</span>
+          <div className="flex items-center justify-between p-3 rounded-xl border border-slate-200/90 dark:border-slate-800 bg-slate-50/90 dark:bg-slate-950/60 text-xs">
+            <span className="text-slate-600 dark:text-slate-400 font-medium">Reading Time (~200 WPM):</span>
+            <span className="font-semibold text-amber-600 dark:text-amber-400">{stats.readingTimeFormatted}</span>
           </div>
 
           <div className="flex items-center justify-between p-3 rounded-xl border border-slate-800 bg-slate-950/60 text-xs">
@@ -2324,26 +2324,26 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <div className="p-3 rounded-xl border border-slate-800 bg-slate-950/40 flex items-center justify-between">
+            <div className="p-3 rounded-xl border border-slate-200/90 dark:border-slate-800 bg-slate-50/90 dark:bg-slate-950/40 flex items-center justify-between">
               <div>
-                <div className="text-[11px] text-slate-500">Epoch Seconds</div>
-                <div className="text-sm font-mono text-emerald-400 font-semibold">{res.seconds}</div>
+                <div className="text-[11px] text-slate-500 dark:text-slate-400">Epoch Seconds</div>
+                <div className="text-sm font-mono text-emerald-600 dark:text-emerald-400 font-semibold">{res.seconds}</div>
               </div>
               <CopyButton text={res.seconds.toString()} variant="ghost" />
             </div>
 
-            <div className="p-3 rounded-xl border border-slate-800 bg-slate-950/40 flex items-center justify-between">
+            <div className="p-3 rounded-xl border border-slate-200/90 dark:border-slate-800 bg-slate-50/90 dark:bg-slate-950/40 flex items-center justify-between">
               <div>
-                <div className="text-[11px] text-slate-500">Epoch Milliseconds</div>
-                <div className="text-sm font-mono text-emerald-400 font-semibold">{res.milliseconds}</div>
+                <div className="text-[11px] text-slate-500 dark:text-slate-400">Epoch Milliseconds</div>
+                <div className="text-sm font-mono text-emerald-600 dark:text-emerald-400 font-semibold">{res.milliseconds}</div>
               </div>
               <CopyButton text={res.milliseconds.toString()} variant="ghost" />
             </div>
 
-            <div className="p-3 rounded-xl border border-slate-800 bg-slate-950/40 flex items-center justify-between sm:col-span-2">
+            <div className="p-3 rounded-xl border border-slate-200/90 dark:border-slate-800 bg-slate-50/90 dark:bg-slate-950/40 flex items-center justify-between sm:col-span-2">
               <div className="overflow-hidden">
-                <div className="text-[11px] text-slate-500">ISO 8601 (UTC)</div>
-                <div className="text-xs font-mono text-slate-200 truncate">{res.iso}</div>
+                <div className="text-[11px] text-slate-500 dark:text-slate-400">ISO 8601 (UTC)</div>
+                <div className="text-xs font-mono text-slate-900 dark:text-slate-200 truncate">{res.iso}</div>
               </div>
               <CopyButton text={res.iso} variant="ghost" />
             </div>

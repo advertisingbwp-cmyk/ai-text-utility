@@ -41,9 +41,9 @@ export const Sidebar: React.FC<SidebarProps> = ({ onOpenCommandPalette }) => {
           </div>
           <div>
             <div className="text-sm font-bold tracking-tight text-slate-100 group-hover:text-brand-400 transition-colors flex items-center gap-1.5">
-              OmniText
+              AI Text Utility
               <span className="text-[10px] font-semibold font-mono px-1.5 py-0.2 rounded bg-brand-500/10 text-brand-400 border border-brand-500/20">
-                PRO
+                UTILITY
               </span>
             </div>
             <p className="text-[10px] text-slate-500 leading-none">
@@ -208,7 +208,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ onOpenCommandPalette }) => {
             <div className="w-6 h-6 rounded bg-brand-500 flex items-center justify-center text-white font-bold text-xs">
               T
             </div>
-            <span className="text-sm font-bold text-white tracking-tight">OmniText</span>
+            <span className="text-sm font-bold text-white tracking-tight">AI Text Utility</span>
           </Link>
         </div>
 

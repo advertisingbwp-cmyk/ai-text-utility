@@ -8,8 +8,8 @@ export const metadata: Metadata = {
     process.env.NEXT_PUBLIC_SITE_URL || "https://ai-text-utility.vercel.app"
   ),
   title: {
-    default: "OmniText - Modern Browser-Based Text Tools & Utilities",
-    template: "%s | OmniText Utility",
+    default: "AI Text Utility - Modern Browser-Based Text Tools & AI Assistants",
+    template: "%s | AI Text Utility",
   },
   description:
     "Instant, private, browser-based text utilities. Word counters, regex testers, JSON formatters, slug generators, case converters, and AI text assistants.",
@@ -25,8 +25,8 @@ export const metadata: Metadata = {
     "text tools",
     "developer utilities",
   ],
-  authors: [{ name: "OmniText Team" }],
-  creator: "OmniText",
+  authors: [{ name: "AI Text Utility Team" }],
+  creator: "AI Text Utility",
   robots: {
     index: true,
     follow: true,
@@ -42,14 +42,14 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: "/",
-    siteName: "OmniText Utility",
-    title: "OmniText - Fast, Private Browser-Based Text Tools",
+    siteName: "AI Text Utility",
+    title: "AI Text Utility - Fast, Private Browser-Based Text Tools",
     description:
       "40+ instant browser-based utilities for text formatting, transformation, cleanup, and AI rewriting. 100% private.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "OmniText - Browser Text Tools",
+    title: "AI Text Utility - Browser Text Tools",
     description:
       "Fast, private browser-based utilities for developers, writers, and students.",
   },
@@ -68,7 +68,7 @@ export default function RootLayout({
   const websiteSchema = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    name: "OmniText Utility",
+    name: "AI Text Utility",
     url: baseUrl,
     description:
       "Instant, private, browser-based text utilities. Word counters, regex testers, JSON formatters, slug generators, case converters, and AI writing assistants.",
@@ -85,12 +85,12 @@ export default function RootLayout({
   const organizationSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    name: "OmniText",
+    name: "AI Text Utility",
     url: baseUrl,
   };
 
   return (
-    <html lang="en" className="dark">
+    <html lang="en" suppressHydrationWarning>
       <head>
         {/* Google AdSense Account Meta Tag for Site Ownership Verification */}
         <meta name="google-adsense-account" content={adsensePublisherId} />
@@ -113,7 +113,7 @@ export default function RootLayout({
           strategy="afterInteractive"
         />
       </head>
-      <body className="bg-slate-950 text-slate-100 antialiased selection:bg-brand-500/20 selection:text-brand-300">
+      <body className="bg-slate-50 dark:bg-[#090d16] text-slate-900 dark:text-slate-100 antialiased selection:bg-brand-500/15 selection:text-brand-700 dark:selection:text-brand-300">
         <AppShell>{children}</AppShell>
       </body>
     </html>

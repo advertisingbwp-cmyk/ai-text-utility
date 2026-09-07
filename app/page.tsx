@@ -5,8 +5,6 @@ import {
   Sparkles,
   Star,
   Clock,
-  Layers,
-  Search,
   Zap,
   ShieldCheck,
   Cpu,
@@ -82,26 +80,25 @@ export default function HomePage() {
   return (
     <div className="max-w-6xl mx-auto space-y-10 pb-20">
       {/* Hero Section */}
-      <section className="text-center py-6 sm:py-10 space-y-4 max-w-3xl mx-auto">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-brand-500/30 bg-brand-500/10 text-brand-400 text-xs font-semibold">
-          <Zap size={14} />
-          <span>Lightning Fast • Client-Side Native • Zero Latency</span>
+      <section className="text-center py-6 sm:py-12 space-y-4 max-w-3xl mx-auto">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-brand-200 dark:border-brand-800/80 bg-brand-50/80 dark:bg-brand-950/40 text-brand-700 dark:text-brand-300 text-xs font-semibold shadow-xs">
+          <Zap size={14} className="text-brand-600 dark:text-brand-400" />
+          <span>43+ Free Utilities • Client-Side Native • Zero Latency</span>
         </div>
 
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-white leading-tight">
-          All Your Text Utilities in{" "}
-          <span className="bg-gradient-to-r from-brand-400 via-emerald-300 to-teal-400 bg-clip-text text-transparent">
-            One Unified Workspace
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-tight">
+          Powerful tools for{" "}
+          <span className="bg-gradient-to-r from-brand-600 via-indigo-600 to-teal-500 dark:from-brand-400 dark:via-indigo-300 dark:to-teal-300 bg-clip-text text-transparent">
+            every kind of text
           </span>
         </h1>
 
-        <p className="text-sm sm:text-base text-slate-400 leading-relaxed max-w-2xl mx-auto">
-          Format, clean, convert, analyze, and transform text instantly with 40+ specialized tools.
-          Private by design—your data never leaves your browser.
+        <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400 leading-relaxed max-w-2xl mx-auto">
+          Format, clean, convert, analyze, and transform text instantly. Private by design—client tools run 100% locally in your browser.
         </p>
 
         {/* Global Search Bar */}
-        <div className="pt-2 max-w-xl mx-auto">
+        <div className="pt-3 max-w-xl mx-auto">
           <SearchBar
             value={searchQuery}
             onChange={setSearchQuery}
@@ -121,7 +118,7 @@ export default function HomePage() {
 
       {/* Filter Tabs */}
       <section className="space-y-4">
-        <div className="flex items-center justify-between gap-3 flex-wrap border-b border-slate-800 pb-3">
+        <div className="flex items-center justify-between gap-3 flex-wrap border-b border-slate-200 dark:border-slate-800/80 pb-3">
           <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none max-w-full">
             <button
               type="button"
@@ -131,8 +128,8 @@ export default function HomePage() {
               }}
               className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all whitespace-nowrap ${
                 selectedCategory === "ALL" && !onlyFavorites
-                  ? "bg-brand-600 text-white shadow-sm"
-                  : "bg-slate-900 text-slate-400 hover:text-white hover:bg-slate-800 border border-slate-800"
+                  ? "bg-slate-900 text-white dark:bg-brand-600 dark:text-white shadow-xs"
+                  : "bg-white dark:bg-slate-900/60 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white border border-slate-200/90 dark:border-slate-800"
               }`}
             >
               All Tools ({TOOLS_REGISTRY.length})
@@ -148,8 +145,8 @@ export default function HomePage() {
                 }}
                 className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all whitespace-nowrap ${
                   selectedCategory === cat.name && !onlyFavorites
-                    ? "bg-brand-600 text-white shadow-sm"
-                    : "bg-slate-900 text-slate-400 hover:text-white hover:bg-slate-800 border border-slate-800"
+                    ? "bg-slate-900 text-white dark:bg-brand-600 dark:text-white shadow-xs"
+                    : "bg-white dark:bg-slate-900/60 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white border border-slate-200/90 dark:border-slate-800"
                 }`}
               >
                 <DynamicIcon name={cat.icon} size={14} />
@@ -163,13 +160,13 @@ export default function HomePage() {
             onClick={() => setOnlyFavorites((prev) => !prev)}
             className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold border transition-all ${
               onlyFavorites
-                ? "bg-amber-500/20 text-amber-300 border-amber-500/40"
-                : "bg-slate-900 text-slate-400 hover:text-amber-300 border-slate-800"
+                ? "bg-amber-500/10 text-amber-700 dark:text-amber-300 border-amber-500/30"
+                : "bg-white dark:bg-slate-900/60 text-slate-600 dark:text-slate-400 hover:text-amber-600 dark:hover:text-amber-300 border-slate-200/90 dark:border-slate-800"
             }`}
           >
             <Star
               size={14}
-              className={onlyFavorites ? "fill-amber-400 text-amber-400" : ""}
+              className={onlyFavorites ? "fill-amber-500 text-amber-500" : ""}
             />
             <span>Favorites only ({favoritesList.length})</span>
           </button>
@@ -179,8 +176,8 @@ export default function HomePage() {
       {/* Recently Used Section (Client only if exists and no active query) */}
       {!searchQuery && selectedCategory === "ALL" && !onlyFavorites && recentTools.length > 0 && (
         <section id="recent" className="space-y-3">
-          <div className="flex items-center gap-2 text-sm font-bold text-slate-200">
-            <Clock size={16} className="text-blue-400" />
+          <div className="flex items-center gap-2 text-sm font-bold text-slate-900 dark:text-slate-200">
+            <Clock size={16} className="text-brand-600 dark:text-brand-400" />
             <span>Recently Used</span>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -191,7 +188,7 @@ export default function HomePage() {
         </section>
       )}
 
-      {/* Main Tools Catalog (Grouped by category or flat filtered list) */}
+      {/* Main Tools Catalog */}
       {filteredTools.length === 0 ? (
         <EmptyState
           title="No utilities match your search"
@@ -216,13 +213,13 @@ export default function HomePage() {
                 id={`category-${cat.name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}
                 className="space-y-4 scroll-mt-20"
               >
-                <div className="flex items-center justify-between border-b border-slate-800/80 pb-2.5">
+                <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-800/80 pb-2.5">
                   <div className="flex items-center gap-2.5">
                     <div
                       className={`p-1.5 rounded-lg ${
                         isAI
-                          ? "bg-purple-500/10 text-purple-400"
-                          : "bg-slate-800 text-slate-200"
+                          ? "bg-brand-50 dark:bg-brand-950/40 text-brand-600 dark:text-brand-400 border border-brand-200/60 dark:border-brand-800/60"
+                          : "bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200/60 dark:border-slate-700/60"
                       }`}
                     >
                       {isAI ? (
@@ -232,19 +229,19 @@ export default function HomePage() {
                       )}
                     </div>
                     <div>
-                      <h2 className="text-lg font-bold text-slate-100 flex items-center gap-2">
+                      <h2 className="text-base font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
                         {cat.name}
                         {isAI && (
-                          <span className="text-[10px] uppercase font-bold px-2 py-0.5 rounded-full bg-purple-500/10 text-purple-300 border border-purple-500/30">
-                            Experiential Labs AI
+                          <span className="text-[10px] uppercase font-bold px-2 py-0.5 rounded-full bg-brand-50 text-brand-700 dark:bg-brand-950/60 dark:text-brand-300 border border-brand-200/80 dark:border-brand-800/60">
+                            AI Powered
                           </span>
                         )}
                       </h2>
-                      <p className="text-xs text-slate-400">{cat.description}</p>
+                      <p className="text-xs text-slate-500 dark:text-slate-400">{cat.description}</p>
                     </div>
                   </div>
 
-                  <span className="text-xs font-semibold text-slate-500">
+                  <span className="text-xs font-semibold text-slate-400 dark:text-slate-500">
                     {toolsInCat.length} tools
                   </span>
                 </div>
@@ -262,14 +259,14 @@ export default function HomePage() {
         // Render filtered grid
         <section className="space-y-4">
           <div className="flex items-center justify-between">
-            <h2 className="text-base font-bold text-slate-200">
+            <h2 className="text-base font-bold text-slate-900 dark:text-slate-100">
               {onlyFavorites
                 ? "Favorited Utilities"
                 : selectedCategory !== "ALL"
                 ? `${selectedCategory} Utilities`
                 : `Search results for "${searchQuery}"`}
             </h2>
-            <span className="text-xs text-slate-400 font-medium">
+            <span className="text-xs text-slate-500 dark:text-slate-400 font-medium">
               {filteredTools.length} tools found
             </span>
           </div>
@@ -283,34 +280,34 @@ export default function HomePage() {
       )}
 
       {/* Privacy & Architecture Feature Band */}
-      <section className="pt-10 border-t border-slate-800 grid grid-cols-1 sm:grid-cols-3 gap-5 text-left">
-        <div className="p-5 rounded-2xl border border-slate-800/80 bg-slate-900/30 space-y-2">
-          <div className="w-8 h-8 rounded-lg bg-emerald-500/10 text-emerald-400 flex items-center justify-center">
+      <section className="pt-10 border-t border-slate-200 dark:border-slate-800 grid grid-cols-1 sm:grid-cols-3 gap-5 text-left">
+        <div className="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800/80 bg-white/70 dark:bg-slate-900/40 shadow-subtle space-y-2">
+          <div className="w-8 h-8 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
             <ShieldCheck size={18} />
           </div>
-          <h3 className="text-sm font-bold text-slate-200">Client-Side Privacy</h3>
-          <p className="text-xs text-slate-400 leading-relaxed">
+          <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100">Client-Side Privacy</h3>
+          <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
             Standard utilities execute 100% inside your local browser memory. Text is never logged or saved to any database.
           </p>
         </div>
 
-        <div className="p-5 rounded-2xl border border-slate-800/80 bg-slate-900/30 space-y-2">
-          <div className="w-8 h-8 rounded-lg bg-blue-500/10 text-blue-400 flex items-center justify-center">
+        <div className="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800/80 bg-white/70 dark:bg-slate-900/40 shadow-subtle space-y-2">
+          <div className="w-8 h-8 rounded-lg bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center">
             <Cpu size={18} />
           </div>
-          <h3 className="text-sm font-bold text-slate-200">Instant Execution</h3>
-          <p className="text-xs text-slate-400 leading-relaxed">
+          <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100">Instant Execution</h3>
+          <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
             No network overhead or slow roundtrips. Live mode updates character counts, transformations, and regex in real time.
           </p>
         </div>
 
-        <div className="p-5 rounded-2xl border border-slate-800/80 bg-slate-900/30 space-y-2">
-          <div className="w-8 h-8 rounded-lg bg-purple-500/10 text-purple-400 flex items-center justify-center">
+        <div className="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800/80 bg-white/70 dark:bg-slate-900/40 shadow-subtle space-y-2">
+          <div className="w-8 h-8 rounded-lg bg-brand-500/10 text-brand-600 dark:text-brand-400 flex items-center justify-center">
             <Sparkles size={18} />
           </div>
-          <h3 className="text-sm font-bold text-slate-200">AI Powered Magic</h3>
-          <p className="text-xs text-slate-400 leading-relaxed">
-            Connects securely via serverless routes to Experiential Labs AI for professional rewriting, proofreading, and summaries.
+          <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100">AI Powered Magic</h3>
+          <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+            Connects securely via serverless routes for professional AI-assisted rewriting, proofreading, and summaries.
           </p>
         </div>
       </section>

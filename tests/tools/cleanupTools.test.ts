@@ -98,7 +98,7 @@ test("5. Strip HTML Tags", () => {
       <head><style>body { color: red; }</style></head>
       <body>
         <script>const x = 1;</script>
-        <h1>Welcome to &ldquo;OmniText&rdquo;!</h1>
+        <h1>Welcome to &ldquo;AI Text Utility&rdquo;!</h1>
         <p>First paragraph &amp; info.</p>
         <p>Second paragraph with <a href="https://example.com">a link</a> &copy; 2026.</p>
       </body>
@@ -108,7 +108,7 @@ test("5. Strip HTML Tags", () => {
 
   assert.ok(!plain.includes("script"));
   assert.ok(!plain.includes("style"));
-  assert.ok(plain.includes("Welcome to “OmniText”!"));
+  assert.ok(plain.includes("Welcome to “AI Text Utility”!"));
   assert.ok(plain.includes("First paragraph & info."));
   assert.ok(plain.includes("Second paragraph with a link © 2026."));
 

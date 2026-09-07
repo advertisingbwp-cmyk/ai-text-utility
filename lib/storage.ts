@@ -1,12 +1,16 @@
 "use client";
 
-const FAVORITES_KEY = "omnitext_favorites";
-const RECENT_KEY = "omnitext_recent";
+const FAVORITES_KEY = "aitextutility_favorites";
+const LEGACY_FAVORITES_KEY = "omnitext_favorites";
+const RECENT_KEY = "aitextutility_recent";
+const LEGACY_RECENT_KEY = "omnitext_recent";
 
 export function getFavorites(): string[] {
   if (typeof window === "undefined") return [];
   try {
-    const raw = localStorage.getItem(FAVORITES_KEY);
+    const raw =
+      localStorage.getItem(FAVORITES_KEY) ||
+      localStorage.getItem(LEGACY_FAVORITES_KEY);
     if (!raw) return [];
     const parsed = JSON.parse(raw);
     return Array.isArray(parsed) ? parsed : [];

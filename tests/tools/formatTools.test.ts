@@ -90,7 +90,7 @@ test("4. Add Line Numbers", () => {
 test("5. Markdown to HTML Converter", () => {
   assert.equal(convertMarkdownToHtml(""), "");
 
-  const md = `# OmniText Tools
+  const md = `# AI Text Utility Tools
 
 A **bold statement** and *italic words* with \`inline code\`.
 
@@ -107,7 +107,7 @@ const answer = 42;
 
   const html = convertMarkdownToHtml(md);
 
-  assert.ok(html.includes("<h1>OmniText Tools</h1>"));
+  assert.ok(html.includes("<h1>AI Text Utility Tools</h1>"));
   assert.ok(html.includes("<strong>bold statement</strong>"));
   assert.ok(html.includes("<em>italic words</em>"));
   assert.ok(html.includes("<code>inline code</code>"));
@@ -137,7 +137,7 @@ test("6. HTML Minifier", () => {
     </head>
     <body>
       <div   class="container"    id="main"   >
-        <h1>   Welcome to OmniText   </h1>
+        <h1>   Welcome to AI Text Utility   </h1>
         <p>Fast client-side tools.</p>
       </div>
       <script>

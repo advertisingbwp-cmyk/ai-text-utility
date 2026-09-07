@@ -56,7 +56,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       description: tool.description,
       url: canonicalUrl,
       type: "website",
-      siteName: "OmniText Utility",
+      siteName: "AI Text Utility",
     },
     twitter: {
       card: "summary_large_image",

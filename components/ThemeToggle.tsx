@@ -5,24 +5,26 @@ import { Moon, Sun } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export const ThemeToggle: React.FC<{ className?: string }> = ({ className = "" }) => {
-  const [theme, setTheme] = useState<"dark" | "light">("dark");
+  const [theme, setTheme] = useState<"dark" | "light">("light");
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
     try {
-      const saved = localStorage.getItem("omnitext_theme");
-      if (saved === "light") {
-        setTheme("light");
-        document.documentElement.classList.remove("dark");
-      } else {
+      const saved =
+        localStorage.getItem("aitextutility_theme") ||
+        localStorage.getItem("omnitext_theme");
+      if (saved === "dark") {
         setTheme("dark");
         document.documentElement.classList.add("dark");
+      } else {
+        setTheme("light");
+        document.documentElement.classList.remove("dark");
       }
     } catch {
-      // Fallback to dark theme if localStorage is disabled
-      setTheme("dark");
-      document.documentElement.classList.add("dark");
+      // Fallback to light theme if storage unavailable
+      setTheme("light");
+      document.documentElement.classList.remove("dark");
     }
   }, []);
 
@@ -30,7 +32,7 @@ export const ThemeToggle: React.FC<{ className?: string }> = ({ className = "" }
     const next = theme === "dark" ? "light" : "dark";
     setTheme(next);
     try {
-      localStorage.setItem("omnitext_theme", next);
+      localStorage.setItem("aitextutility_theme", next);
     } catch {
       // Ignore storage write error in private mode
     }
@@ -42,7 +44,7 @@ export const ThemeToggle: React.FC<{ className?: string }> = ({ className = "" }
   };
 
   if (!mounted) {
-    return <div className="w-8 h-8 rounded-lg" />;
+    return <div className="w-9 h-9 rounded-xl" />;
   }
 
   return (
@@ -51,14 +53,14 @@ export const ThemeToggle: React.FC<{ className?: string }> = ({ className = "" }
       onClick={toggleTheme}
       aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} theme`}
       className={cn(
-        "p-2 rounded-lg text-slate-400 hover:text-slate-100 hover:bg-slate-800/60 dark:hover:bg-slate-800 transition-colors focus:outline-none focus:ring-2 focus:ring-brand-500/50",
+        "p-2 rounded-xl text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors focus:outline-none focus:ring-2 focus:ring-brand-500/20",
         className
       )}
     >
       {theme === "dark" ? (
-        <Sun size={18} className="text-amber-400" />
+        <Sun size={17} className="text-amber-400" />
       ) : (
-        <Moon size={18} className="text-slate-700" />
+        <Moon size={17} className="text-slate-600" />
       )}
     </button>
   );
