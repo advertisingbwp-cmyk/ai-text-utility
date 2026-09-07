@@ -245,8 +245,23 @@ test("12. Fancy Unicode Fonts Generator", () => {
   const dblStruck = convertFancyFont(sample, "double-struck");
   assert.ok(dblStruck.includes("𝕋𝕖𝕩𝕥"));
 
+  // Small Caps
+  const smallCaps = convertFancyFont("sample", "small-caps");
+  assert.ok(smallCaps.includes("sᴀᴍᴘʟᴇ"));
+
+  // Strikethrough combining
+  const strike = convertFancyFont("abc", "strikethrough");
+  assert.ok(strike.includes("\u0336"));
+
+  // Wings & Stars frame
+  const wings = convertFancyFont("sample", "wings-stars");
+  assert.ok(wings.includes("★彡"));
+  assert.ok(wings.includes("彡★"));
+
   // Generate all styles
   const allStyles = generateAllFancyFonts("Hello");
-  assert.equal(allStyles.length, 6);
+  assert.ok(allStyles.length >= 40);
   assert.ok(allStyles.some((s) => s.id === "script"));
+  assert.ok(allStyles.some((s) => s.id === "wings-stars"));
+  assert.ok(allStyles.some((s) => s.id === "crazy-mix"));
 });

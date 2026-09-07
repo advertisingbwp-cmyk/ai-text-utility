@@ -56,6 +56,8 @@ import {
   convertFancyFont,
   generateAllFancyFonts,
   FancyFontStyle,
+  FancyFontCategory,
+  STYLE_METADATA,
   convertUnixTimestamp,
   getCurrentTimestamp,
   calculateDateDifference,
@@ -155,6 +157,8 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
   const [loremCount, setLoremCount] = useState<number>(3);
   const [loremStartWith, setLoremStartWith] = useState<boolean>(true);
   const [fancyStyle, setFancyStyle] = useState<FancyFontStyle | "all">("all");
+  const [fancyCategoryFilter, setFancyCategoryFilter] = useState<FancyFontCategory>("all");
+  const [fancySearch, setFancySearch] = useState<string>("");
 
   // === Date & Time Tools State ===
   const [unixUnit, setUnixUnit] = useState<"auto" | "seconds" | "milliseconds">("auto");
@@ -1687,15 +1691,78 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
             <select
               value={fancyStyle}
               onChange={(e) => setFancyStyle(e.target.value as FancyFontStyle | "all")}
-              className="bg-slate-800 border border-slate-700 rounded-lg px-2.5 py-1 text-slate-200 focus:outline-none focus:border-brand-500"
+              className="bg-slate-800 border border-slate-700 rounded-lg px-2.5 py-1 text-slate-200 focus:outline-none focus:border-brand-500 max-w-[260px] truncate"
             >
-              <option value="all">All Styles (Overview Cards)</option>
-              <option value="gothic">Gothic / Fraktur</option>
-              <option value="bold-sans">Bold Sans-Serif</option>
-              <option value="script">Script / Cursive</option>
-              <option value="circled">Circled / Bubble</option>
-              <option value="double-struck">Double-Struck / Blackboard</option>
-              <option value="monospace">Monospace / Typewriter</option>
+              <option value="all">✨ All Styles (Overview Cards)</option>
+              <optgroup label="🔤 Alphabets & Letter Styles">
+                <option value="gothic">Old English / Fraktur</option>
+                <option value="bold-gothic">Bold Fraktur</option>
+                <option value="script">Script / Cursive</option>
+                <option value="bold-script">Bold Script Cursive</option>
+                <option value="bold-serif">Bold Serif</option>
+                <option value="italic-serif">Italic Serif</option>
+                <option value="bold-italic-serif">Bold Italic Serif</option>
+                <option value="bold-sans">Bold Sans-Serif</option>
+                <option value="sans-italic">Sans-Serif Italic</option>
+                <option value="sans-bold-italic">Sans Bold Italic</option>
+                <option value="double-struck">Double-Struck / Blackboard</option>
+                <option value="monospace">Monospace / Typewriter</option>
+                <option value="fullwidth">Wide / Fullwidth</option>
+                <option value="small-caps">Small Caps</option>
+                <option value="superscript">Superscript (Tiny High)</option>
+                <option value="subscript">Subscript (Tiny Low)</option>
+                <option value="upside-down">Upside Down / Flipped</option>
+                <option value="mirrored">Mirrored / Backwards</option>
+                <option value="currency-symbols">Aesthetic Hacker / Symbols</option>
+                <option value="katakana-style">Japanese Katakana Look</option>
+                <option value="runic-style">Ancient Norse Runes</option>
+                <option value="crazy-mix">Crazy Stylish Mixed</option>
+              </optgroup>
+              <optgroup label="⭕ Circled & Squared">
+                <option value="circled">Circled / Bubble</option>
+                <option value="circled-black">Black Bubble (Inverted)</option>
+                <option value="squared">Squared Box</option>
+                <option value="squared-black">Negative Black Square</option>
+              </optgroup>
+              <optgroup label="✂️ Combining Marks & Lines">
+                <option value="strikethrough">Strikethrough Line</option>
+                <option value="slash-strike">Slash Strike</option>
+                <option value="underline">Underline Line</option>
+                <option value="double-underline">Double Underline</option>
+                <option value="tilde-strike">Tilde Strike Wave</option>
+                <option value="cross-box">Cross Boxed Glyphs</option>
+                <option value="sparkle-combining">Sparkle Ray Diacritic</option>
+                <option value="seagull-below">Seagull Accent</option>
+                <option value="bridge-above">Bridge Above Accent</option>
+              </optgroup>
+              <optgroup label="📦 Brackets & Frames">
+                <option value="lenticular-brackets">Thick Lenticular 【】</option>
+                <option value="corner-brackets">Corner Brackets 『』</option>
+                <option value="white-brackets">White Brackets ⟦⟧</option>
+                <option value="bar-boxed">Overline Bar Box [t̲̅]</option>
+              </optgroup>
+              <optgroup label="🔗 Joiners & Connectors">
+                <option value="joiner-hearts">Hearts Connector (♥)</option>
+                <option value="joiner-stars">Star Dust Connector (⋆)</option>
+                <option value="joiner-bubbles">Bubble Connector (⊶)</option>
+                <option value="joiner-blocks">Textured Shading (░)</option>
+                <option value="joiner-dashed">Dashed Bar Divider (╎)</option>
+                <option value="joiner-waves">Wave Ribbon (〜)</option>
+              </optgroup>
+              <optgroup label="🌟 Wings, Stars & Kaomoji">
+                <option value="wings-stars">Stars & Wings ★彡...彡★</option>
+                <option value="wings-sparkle">Sparkle Wings ミ★...★彡</option>
+                <option value="royal-flourish">Royal Flourish ꧁•...•꧂</option>
+                <option value="audio-waves">Audio Equalizer ıllıllı</option>
+                <option value="cute-hearts">Cute Sparkle Hearts (◍•ᴗ•◍)</option>
+                <option value="ribbon-hearts">Sweet Ribbon Hearts 💖</option>
+                <option value="kaomoji-hug">Cute Kaomoji Hug (づ｡◕‿‿◕｡)づ</option>
+                <option value="diamond-badge">Diamond Badge ◈━◈</option>
+                <option value="sword-shield">Warrior Swords ⚔️</option>
+                <option value="bookmark-love">Bookmark Love '*•.¸♡</option>
+                <option value="magic-stars">Magic Dust ⋆✨</option>
+                <option value="flower-blossom">Sakura Blossom 🌸💮</option>
+              </optgroup>
             </select>
           </div>
         );
@@ -2177,25 +2244,93 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
     }
 
     if (tool.slug === "fancy-fonts" && fancyStyle === "all") {
-      const styles = generateAllFancyFonts(input || "Text Tools");
+      const allStyles = generateAllFancyFonts(input || "Text Tools");
+      const filteredStyles = allStyles.filter((item) => {
+        const matchesCat =
+          fancyCategoryFilter === "all" || item.category === fancyCategoryFilter;
+        const matchesSearch =
+          !fancySearch.trim() ||
+          item.name.toLowerCase().includes(fancySearch.toLowerCase()) ||
+          item.preview.toLowerCase().includes(fancySearch.toLowerCase());
+        return matchesCat && matchesSearch;
+      });
+
+      const categories: { id: FancyFontCategory; label: string }[] = [
+        { id: "all", label: `All (${allStyles.length})` },
+        { id: "alphabets", label: "🔤 Alphabets" },
+        { id: "circled-squared", label: "⭕ Circled & Boxed" },
+        { id: "combining-lines", label: "✂️ Lines & Glitch" },
+        { id: "brackets-boxes", label: "📦 Brackets" },
+        { id: "joiners", label: "🔗 Connectors" },
+        { id: "decorations-wings", label: "🌟 Wings & Cute" },
+      ];
+
       return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-96 overflow-y-auto pr-1">
-          {styles.map((item) => (
-            <div
-              key={item.id}
-              className="p-3.5 rounded-xl border border-slate-800 bg-slate-950/60 hover:border-slate-700 transition-colors flex flex-col justify-between gap-3"
-            >
-              <div className="flex items-center justify-between">
-                <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">
-                  {item.name}
-                </span>
-                <CopyButton text={item.preview} variant="ghost" />
-              </div>
-              <div className="text-sm font-medium text-slate-100 break-words font-mono">
-                {item.preview}
-              </div>
+        <div className="space-y-3">
+          {/* Controls Bar: Category Pills & Search */}
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5 pb-1 border-b border-slate-800/80">
+            <div className="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0 scrollbar-thin text-xs">
+              {categories.map((cat) => (
+                <button
+                  key={cat.id}
+                  type="button"
+                  onClick={() => setFancyCategoryFilter(cat.id)}
+                  className={`px-2.5 py-1 rounded-lg font-medium whitespace-nowrap transition-colors ${
+                    fancyCategoryFilter === cat.id
+                      ? "bg-brand-500 text-white shadow-sm"
+                      : "bg-slate-900 text-slate-400 hover:text-slate-200 hover:bg-slate-800"
+                  }`}
+                >
+                  {cat.label}
+                </button>
+              ))}
             </div>
-          ))}
+
+            <div className="relative min-w-[180px] max-w-xs">
+              <input
+                type="text"
+                placeholder="Search styles..."
+                value={fancySearch}
+                onChange={(e) => setFancySearch(e.target.value)}
+                className="w-full bg-slate-900 border border-slate-800 focus:border-brand-500 rounded-lg pl-3 pr-7 py-1 text-xs text-slate-200 placeholder-slate-500 focus:outline-none"
+              />
+              {fancySearch && (
+                <button
+                  type="button"
+                  onClick={() => setFancySearch("")}
+                  className="absolute right-2 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-300 text-xs"
+                >
+                  ✕
+                </button>
+              )}
+            </div>
+          </div>
+
+          {/* Cards Grid */}
+          {filteredStyles.length === 0 ? (
+            <div className="p-8 text-center text-slate-500 text-xs">
+              No font styles match your search &quot;{fancySearch}&quot;.
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-[480px] overflow-y-auto pr-1 scrollbar-thin">
+              {filteredStyles.map((item) => (
+                <div
+                  key={item.id}
+                  className="p-3.5 rounded-xl border border-slate-800 bg-slate-950/60 hover:border-slate-700/80 transition-all flex flex-col justify-between gap-3 group"
+                >
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider truncate">
+                      {item.name}
+                    </span>
+                    <CopyButton text={item.preview} variant="ghost" />
+                  </div>
+                  <div className="text-base font-medium text-slate-100 break-words leading-relaxed select-all">
+                    {item.preview}
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       );
     }
