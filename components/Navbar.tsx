@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
@@ -13,6 +13,7 @@ import {
   ArrowRight,
 } from "lucide-react";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { BrandLogo } from "@/components/BrandLogo";
 import { getFavorites } from "@/lib/storage";
 
 interface NavbarProps {
@@ -48,19 +49,10 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCommandPalette }) => {
         {/* Brand Logo */}
         <Link
           href="/"
-          className="flex items-center gap-2.5 focus:outline-none focus:ring-2 focus:ring-brand-500/20 rounded-xl p-1 -ml-1 group"
+          className="focus:outline-none focus:ring-2 focus:ring-brand-500/20 rounded-xl p-1 -ml-1 group"
+          aria-label="AI Text Utility Home"
         >
-          <div className="w-8 h-8 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-950 flex items-center justify-center font-bold shadow-sm group-hover:scale-105 transition-transform">
-            <span className="text-sm font-black tracking-tighter">AI</span>
-          </div>
-          <div className="flex flex-col">
-            <span className="text-sm sm:text-base font-bold tracking-tight text-slate-900 dark:text-white leading-tight">
-              AI Text Utility
-            </span>
-            <span className="text-[10px] font-medium text-slate-500 dark:text-slate-400 leading-none">
-              Fast, Private & Client-Side
-            </span>
-          </div>
+          <BrandLogo size="md" showSubtitle={true} />
         </Link>
 
         {/* Center / Desktop Navigation */}

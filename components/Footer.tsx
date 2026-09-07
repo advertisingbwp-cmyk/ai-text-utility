@@ -1,9 +1,10 @@
-﻿"use client";
+"use client";
 
 import React from "react";
 import Link from "next/link";
 import { Shield, Zap, Sparkles } from "lucide-react";
 import { CATEGORIES } from "@/data/toolsRegistry";
+import { BrandLogo } from "@/components/BrandLogo";
 
 export const Footer: React.FC = () => {
   return (
@@ -12,13 +13,8 @@ export const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 lg:gap-12 pb-12 border-b border-slate-200/80 dark:border-slate-800/80">
           {/* Col 1: Brand & Purpose */}
           <div className="md:col-span-2 space-y-4">
-            <Link href="/" className="inline-flex items-center gap-2.5 group">
-              <div className="w-8 h-8 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-950 flex items-center justify-center font-bold shadow-sm">
-                <span className="text-sm font-black tracking-tighter">AI</span>
-              </div>
-              <span className="text-base font-bold text-slate-900 dark:text-white tracking-tight">
-                AI Text Utility
-              </span>
+            <Link href="/" className="inline-flex items-center group" aria-label="AI Text Utility Home">
+              <BrandLogo size="md" />
             </Link>
             <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 leading-relaxed max-w-md">
               A high-performance suite of 43+ browser-based tools for formatting, converting, analyzing, and cleaning text. Built for developers, writers, students, and professionals who demand speed, privacy, and precision.

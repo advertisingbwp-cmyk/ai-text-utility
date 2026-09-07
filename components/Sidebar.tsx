@@ -16,6 +16,7 @@ import {
 import { CATEGORIES, ToolCategory } from "@/data/toolsRegistry";
 import { DynamicIcon } from "@/components/DynamicIcon";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { BrandLogo } from "@/components/BrandLogo";
 
 interface SidebarProps {
   onOpenCommandPalette?: () => void;
@@ -35,21 +36,9 @@ export const Sidebar: React.FC<SidebarProps> = ({ onOpenCommandPalette }) => {
           href="/"
           onClick={closeMobile}
           className="flex items-center gap-2.5 group focus:outline-none focus:ring-2 focus:ring-brand-500/50 rounded-lg p-0.5"
+          aria-label="AI Text Utility Home"
         >
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-brand-500 to-emerald-700 flex items-center justify-center text-white font-bold shadow-md shadow-brand-500/20 group-hover:scale-105 transition-transform">
-            <span className="text-sm font-black tracking-tight">T</span>
-          </div>
-          <div>
-            <div className="text-sm font-bold tracking-tight text-slate-100 group-hover:text-brand-400 transition-colors flex items-center gap-1.5">
-              AI Text Utility
-              <span className="text-[10px] font-semibold font-mono px-1.5 py-0.2 rounded bg-brand-500/10 text-brand-400 border border-brand-500/20">
-                UTILITY
-              </span>
-            </div>
-            <p className="text-[10px] text-slate-500 leading-none">
-              Client-side Text Utility
-            </p>
-          </div>
+          <BrandLogo size="md" showSubtitle={true} />
         </Link>
 
         <div className="flex items-center gap-1">
@@ -204,11 +193,8 @@ export const Sidebar: React.FC<SidebarProps> = ({ onOpenCommandPalette }) => {
           >
             <Menu size={20} />
           </button>
-          <Link href="/" className="flex items-center gap-2">
-            <div className="w-6 h-6 rounded bg-brand-500 flex items-center justify-center text-white font-bold text-xs">
-              T
-            </div>
-            <span className="text-sm font-bold text-white tracking-tight">AI Text Utility</span>
+          <Link href="/" className="flex items-center" aria-label="AI Text Utility Home">
+            <BrandLogo size="sm" />
           </Link>
         </div>
 

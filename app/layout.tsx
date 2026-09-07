@@ -38,6 +38,17 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
+  icons: {
+    icon: [
+      { url: "/icon.svg", type: "image/svg+xml" },
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+    ],
+    apple: [
+      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+    ],
+  },
+  manifest: "/site.webmanifest",
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -45,13 +56,22 @@ export const metadata: Metadata = {
     siteName: "AI Text Utility",
     title: "AI Text Utility - Fast, Private Browser-Based Text Tools",
     description:
-      "40+ instant browser-based utilities for text formatting, transformation, cleanup, and AI rewriting. 100% private.",
+      "43+ instant browser-based utilities for text formatting, transformation, cleanup, and AI rewriting. 100% private.",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "AI Text Utility - Fast, Private Browser-Based Text Tools",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "AI Text Utility - Browser Text Tools",
     description:
       "Fast, private browser-based utilities for developers, writers, and students.",
+    images: ["/og-image.png"],
   },
 };
 
