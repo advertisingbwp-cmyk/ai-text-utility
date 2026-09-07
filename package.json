@@ -1,12 +1,40 @@
 {
-  "name": "ai-smart-text-utility",
-  "version": "1.0.0",
-  "description": "AI-Powered Smart Text Utility with Experiential Labs AI & fast browser text tools",
-  "main": "index.html",
-  "scripts": {
-    "start": "npx serve ."
-  },
-  "keywords": ["text-utility", "ai", "word-counter", "grammar-checker"],
-  "author": "",
-  "license": "MIT"
+    "name":  "ai-smart-text-utility",
+    "version":  "1.0.0",
+    "description":  "AI-Powered Smart Text Utility with Experiential Labs AI \u0026 fast browser text tools",
+    "main":  "index.html",
+    "scripts":  {
+                    "dev":  "next dev",
+                    "build":  "next build",
+                    "start":  "next start",
+                    "typecheck":  "tsc --noEmit",
+                    "test":  "node --experimental-strip-types --test tests/**/*.test.ts"
+                },
+    "keywords":  [
+                     "text-utility",
+                     "ai",
+                     "word-counter",
+                     "grammar-checker"
+                 ],
+    "author":  "",
+    "license":  "MIT",
+    "devDependencies":  {
+                            "@types/node":  "^26.4.1",
+                            "@types/react":  "^19.2.18",
+                            "@types/react-dom":  "^19.2.7",
+                            "autoprefixer":  "^10.5.5",
+                            "postcss":  "^8.5.28",
+                            "tailwindcss":  "^3.4.19",
+                            "typescript":  "^7.0.2"
+                        },
+    "dependencies":  {
+                         "clsx":  "^2.1.1",
+                         "cmdk":  "^1.1.1",
+                         "lucide-react":  "^1.42.0",
+                         "next":  "^16.3.4",
+                         "react":  "^19.2.8",
+                         "react-dom":  "^19.2.8",
+                         "tailwind-merge":  "^3.6.0"
+                     },
+    "type":  "module"
 }
