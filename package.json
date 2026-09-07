@@ -1,0 +1,12 @@
+{
+  "name": "ai-smart-text-utility",
+  "version": "1.0.0",
+  "description": "AI-Powered Smart Text Utility with Experiential Labs AI & fast browser text tools",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": ["text-utility", "ai", "word-counter", "grammar-checker"],
+  "author": "",
+  "license": "MIT"
+}

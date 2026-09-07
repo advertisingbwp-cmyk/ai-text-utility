@@ -1,0 +1,50 @@
+/* Custom CSS Styles for Plexudo AI Text Utility */
+
+@layer utilities {
+  .text-glow {
+    text-shadow: 0 0 15px rgba(99, 102, 241, 0.4);
+  }
+}
+
+/* Custom modern scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #090d16;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1f2937;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #374151;
+}
+
+/* Smooth textarea transitions */
+textarea {
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Button click press effect */
+button:active {
+  transform: scale(0.97);
+}
+
+/* Subtle pulse animation for AI badge */
+@keyframes softPulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+.animate-soft-pulse {
+  animation: softPulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
