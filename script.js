@@ -1,13 +1,23 @@
-// Text Utility - Complete Tools Registry & Implementation
+// Text Utility - Complete Navigation & Tools Registry
 
-// DOM Elements
+// Views
+const homeView = document.getElementById("homeView");
+const toolView = document.getElementById("toolView");
+const btnBackToHome = document.getElementById("btnBackToHome");
+const navHomeLink = document.getElementById("navHomeLink");
+const breadcrumbCat = document.getElementById("breadcrumbCat");
+const breadcrumbTool = document.getElementById("breadcrumbTool");
+
+// Dedicated Tool Elements
+const dedicatedToolTitle = document.getElementById("dedicatedToolTitle");
+const dedicatedToolDesc = document.getElementById("dedicatedToolDesc");
+const dedicatedToolIcon = document.getElementById("dedicatedToolIcon");
+const dedicatedToolBadge = document.getElementById("dedicatedToolBadge");
+const dynamicToolOptions = document.getElementById("dynamicToolOptions");
+
+// Workspace I/O Elements
 const workspaceInput = document.getElementById("workspaceInput");
 const workspaceOutput = document.getElementById("workspaceOutput");
-const activeToolTitle = document.getElementById("activeToolTitle");
-const activeToolDesc = document.getElementById("activeToolDesc");
-const activeToolIcon = document.getElementById("activeToolIcon");
-const activeToolCategoryBadge = document.getElementById("activeToolCategoryBadge");
-const dynamicToolOptions = document.getElementById("dynamicToolOptions");
 const btnRunActiveTool = document.getElementById("btnRunActiveTool");
 const btnClearWorkspace = document.getElementById("btnClearWorkspace");
 const btnSampleText = document.getElementById("btnSampleText");
@@ -16,6 +26,8 @@ const btnUseOutputAsInput = document.getElementById("btnUseOutputAsInput");
 const btnFavoriteActive = document.getElementById("btnFavoriteActive");
 const toastWorkspace = document.getElementById("toastWorkspace");
 const workspaceLoading = document.getElementById("workspaceLoading");
+
+// Catalog & Filter Elements
 const toolsGrid = document.getElementById("toolsGrid");
 const toolsFilterInput = document.getElementById("toolsFilterInput");
 const noToolsFound = document.getElementById("noToolsFound");
@@ -23,7 +35,7 @@ const cmdPaletteModal = document.getElementById("commandPaletteModal");
 const cmdPaletteInput = document.getElementById("cmdPaletteInput");
 const cmdPaletteResults = document.getElementById("cmdPaletteResults");
 
-// Metrics
+// Metrics Elements
 const statWords = document.getElementById("statWords");
 const statChars = document.getElementById("statChars");
 const statCharsNoSpaces = document.getElementById("statCharsNoSpaces");
@@ -36,7 +48,7 @@ let favorites = JSON.parse(localStorage.getItem("tu_favorites") || "[]");
 let currentActiveTool = null;
 let currentCategory = "ALL";
 
-// Helper: Real-time stats
+// Helper: Real-time Stats
 function updateStats() {
   const text = workspaceInput.value || "";
   const charCount = text.length;
@@ -58,7 +70,7 @@ function updateStats() {
 }
 workspaceInput.addEventListener("input", updateStats);
 
-// Toast notification helper
+// Toast Notification
 let toastTimer;
 function showToast(msg, isError = false) {
   clearTimeout(toastTimer);
@@ -70,6 +82,83 @@ function showToast(msg, isError = false) {
     toastWorkspace.className = "text-xs font-semibold opacity-0 transition-opacity duration-200";
   }, 2000);
 }
+
+// -------------------------------------------------------------
+// Navigation Controllers (Switch between Home Catalog & Single Tool)
+// -------------------------------------------------------------
+function showHomeView() {
+  toolView.classList.add("hidden");
+  homeView.classList.remove("hidden");
+  currentActiveTool = null;
+  history.pushState(null, "", window.location.pathname);
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function showToolView(tool) {
+  currentActiveTool = tool;
+
+  // Breadcrumbs & Header
+  breadcrumbCat.textContent = tool.category;
+  breadcrumbTool.textContent = tool.name;
+  dedicatedToolTitle.innerHTML = `
+    ${tool.name}
+    <span class="text-[10px] uppercase font-bold px-2.5 py-0.5 rounded-full ${
+      tool.category === "AI Magic"
+        ? "bg-purple-500/10 text-purple-300 border border-purple-500/30"
+        : "bg-indigo-500/10 text-indigo-300 border border-indigo-500/20"
+    }">
+      ${tool.category}
+    </span>
+  `;
+  dedicatedToolDesc.textContent = tool.desc;
+  dedicatedToolIcon.innerHTML = `<i class="ph ${tool.icon}"></i>`;
+
+  // Favorite button
+  const isFav = favorites.includes(tool.id);
+  btnFavoriteActive.innerHTML = `<i class="ph ${isFav ? "ph-star-fill text-amber-400" : "ph-star"}"></i> ${
+    isFav ? "Favorited" : "Favorite"
+  }`;
+
+  // Dynamic Options
+  if (tool.optionsHtml) {
+    dynamicToolOptions.innerHTML = tool.optionsHtml;
+    dynamicToolOptions.classList.remove("hidden");
+    dynamicToolOptions.classList.add("flex");
+  } else {
+    dynamicToolOptions.innerHTML = "";
+    dynamicToolOptions.classList.add("hidden");
+    dynamicToolOptions.classList.remove("flex");
+  }
+
+  // Load sample if empty
+  if (tool.sample) {
+    workspaceInput.value = tool.sample;
+  } else {
+    workspaceInput.value = "";
+  }
+  workspaceOutput.value = "";
+  updateStats();
+
+  // Switch views
+  homeView.classList.add("hidden");
+  toolView.classList.remove("hidden");
+  window.scrollTo({ top: 0, behavior: "smooth" });
+
+  // Update hash
+  window.location.hash = tool.id;
+
+  // Auto run non-AI tools
+  if (!tool.isAI) {
+    runCurrentTool();
+  }
+}
+
+// Back to Home triggers
+btnBackToHome.addEventListener("click", showHomeView);
+navHomeLink.addEventListener("click", (e) => {
+  e.preventDefault();
+  showHomeView();
+});
 
 // -------------------------------------------------------------
 // Complete Tools Catalog (50+ Utilities)
@@ -91,13 +180,13 @@ const TOOLS = [
       const lines = text.split("\n").length;
       const paragraphs = text.split(/\n+/).filter((p) => p.trim().length > 0).length;
       return [
-        `Word Count: ${words}`,
-        `Character Count: ${chars}`,
-        `Characters (no spaces): ${charsNoSpace}`,
-        `Sentence Count: ${sentences}`,
-        `Paragraph Count: ${paragraphs}`,
-        `Line Count: ${lines}`,
-        `Estimated Reading Time: ${Math.ceil((words / 200) * 60)} seconds`,
+        `Word Count             : ${words}`,
+        `Character Count        : ${chars}`,
+        `Characters (no spaces) : ${charsNoSpace}`,
+        `Sentence Count         : ${sentences}`,
+        `Paragraph Count        : ${paragraphs}`,
+        `Line Count             : ${lines}`,
+        `Estimated Reading Time : ${Math.ceil((words / 200) * 60)} seconds`,
       ].join("\n");
     },
   },
@@ -140,22 +229,18 @@ const TOOLS = [
     sample: "\tfunction hello() {\n\t\treturn 'world';\n\t}",
     optionsHtml: `
       <label class="text-slate-400">Direction:</label>
-      <select id="optTabDir" class="bg-slate-800 rounded px-2 py-1 text-white text-xs">
+      <select id="optTabDir" class="bg-slate-800 rounded px-2.5 py-1 text-white text-xs">
         <option value="tab2space">Tabs to Spaces</option>
         <option value="space2tab">Spaces to Tabs</option>
       </select>
-      <label class="text-slate-400">Spaces per tab:</label>
-      <input id="optTabWidth" type="number" value="2" min="1" max="8" class="w-12 bg-slate-800 rounded px-2 py-1 text-white text-xs" />
+      <label class="text-slate-400 ml-2">Spaces per tab:</label>
+      <input id="optTabWidth" type="number" value="2" min="1" max="8" class="w-12 bg-slate-800 rounded px-2 py-1 text-white text-xs font-mono" />
     `,
     execute: (text) => {
       const dir = document.getElementById("optTabDir")?.value || "tab2space";
       const width = parseInt(document.getElementById("optTabWidth")?.value || "2");
       const spaces = " ".repeat(width);
-      if (dir === "tab2space") {
-        return text.replace(/\t/g, spaces);
-      } else {
-        return text.replace(new RegExp(spaces, "g"), "\t");
-      }
+      return dir === "tab2space" ? text.replace(/\t/g, spaces) : text.replace(new RegExp(spaces, "g"), "\t");
     },
   },
   {
@@ -165,9 +250,7 @@ const TOOLS = [
     desc: "Strip diacritics and accents for ASCII-friendly text (e.g. café → cafe).",
     icon: "ph-text-aa",
     sample: "Crème brûlée, résumé, façade, naïve, señor, El Niño.",
-    execute: (text) => {
-      return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-    },
+    execute: (text) => text.normalize("NFD").replace(/[\u0300-\u036f]/g, ""),
   },
   {
     id: "character-frequency",
@@ -242,7 +325,7 @@ const TOOLS = [
     optionsHtml: `
       <label class="text-slate-400">Pattern:</label>
       <input id="optRegexPattern" type="text" value="#\\d+" class="bg-slate-800 rounded px-2 py-1 text-white text-xs w-36 font-mono" />
-      <label class="text-slate-400">Flags:</label>
+      <label class="text-slate-400 ml-2">Flags:</label>
       <input id="optRegexFlags" type="text" value="g" class="bg-slate-800 rounded px-2 py-1 text-white text-xs w-14 font-mono" />
     `,
     execute: (text) => {
@@ -284,7 +367,7 @@ const TOOLS = [
     sample: '{"name":"Plexudo","services":["Text Tools","AI"],"status":"active","stats":{"users":1250,"uptime":99.9}}',
     optionsHtml: `
       <label class="text-slate-400">Indent:</label>
-      <select id="optJsonIndent" class="bg-slate-800 rounded px-2 py-1 text-white text-xs">
+      <select id="optJsonIndent" class="bg-slate-800 rounded px-2.5 py-1 text-white text-xs">
         <option value="2">2 Spaces</option>
         <option value="4">4 Spaces</option>
         <option value="min">Minify</option>
@@ -482,29 +565,62 @@ const TOOLS = [
     execute: (text) => {
       const mode = document.getElementById("optCaseType")?.value || "upper";
       switch (mode) {
-        case "upper":
-          return text.toUpperCase();
-        case "lower":
-          return text.toLowerCase();
-        case "title":
-          return text.toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase());
-        case "sentence":
-          return text.toLowerCase().replace(/(^\s*\w|[.!?]\s*\w)/g, (c) => c.toUpperCase());
+        case "upper": return text.toUpperCase();
+        case "lower": return text.toLowerCase();
+        case "title": return text.toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase());
+        case "sentence": return text.toLowerCase().replace(/(^\s*\w|[.!?]\s*\w)/g, (c) => c.toUpperCase());
         case "camel":
-          return text
-            .replace(/[^a-zA-Z0-9]+(.)/g, (_, c) => c.toUpperCase())
-            .replace(/^[A-Z]/, (c) => c.toLowerCase());
+          return text.replace(/[^a-zA-Z0-9]+(.)/g, (_, c) => c.toUpperCase()).replace(/^[A-Z]/, (c) => c.toLowerCase());
         case "pascal":
-          return text
-            .replace(/[^a-zA-Z0-9]+(.)/g, (_, c) => c.toUpperCase())
-            .replace(/^[a-z]/, (c) => c.toUpperCase());
-        case "snake":
-          return text.toLowerCase().trim().replace(/[\s_-]+/g, "_");
-        case "kebab":
-          return text.toLowerCase().trim().replace(/[\s_-]+/g, "-");
-        default:
-          return text;
+          return text.replace(/[^a-zA-Z0-9]+(.)/g, (_, c) => c.toUpperCase()).replace(/^[a-z]/, (c) => c.toUpperCase());
+        case "snake": return text.toLowerCase().trim().replace(/[\s_-]+/g, "_");
+        case "kebab": return text.toLowerCase().trim().replace(/[\s_-]+/g, "-");
+        default: return text;
       }
+    },
+  },
+  {
+    id: "fancy-fonts",
+    category: "Transform",
+    name: "Fancy Font Generator",
+    desc: "Convert regular text into stylish Unicode fonts (Gothic, Bold, Script, Circled, Double Struck).",
+    icon: "ph-text-aa",
+    sample: "Plexudo AI Text Utility",
+    optionsHtml: `
+      <select id="optFancyStyle" class="bg-slate-800 rounded px-2.5 py-1 text-white text-xs">
+        <option value="gothic">𝔉𝔞𝔫𝔠𝔶 𝔊𝔬𝔱𝔥𝔦𝔠</option>
+        <option value="bold_sans">𝘽𝙤𝙡𝙙 𝙎𝙖𝙣𝙨</option>
+        <option value="script">𝒮𝒸𝓇𝒾𝓅𝓉</option>
+        <option value="circled">Ⓒⓘⓡⓒⓛⓔⓓ</option>
+        <option value="double_struck">𝔻𝕠𝕦𝕓𝕝𝕖 𝕊𝕥𝕣𝕦𝕔𝕜</option>
+      </select>
+    `,
+    execute: (text) => {
+      const style = document.getElementById("optFancyStyle")?.value || "gothic";
+      const maps = {
+        gothic: {
+          A: "𝔄", B: "𝔅", C: "ℭ", D: "𝔇", E: "𝔈", F: "𝔉", G: "𝔊", H: "ℌ", I: "ℑ", J: "𝔍", K: "𝔎", L: "𝔏", M: "𝔐", N: "𝔑", O: "𝔒", P: "𝔓", Q: "𝔔", R: "ℜ", S: "𝔖", T: "𝔗", U: "𝔘", V: "𝔙", W: "𝔚", X: "𝔛", Y: "𝔜", Z: "ℨ",
+          a: "𝔞", b: "𝔟", c: "𝔠", d: "𝔡", e: "𝔢", f: "𝔣", g: "𝔤", h: "𝔥", i: "𝔦", j: "𝔧", k: "𝔨", l: "𝔩", m: "𝔪", n: "𝔫", o: "𝔬", p: "𝔭", q: "𝔮", r: "𝔯", s: "𝔰", t: "𝔱", u: "𝔲", v: "𝔳", w: "𝔴", x: "𝔵", y: "𝔶", z: "𝔷",
+        },
+        bold_sans: {
+          A: "𝘼", B: "𝘽", C: "𝘾", D: "𝘿", E: "𝙀", F: "𝙁", G: "𝙂", H: "𝙃", I: "𝙄", J: "𝙅", K: "𝙆", L: "𝙇", M: "𝙈", N: "𝙉", O: "𝙊", P: "𝙋", Q: "𝙌", R: "𝙍", S: "𝙎", T: "𝙏", U: "𝙐", V: "𝙑", W: "𝙒", X: "𝙓", Y: "𝙔", Z: "𝙕",
+          a: "𝙖", b: "𝙗", c: "𝙘", d: "𝙙", e: "𝙚", f: "𝙛", g: "𝙜", h: "𝙝", i: "𝙞", j: "𝙟", k: "𝙠", l: "𝙡", m: "𝙢", n: "𝙣", o: "𝙤", p: "𝙥", q: "𝙦", r: "𝙧", s: "𝙨", t: "𝙩", u: "𝙪", v: "𝙫", w: "𝙬", x: "𝙭", y: "ᠶ", z: "𝙯",
+        },
+        script: {
+          A: "𝒜", B: "ℬ", C: "𝒞", D: "𝒟", E: "ℰ", F: "ℱ", G: "𝒢", H: "ℋ", I: "ℐ", J: "𝒥", K: "𝒦", L: "ℒ", M: "ℳ", N: "𝒩", O: "𝒪", P: "𝒫", Q: "𝒬", R: "ℛ", S: "𝒮", T: "𝒯", U: "𝒰", V: "𝒱", W: "𝒲", X: "𝒳", Y: "𝒴", Z: "𝒵",
+          a: "𝒶", b: "𝒷", c: "𝒸", d: "𝒹", e: "ℯ", f: "𝔣", g: "ℊ", h: "𝒽", i: "𝒾", j: "𝒿", k: "𝓀", l: "𝓁", m: "𝓂", n: "𝓃", o: "ℴ", p: "𝓅", q: "𝓆", r: "𝓇", s: "𝓈", t: "𝓉", u: "𝓊", v: "𝓋", w: "𝓌", x: "𝓍", y: "𝓎", z: "𝓏",
+        },
+        circled: {
+          A: "Ⓐ", B: "Ⓑ", C: "Ⓒ", D: "Ⓓ", E: "Ⓔ", F: "Ⓕ", G: "𝒢", H: "Ⓗ", I: "Ⓘ", J: "Ⓙ", K: "Ⓚ", L: "Ⓛ", M: "Ⓜ", N: "Ⓝ", O: "Ⓞ", P: "Ⓟ", Q: "Ⓠ", R: "Ⓡ", S: "Ⓢ", T: "Ⓣ", U: "Ⓤ", V: "Ⓥ", W: "Ⓦ", X: "Ⓧ", Y: "Ⓨ", Z: "Ⓩ",
+          a: "ⓐ", b: "ⓑ", c: "ⓒ", d: "ⓓ", e: "ⓔ", f: "ⓕ", g: "ⓖ", h: "ⓗ", i: "ⓘ", j: "ⓙ", k: "ⓚ", l: "ⓛ", m: "ⓜ", n: "ⓝ", o: "ⓞ", p: "ⓟ", q: "𝓠", r: "ⓡ", s: "ⓢ", t: "ⓣ", u: "ⓤ", v: "ⓥ", w: "ⓦ", x: "ⓧ", y: "ⓨ", z: "ⓩ",
+        },
+        double_struck: {
+          A: "𝔸", B: "𝔹", C: "ℂ", D: "𝔻", E: "𝔼", F: "𝔽", G: "𝔾", H: "ℍ", I: "𝕀", J: "𝕁", K: "𝕂", L: "𝕃", M: "𝕄", N: "ℕ", O: "𝕆", P: "ℙ", Q: "ℚ", R: "ℝ", S: "𝕊", T: "𝕋", U: "𝕌", V: "𝕍", W: "𝕎", X: "𝕏", Y: "𝕐", Z: "ℤ",
+          a: "𝕒", b: "𝕓", c: "𝕔", d: "𝕕", e: "𝕖", f: "𝕗", g: "𝕘", h: "𝕙", i: "𝕚", j: "𝕛", k: "𝕜", l: "𝕝", m: "𝕞", n: "𝕟", o: "𝔬", p: "𝕡", q: "𝕢", r: "𝕣", s: "𝕤", t: "𝕥", u: "𝕦", v: "𝕧", w: "𝕨", x: "𝕩", y: "𝕪", z: "𝕫",
+        },
+      };
+      const map = maps[style] || maps.gothic;
+      return text.split("").map((c) => map[c] || c).join("");
     },
   },
   {
@@ -515,7 +631,7 @@ const TOOLS = [
     icon: "ph-sort-ascending",
     sample: "Zebra\nApple\nMango\nBanana\nOrange",
     optionsHtml: `
-      <select id="optSortOrder" class="bg-slate-800 rounded px-2 py-1 text-white text-xs">
+      <select id="optSortOrder" class="bg-slate-800 rounded px-2.5 py-1 text-white text-xs">
         <option value="asc">A → Z (Alphabetical)</option>
         <option value="desc">Z → A (Reverse)</option>
         <option value="length">By Length (Shortest first)</option>
@@ -539,50 +655,6 @@ const TOOLS = [
     execute: (text) => text.split("").reverse().join(""),
   },
   {
-    id: "fancy-fonts",
-    category: "Transform",
-    name: "Fancy Font Generator",
-    desc: "Convert regular text into stylish Unicode fonts (Gothic, Bold, Script, Circled, Double Struck).",
-    icon: "ph-text-aa",
-    sample: "Plexudo AI Text Utility",
-    optionsHtml: `
-      <select id="optFancyStyle" class="bg-slate-800 rounded px-2 py-1 text-white text-xs">
-        <option value="gothic">𝔉𝔞𝔫𝔠𝔶 𝔊𝔬𝔱𝔥𝔦𝔠</option>
-        <option value="bold_sans">𝘽𝙤𝙡𝙙 𝙎𝙖𝙣𝙨</option>
-        <option value="script">𝒮𝒸𝓇𝒾𝓅𝓉</option>
-        <option value="circled">Ⓒⓘⓡⓒⓛⓔⓓ</option>
-        <option value="double_struck">𝔻𝕠𝕦𝕓𝕝𝕖 𝕊𝕥𝕣𝕦𝕔𝕜</option>
-      </select>
-    `,
-    execute: (text) => {
-      const style = document.getElementById("optFancyStyle")?.value || "gothic";
-      const maps = {
-        gothic: {
-          A: "𝔄", B: "𝔅", C: "ℭ", D: "𝔇", E: "𝔈", F: "𝔉", G: "𝔊", H: "ℌ", I: "ℑ", J: "𝔍", K: "𝔎", L: "𝔏", M: "𝔐", N: "𝔑", O: "𝔒", P: "𝔓", Q: "𝔔", R: "ℜ", S: "𝔖", T: "𝔗", U: "𝔘", V: "𝔙", W: "𝔚", X: "𝔛", Y: "𝔜", Z: "ℨ",
-          a: "𝔞", b: "𝔟", c: "𝔠", d: "𝔡", e: "𝔢", f: "𝔣", g: "𝔤", h: "𝔥", i: "𝔦", j: "𝔧", k: "𝔨", l: "𝔩", m: "𝔪", n: "𝔫", o: "𝔬", p: "𝔭", q: "𝔮", r: "𝔯", s: "𝔰", t: "𝔱", u: "𝔲", v: "𝔳", w: "𝔴", x: "𝔵", y: "𝔶", z: "𝔷",
-        },
-        bold_sans: {
-          A: "𝘼", B: "𝘽", C: "𝘾", D: "𝘿", E: "𝙀", F: "𝙁", G: "𝙂", H: "𝙃", I: "𝙄", J: "𝙅", K: "𝙆", L: "𝙇", M: "𝙈", N: "𝙉", O: "𝙊", P: "𝙋", Q: "𝙌", R: "𝙍", S: "𝙎", T: "𝙏", U: "𝙐", V: "𝙑", W: "𝙒", X: "𝙓", Y: "𝙔", Z: "𝙕",
-          a: "𝙖", b: "𝙗", c: "𝙘", d: "𝙙", e: "𝙚", f: "𝙛", g: "𝙜", h: "𝙝", i: "𝙞", j: "𝙟", k: "𝙠", l: "𝙡", m: "𝙢", n: "𝙣", o: "𝙤", p: "𝙥", q: "𝙦", r: "𝙧", s: "𝙨", t: "𝙩", u: "𝙪", v: "𝙫", w: "𝙬", x: "𝙭", y: "𝙮", z: "𝙯",
-        },
-        script: {
-          A: "𝒜", B: "ℬ", C: "𝒞", D: "𝒟", E: "ℰ", F: "ℱ", G: "𝒢", H: "ℋ", I: "ℐ", J: "𝒥", K: "𝒦", L: "ℒ", M: "ℳ", N: "𝒩", O: "𝒪", P: "𝒫", Q: "𝒬", R: "ℛ", S: "𝒮", T: "𝒯", U: "𝒰", V: "𝒱", W: "𝒲", X: "𝒳", Y: "𝒴", Z: "𝒵",
-          a: "𝒶", b: "𝒷", c: "𝒸", d: "𝒹", e: "ℯ", f: "𝔣", g: "ℊ", h: "𝒽", i: "𝒾", j: "𝒿", k: "𝓀", l: "𝓁", m: "𝓂", n: "𝓃", o: "ℴ", p: "𝓅", q: "𝓆", r: "𝓇", s: "𝓈", t: "𝓉", u: "𝓊", v: "𝓋", w: "𝓌", x: "𝓍", y: "𝓎", z: "𝓏",
-        },
-        circled: {
-          A: "Ⓐ", B: "Ⓑ", C: "Ⓒ", D: "Ⓓ", E: "Ⓔ", F: "Ⓕ", G: "Ⓖ", H: "Ⓗ", I: "Ⓘ", J: "Ⓙ", K: "Ⓚ", L: "Ⓛ", M: "Ⓜ", N: "Ⓝ", O: "Ⓞ", P: "Ⓟ", Q: "Ⓠ", R: "Ⓡ", S: "Ⓢ", T: "Ⓣ", U: "Ⓤ", V: "Ⓥ", W: "Ⓦ", X: "Ⓧ", Y: "Ⓨ", Z: "Ⓩ",
-          a: "ⓐ", b: "ⓑ", c: "ⓒ", d: "ⓓ", e: "ⓔ", f: "ⓕ", g: "ⓖ", h: "ⓗ", i: "ⓘ", j: "ⓙ", k: "ⓚ", l: "ⓛ", m: "ⓜ", n: "ⓝ", o: "ⓞ", p: "ⓟ", q: "𝓠", r: "ⓡ", s: "ⓢ", t: "ⓣ", u: "ⓤ", v: "ⓥ", w: "ⓦ", x: "ⓧ", y: "ⓨ", z: "ⓩ",
-        },
-        double_struck: {
-          A: "𝔸", B: "𝔹", C: "ℂ", D: "𝔻", E: "𝔼", F: "𝔽", G: "𝔾", H: "ℍ", I: "𝕀", J: "𝕁", K: "𝕂", L: "𝕃", M: "𝕄", N: "ℕ", O: "𝕆", P: "ℙ", Q: "ℚ", R: "ℝ", S: "𝕊", T: "𝕋", U: "𝕌", V: "𝕍", W: "𝕎", X: "𝕏", Y: "𝕐", Z: "ℤ",
-          a: "𝕒", b: "𝕓", c: "𝕔", d: "𝕕", e: "𝕖", f: "𝕗", g: "𝕘", h: "𝕙", i: "𝕚", j: "𝕛", k: "𝕜", l: "𝕝", m: "𝕞", n: "𝕟", o: "𝕠", p: "𝕡", q: "𝕢", r: "𝕣", s: "𝕤", t: "𝕥", u: "𝕦", v: "𝕧", w: "𝕨", x: "𝕩", y: "𝕪", z: "𝕫",
-        },
-      };
-      const map = maps[style] || maps.gothic;
-      return text.split("").map((c) => map[c] || c).join("");
-    },
-  },
-  {
     id: "base64",
     category: "Transform",
     name: "Base64 Encoder / Decoder",
@@ -590,7 +662,7 @@ const TOOLS = [
     icon: "ph-lock-key",
     sample: "Plexudo AI Text Utility 2026",
     optionsHtml: `
-      <select id="optBase64Mode" class="bg-slate-800 rounded px-2 py-1 text-white text-xs">
+      <select id="optBase64Mode" class="bg-slate-800 rounded px-2.5 py-1 text-white text-xs">
         <option value="encode">Encode to Base64</option>
         <option value="decode">Decode from Base64</option>
       </select>
@@ -613,7 +685,7 @@ const TOOLS = [
     icon: "ph-globe",
     sample: "https://example.com/search?q=text & symbols = true & city = New York!",
     optionsHtml: `
-      <select id="optUrlMode" class="bg-slate-800 rounded px-2 py-1 text-white text-xs">
+      <select id="optUrlMode" class="bg-slate-800 rounded px-2.5 py-1 text-white text-xs">
         <option value="encode">Encode URL</option>
         <option value="decode">Decode URL</option>
       </select>
@@ -636,9 +708,7 @@ const TOOLS = [
       const sha256Buffer = await crypto.subtle.digest("SHA-256", data);
       const sha1Buffer = await crypto.subtle.digest("SHA-1", data);
       const toHex = (buf) =>
-        Array.from(new Uint8Array(buf))
-          .map((b) => b.toString(16).padStart(2, "0"))
-          .join("");
+        Array.from(new Uint8Array(buf)).map((b) => b.toString(16).padStart(2, "0")).join("");
       return [
         `Input Text : "${text}"`,
         `SHA-256    : ${toHex(sha256Buffer)}`,
@@ -679,7 +749,7 @@ const TOOLS = [
     icon: "ph-key",
     optionsHtml: `
       <label class="text-slate-400">Length:</label>
-      <input id="optPassLen" type="number" value="16" min="8" max="64" class="w-14 bg-slate-800 rounded px-2 py-1 text-white text-xs" />
+      <input id="optPassLen" type="number" value="16" min="8" max="64" class="w-14 bg-slate-800 rounded px-2 py-1 text-white text-xs font-mono" />
     `,
     execute: () => {
       const len = parseInt(document.getElementById("optPassLen")?.value || "16");
@@ -706,7 +776,7 @@ const TOOLS = [
     icon: "ph-identification-badge",
     optionsHtml: `
       <label class="text-slate-400">Count:</label>
-      <input id="optUuidCount" type="number" value="5" min="1" max="25" class="w-14 bg-slate-800 rounded px-2 py-1 text-white text-xs" />
+      <input id="optUuidCount" type="number" value="5" min="1" max="25" class="w-14 bg-slate-800 rounded px-2 py-1 text-white text-xs font-mono" />
     `,
     execute: () => {
       const count = parseInt(document.getElementById("optUuidCount")?.value || "5");
@@ -859,7 +929,7 @@ const TOOLS = [
 ];
 
 // -------------------------------------------------------------
-// Render Tools Grid
+// Render Tools Grid on Homepage
 // -------------------------------------------------------------
 function renderTools() {
   toolsGrid.innerHTML = "";
@@ -890,7 +960,7 @@ function renderTools() {
     const isFav = favorites.includes(tool.id);
     const card = document.createElement("div");
     card.className =
-      "group bg-slate-900/60 border border-slate-800/80 hover:border-indigo-500/50 rounded-2xl p-4 flex flex-col justify-between transition-all hover:shadow-xl hover:shadow-indigo-500/5 cursor-pointer relative";
+      "group bg-slate-900/60 border border-slate-800/80 hover:border-indigo-500/50 rounded-2xl p-5 flex flex-col justify-between transition-all hover:shadow-xl hover:shadow-indigo-500/5 cursor-pointer relative";
 
     const badgeColor =
       tool.category === "AI Magic"
@@ -899,8 +969,8 @@ function renderTools() {
 
     card.innerHTML = `
       <div>
-        <div class="flex items-start justify-between mb-2.5">
-          <div class="w-9 h-9 rounded-xl bg-slate-800 group-hover:bg-indigo-600/20 text-slate-300 group-hover:text-indigo-400 border border-slate-700/80 group-hover:border-indigo-500/30 flex items-center justify-center text-lg transition-all">
+        <div class="flex items-start justify-between mb-3">
+          <div class="w-10 h-10 rounded-xl bg-slate-800 group-hover:bg-indigo-600/20 text-slate-300 group-hover:text-indigo-400 border border-slate-700/80 group-hover:border-indigo-500/30 flex items-center justify-center text-xl transition-all">
             <i class="ph ${tool.icon}"></i>
           </div>
           <button class="btn-fav p-1 text-slate-500 hover:text-amber-400 transition-colors" data-id="${tool.id}">
@@ -915,7 +985,7 @@ function renderTools() {
           ${tool.category}
         </span>
         <span class="text-xs text-indigo-400 font-semibold group-hover:translate-x-1 transition-transform flex items-center gap-1">
-          Open <i class="ph ph-arrow-right"></i>
+          Open Tool <i class="ph ph-arrow-right"></i>
         </span>
       </div>
     `;
@@ -926,7 +996,7 @@ function renderTools() {
         toggleFavorite(tool.id);
         return;
       }
-      activateTool(tool);
+      showToolView(tool);
     });
 
     toolsGrid.appendChild(card);
@@ -942,63 +1012,22 @@ function toggleFavorite(id) {
   }
   localStorage.setItem("tu_favorites", JSON.stringify(favorites));
   renderTools();
+  if (currentActiveTool && currentActiveTool.id === id) {
+    const isFav = favorites.includes(id);
+    btnFavoriteActive.innerHTML = `<i class="ph ${isFav ? "ph-star-fill text-amber-400" : "ph-star"}"></i> ${
+      isFav ? "Favorited" : "Favorite"
+    }`;
+  }
 }
 
 // -------------------------------------------------------------
-// Tool Execution & Workspace Loader
-// -------------------------------------------------------------
-function activateTool(tool) {
-  currentActiveTool = tool;
-
-  activeToolTitle.innerHTML = `
-    ${tool.name}
-    <span class="text-[10px] uppercase font-bold px-2 py-0.5 rounded-full ${
-      tool.category === "AI Magic"
-        ? "bg-purple-500/10 text-purple-300 border border-purple-500/30"
-        : "bg-indigo-500/10 text-indigo-300 border border-indigo-500/20"
-    }">
-      ${tool.category}
-    </span>
-  `;
-  activeToolDesc.textContent = tool.desc;
-  activeToolIcon.innerHTML = `<i class="ph ${tool.icon}"></i>`;
-
-  // Favorite button state
-  const isFav = favorites.includes(tool.id);
-  btnFavoriteActive.innerHTML = `<i class="ph ${isFav ? "ph-star-fill text-amber-400" : "ph-star"}"></i> ${
-    isFav ? "Favorited" : "Favorite"
-  }`;
-
-  // Dynamic Options
-  if (tool.optionsHtml) {
-    dynamicToolOptions.innerHTML = tool.optionsHtml;
-    dynamicToolOptions.classList.remove("hidden");
-    dynamicToolOptions.classList.add("flex");
-  } else {
-    dynamicToolOptions.innerHTML = "";
-    dynamicToolOptions.classList.add("hidden");
-    dynamicToolOptions.classList.remove("flex");
-  }
-
-  // Load sample text if input is empty
-  if (!workspaceInput.value.trim() && tool.sample) {
-    workspaceInput.value = tool.sample;
-    updateStats();
-  }
-
-  // Auto execute tool
-  runCurrentTool();
-
-  // Smooth scroll to workspace
-  document.getElementById("workspace").scrollIntoView({ behavior: "smooth", block: "start" });
-}
-
 // Run Active Tool
+// -------------------------------------------------------------
 async function runCurrentTool() {
   if (!currentActiveTool) return;
   const input = workspaceInput.value;
 
-  // AI Tool Handler
+  // AI Tool Execution
   if (currentActiveTool.isAI) {
     if (!input.trim()) {
       showToast("Please enter text for AI processing", true);
@@ -1019,7 +1048,7 @@ async function runCurrentTool() {
       });
 
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "AI execution failed");
+      if (!res.ok) throw new Error(data.error || "AI processing failed");
 
       workspaceOutput.value = data.result || "";
       btnUseOutputAsInput.classList.remove("hidden");
@@ -1035,7 +1064,7 @@ async function runCurrentTool() {
     return;
   }
 
-  // Client-Side Tool Handler
+  // Client-Side Tool Execution
   try {
     const result = currentActiveTool.execute ? currentActiveTool.execute(input) : input;
     if (result instanceof Promise) {
@@ -1052,24 +1081,20 @@ async function runCurrentTool() {
   }
 }
 
-// -------------------------------------------------------------
-// Event Listeners
-// -------------------------------------------------------------
+// Event Listeners for Dedicated Tool View
 btnRunActiveTool.addEventListener("click", runCurrentTool);
 
-// Sample Text Loader
 btnSampleText.addEventListener("click", () => {
   if (currentActiveTool?.sample) {
     workspaceInput.value = currentActiveTool.sample;
   } else {
-    workspaceInput.value = "Plexudo AI Text Utility offers fast, private, and instant text manipulation tools.";
+    workspaceInput.value = "Sample text for testing utility tools.";
   }
   updateStats();
   runCurrentTool();
   showToast("Sample loaded!");
 });
 
-// Clear Workspace
 btnClearWorkspace.addEventListener("click", () => {
   workspaceInput.value = "";
   workspaceOutput.value = "";
@@ -1078,7 +1103,6 @@ btnClearWorkspace.addEventListener("click", () => {
   showToast("Cleared!");
 });
 
-// Copy Output
 btnCopyOutput.addEventListener("click", () => {
   const text = workspaceOutput.value || workspaceInput.value;
   if (!text) {
@@ -1090,24 +1114,18 @@ btnCopyOutput.addEventListener("click", () => {
   });
 });
 
-// Use Output as Input
 btnUseOutputAsInput.addEventListener("click", () => {
   if (workspaceOutput.value) {
     workspaceInput.value = workspaceOutput.value;
     updateStats();
     runCurrentTool();
-    showToast("Output applied as input!");
+    showToast("Applied to input!");
   }
 });
 
-// Active Favorite Toggle
 btnFavoriteActive.addEventListener("click", () => {
   if (currentActiveTool) {
     toggleFavorite(currentActiveTool.id);
-    const isFav = favorites.includes(currentActiveTool.id);
-    btnFavoriteActive.innerHTML = `<i class="ph ${isFav ? "ph-star-fill text-amber-400" : "ph-star"}"></i> ${
-      isFav ? "Favorited" : "Favorite"
-    }`;
   }
 });
 
@@ -1173,7 +1191,7 @@ function renderPaletteResults(query) {
     `;
     item.addEventListener("click", () => {
       closeCommandPalette();
-      activateTool(tool);
+      showToolView(tool);
     });
     cmdPaletteResults.appendChild(item);
   });
@@ -1182,40 +1200,48 @@ function renderPaletteResults(query) {
 cmdPaletteInput.addEventListener("input", (e) => renderPaletteResults(e.target.value));
 
 // -------------------------------------------------------------
-// Keyboard Shortcuts
+// Keyboard Shortcuts & Router
 // -------------------------------------------------------------
 window.addEventListener("keydown", (e) => {
-  // Ctrl + K -> Command Palette
+  // Ctrl + K
   if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") {
     e.preventDefault();
     openCommandPalette();
   }
-  // Ctrl + / -> Shortcuts modal
+  // Ctrl + /
   if ((e.ctrlKey || e.metaKey) && e.key === "/") {
     e.preventDefault();
     openModal("shortcutsModal");
   }
-  // Ctrl + Enter -> Run tool
+  // Ctrl + Enter
   if ((e.ctrlKey || e.metaKey) && e.key === "Enter") {
     e.preventDefault();
-    runCurrentTool();
+    if (!toolView.classList.contains("hidden")) {
+      runCurrentTool();
+    }
   }
-  // Ctrl + Shift + C -> Copy output
-  if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key.toLowerCase() === "c") {
-    e.preventDefault();
-    btnCopyOutput.click();
-  }
-  // Ctrl + Shift + X -> Clear all
-  if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key.toLowerCase() === "x") {
-    e.preventDefault();
-    btnClearWorkspace.click();
-  }
-  // Escape -> Close all modals
+  // Escape
   if (e.key === "Escape") {
     closeCommandPalette();
     document.querySelectorAll("[id$='Modal']").forEach((m) => m.classList.add("hidden"));
   }
 });
+
+// URL Hash / Deep Linking (e.g. /#word-counter)
+function handleHashChange() {
+  const hash = window.location.hash.replace("#", "").trim();
+  if (hash) {
+    const found = TOOLS.find((t) => t.id === hash);
+    if (found) {
+      showToolView(found);
+      return;
+    }
+  }
+  showHomeView();
+}
+
+window.addEventListener("hashchange", handleHashChange);
+window.addEventListener("popstate", handleHashChange);
 
 // Modals
 function openModal(id) {
@@ -1241,7 +1267,10 @@ document.getElementById("themeToggle")?.addEventListener("click", () => {
   document.documentElement.classList.toggle("dark");
 });
 
-// Initialize on Load
-activateTool(TOOLS[0]); // Default to Word Counter
+// Initial Page Load
 renderTools();
-updateStats();
+if (window.location.hash) {
+  handleHashChange();
+} else {
+  showHomeView();
+}
