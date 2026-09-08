@@ -212,7 +212,7 @@ export class OpenAiCompatibleProvider implements AiProvider {
  */
 export function getAiProvider(providerType?: string): AiProvider {
   const provider = providerType || process.env.AI_PROVIDER || "gemini";
-  if (provider.toLowerCase().includes("openai") || provider.toLowerCase().includes("experiential")) {
+  if (provider.toLowerCase().includes("openai")) {
     return new OpenAiCompatibleProvider();
   }
   return new GeminiProvider();

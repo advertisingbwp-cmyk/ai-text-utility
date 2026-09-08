@@ -1,7 +1,7 @@
 {
     "name":  "ai-smart-text-utility",
     "version":  "1.0.0",
-    "description":  "AI-Powered Smart Text Utility with Experiential Labs AI \u0026 fast browser text tools",
+    "description": "AI-Powered Smart Text Utility with Google Gemini & fast browser text tools",
     "main":  "index.html",
     "scripts":  {
                     "dev":  "next dev",

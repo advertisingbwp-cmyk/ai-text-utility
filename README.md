@@ -16,7 +16,7 @@ A modern, fast, and free web application providing instant text transformations 
 - Reverse Text
 - Fancy Unicode Social Fonts (𝔉𝔞𝔫𝔠𝔶 𝔊𝔬𝔱𝔥𝔦𝔠, 𝘽𝙤𝙡𝙙 𝙎𝙖𝙣𝙨, Ⓒⓘⓡⓒⓛⓔ, 𝒮𝒸𝓇𝒾𝓅𝓉, 𝔻𝕠𝕦𝕓𝕝𝕖)
 
-### 3. AI Magic Tools (Powered by Experiential Labs AI)
+### 3. AI Magic Tools (Powered by Google Gemini)
 - ✍️ Fix Grammar & Spelling
 - 👔 Professional Tone Enhancer
 - 😊 Friendly / Conversational Tone
@@ -34,6 +34,6 @@ A modern, fast, and free web application providing instant text transformations 
 1. Push this folder to a new GitHub repository (e.g. `smart-text-utility`).
 2. Go to [Vercel Dashboard](https://vercel.com/new) and click **"Add New Project"** -> Import your GitHub repository.
 3. In Project Settings -> **Environment Variables**, add:
-   - **Key:** `EXPLABS_API_KEY`
-   - **Value:** `Your-Experiential-Labs-API-Key`
+   - **Key:** `GEMINI_API_KEY`
+   - **Value:** `Your-Google-Gemini-API-Key`
 4. Click **Deploy**. Your new website will be live in seconds!

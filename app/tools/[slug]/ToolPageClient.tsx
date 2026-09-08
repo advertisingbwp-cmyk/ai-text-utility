@@ -1866,12 +1866,12 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
         return (
           <div className="flex flex-wrap items-center justify-between gap-3 text-xs w-full">
             <div className="flex items-center gap-2 flex-wrap">
-              <span className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-purple-500/10 border border-purple-500/20 text-purple-300 font-medium">
-                <Sparkles size={13} className="text-purple-400" />
-                Experiential Labs AI
+              <span className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-blue-500/10 border border-blue-500/20 text-blue-600 dark:text-blue-400 font-medium">
+                <Sparkles size={13} className="text-blue-500 dark:text-blue-400" />
+                Google Gemini
               </span>
-              <span className="text-slate-400">
-                Model: <strong className="text-slate-200">Claude Sonnet 5</strong>
+              <span className="text-slate-500 dark:text-slate-400">
+                Model: <strong className="text-slate-700 dark:text-slate-200">Gemini Flash</strong>
               </span>
               {input.length > 10000 ? (
                 <span className="flex items-center gap-1 text-rose-400 bg-rose-500/10 border border-rose-500/20 px-2.5 py-0.5 rounded">

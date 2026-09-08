@@ -104,7 +104,7 @@ test("Tool FAQs - Strict Security & Anti-Mismatch Audit", () => {
       ].join(" ").toLowerCase();
 
       assert.ok(
-        allText.includes("serverless") || allText.includes("claude") || allText.includes("https"),
+        allText.includes("serverless") || allText.includes("gemini") || allText.includes("https"),
         `AI tool '${tool.slug}' must accurately explain serverless/AI architecture`
       );
       assert.ok(
