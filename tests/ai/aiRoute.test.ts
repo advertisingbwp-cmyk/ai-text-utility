@@ -9,7 +9,11 @@ import type { AiMode } from "../../lib/ai/types.ts";
 
 import { SYSTEM_PROMPTS, getSystemPrompt } from "../../lib/ai/prompts.ts";
 import { RateLimiter } from "../../lib/ai/rateLimiter.ts";
-import { OpenAiCompatibleProvider } from "../../lib/ai/provider.ts";
+import {
+  GeminiProvider,
+  OpenAiCompatibleProvider,
+  getAiProvider,
+} from "../../lib/ai/provider.ts";
 
 test("1. AI Mode Validation", () => {
   // Allowed modes
@@ -70,25 +74,27 @@ test("3. Rate Limiter - Abuse Protection & Serverless Compatibility", () => {
   assert.equal(otherIp.allowed, true);
 });
 
-test("4. AI Provider - Valid Request Execution", async () => {
+test("4. Gemini Provider - Valid Request Execution", async () => {
   const originalFetch = globalThis.fetch;
   try {
-    // Mock successful upstream provider response
+    // Mock successful Gemini API response
     globalThis.fetch = async (url, options) => {
+      assert.ok(String(url).includes("/models/gemini-flash-latest:generateContent"));
+      assert.equal(options?.headers?.["X-goog-api-key"], "test-gemini-key");
+
       const body = JSON.parse(options?.body as string);
-      assert.equal(body.model, "test-model");
-      assert.equal(body.messages[1].content, "Sample user text");
+      assert.equal(body.contents[0].parts[0].text, "Sample user text");
+      assert.ok(body.systemInstruction.parts[0].text.includes("Fix grammar"));
 
       return new Response(
         JSON.stringify({
-          id: "chatcmpl-test",
-          model: "test-model",
-          choices: [
+          candidates: [
             {
-              message: {
-                role: "assistant",
-                content: "Corrected user text.",
+              content: {
+                parts: [{ text: "Corrected user text by Gemini." }],
+                role: "model",
               },
+              finishReason: "STOP",
             },
           ],
         }),
@@ -96,48 +102,51 @@ test("4. AI Provider - Valid Request Execution", async () => {
       );
     };
 
-    const provider = new OpenAiCompatibleProvider();
+    const provider = new GeminiProvider();
     const result = await provider.execute("grammar", "Sample user text", {
-      apiKey: "test-key",
-      baseUrl: "https://mock.api/v1",
-      model: "test-model",
+      apiKey: "test-gemini-key",
+      baseUrl: "https://generativelanguage.googleapis.com/v1beta",
+      model: "gemini-flash-latest",
       timeoutMs: 5000,
       maxOutputTokens: 1000,
+      temperature: 0.7,
     });
 
-    assert.equal(result, "Corrected user text.");
+    assert.equal(result, "Corrected user text by Gemini.");
   } finally {
     globalThis.fetch = originalFetch;
   }
 });
 
-test("5. AI Provider - Provider Error Response", async () => {
+test("5. Gemini Provider - Provider Error Response", async () => {
   const originalFetch = globalThis.fetch;
   try {
     globalThis.fetch = async () => {
       return new Response(
         JSON.stringify({
           error: {
-            message: "Invalid API key provided or quota exceeded.",
+            message: "API key not valid. Please pass a valid API key.",
+            code: 400,
+            status: "INVALID_ARGUMENT",
           },
         }),
-        { status: 401, headers: { "Content-Type": "application/json" } }
+        { status: 400, headers: { "Content-Type": "application/json" } }
       );
     };
 
-    const provider = new OpenAiCompatibleProvider();
+    const provider = new GeminiProvider();
     await assert.rejects(
       async () => {
         await provider.execute("professional", "Some draft", {
           apiKey: "bad-key",
-          baseUrl: "https://mock.api/v1",
-          model: "test-model",
+          baseUrl: "https://generativelanguage.googleapis.com/v1beta",
+          model: "gemini-flash-latest",
           timeoutMs: 5000,
           maxOutputTokens: 1000,
         });
       },
       {
-        message: "Invalid API key provided or quota exceeded.",
+        message: "API key not valid. Please pass a valid API key.",
       }
     );
   } finally {
@@ -145,26 +154,26 @@ test("5. AI Provider - Provider Error Response", async () => {
   }
 });
 
-test("6. AI Provider - Malformed Provider Response", async () => {
+test("6. Gemini Provider - Malformed Provider Response", async () => {
   const originalFetch = globalThis.fetch;
   try {
-    // Missing choices array
+    // Missing candidates array
     globalThis.fetch = async () => {
       return new Response(
         JSON.stringify({
-          id: "empty-response",
+          promptFeedback: { blockReason: "OTHER" },
         }),
         { status: 200, headers: { "Content-Type": "application/json" } }
       );
     };
 
-    const provider = new OpenAiCompatibleProvider();
+    const provider = new GeminiProvider();
     await assert.rejects(
       async () => {
         await provider.execute("summarize", "Text to summarize", {
           apiKey: "key",
-          baseUrl: "https://mock.api/v1",
-          model: "model",
+          baseUrl: "https://generativelanguage.googleapis.com/v1beta",
+          model: "gemini-flash-latest",
           timeoutMs: 5000,
           maxOutputTokens: 500,
         });
@@ -178,7 +187,7 @@ test("6. AI Provider - Malformed Provider Response", async () => {
   }
 });
 
-test("7. AI Provider - Timeout Handling", async () => {
+test("7. Gemini Provider - Timeout Handling", async () => {
   const originalFetch = globalThis.fetch;
   try {
     // Hang until aborted
@@ -193,13 +202,13 @@ test("7. AI Provider - Timeout Handling", async () => {
       });
     };
 
-    const provider = new OpenAiCompatibleProvider();
+    const provider = new GeminiProvider();
     await assert.rejects(
       async () => {
         await provider.execute("expand", "Brief note", {
           apiKey: "key",
-          baseUrl: "https://mock.api/v1",
-          model: "model",
+          baseUrl: "https://generativelanguage.googleapis.com/v1beta",
+          model: "gemini-flash-latest",
           timeoutMs: 50, // 50ms quick timeout
           maxOutputTokens: 500,
         });
@@ -211,4 +220,12 @@ test("7. AI Provider - Timeout Handling", async () => {
   } finally {
     globalThis.fetch = originalFetch;
   }
+});
+
+test("8. AI Provider Factory - Default to GeminiProvider", () => {
+  const defaultProvider = getAiProvider();
+  assert.equal(defaultProvider.name, "Google-Gemini");
+
+  const openAiProvider = getAiProvider("openai");
+  assert.equal(openAiProvider.name, "OpenAI-Compatible");
 });

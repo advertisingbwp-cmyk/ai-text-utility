@@ -96,16 +96,16 @@ export async function POST(req: Request): Promise<NextResponse<AiResponseBody>> 
 
     // 5. Server-Side Credentials & Config
     const apiKey =
-      process.env.EXPLABS_API_KEY ||
+      process.env.GEMINI_API_KEY ||
+      process.env.GOOGLE_API_KEY ||
       process.env.AI_API_KEY ||
-      process.env.EXPERIENTIAL_API_KEY ||
-      process.env.EXPERIENTIAL_LABS_API_KEY;
+      process.env.EXPLABS_API_KEY;
 
     if (!apiKey) {
       return NextResponse.json(
         {
           success: false,
-          error: "AI service is currently unconfigured. Set EXPLABS_API_KEY in environment variables.",
+          error: "AI service is currently unconfigured. Set GEMINI_API_KEY in environment variables.",
         },
         { status: 503 }
       );
@@ -113,14 +113,13 @@ export async function POST(req: Request): Promise<NextResponse<AiResponseBody>> 
 
     const baseUrl =
       process.env.AI_BASE_URL ||
-      process.env.EXPLABS_BASE_URL ||
-      "https://api.experientiallabs.ai/v1";
+      "https://generativelanguage.googleapis.com/v1beta";
 
-    const model = process.env.AI_MODEL || "claude-sonnet-5";
+    const model = process.env.AI_MODEL || "gemini-flash-latest";
 
     const timeoutMs = parseInt(process.env.AI_TIMEOUT_MS || "25000", 10);
     const maxOutputTokens = parseInt(process.env.AI_MAX_OUTPUT_TOKENS || "2000", 10);
-    const envTemp = process.env.AI_TEMPERATURE ? parseFloat(process.env.AI_TEMPERATURE) : 1.0;
+    const envTemp = process.env.AI_TEMPERATURE ? parseFloat(process.env.AI_TEMPERATURE) : 0.7;
 
     // 6. Execute via Pluggable Provider Layer
     const provider = getAiProvider();

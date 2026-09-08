@@ -170,11 +170,11 @@ export const CATEGORY_DEFAULT_CONTENT: Record<
     howToSteps: [
       "Paste your rough draft, bullet points, or message into the text area.",
       "Click the 'Run AI Tool' button to submit your request.",
-      "Our serverless AI engine (Claude Sonnet via Experiential Labs) refines your text in seconds.",
+      "Our serverless AI engine (Google Gemini) refines your text in seconds.",
       "Review the high-quality rewrite, copy to clipboard, or retry with updated instructions.",
     ],
     features: [
-      "State-of-the-art Claude Sonnet AI intelligence",
+      "State-of-the-art Google Gemini AI intelligence",
       "Strict zero-logging policy: user text is never saved or used for training",
       "No client-side API keys: requests are securely proxied server-side via HTTPS",
       "Fast responses with strict rate limiting abuse protection",
@@ -1404,11 +1404,11 @@ export const TOOL_SPECIFIC_CONTENT: Record<
     howToSteps: [
       "Paste your rough draft, essay, email, or message into the text area.",
       "Click 'Run AI Tool' to submit your text to our secure serverless AI engine.",
-      "Claude Sonnet reviews syntax, spelling, punctuation, and phrasing in seconds.",
+      "Google Gemini reviews syntax, spelling, punctuation, and phrasing in seconds.",
       "Review the corrected version and copy the polished text to your clipboard.",
     ],
     features: [
-      "Advanced grammar, spelling, punctuation, and syntax correction powered by Claude Sonnet",
+      "Advanced grammar, spelling, punctuation, and syntax correction powered by Google Gemini",
       "Preserves your natural writing voice and original intended meaning",
       "Encrypted HTTPS serverless API proxy with strict zero-logging policy",
       "Processes up to 10,000 characters per request",
@@ -1422,7 +1422,7 @@ export const TOOL_SPECIFIC_CONTENT: Record<
       {
         question: "Is my text sent to an external server?",
         answer:
-          "Yes. AI tools securely send text via encrypted HTTPS to our serverless API proxy connecting to Claude Sonnet (via Experiential Labs). The request is processed ephemerally in memory and is never logged to disk or used for model training.",
+          "Yes. AI tools securely send text via encrypted HTTPS to our serverless API proxy connecting to Google Gemini. The request is processed ephemerally in memory and is never logged to disk or used for model training.",
       },
       {
         question: "Will the AI alter my unique tone or writing style?",
@@ -1442,7 +1442,7 @@ export const TOOL_SPECIFIC_CONTENT: Record<
     features: [
       "Transforms informal or blunt drafts into articulate, diplomatic executive prose",
       "Ideal for business proposals, client emails, performance reviews, and formal correspondence",
-      "Powered by Claude Sonnet via enterprise serverless API",
+      "Powered by Google Gemini via secure serverless API",
       "Encrypted transit with strict zero-logging and zero-training guarantees",
     ],
     faqs: [
@@ -1474,7 +1474,7 @@ export const TOOL_SPECIFIC_CONTENT: Record<
     features: [
       "Softens harsh or abrupt phrasing with approachable, empathetic wording",
       "Perfect for customer support, team collaboration, community updates, and onboarding",
-      "Powered by Claude Sonnet via high-performance serverless endpoints",
+      "Powered by Google Gemini via high-performance serverless endpoints",
       "Complete data privacy: zero prompt caching, zero storage, and zero model training",
     ],
     faqs: [
@@ -1506,7 +1506,7 @@ export const TOOL_SPECIFIC_CONTENT: Record<
     features: [
       "Condenses lengthy documents into actionable executive summaries and bullet points",
       "Highlights critical decisions, statistics, and conclusions",
-      "Powered by Claude Sonnet via enterprise serverless API",
+      "Powered by Google Gemini via enterprise serverless API",
       "Supports input texts up to 10,000 characters per request",
     ],
     faqs: [
@@ -1538,7 +1538,7 @@ export const TOOL_SPECIFIC_CONTENT: Record<
     features: [
       "Rewords text with fresh vocabulary while preserving 100% of original meaning",
       "Eliminates awkward syntax and improves readability and rhythm",
-      "Powered by Claude Sonnet via secure serverless API",
+      "Powered by Google Gemini via secure serverless API",
       "Zero prompt logging and zero AI training",
     ],
     faqs: [
@@ -1555,7 +1555,7 @@ export const TOOL_SPECIFIC_CONTENT: Record<
       {
         question: "How is my text processed?",
         answer:
-          "Your text is securely transmitted via HTTPS to our serverless proxy executing Claude Sonnet. Data is never cached, logged, or used for model training.",
+          "Your text is securely transmitted via HTTPS to our serverless proxy executing Google Gemini. Data is never cached, logged, or used for model training.",
       },
     ],
   },
@@ -1570,7 +1570,7 @@ export const TOOL_SPECIFIC_CONTENT: Record<
     features: [
       "Transforms rough outlines into comprehensive, well-structured prose",
       "Adds logical supporting arguments, descriptive context, and clear transitions",
-      "Powered by Claude Sonnet via enterprise serverless infrastructure",
+      "Powered by Google Gemini via enterprise serverless infrastructure",
       "Ephemeral memory processing with zero data storage",
     ],
     faqs: [

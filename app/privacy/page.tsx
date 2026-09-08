@@ -91,7 +91,7 @@ export default function PrivacyPage() {
           <p>
             When you deliberately use our AI-powered features (such as Grammar Fixer, AI Summarizer, or Paraphraser),
             your input text is securely transmitted via HTTPS to our serverless backend endpoint (<code>/api/ai</code>), which
-            proxies your request to our enterprise AI model provider (Claude Sonnet 5 via Experiential Labs).
+            proxies your request to our enterprise AI model provider (Google Gemini via Google AI Studio).
           </p>
           <ul className="list-disc list-inside space-y-1.5 text-slate-500 dark:text-slate-400 pl-2">
             <li>Your input text is processed ephemerally to generate your requested rewrite.</li>
