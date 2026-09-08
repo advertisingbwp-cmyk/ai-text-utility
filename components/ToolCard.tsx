@@ -6,9 +6,10 @@ import { ToolDefinition } from "@/data/toolsRegistry";
 import { DynamicIcon } from "@/components/DynamicIcon";
 import { FavoriteStar } from "@/components/FavoriteStar";
 import { ArrowRight } from "lucide-react";
+import { getToolTheme } from "@/lib/toolThemes";
 
 export const ToolCard: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
-  const isAI = tool.category === "AI Magic";
+  const theme = getToolTheme(tool.id, tool.category);
 
   return (
     <div className="group relative flex flex-col justify-between rounded-xl sm:rounded-2xl border border-slate-200/90 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/60 p-3 sm:p-5 shadow-card hover:shadow-cardHover hover:border-slate-300 dark:hover:border-slate-700 transition-all duration-200 hover:-translate-y-0.5">
@@ -22,11 +23,7 @@ export const ToolCard: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
       <div>
         <div className="flex items-center justify-between gap-2 mb-2 sm:mb-3.5">
           <div
-            className={`w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl flex items-center justify-center transition-transform group-hover:scale-105 shrink-0 ${
-              isAI
-                ? "bg-brand-50 dark:bg-brand-950/40 text-brand-600 dark:text-brand-400 border border-brand-200/80 dark:border-brand-800/60"
-                : "bg-slate-100 dark:bg-slate-800/80 text-slate-700 dark:text-slate-200 border border-slate-200/80 dark:border-slate-700/60"
-            }`}
+            className={`w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl flex items-center justify-center transition-all duration-200 group-hover:scale-110 shrink-0 shadow-2xs border ${theme.bg} ${theme.text} ${theme.border}`}
           >
             <DynamicIcon name={tool.icon} size={16} className="sm:w-[18px] sm:h-[18px]" />
           </div>

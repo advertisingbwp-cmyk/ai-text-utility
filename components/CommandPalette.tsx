@@ -6,6 +6,7 @@ import { Command } from "cmdk";
 import { Search, Sparkles, X } from "lucide-react";
 import { TOOLS_REGISTRY, CATEGORIES } from "@/data/toolsRegistry";
 import { DynamicIcon } from "@/components/DynamicIcon";
+import { getToolTheme } from "@/lib/toolThemes";
 
 interface CommandPaletteProps {
   open?: boolean;
@@ -121,22 +122,20 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
                   heading={cat.name}
                   className="px-2 py-1.5 text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider"
                 >
-                  {toolsInCat.map((tool) => (
-                    <Command.Item
-                      key={tool.id}
-                      value={`${tool.name} ${tool.category} ${tool.keywords.join(" ")}`}
-                      onSelect={() => handleSelect(tool.slug)}
-                      className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/90 hover:text-slate-900 dark:hover:text-white cursor-pointer data-[selected=true]:bg-slate-100 dark:data-[selected=true]:bg-slate-800 data-[selected=true]:text-slate-900 dark:data-[selected=true]:text-white transition-colors"
-                    >
-                      <div
-                        className={`w-7 h-7 rounded-lg flex items-center justify-center shrink-0 ${
-                          tool.category === "AI Magic"
-                            ? "bg-brand-50 dark:bg-brand-950/40 text-brand-600 dark:text-brand-400 border border-brand-200/80 dark:border-brand-800/60"
-                            : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700"
-                        }`}
+                  {toolsInCat.map((tool) => {
+                    const theme = getToolTheme(tool.id, tool.category);
+                    return (
+                      <Command.Item
+                        key={tool.id}
+                        value={`${tool.name} ${tool.category} ${tool.keywords.join(" ")}`}
+                        onSelect={() => handleSelect(tool.slug)}
+                        className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/90 hover:text-slate-900 dark:hover:text-white cursor-pointer data-[selected=true]:bg-slate-100 dark:data-[selected=true]:bg-slate-800 data-[selected=true]:text-slate-900 dark:data-[selected=true]:text-white transition-colors"
                       >
-                        <DynamicIcon name={tool.icon} size={15} />
-                      </div>
+                        <div
+                          className={`w-7 h-7 rounded-lg flex items-center justify-center shrink-0 border ${theme.bg} ${theme.text} ${theme.border}`}
+                        >
+                          <DynamicIcon name={tool.icon} size={15} />
+                        </div>
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2">
                           <span className="font-medium text-slate-900 dark:text-slate-100 truncate">
@@ -156,7 +155,8 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
                         ↵ Open
                       </span>
                     </Command.Item>
-                  ))}
+                  );
+                })}
                 </Command.Group>
               );
             })}

@@ -20,6 +20,7 @@ import { DynamicIcon } from "@/components/DynamicIcon";
 import { FavoriteStar } from "@/components/FavoriteStar";
 import { CopyButton } from "@/components/CopyButton";
 import { addRecentTool } from "@/lib/storage";
+import { getToolTheme } from "@/lib/toolThemes";
 
 export interface ToolLayoutProps {
   tool: ToolDefinition;
@@ -67,6 +68,7 @@ export const ToolLayout: React.FC<ToolLayoutProps> = ({
   hideActionBar = false,
 }) => {
   const [showShortcutsHelp, setShowShortcutsHelp] = useState(false);
+  const theme = getToolTheme(tool.id, tool.category);
 
   // Track as recently used in localStorage
   useEffect(() => {
@@ -182,11 +184,7 @@ export const ToolLayout: React.FC<ToolLayoutProps> = ({
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="flex items-start gap-4">
             <div
-              className={`w-12 h-12 rounded-xl flex items-center justify-center shrink-0 shadow-xs ${
-                isAI
-                  ? "bg-brand-50 dark:bg-brand-950/40 text-brand-600 dark:text-brand-400 border border-brand-200/80 dark:border-brand-800/60"
-                  : "bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200/80 dark:border-slate-700/60"
-              }`}
+              className={`w-12 h-12 rounded-xl flex items-center justify-center shrink-0 shadow-xs border ${theme.bg} ${theme.text} ${theme.border}`}
             >
               <DynamicIcon name={tool.icon} size={24} />
             </div>
@@ -197,11 +195,7 @@ export const ToolLayout: React.FC<ToolLayoutProps> = ({
                   {tool.name}
                 </h1>
                 <span
-                  className={`text-xs font-semibold px-2.5 py-0.5 rounded-full ${
-                    isAI
-                      ? "bg-brand-50 text-brand-700 dark:bg-brand-950/60 dark:text-brand-300 border border-brand-200/80 dark:border-brand-800/60"
-                      : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700"
-                  }`}
+                  className={`text-xs font-semibold px-2.5 py-0.5 rounded-full border ${theme.badgeBg} ${theme.badgeText} ${theme.badgeBorder}`}
                 >
                   {tool.category}
                 </span>
@@ -218,7 +212,12 @@ export const ToolLayout: React.FC<ToolLayoutProps> = ({
           </div>
 
           <div className="flex items-center gap-2 shrink-0 self-start sm:self-center">
-            <FavoriteStar toolId={tool.id} toolName={tool.name} showLabel size={18} />
+            <FavoriteStar
+              toolId={tool.id}
+              toolName={tool.name}
+              size={20}
+              className="p-2 border border-slate-200 dark:border-slate-800 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+            />
           </div>
         </div>
 

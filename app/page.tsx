@@ -24,6 +24,7 @@ import { EmptyState } from "@/components/EmptyState";
 import { DynamicIcon } from "@/components/DynamicIcon";
 import { TerminalHero } from "@/components/TerminalHero";
 import { getFavorites, getRecentTools } from "@/lib/storage";
+import { getCategoryTheme } from "@/lib/toolThemes";
 
 export default function HomePage() {
   const [selectedCategory, setSelectedCategory] = useState<string>("ALL");
@@ -85,6 +86,7 @@ export default function HomePage() {
             {CATEGORIES.map((cat) => {
               const count = TOOLS_REGISTRY.filter((t) => t.category === cat.name).length;
               const isSelected = selectedCategory === cat.name && !onlyFavorites;
+              const catTheme = getCategoryTheme(cat.name);
 
               return (
                 <a
@@ -105,10 +107,10 @@ export default function HomePage() {
                 >
                   <div className="w-full flex items-center justify-between mb-2">
                     <div
-                      className={`w-7 h-7 rounded-lg flex items-center justify-center transition-colors ${
+                      className={`w-7 h-7 rounded-lg flex items-center justify-center transition-transform group-hover:scale-110 ${
                         isSelected
                           ? "bg-white/20 text-white"
-                          : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 group-hover:bg-brand-50 dark:group-hover:bg-brand-950/60 group-hover:text-brand-600 dark:group-hover:text-brand-300"
+                          : `${catTheme.bg} ${catTheme.text} border ${catTheme.border}`
                       }`}
                     >
                       <DynamicIcon name={cat.icon} size={15} />
@@ -239,6 +241,7 @@ export default function HomePage() {
           {CATEGORIES.map((cat) => {
             const toolsInCat = TOOLS_REGISTRY.filter((t) => t.category === cat.name);
             const isAI = cat.name === ("AI Magic" as ToolCategory);
+            const catTheme = getCategoryTheme(cat.name);
 
             return (
               <section
@@ -249,11 +252,7 @@ export default function HomePage() {
                 <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-800/80 pb-3">
                   <div className="flex items-center gap-3">
                     <div
-                      className={`p-2 rounded-xl flex items-center justify-center ${
-                        isAI
-                          ? "bg-brand-50 dark:bg-brand-950/40 text-brand-600 dark:text-brand-400 border border-brand-200/80 dark:border-brand-800/60"
-                          : "bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200/60 dark:border-slate-700/60"
-                      }`}
+                      className={`p-2 rounded-xl flex items-center justify-center border shadow-2xs ${catTheme.bg} ${catTheme.text} ${catTheme.border}`}
                     >
                       {isAI ? (
                         <Sparkles size={18} />
