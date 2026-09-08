@@ -192,6 +192,28 @@ export default function HomePage() {
               All Tools ({TOOLS_REGISTRY.length})
             </button>
 
+            {/* Favorites Tab - placed right after All Tools */}
+            <button
+              type="button"
+              onClick={() => {
+                setOnlyFavorites((prev) => !prev);
+                if (!onlyFavorites) {
+                  setSelectedCategory("ALL");
+                }
+              }}
+              className={`inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold border transition-all whitespace-nowrap cursor-pointer ${
+                onlyFavorites
+                  ? "bg-amber-500/15 text-amber-700 dark:text-amber-300 border-amber-500/40 shadow-xs"
+                  : "bg-white dark:bg-slate-900/60 text-slate-600 dark:text-slate-400 hover:text-amber-600 dark:hover:text-amber-300 border-slate-200/90 dark:border-slate-800"
+              }`}
+            >
+              <Star
+                size={14}
+                className={onlyFavorites ? "fill-amber-500 text-amber-500" : "text-amber-500"}
+              />
+              <span>Favorites ({favoritesList.length})</span>
+            </button>
+
             {CATEGORIES.map((cat) => (
               <button
                 key={cat.name}
@@ -200,7 +222,7 @@ export default function HomePage() {
                   setSelectedCategory(cat.name);
                   setOnlyFavorites(false);
                 }}
-                className={`flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold transition-all whitespace-nowrap ${
+                className={`flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold transition-all whitespace-nowrap cursor-pointer ${
                   selectedCategory === cat.name && !onlyFavorites
                     ? "bg-slate-900 text-white dark:bg-brand-600 dark:text-white shadow-xs"
                     : "bg-white dark:bg-slate-900/60 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white border border-slate-200/90 dark:border-slate-800"
@@ -210,22 +232,6 @@ export default function HomePage() {
                 <span>{cat.name}</span>
               </button>
             ))}
-
-            <button
-              type="button"
-              onClick={() => setOnlyFavorites((prev) => !prev)}
-              className={`inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold border transition-all whitespace-nowrap ${
-                onlyFavorites
-                  ? "bg-amber-500/15 text-amber-700 dark:text-amber-300 border-amber-500/40 shadow-xs"
-                  : "bg-white dark:bg-slate-900/60 text-slate-600 dark:text-slate-400 hover:text-amber-600 dark:hover:text-amber-300 border-slate-200/90 dark:border-slate-800"
-              }`}
-            >
-              <Star
-                size={14}
-                className={onlyFavorites ? "fill-amber-500 text-amber-500" : ""}
-              />
-              <span>Favorites ({favoritesList.length})</span>
-            </button>
           </div>
         </div>
       </section>
