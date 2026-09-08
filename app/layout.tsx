@@ -136,11 +136,6 @@ export default function RootLayout({
           strategy="afterInteractive"
         />
 
-        {/* Adsterra Social Bar */}
-        <Script
-          src="https://bibleearthquake.com/bb/2d/0c/bb2d0c583cc5168221edaaa19801920a.js"
-          strategy="afterInteractive"
-        />
       </head>
       <body className="bg-slate-50 dark:bg-[#090d16] text-slate-900 dark:text-slate-100 antialiased selection:bg-brand-500/15 selection:text-brand-700 dark:selection:text-brand-300">
         <AppShell>{children}</AppShell>
