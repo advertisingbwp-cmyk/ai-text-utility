@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useCallback, useMemo } from "react";
 import { ToolDefinition } from "@/data/toolsRegistry";
-import { ToolLayout } from "@/components/ToolLayout";
+import { ToolWorkspaceResolver } from "@/components/layouts";
 import { CopyButton } from "@/components/CopyButton";
 
 // Import pure Phase 2, 3 & 4 tools
@@ -142,6 +142,7 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
   const [urlScope, setUrlScope] = useState<"component" | "full">("component");
   const [hashAlgo, setHashAlgo] = useState<HashAlgorithm>("SHA-256");
   const [hashUpper, setHashUpper] = useState<boolean>(false);
+  const [allHashes, setAllHashes] = useState<{ [algo: string]: string }>({});
   const [jwtView, setJwtView] = useState<"visual" | "raw">("visual");
   const [pwLength, setPwLength] = useState<number>(16);
   const [pwUpper, setPwUpper] = useState<boolean>(true);
@@ -394,12 +395,22 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
           }
 
           case "hash-generator": {
-            generateHash(currentInput, {
-              algorithm: hashAlgo,
-              uppercase: hashUpper,
-            })
-              .then((res) => {
-                setOutput(res.hash);
+            const algos: HashAlgorithm[] = ["SHA-256", "SHA-384", "SHA-512", "SHA-1"];
+            Promise.all(
+              algos.map((algo) =>
+                generateHash(currentInput, { algorithm: algo, uppercase: hashUpper }).then((r) => ({
+                  algo,
+                  hash: r.hash,
+                }))
+              )
+            )
+              .then((results) => {
+                const map: { [algo: string]: string } = {};
+                results.forEach((r) => {
+                  map[r.algo] = r.hash;
+                });
+                setAllHashes(map);
+                setOutput(map[hashAlgo] || results[0]?.hash || "");
               })
               .catch((err) => {
                 setError(err instanceof Error ? err.message : "Hashing failed");
@@ -2405,10 +2416,232 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
       );
     }
 
+    if (tool.slug === "character-frequency") {
+      const items = analyzeCharacterFrequency(input, {
+        sortBy: charSort,
+        ignoreWhitespace: charIgnoreWs,
+        ignoreCase: charIgnoreCaps,
+      });
+      if (items.length === 0) {
+        return (
+          <div className="text-slate-400 text-xs py-8 text-center font-mono">
+            Enter text above to view character frequency analysis.
+          </div>
+        );
+      }
+      return (
+        <div className="space-y-4">
+          <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
+            <span>Unique Glyphs: <strong className="text-slate-800 dark:text-slate-200">{items.length}</strong></span>
+            <span>Ranked by {charSort === "frequency" ? "Frequency" : "Alphabetical"}</span>
+          </div>
+          <div className="overflow-x-auto rounded-xl border border-slate-200/90 dark:border-slate-800">
+            <table className="w-full text-left text-xs font-mono">
+              <thead className="bg-slate-50/90 dark:bg-slate-950/80 text-slate-500 dark:text-slate-400 border-b border-slate-200/80 dark:border-slate-800">
+                <tr>
+                  <th className="p-3">#</th>
+                  <th className="p-3">Character</th>
+                  <th className="p-3">Count</th>
+                  <th className="p-3">Percentage</th>
+                  <th className="p-3 w-1/3">Distribution</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-100 dark:divide-slate-800/60">
+                {items.slice(0, 100).map((item, idx) => (
+                  <tr key={idx} className="hover:bg-slate-50/60 dark:hover:bg-slate-800/40 transition-colors">
+                    <td className="p-3 text-slate-400">{idx + 1}</td>
+                    <td className="p-3 font-bold text-brand-600 dark:text-brand-400 text-sm">
+                      <span className="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+                        {item.displayCharacter}
+                      </span>
+                    </td>
+                    <td className="p-3 font-semibold text-slate-800 dark:text-slate-200">{item.count.toLocaleString()}</td>
+                    <td className="p-3 text-slate-600 dark:text-slate-400">{item.percentage}%</td>
+                    <td className="p-3">
+                      <div className="w-full h-2 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
+                        <div
+                          className="h-full bg-brand-500 rounded-full"
+                          style={{ width: `${Math.min(100, item.percentage * 2)}%` }}
+                        />
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      );
+    }
+
+    if (tool.slug === "word-frequency") {
+      const items = analyzeWordFrequency(input, {
+        sortBy: wordSort,
+        minWordLength: wordMinLen,
+        ignoreCase: wordIgnoreCaps,
+      });
+      if (items.length === 0) {
+        return (
+          <div className="text-slate-400 text-xs py-8 text-center font-mono">
+            Enter text above to view word frequency analysis.
+          </div>
+        );
+      }
+      return (
+        <div className="space-y-4">
+          <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
+            <span>Unique Words: <strong className="text-slate-800 dark:text-slate-200">{items.length}</strong></span>
+            <span>Ranked by {wordSort === "frequency" ? "Frequency" : "Alphabetical"}</span>
+          </div>
+          <div className="overflow-x-auto rounded-xl border border-slate-200/90 dark:border-slate-800">
+            <table className="w-full text-left text-xs font-mono">
+              <thead className="bg-slate-50/90 dark:bg-slate-950/80 text-slate-500 dark:text-slate-400 border-b border-slate-200/80 dark:border-slate-800">
+                <tr>
+                  <th className="p-3">#</th>
+                  <th className="p-3">Word</th>
+                  <th className="p-3">Count</th>
+                  <th className="p-3">Percentage</th>
+                  <th className="p-3 w-1/3">Distribution</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-100 dark:divide-slate-800/60">
+                {items.slice(0, 100).map((item, idx) => (
+                  <tr key={idx} className="hover:bg-slate-50/60 dark:hover:bg-slate-800/40 transition-colors">
+                    <td className="p-3 text-slate-400">{idx + 1}</td>
+                    <td className="p-3 font-semibold text-emerald-600 dark:text-emerald-400">
+                      {item.word}
+                    </td>
+                    <td className="p-3 font-semibold text-slate-800 dark:text-slate-200">{item.count.toLocaleString()}</td>
+                    <td className="p-3 text-slate-600 dark:text-slate-400">{item.percentage}%</td>
+                    <td className="p-3">
+                      <div className="w-full h-2 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
+                        <div
+                          className="h-full bg-emerald-500 rounded-full"
+                          style={{ width: `${Math.min(100, item.percentage * 2)}%` }}
+                        />
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      );
+    }
+
+    if (tool.slug === "extract-emails-urls") {
+      const res = extractEmailsAndUrls(input);
+      if (res.totalFound === 0) {
+        return (
+          <div className="text-slate-400 text-xs py-8 text-center font-mono">
+            No emails or URLs detected in the input text.
+          </div>
+        );
+      }
+      return (
+        <div className="space-y-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div className="p-3.5 rounded-xl border border-slate-200/90 dark:border-slate-800 bg-slate-50/90 dark:bg-slate-950/40">
+              <div className="text-xs text-slate-500 dark:text-slate-400 font-medium">Emails Extracted</div>
+              <div className="text-xl font-bold text-emerald-600 dark:text-emerald-400 font-mono mt-1">{res.emails.length}</div>
+            </div>
+            <div className="p-3.5 rounded-xl border border-slate-200/90 dark:border-slate-800 bg-slate-50/90 dark:bg-slate-950/40">
+              <div className="text-xs text-slate-500 dark:text-slate-400 font-medium">URLs Extracted</div>
+              <div className="text-xl font-bold text-blue-600 dark:text-blue-400 font-mono mt-1">{res.urls.length}</div>
+            </div>
+          </div>
+
+          {res.emails.length > 0 && (
+            <div className="space-y-2">
+              <div className="flex items-center justify-between text-xs font-semibold text-slate-700 dark:text-slate-300">
+                <span>Emails ({res.emails.length})</span>
+                <CopyButton text={res.emails.join("\n")} label="Copy All Emails" />
+              </div>
+              <div className="space-y-1.5 max-h-48 overflow-y-auto pr-1">
+                {res.emails.map((email, idx) => (
+                  <div key={idx} className="flex items-center justify-between p-2.5 rounded-xl border border-slate-200/80 dark:border-slate-800 bg-white/60 dark:bg-slate-950/60 text-xs font-mono">
+                    <span className="text-slate-800 dark:text-slate-200 truncate">{email}</span>
+                    <CopyButton text={email} variant="ghost" />
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {res.urls.length > 0 && (
+            <div className="space-y-2">
+              <div className="flex items-center justify-between text-xs font-semibold text-slate-700 dark:text-slate-300">
+                <span>URLs ({res.urls.length})</span>
+                <CopyButton text={res.urls.join("\n")} label="Copy All URLs" />
+              </div>
+              <div className="space-y-1.5 max-h-48 overflow-y-auto pr-1">
+                {res.urls.map((url, idx) => (
+                  <div key={idx} className="flex items-center justify-between p-2.5 rounded-xl border border-slate-200/80 dark:border-slate-800 bg-white/60 dark:bg-slate-950/60 text-xs font-mono">
+                    <span className="text-slate-800 dark:text-slate-200 truncate">{url}</span>
+                    <CopyButton text={url} variant="ghost" />
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      );
+    }
+
+    if (tool.slug === "hash-generator") {
+      const algos = [
+        { name: "SHA-256", bits: 256, hash: allHashes["SHA-256"] || output },
+        { name: "SHA-384", bits: 384, hash: allHashes["SHA-384"] || "" },
+        { name: "SHA-512", bits: 512, hash: allHashes["SHA-512"] || "" },
+        { name: "SHA-1 (Legacy)", bits: 160, hash: allHashes["SHA-1"] || "" },
+      ];
+      return (
+        <div className="space-y-3">
+          {algos.map((item) => (
+            <div key={item.name} className="p-3.5 rounded-xl border border-slate-200/90 dark:border-slate-800 bg-white/70 dark:bg-slate-950/60 flex flex-col sm:flex-row sm:items-center justify-between gap-2 shadow-xs">
+              <div className="min-w-[130px] shrink-0">
+                <div className="text-xs font-bold text-slate-800 dark:text-slate-200">{item.name}</div>
+                <div className="text-[11px] text-slate-400 font-mono">{item.bits} bits</div>
+              </div>
+              <div className="flex-1 font-mono text-xs text-slate-700 dark:text-slate-300 break-all select-all py-1 px-2.5 rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800/60">
+                {item.hash || (input ? "Calculating..." : "Awaiting input...")}
+              </div>
+              <div className="shrink-0 self-end sm:self-center">
+                <CopyButton text={item.hash} />
+              </div>
+            </div>
+          ))}
+        </div>
+      );
+    }
+
+    if (tool.slug === "uuid-generator") {
+      const uuids = output ? output.split("\n").filter(Boolean) : [];
+      return (
+        <div className="space-y-3">
+          <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
+            <span>Generated UUIDs (RFC 4122 v4)</span>
+            <span>{uuids.length} identifiers</span>
+          </div>
+          <div className="space-y-2 max-h-72 overflow-y-auto pr-1">
+            {uuids.map((id, idx) => (
+              <div key={idx} className="flex items-center justify-between p-3 rounded-xl border border-slate-200/80 dark:border-slate-800 bg-slate-50/80 dark:bg-slate-950/60 text-xs font-mono">
+                <span className="text-slate-900 dark:text-slate-100 font-semibold">{id}</span>
+                <CopyButton text={id} variant="ghost" />
+              </div>
+            ))}
+          </div>
+        </div>
+      );
+    }
+
     return null;
   }, [
     tool.slug,
     input,
+    output,
+    allHashes,
     regexPattern,
     regexFlags,
     queryView,
@@ -2422,6 +2655,15 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
     pwSymbols,
     pwExcludeAmbiguous,
     pwCount,
+    uuidCount,
+    uuidUpper,
+    uuidNoHyphens,
+    charSort,
+    charIgnoreWs,
+    charIgnoreCaps,
+    wordSort,
+    wordMinLen,
+    wordIgnoreCaps,
     unixUnit,
     unixTz,
     dateDiffTz,
@@ -2583,7 +2825,7 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
   };
 
   return (
-    <ToolLayout
+    <ToolWorkspaceResolver
       tool={tool}
       input={input}
       output={output}
@@ -2596,7 +2838,6 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
       customControls={isFancyFonts ? null : customControls}
       customPreview={customPreview}
       customWorkspace={isFancyFonts ? renderFancyFontsWorkspace() : undefined}
-      hideActionBar={isFancyFonts}
     />
   );
 };

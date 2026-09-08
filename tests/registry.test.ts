@@ -74,3 +74,27 @@ test("Tools Registry - Search Engine", () => {
   const empty = searchTools("xyznonexistenttool999");
   assert.equal(empty.length, 0);
 });
+
+test("Tools Registry - Valid Layouts", () => {
+  const validLayouts = new Set([
+    "transform",
+    "generator",
+    "dashboard",
+    "table",
+    "twoWay",
+    "validator",
+    "highlight",
+    "splitPreview",
+    "gallery",
+    "compact",
+    "ai",
+  ]);
+
+  for (const tool of TOOLS_REGISTRY) {
+    assert.ok(
+      validLayouts.has(tool.layout),
+      `Tool ${tool.id} has invalid layout: ${(tool as any).layout}`
+    );
+  }
+});
+
