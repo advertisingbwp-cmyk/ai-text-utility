@@ -4,6 +4,7 @@ import { TOOLS_REGISTRY, getToolBySlug } from "@/data/toolsRegistry";
 import { getToolEducationalContent } from "@/data/toolFaqs";
 import { ToolPageClient } from "./ToolPageClient";
 import { ToolSeoContent } from "@/components/ToolSeoContent";
+import { AdsterraResponsiveBanner, AdsterraNativeBanner } from "@/components/ads";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -155,6 +156,8 @@ export default async function ToolPage({ params }: PageProps) {
 
       <article>
         <ToolPageClient tool={tool} />
+        <AdsterraResponsiveBanner />
+        <AdsterraNativeBanner />
         <ToolSeoContent tool={tool} />
       </article>
     </>

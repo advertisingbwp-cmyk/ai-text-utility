@@ -23,6 +23,7 @@ import { StatsBar } from "@/components/StatsBar";
 import { EmptyState } from "@/components/EmptyState";
 import { DynamicIcon } from "@/components/DynamicIcon";
 import { TerminalHero } from "@/components/TerminalHero";
+import { AdsterraResponsiveBanner, AdsterraNativeBanner } from "@/components/ads";
 import { getFavorites, getRecentTools } from "@/lib/storage";
 import { getCategoryTheme } from "@/lib/toolThemes";
 
@@ -391,6 +392,10 @@ export default function HomePage() {
           )}
         </section>
       )}
+
+      {/* Sponsored Adsterra Units */}
+      <AdsterraResponsiveBanner />
+      <AdsterraNativeBanner />
 
       {/* Privacy & Architecture Feature Band */}
       <section className="pt-10 border-t border-slate-200 dark:border-slate-800 grid grid-cols-1 sm:grid-cols-3 gap-5 text-left">
