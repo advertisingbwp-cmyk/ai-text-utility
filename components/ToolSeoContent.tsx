@@ -80,7 +80,7 @@ export const ToolSeoContent: React.FC<ToolSeoContentProps> = ({ tool }) => {
               </ul>
             </div>
 
-            <div className="mt-4 p-3 rounded-xl bg-slate-50 dark:bg-slate-950/60 border border-slate-200/80 dark:border-slate-800/80 text-[11px] text-slate-500 dark:text-slate-400 flex items-center gap-2">
+            <div className="mt-4 p-3 rounded-xl bg-slate-50 dark:bg-slate-950/60 border border-slate-200/80 dark:border-slate-800/80 text-xs text-slate-500 dark:text-slate-400 flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-emerald-500 shrink-0" />
               <span>
                 {isAI
@@ -154,7 +154,7 @@ export const ToolSeoContent: React.FC<ToolSeoContentProps> = ({ tool }) => {
                     {rel.name}
                   </h3>
                 </div>
-                <p className="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-2 leading-relaxed">
+                <p className="text-xs text-slate-500 dark:text-slate-400 line-clamp-2 leading-relaxed">
                   {rel.description}
                 </p>
               </Link>

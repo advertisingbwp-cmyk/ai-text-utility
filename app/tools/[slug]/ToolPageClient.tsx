@@ -2454,19 +2454,26 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
     ];
 
     return (
-      <div className="space-y-6">
+      <div className="space-y-5">
         {/* Full-Width Top Input Box */}
-        <div className="rounded-2xl border border-slate-800 bg-slate-900/60 overflow-hidden shadow-lg">
-          <div className="flex items-center justify-between px-4 py-3 border-b border-slate-800 bg-slate-950/50">
-            <span className="text-xs font-semibold text-slate-200 flex items-center gap-2">
-              <Sparkles size={14} className="text-brand-400" />
-              Type or Paste Text to Stylize
-            </span>
+        <div className="rounded-2xl border border-slate-200/90 dark:border-slate-800/90 bg-white dark:bg-slate-900/60 overflow-hidden shadow-subtle">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 px-4 py-3 border-b border-slate-200/80 dark:border-slate-800/80 bg-slate-50/80 dark:bg-slate-950/50">
+            <div className="flex items-center gap-2.5 flex-wrap">
+              <span className="text-xs font-semibold text-slate-800 dark:text-slate-200 flex items-center gap-2">
+                <Sparkles size={14} className="text-brand-600 dark:text-brand-400" />
+                Type or paste text to stylize
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-50 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-400 border border-emerald-200/80 dark:border-emerald-800/60">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                Live preview enabled • {allStyles.length}+ styles
+              </span>
+            </div>
+
             <div className="flex items-center gap-2">
               <button
                 type="button"
                 onClick={() => setInput("Stylish Text 2026")}
-                className="px-2.5 py-1 text-[11px] font-medium text-slate-400 hover:text-slate-200 bg-slate-800/80 hover:bg-slate-800 rounded-lg transition-colors"
+                className="inline-flex items-center justify-center min-h-[36px] sm:min-h-[40px] px-3 py-1.5 text-xs font-semibold text-slate-700 dark:text-slate-200 bg-white dark:bg-slate-800/90 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-700/80 rounded-xl transition-all shadow-xs focus:outline-none focus:ring-2 focus:ring-brand-500/40"
               >
                 Load Sample
               </button>
@@ -2477,7 +2484,7 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
                   setOutput("");
                 }}
                 disabled={!input}
-                className="px-2.5 py-1 text-[11px] font-medium text-slate-400 hover:text-rose-400 disabled:opacity-30 rounded-lg transition-colors"
+                className="inline-flex items-center justify-center min-h-[36px] sm:min-h-[40px] px-3 py-1.5 text-xs font-semibold text-slate-600 dark:text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/20 border border-slate-200 dark:border-slate-700/80 disabled:opacity-40 disabled:pointer-events-none rounded-xl transition-all shadow-xs focus:outline-none focus:ring-2 focus:ring-rose-400/40"
                 title="Clear text"
               >
                 Clear
@@ -2485,38 +2492,38 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
             </div>
           </div>
 
-          <div className="p-4 bg-slate-950/20">
+          <div className="p-4 bg-white/50 dark:bg-slate-950/20">
             <textarea
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Type your text here (e.g. your name, bio, gaming nickname, or message)..."
               rows={3}
-              className="w-full bg-transparent text-slate-100 placeholder-slate-500 font-sans text-base sm:text-lg resize-y focus:outline-none leading-relaxed"
+              className="w-full bg-transparent text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 font-sans text-base sm:text-lg resize-y focus:outline-none leading-relaxed"
             />
           </div>
 
-          <div className="flex items-center justify-between px-4 py-2 border-t border-slate-800/80 bg-slate-950/60 text-[11px] text-slate-400 font-mono">
+          <div className="flex items-center justify-between px-4 py-2 border-t border-slate-200/80 dark:border-slate-800/80 bg-slate-50/80 dark:bg-slate-950/60 text-xs text-slate-500 dark:text-slate-400 font-mono">
             <span>
               {(input || "").length} characters • {(input || "").trim().split(/\s+/).filter(Boolean).length} words
             </span>
-            <span className="text-emerald-400 flex items-center gap-1">
-              ● Live preview enabled (48+ styles)
+            <span className="text-slate-400 dark:text-slate-500 hidden sm:inline">
+              Instant client-side generation
             </span>
           </div>
         </div>
 
-        {/* Filter Bar: Category Tabs & Quick Search */}
-        <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 p-3 rounded-2xl border border-slate-800 bg-slate-900/40">
-          <div className="flex items-center gap-1.5 overflow-x-auto pb-1 md:pb-0 scrollbar-thin text-xs">
+        {/* Filter Bar: Category Tabs & Local Font Search */}
+        <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 p-3 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle">
+          <div className="flex items-center gap-1.5 overflow-x-auto pb-1 md:pb-0 scrollbar-none text-xs">
             {categories.map((cat) => (
               <button
                 key={cat.id}
                 type="button"
                 onClick={() => setFancyCategoryFilter(cat.id)}
-                className={`px-3 py-1.5 rounded-xl font-medium whitespace-nowrap transition-all ${
+                className={`px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all ${
                   fancyCategoryFilter === cat.id
-                    ? "bg-brand-500 text-white shadow-md shadow-brand-500/20"
-                    : "bg-slate-800/80 text-slate-400 hover:text-slate-200 hover:bg-slate-800"
+                    ? "bg-slate-900 text-white dark:bg-brand-600 dark:text-white shadow-xs"
+                    : "bg-white dark:bg-slate-800/80 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 border border-slate-200/90 dark:border-slate-700/80"
                 }`}
               >
                 {cat.label}
@@ -2524,19 +2531,21 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
             ))}
           </div>
 
-          <div className="relative min-w-[200px] md:w-64">
+          <div className="relative min-w-[220px] md:w-64">
             <input
               type="text"
-              placeholder="Search 48+ styles..."
+              placeholder="Filter font styles..."
+              aria-label="Filter font styles"
               value={fancySearch}
               onChange={(e) => setFancySearch(e.target.value)}
-              className="w-full bg-slate-900 border border-slate-800 focus:border-brand-500 rounded-xl pl-3.5 pr-8 py-1.5 text-xs text-slate-200 placeholder-slate-500 focus:outline-none"
+              className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 rounded-xl pl-3.5 pr-8 py-2 text-xs text-slate-900 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none transition-all shadow-xs"
             />
             {fancySearch && (
               <button
                 type="button"
                 onClick={() => setFancySearch("")}
-                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-300 text-xs"
+                aria-label="Clear filter search"
+                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 text-xs p-1"
               >
                 ✕
               </button>
@@ -2544,25 +2553,25 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
           </div>
         </div>
 
-        {/* Cards Grid: NO max-height, NO overflow-y-auto! Flows on main page */}
+        {/* Cards Grid: Compact cards with title case, 12px labels, and comfortable preview */}
         {filteredStyles.length === 0 ? (
-          <div className="p-12 text-center rounded-2xl border border-slate-800 bg-slate-900/20 text-slate-400 text-sm">
+          <div className="p-12 text-center rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/60 dark:bg-slate-900/20 text-slate-500 dark:text-slate-400 text-sm">
             No font styles found matching &quot;{fancySearch}&quot;.
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3.5">
             {filteredStyles.map((item) => (
               <div
                 key={item.id}
-                className="p-4 rounded-2xl border border-slate-800/90 bg-slate-900/50 hover:bg-slate-900/80 hover:border-slate-700 transition-all flex flex-col justify-between gap-3.5 group shadow-sm hover:shadow-md"
+                className="p-3.5 sm:p-4 rounded-xl border border-slate-200/90 dark:border-slate-800/90 bg-white/80 dark:bg-slate-900/50 hover:bg-white dark:hover:bg-slate-900/80 hover:border-slate-300 dark:hover:border-slate-700 transition-all flex flex-col justify-between gap-2.5 group shadow-xs hover:shadow-cardHover"
               >
-                <div className="flex items-center justify-between gap-2 border-b border-slate-800/60 pb-2.5">
-                  <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider truncate">
+                <div className="flex items-center justify-between gap-2 border-b border-slate-100 dark:border-slate-800/80 pb-2">
+                  <span className="text-xs font-semibold text-slate-600 dark:text-slate-400 truncate tracking-normal">
                     {item.name}
                   </span>
                   <CopyButton text={item.preview} />
                 </div>
-                <div className="text-base sm:text-lg font-medium text-slate-100 break-words select-all leading-relaxed py-1 min-h-[44px] flex items-center font-sans">
+                <div className="text-base sm:text-lg font-medium text-slate-900 dark:text-slate-100 break-words select-all leading-normal py-0.5 min-h-[38px] flex items-center font-sans">
                   {item.preview}
                 </div>
               </div>

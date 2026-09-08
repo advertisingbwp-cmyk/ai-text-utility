@@ -8,9 +8,9 @@ import { BrandLogo } from "@/components/BrandLogo";
 
 export const Footer: React.FC = () => {
   return (
-    <footer className="border-t border-slate-200/80 dark:border-slate-800/80 bg-white/50 dark:bg-slate-950/50 backdrop-blur-sm transition-colors mt-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 lg:gap-12 pb-12 border-b border-slate-200/80 dark:border-slate-800/80">
+    <footer className="border-t border-slate-200/80 dark:border-slate-800/80 bg-white/50 dark:bg-slate-950/50 backdrop-blur-sm transition-colors mt-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-10">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 lg:gap-12 pb-8 border-b border-slate-200/80 dark:border-slate-800/80">
           {/* Col 1: Brand & Purpose */}
           <div className="md:col-span-2 space-y-4">
             <Link href="/" className="inline-flex items-center group" aria-label="AI Text Utility Home">
@@ -85,7 +85,7 @@ export const Footer: React.FC = () => {
         </div>
 
         {/* Bottom Bar: Copyright & Privacy Badge */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500 dark:text-slate-400">
+        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500 dark:text-slate-400">
           <div>
             © {new Date().getFullYear()} AI Text Utility. All rights reserved.
           </div>
