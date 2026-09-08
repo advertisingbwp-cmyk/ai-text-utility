@@ -236,7 +236,7 @@ export default function HomePage() {
                     </div>
                   </div>
 
-                  <span className="text-xs font-semibold text-slate-400 dark:text-slate-500">
+                  <span className="text-xs font-semibold text-slate-600 dark:text-slate-400">
                     {toolsInCat.length} tools
                   </span>
                 </div>
@@ -270,7 +270,7 @@ export default function HomePage() {
                     ? "Your Favorited Utilities"
                     : `${selectedCategory} Utilities`}
                 </h2>
-                <p className="text-xs text-slate-500 dark:text-slate-400">
+                <p className="text-xs text-slate-600 dark:text-slate-400">
                   {onlyFavorites
                     ? `${filteredTools.length} ${filteredTools.length === 1 ? "tool" : "tools"} saved for fast access`
                     : `${filteredTools.length} tools found`}

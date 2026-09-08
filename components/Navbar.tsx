@@ -62,14 +62,18 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCommandPalette }) => {
             <div className="flex items-center gap-2">
               <Search
                 size={15}
-                className="text-slate-400 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors"
+                className="text-slate-500 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors"
+                aria-hidden="true"
               />
-              <span className="font-normal text-slate-500 dark:text-slate-400">
+              <span className="font-medium text-slate-600 dark:text-slate-300">
                 Search tools...
               </span>
             </div>
-            <kbd className="inline-flex items-center gap-0.5 text-[11px] font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800 text-slate-400 dark:text-slate-400 shadow-2xs">
-              <span className="text-xs">⌘</span>K
+            <kbd
+              aria-label="Command K shortcut"
+              className="inline-flex items-center gap-0.5 text-xs font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 shadow-2xs"
+            >
+              <span className="text-xs" aria-hidden="true">⌘</span>K
             </kbd>
           </button>
         </div>
@@ -81,9 +85,9 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCommandPalette }) => {
             type="button"
             onClick={onOpenCommandPalette}
             aria-label="Search tools"
-            className="sm:hidden p-2.5 rounded-xl text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors min-w-[40px] min-h-[40px] flex items-center justify-center cursor-pointer"
+            className="sm:hidden p-2.5 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors min-w-[40px] min-h-[40px] flex items-center justify-center cursor-pointer"
           >
-            <Search size={18} />
+            <Search size={18} aria-hidden="true" />
           </button>
 
           {/* Favorites Indicator Button */}
@@ -91,15 +95,16 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCommandPalette }) => {
             type="button"
             onClick={handleFavoritesClick}
             aria-label={`View ${favCount} favorite tools`}
-            className="relative p-2.5 rounded-xl text-slate-500 hover:text-amber-500 dark:text-slate-400 dark:hover:text-amber-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors min-w-[40px] min-h-[40px] flex items-center justify-center cursor-pointer"
+            className="relative p-2.5 rounded-xl text-slate-600 hover:text-amber-500 dark:text-slate-300 dark:hover:text-amber-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors min-w-[40px] min-h-[40px] flex items-center justify-center cursor-pointer"
             title={favCount > 0 ? `View ${favCount} favorite tools` : "View favorites"}
           >
             <Star
               size={18}
               className={favCount > 0 ? "fill-amber-400 text-amber-400" : ""}
+              aria-hidden="true"
             />
             {favCount > 0 && (
-              <span className="absolute top-1 right-1 px-1 min-w-[17px] h-[17px] rounded-full bg-amber-500 text-[10px] font-bold text-white flex items-center justify-center leading-none shadow-2xs">
+              <span className="absolute top-1 right-1 px-1 min-w-[17px] h-[17px] rounded-full bg-amber-500 text-[10px] font-black text-slate-950 flex items-center justify-center leading-none shadow-2xs">
                 {favCount}
               </span>
             )}

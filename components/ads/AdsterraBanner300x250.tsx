@@ -35,7 +35,7 @@ export const AdsterraBanner300x250: React.FC<{ className?: string }> = ({ classN
 
   return (
     <div className={`flex flex-col items-center justify-center my-4 ${className}`}>
-      <span className="text-[10px] uppercase font-mono tracking-wider text-slate-400 dark:text-slate-500 mb-1">
+      <span className="text-xs uppercase font-mono tracking-wider text-slate-600 dark:text-slate-400 font-semibold mb-1">
         Advertisement
       </span>
       <iframe

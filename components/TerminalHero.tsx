@@ -70,6 +70,7 @@ export const TerminalHero: React.FC = () => {
 
           const prompt = document.createElement("span");
           prompt.className = "text-[#0d9488] font-semibold mr-2 select-none";
+          prompt.setAttribute("aria-hidden", "true");
           prompt.textContent = "❯";
           cmdLine.appendChild(prompt);
 
@@ -79,6 +80,7 @@ export const TerminalHero: React.FC = () => {
           const cursor = document.createElement("span");
           cursor.className =
             "terminal-cursor-blink inline-block w-[7px] h-[13.5px] bg-[#0d9488] -mb-0.5 ml-0.5";
+          cursor.setAttribute("aria-hidden", "true");
           cmdLine.appendChild(cursor);
 
           group.appendChild(cmdLine);
@@ -115,6 +117,7 @@ export const TerminalHero: React.FC = () => {
 
           const arrow = document.createElement("span");
           arrow.className = "text-[#2563eb] font-semibold select-none";
+          arrow.setAttribute("aria-hidden", "true");
           arrow.textContent = "→";
 
           const outText = document.createElement("span");
@@ -212,15 +215,15 @@ export const TerminalHero: React.FC = () => {
           {/* LEFT COLUMN */}
           <div className="flex flex-col items-start text-left">
             {/* 1. Kicker Badge */}
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-emerald-600 dark:text-emerald-400 font-mono text-xs font-medium tracking-tight">
-              <span className="relative w-1.5 h-1.5 bg-emerald-500 rounded-full shrink-0 pulse-ring" />
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-800 dark:text-emerald-300 font-mono text-xs font-semibold tracking-tight">
+              <span className="relative w-1.5 h-1.5 bg-emerald-600 dark:bg-emerald-400 rounded-full shrink-0 pulse-ring" aria-hidden="true" />
               <span>system online — 43 tools loaded</span>
             </div>
 
             {/* 2. Headline */}
             <h1 className="text-[26px] sm:text-[34px] lg:text-[40px] font-bold tracking-[-0.035em] leading-[1.15] text-slate-900 dark:text-slate-100 mt-3 mb-2">
               Text tools that run like{" "}
-              <span className="bg-gradient-to-br from-violet-600 to-teal-600 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-br from-violet-700 to-teal-700 dark:from-violet-400 dark:to-teal-400 bg-clip-text text-transparent font-bold">
                 code
               </span>
               .
@@ -238,7 +241,7 @@ export const TerminalHero: React.FC = () => {
                 <span className="font-mono font-bold text-lg text-slate-900 dark:text-slate-100 tracking-tight leading-none">
                   43+
                 </span>
-                <span className="text-xs text-slate-500 dark:text-slate-400 font-medium mt-1">
+                <span className="text-xs text-slate-600 dark:text-slate-400 font-medium mt-1">
                   utilities
                 </span>
               </div>
@@ -247,7 +250,7 @@ export const TerminalHero: React.FC = () => {
                 <span className="font-mono font-bold text-lg text-slate-900 dark:text-slate-100 tracking-tight leading-none">
                   0ms
                 </span>
-                <span className="text-xs text-slate-500 dark:text-slate-400 font-medium mt-1">
+                <span className="text-xs text-slate-600 dark:text-slate-400 font-medium mt-1">
                   server calls
                 </span>
               </div>
@@ -256,15 +259,15 @@ export const TerminalHero: React.FC = () => {
                 <span className="font-mono font-bold text-lg text-slate-900 dark:text-slate-100 tracking-tight leading-none">
                   100%
                 </span>
-                <span className="text-xs text-slate-500 dark:text-slate-400 font-medium mt-1">
+                <span className="text-xs text-slate-600 dark:text-slate-400 font-medium mt-1">
                   local
                 </span>
               </div>
             </div>
           </div>
 
-          {/* RIGHT COLUMN: TERMINAL CARD */}
-          <div className="w-full">
+          {/* RIGHT COLUMN: TERMINAL CARD (Decorative interactive preview) */}
+          <div className="w-full" aria-hidden="true">
             <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-card overflow-hidden">
               {/* Window Header */}
               <div className="h-[36px] bg-slate-50 dark:bg-slate-950/60 border-b border-slate-200 dark:border-slate-800 px-3.5 flex items-center justify-between select-none">

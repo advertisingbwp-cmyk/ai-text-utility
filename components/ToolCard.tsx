@@ -13,13 +13,6 @@ export const ToolCard: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
 
   return (
     <div className="group relative flex flex-col justify-between rounded-xl sm:rounded-2xl border border-slate-200/90 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/60 p-3.5 sm:p-5 pb-3.5 sm:pb-5 shadow-card hover:shadow-cardHover hover:border-slate-300 dark:hover:border-slate-700 transition-all duration-200 hover:-translate-y-0.5">
-      <Link
-        href={`/tools/${tool.slug}`}
-        className="absolute inset-0 z-10 rounded-xl sm:rounded-2xl focus:outline-none focus:ring-2 focus:ring-brand-500/50"
-      >
-        <span className="sr-only">Open {tool.name}</span>
-      </Link>
-
       <div>
         <div className="flex items-center justify-between gap-2 mb-2 sm:mb-2.5">
           <div
@@ -36,20 +29,25 @@ export const ToolCard: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
         </div>
 
         <h3 className="text-xs sm:text-sm font-semibold text-slate-900 dark:text-slate-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors mb-1 sm:mb-1.5 line-clamp-1 sm:line-clamp-none">
-          {tool.name}
+          <Link
+            href={`/tools/${tool.slug}`}
+            className="focus:outline-none focus:underline after:content-[''] after:absolute after:inset-0 after:rounded-xl sm:after:rounded-2xl after:z-0"
+          >
+            {tool.name}
+          </Link>
         </h3>
-        <p className="text-[11px] sm:text-xs text-slate-600 dark:text-slate-400 leading-relaxed line-clamp-2">
+        <p className="text-[11px] sm:text-xs text-slate-600 dark:text-slate-300 leading-relaxed line-clamp-2">
           {tool.description}
         </p>
       </div>
 
-      <div className="mt-3.5 sm:mt-4 pt-2.5 sm:pt-3 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between text-[10px] sm:text-xs">
-        <span className="font-medium text-slate-500 dark:text-slate-400 truncate max-w-[55%]">
+      <div className="mt-3.5 sm:mt-4 pt-2.5 sm:pt-3 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between text-xs">
+        <span className="font-medium text-slate-600 dark:text-slate-300 truncate max-w-[55%]">
           {tool.category}
         </span>
-        <span className="inline-flex items-center gap-0.5 sm:gap-1 text-slate-400 group-hover:text-brand-600 dark:group-hover:text-brand-400 font-medium transition-colors shrink-0">
+        <span className="relative z-10 inline-flex items-center gap-0.5 sm:gap-1 text-slate-600 group-hover:text-brand-600 dark:text-slate-300 dark:group-hover:text-brand-400 font-medium transition-colors shrink-0">
           <span>Open</span>
-          <ArrowRight size={12} className="transition-transform group-hover:translate-x-0.5 sm:w-3.5 sm:h-3.5" />
+          <ArrowRight size={12} className="transition-transform group-hover:translate-x-0.5 sm:w-3.5 sm:h-3.5" aria-hidden="true" />
         </span>
       </div>
     </div>
