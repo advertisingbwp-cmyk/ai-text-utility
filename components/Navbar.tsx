@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 import { Search, Star } from "lucide-react";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { BrandLogo } from "@/components/BrandLogo";
@@ -13,6 +14,8 @@ interface NavbarProps {
 
 export const Navbar: React.FC<NavbarProps> = ({ onOpenCommandPalette }) => {
   const [favCount, setFavCount] = useState(0);
+  const pathname = usePathname();
+  const router = useRouter();
 
   useEffect(() => {
     const updateFav = () => {
@@ -26,6 +29,15 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCommandPalette }) => {
       window.removeEventListener("storage", updateFav);
     };
   }, []);
+
+  const handleFavoritesClick = () => {
+    if (pathname === "/") {
+      window.dispatchEvent(new CustomEvent("show-favorites"));
+      document.getElementById("tools-section")?.scrollIntoView({ behavior: "smooth" });
+    } else {
+      router.push("/#favorites");
+    }
+  };
 
   return (
     <header className="sticky top-0 z-40 w-full border-b border-slate-200/80 dark:border-slate-800/80 bg-white/85 dark:bg-slate-950/85 backdrop-blur-md transition-colors">
@@ -74,23 +86,24 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCommandPalette }) => {
             <Search size={18} />
           </button>
 
-          {/* Favorites Indicator */}
-          <Link
-            href="/?favorites=true"
+          {/* Favorites Indicator Button */}
+          <button
+            type="button"
+            onClick={handleFavoritesClick}
             aria-label={`View ${favCount} favorite tools`}
-            className="relative p-2.5 rounded-xl text-slate-500 hover:text-amber-500 dark:text-slate-400 dark:hover:text-amber-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors min-w-[40px] min-h-[40px] flex items-center justify-center"
-            title="View saved favorites"
+            className="relative p-2.5 rounded-xl text-slate-500 hover:text-amber-500 dark:text-slate-400 dark:hover:text-amber-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors min-w-[40px] min-h-[40px] flex items-center justify-center cursor-pointer"
+            title={favCount > 0 ? `View ${favCount} favorite tools` : "View favorites"}
           >
             <Star
               size={18}
               className={favCount > 0 ? "fill-amber-400 text-amber-400" : ""}
             />
             {favCount > 0 && (
-              <span className="absolute top-1 right-1 px-1 min-w-[17px] h-[17px] rounded-full bg-brand-600 text-[10px] font-bold text-white flex items-center justify-center leading-none">
+              <span className="absolute top-1 right-1 px-1 min-w-[17px] h-[17px] rounded-full bg-amber-500 text-[10px] font-bold text-white flex items-center justify-center leading-none shadow-2xs">
                 {favCount}
               </span>
             )}
-          </Link>
+          </button>
 
           {/* Theme Switcher */}
           <ThemeToggle />

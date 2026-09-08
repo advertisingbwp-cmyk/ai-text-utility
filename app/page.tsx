@@ -39,19 +39,44 @@ export default function HomePage() {
       setRecentList(getRecentTools());
     };
 
-    updateStorage();
-    if (typeof window !== "undefined" && window.location.search.includes("favorites=true")) {
-      setOnlyFavorites(true);
-    }
+    const checkFavoritesFromUrl = () => {
+      if (typeof window !== "undefined") {
+        if (
+          window.location.search.includes("favorites=true") ||
+          window.location.hash === "#favorites"
+        ) {
+          setOnlyFavorites(true);
+          setTimeout(() => {
+            document.getElementById("tools-section")?.scrollIntoView({ behavior: "smooth" });
+          }, 100);
+        }
+      }
+    };
 
+    updateStorage();
+    checkFavoritesFromUrl();
+
+    const handleShowFavorites = () => {
+      setOnlyFavorites(true);
+      setTimeout(() => {
+        document.getElementById("tools-section")?.scrollIntoView({ behavior: "smooth" });
+      }, 50);
+    };
+
+    window.addEventListener("show-favorites", handleShowFavorites);
     window.addEventListener("favorites-updated", updateStorage);
     window.addEventListener("recent-updated", updateStorage);
     window.addEventListener("storage", updateStorage);
+    window.addEventListener("hashchange", checkFavoritesFromUrl);
+    window.addEventListener("popstate", checkFavoritesFromUrl);
 
     return () => {
+      window.removeEventListener("show-favorites", handleShowFavorites);
       window.removeEventListener("favorites-updated", updateStorage);
       window.removeEventListener("recent-updated", updateStorage);
       window.removeEventListener("storage", updateStorage);
+      window.removeEventListener("hashchange", checkFavoritesFromUrl);
+      window.removeEventListener("popstate", checkFavoritesFromUrl);
     };
   }, []);
 
@@ -149,7 +174,7 @@ export default function HomePage() {
       </section>
 
       {/* Filter Tabs */}
-      <section className="space-y-4">
+      <section id="tools-section" className="space-y-4 scroll-mt-24">
         <div className="flex items-center justify-between gap-3 flex-wrap border-b border-slate-200 dark:border-slate-800/80 pb-3">
           <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none max-w-full">
             <button
@@ -288,22 +313,76 @@ export default function HomePage() {
       ) : (
         // Render filtered grid
         <section className="space-y-4">
-          <div className="flex items-center justify-between">
-            <h2 className="text-base font-bold text-slate-900 dark:text-slate-100">
-              {onlyFavorites
-                ? "Favorited Utilities"
-                : `${selectedCategory} Utilities`}
-            </h2>
-            <span className="text-xs text-slate-500 dark:text-slate-400 font-medium">
-              {filteredTools.length} tools found
-            </span>
+          <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-800/80 pb-3">
+            <div className="flex items-center gap-2.5">
+              {onlyFavorites ? (
+                <div className="w-8 h-8 rounded-lg bg-amber-50 dark:bg-amber-950/40 text-amber-500 border border-amber-200/80 dark:border-amber-800/60 flex items-center justify-center">
+                  <Star size={16} className="fill-amber-400 text-amber-400" />
+                </div>
+              ) : (
+                <div className="w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 flex items-center justify-center">
+                  <span className="text-sm leading-none">{getCategoryTheme(selectedCategory as ToolCategory).emoji}</span>
+                </div>
+              )}
+              <div>
+                <h2 className="text-base font-bold text-slate-900 dark:text-slate-100">
+                  {onlyFavorites
+                    ? "Your Favorited Utilities"
+                    : `${selectedCategory} Utilities`}
+                </h2>
+                <p className="text-xs text-slate-500 dark:text-slate-400">
+                  {onlyFavorites
+                    ? `${filteredTools.length} ${filteredTools.length === 1 ? "tool" : "tools"} saved for fast access`
+                    : `${filteredTools.length} tools found`}
+                </p>
+              </div>
+            </div>
+
+            {onlyFavorites && (
+              <button
+                type="button"
+                onClick={() => {
+                  setOnlyFavorites(false);
+                  setSelectedCategory("ALL");
+                }}
+                className="text-xs text-slate-500 hover:text-brand-600 dark:text-slate-400 dark:hover:text-brand-400 font-medium transition-colors cursor-pointer"
+              >
+                View All Tools →
+              </button>
+            )}
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-4">
-            {filteredTools.map((tool) => (
-              <ToolCard key={tool.id} tool={tool} />
-            ))}
-          </div>
+          {filteredTools.length === 0 ? (
+            <div className="p-8 sm:p-12 rounded-2xl border border-dashed border-amber-200 dark:border-amber-900/50 bg-amber-50/30 dark:bg-amber-950/20 text-center space-y-4">
+              <div className="w-12 h-12 mx-auto rounded-2xl bg-amber-100 dark:bg-amber-900/40 text-amber-500 flex items-center justify-center">
+                <Star size={24} className="text-amber-400 fill-amber-400" />
+              </div>
+              <div className="max-w-md mx-auto space-y-1">
+                <h3 className="text-base font-bold text-slate-900 dark:text-slate-100">
+                  No Favorites Saved Yet
+                </h3>
+                <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                  Click the <span className="font-semibold text-amber-600 dark:text-amber-400">⭐ Star</span> icon on the top-right of any tool card to save it here for fast, 1-click access anytime.
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={() => {
+                  setOnlyFavorites(false);
+                  setSelectedCategory("ALL");
+                }}
+                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold bg-slate-900 text-white dark:bg-brand-600 dark:text-white shadow-xs hover:bg-slate-800 transition-colors cursor-pointer"
+              >
+                Browse All Tools (43)
+              </button>
+            </div>
+          ) : (
+            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-4">
+              {filteredTools.map((tool) => (
+                <ToolCard key={tool.id} tool={tool} />
+              ))}
+            </div>
+          )}
         </section>
       )}
 
