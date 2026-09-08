@@ -556,11 +556,11 @@ export const TOOLS_REGISTRY: ToolDefinition[] = [
   },
   {
     id: "lorem-ipsum",
-    name: "Lorem Ipsum Generator",
+    name: "Placeholder Text Generator",
     slug: "lorem-ipsum",
     category: "Transform",
     layout: "generator",
-    description: "Generate placeholder Latin dummy text with custom paragraph, sentence, and word counts.",
+    description: "Generate Latin dummy text (Lorem Ipsum) with custom paragraph, sentence, and word counts.",
     icon: "BookOpen",
     keywords: ["lorem ipsum", "dummy text", "placeholder text", "filler text"],
     featured: false,

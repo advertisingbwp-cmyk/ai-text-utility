@@ -12,7 +12,7 @@ export const ToolCard: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
   const theme = getToolTheme(tool.id, tool.category);
 
   return (
-    <div className="group relative flex flex-col justify-between rounded-xl sm:rounded-2xl border border-slate-200/90 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/60 p-3 sm:p-5 shadow-card hover:shadow-cardHover hover:border-slate-300 dark:hover:border-slate-700 transition-all duration-200 hover:-translate-y-0.5">
+    <div className="group relative flex flex-col justify-between rounded-xl sm:rounded-2xl border border-slate-200/90 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/60 p-3.5 sm:p-5 pb-3.5 sm:pb-5 shadow-card hover:shadow-cardHover hover:border-slate-300 dark:hover:border-slate-700 transition-all duration-200 hover:-translate-y-0.5">
       <Link
         href={`/tools/${tool.slug}`}
         className="absolute inset-0 z-10 rounded-xl sm:rounded-2xl focus:outline-none focus:ring-2 focus:ring-brand-500/50"
@@ -21,7 +21,7 @@ export const ToolCard: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
       </Link>
 
       <div>
-        <div className="flex items-center justify-between gap-2 mb-2 sm:mb-3.5">
+        <div className="flex items-center justify-between gap-2 mb-2 sm:mb-2.5">
           <div
             className={`w-9 h-9 sm:w-11 sm:h-11 rounded-lg sm:rounded-xl flex items-center justify-center transition-all duration-200 group-hover:scale-110 shrink-0 shadow-2xs border ${theme.bg} ${theme.border}`}
           >
@@ -43,7 +43,7 @@ export const ToolCard: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
         </p>
       </div>
 
-      <div className="mt-3 sm:mt-4 pt-2 sm:pt-3 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between text-[10px] sm:text-xs">
+      <div className="mt-3.5 sm:mt-4 pt-2.5 sm:pt-3 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between text-[10px] sm:text-xs">
         <span className="font-medium text-slate-500 dark:text-slate-400 truncate max-w-[55%]">
           {tool.category}
         </span>

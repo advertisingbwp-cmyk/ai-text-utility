@@ -10,13 +10,13 @@ export const Footer: React.FC = () => {
   return (
     <footer className="border-t border-slate-200/80 dark:border-slate-800/80 bg-white/50 dark:bg-slate-950/50 backdrop-blur-sm transition-colors mt-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-10">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 lg:gap-12 pb-8 border-b border-slate-200/80 dark:border-slate-800/80">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-10 pb-8 border-b border-slate-200/80 dark:border-slate-800/80">
           {/* Col 1: Brand & Purpose */}
-          <div className="md:col-span-2 space-y-4">
+          <div className="md:col-span-6 space-y-4 max-w-md">
             <Link href="/" className="inline-flex items-center group" aria-label="AI Text Utility Home">
               <BrandLogo size="md" />
             </Link>
-            <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 leading-relaxed max-w-md">
+            <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
               A high-performance suite of 43+ browser-based tools for formatting, converting, analyzing, and cleaning text. Built for developers, writers, students, and professionals who demand speed, privacy, and precision.
             </p>
             <div className="flex flex-wrap items-center gap-4 text-xs text-slate-500 dark:text-slate-400 pt-1">
@@ -36,8 +36,8 @@ export const Footer: React.FC = () => {
           </div>
 
           {/* Col 2: Categories */}
-          <div className="space-y-3">
-            <h4 className="text-xs font-semibold text-slate-900 dark:text-slate-100 uppercase tracking-wider">
+          <div className="md:col-span-3 space-y-3">
+            <h4 className="text-xs font-bold text-slate-900 dark:text-slate-100 tracking-normal">
               Tool Categories
             </h4>
             <ul className="space-y-2 text-xs text-slate-500 dark:text-slate-400">
@@ -55,8 +55,8 @@ export const Footer: React.FC = () => {
           </div>
 
           {/* Col 3: Resources & Trust */}
-          <div className="space-y-3">
-            <h4 className="text-xs font-semibold text-slate-900 dark:text-slate-100 uppercase tracking-wider">
+          <div className="md:col-span-3 space-y-3">
+            <h4 className="text-xs font-bold text-slate-900 dark:text-slate-100 tracking-normal">
               Legal & Resources
             </h4>
             <ul className="space-y-2 text-xs text-slate-500 dark:text-slate-400">

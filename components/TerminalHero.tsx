@@ -212,55 +212,51 @@ export const TerminalHero: React.FC = () => {
           {/* LEFT COLUMN */}
           <div className="flex flex-col items-start text-left">
             {/* 1. Kicker Badge */}
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0d9488]/[0.08] border border-[#0d9488]/[0.22] text-[#0d9488] font-mono text-[11.5px] font-medium tracking-tight">
-              <span className="relative w-[6.5px] h-[6.5px] bg-[#0d9488] rounded-full shrink-0 pulse-ring" />
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-emerald-600 dark:text-emerald-400 font-mono text-xs font-medium tracking-tight">
+              <span className="relative w-1.5 h-1.5 bg-emerald-500 rounded-full shrink-0 pulse-ring" />
               <span>system online — 43 tools loaded</span>
             </div>
 
             {/* 2. Headline */}
-            <h1 className="text-[26px] sm:text-[34px] lg:text-[40px] font-bold tracking-[-0.035em] leading-[1.15] text-[#14151a] mt-3 mb-2">
+            <h1 className="text-[26px] sm:text-[34px] lg:text-[40px] font-bold tracking-[-0.035em] leading-[1.15] text-slate-900 dark:text-slate-100 mt-3 mb-2">
               Text tools that run like{" "}
-              <span className="bg-gradient-to-br from-[#6d28d9] to-[#0d9488] bg-clip-text text-transparent">
+              <span className="bg-gradient-to-br from-violet-600 to-teal-600 bg-clip-text text-transparent">
                 code
               </span>
               .
             </h1>
 
             {/* 3. Subheading Paragraph */}
-            <p className="text-[#6b7078] text-[14.5px] sm:text-[15px] leading-[1.5] max-w-[42ch] mb-4">
+            <p className="text-slate-600 dark:text-slate-400 text-sm sm:text-base leading-relaxed max-w-[44ch] mb-4">
               Format, decode, convert, and clean text with the speed and precision
               of a command line — no install, no server, no waiting.
             </p>
 
-            {/* 4. Stats Row */}
-            <div className="w-full border-t border-[#e6e8ee] pt-3 flex items-center">
-              <div className="flex flex-col">
-                <span className="font-mono font-bold text-[18px] text-[#14151a] tracking-tight leading-none">
+            {/* 4. Stats Row - Symmetrical Balanced Grid */}
+            <div className="w-full border-t border-slate-200 dark:border-slate-800 pt-3 grid grid-cols-3 divide-x divide-slate-200 dark:divide-slate-800 text-center">
+              <div className="flex flex-col items-center px-2">
+                <span className="font-mono font-bold text-lg text-slate-900 dark:text-slate-100 tracking-tight leading-none">
                   43+
                 </span>
-                <span className="text-[11px] text-[#9a9fa8] font-medium mt-1">
+                <span className="text-xs text-slate-500 dark:text-slate-400 font-medium mt-1">
                   utilities
                 </span>
               </div>
 
-              <div className="w-px h-6 bg-[#e6e8ee] mx-5 sm:mx-6 shrink-0" />
-
-              <div className="flex flex-col">
-                <span className="font-mono font-bold text-[18px] text-[#14151a] tracking-tight leading-none">
+              <div className="flex flex-col items-center px-2">
+                <span className="font-mono font-bold text-lg text-slate-900 dark:text-slate-100 tracking-tight leading-none">
                   0ms
                 </span>
-                <span className="text-[11px] text-[#9a9fa8] font-medium mt-1">
+                <span className="text-xs text-slate-500 dark:text-slate-400 font-medium mt-1">
                   server calls
                 </span>
               </div>
 
-              <div className="w-px h-6 bg-[#e6e8ee] mx-5 sm:mx-6 shrink-0" />
-
-              <div className="flex flex-col">
-                <span className="font-mono font-bold text-[18px] text-[#14151a] tracking-tight leading-none">
+              <div className="flex flex-col items-center px-2">
+                <span className="font-mono font-bold text-lg text-slate-900 dark:text-slate-100 tracking-tight leading-none">
                   100%
                 </span>
-                <span className="text-[11px] text-[#9a9fa8] font-medium mt-1">
+                <span className="text-xs text-slate-500 dark:text-slate-400 font-medium mt-1">
                   local
                 </span>
               </div>
@@ -269,22 +265,22 @@ export const TerminalHero: React.FC = () => {
 
           {/* RIGHT COLUMN: TERMINAL CARD */}
           <div className="w-full">
-            <div className="bg-white border border-[#e6e8ee] rounded-[14px] shadow-[0_1px_3px_rgba(20,21,26,0.02),0_10px_24px_-4px_rgba(20,21,26,0.05)] overflow-hidden">
+            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-card overflow-hidden">
               {/* Window Header */}
-              <div className="h-[34px] bg-white border-b border-[#e6e8ee] px-3.5 flex items-center justify-between select-none">
+              <div className="h-[36px] bg-slate-50 dark:bg-slate-950/60 border-b border-slate-200 dark:border-slate-800 px-3.5 flex items-center justify-between select-none">
                 <div className="flex items-center gap-3">
-                  <div className="flex items-center gap-[6px]">
-                    <span className="w-2.5 h-2.5 rounded-full bg-[#ff5f56] border border-[#e0443e]" />
-                    <span className="w-2.5 h-2.5 rounded-full bg-[#ffbd2e] border border-[#dea123]" />
-                    <span className="w-2.5 h-2.5 rounded-full bg-[#27c93f] border border-[#1aab29]" />
+                  <div className="flex items-center gap-1.5">
+                    <span className="w-2.5 h-2.5 rounded-full bg-rose-500" />
+                    <span className="w-2.5 h-2.5 rounded-full bg-amber-500" />
+                    <span className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
                   </div>
-                  <span className="font-mono text-[11px] text-[#9a9fa8] font-medium ml-1 tracking-tight">
+                  <span className="font-mono text-xs text-slate-500 dark:text-slate-400 font-medium ml-1 tracking-tight">
                     ai-text-utility — zsh
                   </span>
                 </div>
                 <div className="flex items-center gap-1.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#0d9488] live-dot-blink" />
-                  <span className="font-mono text-[10.5px] text-[#9a9fa8] font-medium uppercase tracking-wider">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 live-dot-blink" />
+                  <span className="font-mono text-xs text-slate-500 dark:text-slate-400 font-medium uppercase tracking-wider">
                     live
                   </span>
                 </div>
@@ -293,7 +289,7 @@ export const TerminalHero: React.FC = () => {
               {/* Terminal Body */}
               <div
                 ref={terminalBodyRef}
-                className="font-mono text-[12.5px] leading-[1.55] p-3.5 sm:p-4 min-h-[175px] text-[#14151a]"
+                className="font-mono text-xs sm:text-[13px] leading-relaxed p-3.5 sm:p-4 min-h-[175px] text-slate-900 dark:text-slate-100"
               >
                 {/* Dynamically typed content */}
               </div>

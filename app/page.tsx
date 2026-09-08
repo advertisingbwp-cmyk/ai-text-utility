@@ -7,6 +7,7 @@ import {
   Star,
   Clock,
   Zap,
+  LayoutGrid,
   ShieldCheck,
   Cpu,
   Lock,
@@ -115,13 +116,14 @@ export default function HomePage() {
                 setSelectedCategory("ALL");
                 setOnlyFavorites(false);
               }}
-              className={`px-3.5 py-2 rounded-xl text-xs font-semibold transition-all whitespace-nowrap ${
+              className={`inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold transition-all whitespace-nowrap cursor-pointer ${
                 selectedCategory === "ALL" && !onlyFavorites
                   ? "bg-slate-900 text-white dark:bg-brand-600 dark:text-white shadow-xs"
                   : "bg-white dark:bg-slate-900/60 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white border border-slate-200/90 dark:border-slate-800"
               }`}
             >
-              All Tools ({TOOLS_REGISTRY.length})
+              <LayoutGrid size={13} />
+              <span>All Tools ({TOOLS_REGISTRY.length})</span>
             </button>
 
             {/* Favorites Tab - placed right after All Tools */}
@@ -170,12 +172,12 @@ export default function HomePage() {
 
       {/* Recently Used Section (Client only if exists and default view) */}
       {selectedCategory === "ALL" && !onlyFavorites && recentTools.length > 0 && (
-        <section id="recent" className="space-y-3">
-          <div className="flex items-center gap-2 text-sm font-bold text-slate-900 dark:text-slate-200">
+        <section id="recent" aria-labelledby="recent-heading" className="space-y-3">
+          <h2 id="recent-heading" className="flex items-center gap-2 text-sm sm:text-base font-bold text-slate-900 dark:text-slate-200">
             <Clock size={16} className="text-brand-600 dark:text-brand-400" />
             <span>Recently Used</span>
-          </div>
-          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4">
+          </h2>
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-4">
             {recentTools.map((tool) => (
               <ToolCard key={`recent-${tool.id}`} tool={tool} />
             ))}
@@ -221,7 +223,7 @@ export default function HomePage() {
                     </div>
                     <div>
                       <div className="flex items-center gap-2.5 flex-wrap">
-                        <h2 className="text-base font-bold text-slate-900 dark:text-slate-100">
+                        <h2 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-slate-100">
                           {cat.name}
                         </h2>
                         {isAI && (
@@ -263,7 +265,7 @@ export default function HomePage() {
                 </div>
               )}
               <div>
-                <h2 className="text-base font-bold text-slate-900 dark:text-slate-100">
+                <h2 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-slate-100">
                   {onlyFavorites
                     ? "Your Favorited Utilities"
                     : `${selectedCategory} Utilities`}
@@ -324,10 +326,6 @@ export default function HomePage() {
         </section>
       )}
 
-      {/* Sponsored Adsterra Units */}
-      <AdsterraResponsiveBanner />
-      <AdsterraNativeBanner />
-
       {/* Privacy & Architecture Feature Band */}
       <section className="pt-10 border-t border-slate-200 dark:border-slate-800 grid grid-cols-1 sm:grid-cols-3 gap-5 text-left">
         <div className="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800/80 bg-white/70 dark:bg-slate-900/40 shadow-subtle space-y-2">
@@ -360,6 +358,10 @@ export default function HomePage() {
           </p>
         </div>
       </section>
+
+      {/* Sponsored Adsterra Units */}
+      <AdsterraResponsiveBanner />
+      <AdsterraNativeBanner />
     </div>
   );
 }

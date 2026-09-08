@@ -51,8 +51,8 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCommandPalette }) => {
           <BrandLogo size="md" showSubtitle={true} />
         </Link>
 
-        {/* Centered Prominent Search Bar */}
-        <div className="hidden sm:flex flex-1 max-w-md mx-auto justify-center">
+        {/* Centered Compact Search Bar */}
+        <div className="hidden sm:flex flex-1 max-w-sm mx-auto justify-center">
           <button
             type="button"
             onClick={onOpenCommandPalette}
