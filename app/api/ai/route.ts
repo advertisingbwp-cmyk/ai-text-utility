@@ -120,6 +120,7 @@ export async function POST(req: Request): Promise<NextResponse<AiResponseBody>> 
 
     const timeoutMs = parseInt(process.env.AI_TIMEOUT_MS || "25000", 10);
     const maxOutputTokens = parseInt(process.env.AI_MAX_OUTPUT_TOKENS || "2000", 10);
+    const envTemp = process.env.AI_TEMPERATURE ? parseFloat(process.env.AI_TEMPERATURE) : 1.0;
 
     // 6. Execute via Pluggable Provider Layer
     const provider = getAiProvider();
@@ -129,6 +130,7 @@ export async function POST(req: Request): Promise<NextResponse<AiResponseBody>> 
       model,
       timeoutMs: isNaN(timeoutMs) ? 25000 : timeoutMs,
       maxOutputTokens: isNaN(maxOutputTokens) ? 2000 : maxOutputTokens,
+      temperature: isNaN(envTemp) ? 1.0 : envTemp,
     });
 
     return NextResponse.json({

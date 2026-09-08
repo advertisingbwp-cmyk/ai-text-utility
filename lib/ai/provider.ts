@@ -15,7 +15,7 @@ export class OpenAiCompatibleProvider implements AiProvider {
     text: string,
     config: AiProviderConfig
   ): Promise<string> {
-    const { apiKey, baseUrl, model, timeoutMs, maxOutputTokens } = config;
+    const { apiKey, baseUrl, model, timeoutMs, maxOutputTokens, temperature } = config;
 
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
@@ -23,22 +23,30 @@ export class OpenAiCompatibleProvider implements AiProvider {
     const systemPrompt = getSystemPrompt(mode);
     const endpoint = `${baseUrl.replace(/\/+$/, "")}/chat/completions`;
 
+    // Calculate temperature (allowing explicit override, or 1.0 default for strict model routes)
+    const effectiveTemperature = typeof temperature === "number" ? temperature : 1.0;
+
     try {
+      const requestPayload: Record<string, unknown> = {
+        model,
+        messages: [
+          { role: "system", content: systemPrompt },
+          { role: "user", content: text },
+        ],
+        max_tokens: maxOutputTokens,
+      };
+
+      if (effectiveTemperature !== undefined) {
+        requestPayload.temperature = effectiveTemperature;
+      }
+
       const response = await fetch(endpoint, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${apiKey}`,
         },
-        body: JSON.stringify({
-          model,
-          messages: [
-            { role: "system", content: systemPrompt },
-            { role: "user", content: text },
-          ],
-          max_tokens: maxOutputTokens,
-          temperature: mode === "grammar" ? 0.2 : 0.7,
-        }),
+        body: JSON.stringify(requestPayload),
         signal: controller.signal,
       });
 

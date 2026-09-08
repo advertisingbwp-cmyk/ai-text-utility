@@ -40,6 +40,7 @@ export interface AiProviderConfig {
   model: string;
   timeoutMs: number;
   maxOutputTokens: number;
+  temperature?: number;
 }
 
 export interface AiProvider {
