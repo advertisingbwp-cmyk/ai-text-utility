@@ -669,11 +669,11 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
         return (
           <div className="flex flex-wrap items-center gap-4 text-xs">
             <div className="flex items-center gap-2">
-              <span className="text-slate-400">Direction:</span>
+              <span className="text-slate-700 dark:text-slate-300 font-medium">Direction:</span>
               <select
                 value={tabDir}
                 onChange={(e) => setTabDir(e.target.value as "tabs-to-spaces" | "spaces-to-tabs")}
-                className="bg-slate-800 border border-slate-700 rounded-lg px-2.5 py-1 text-slate-200 focus:outline-none focus:border-brand-500"
+                className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1 text-slate-800 dark:text-slate-200 focus:outline-none focus:border-brand-500 shadow-2xs"
               >
                 <option value="tabs-to-spaces">Tabs → Spaces</option>
                 <option value="spaces-to-tabs">Spaces → Tabs</option>
@@ -681,14 +681,14 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
             </div>
 
             <div className="flex items-center gap-2">
-              <span className="text-slate-400">Spaces per Tab:</span>
+              <span className="text-slate-700 dark:text-slate-300 font-medium">Spaces per Tab:</span>
               <input
                 type="number"
                 min={1}
                 max={8}
                 value={tabWidth}
                 onChange={(e) => setTabWidth(Math.max(1, Math.min(8, parseInt(e.target.value) || 2)))}
-                className="w-14 bg-slate-800 border border-slate-700 rounded-lg px-2 py-1 text-slate-200 font-mono text-center focus:outline-none focus:border-brand-500"
+                className="w-14 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2 py-1 text-slate-800 dark:text-slate-200 font-mono text-center focus:outline-none focus:border-brand-500 shadow-2xs"
               />
             </div>
           </div>
@@ -698,11 +698,11 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
         return (
           <div className="flex flex-wrap items-center gap-4 text-xs">
             <div className="flex items-center gap-2">
-              <span className="text-slate-400">Separator:</span>
+              <span className="text-slate-700 dark:text-slate-300 font-medium">Separator:</span>
               <select
                 value={slugSep}
                 onChange={(e) => setSlugSep(e.target.value)}
-                className="bg-slate-800 border border-slate-700 rounded-lg px-2.5 py-1 text-slate-200 focus:outline-none focus:border-brand-500"
+                className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1 text-slate-800 dark:text-slate-200 focus:outline-none focus:border-brand-500 shadow-2xs"
               >
                 <option value="-">Hyphen (-)</option>
                 <option value="_">Underscore (_)</option>
@@ -710,12 +710,12 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
               </select>
             </div>
 
-            <label className="flex items-center gap-2 cursor-pointer text-slate-300">
+            <label className="flex items-center gap-2 cursor-pointer text-slate-700 dark:text-slate-300">
               <input
                 type="checkbox"
                 checked={slugLower}
                 onChange={(e) => setSlugLower(e.target.checked)}
-                className="rounded border-slate-700 text-brand-600 focus:ring-brand-500 bg-slate-800"
+                className="rounded border-slate-300 dark:border-slate-700 text-brand-600 focus:ring-brand-500 bg-white dark:bg-slate-800"
               />
               <span>Lowercase Output</span>
             </label>
@@ -726,33 +726,33 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
         return (
           <div className="flex flex-wrap items-center gap-4 text-xs">
             <div className="flex items-center gap-2">
-              <span className="text-slate-400">Sort By:</span>
+              <span className="text-slate-700 dark:text-slate-300 font-medium">Sort By:</span>
               <select
                 value={charSort}
                 onChange={(e) => setCharSort(e.target.value as "frequency" | "alphabetical")}
-                className="bg-slate-800 border border-slate-700 rounded-lg px-2.5 py-1 text-slate-200 focus:outline-none focus:border-brand-500"
+                className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1 text-slate-800 dark:text-slate-200 focus:outline-none focus:border-brand-500 shadow-2xs"
               >
                 <option value="frequency">Highest Frequency</option>
                 <option value="alphabetical">Alphabetical Order</option>
               </select>
             </div>
 
-            <label className="flex items-center gap-2 cursor-pointer text-slate-300">
+            <label className="flex items-center gap-2 cursor-pointer text-slate-700 dark:text-slate-300">
               <input
                 type="checkbox"
                 checked={charIgnoreWs}
                 onChange={(e) => setCharIgnoreWs(e.target.checked)}
-                className="rounded border-slate-700 text-brand-600 focus:ring-brand-500 bg-slate-800"
+                className="rounded border-slate-300 dark:border-slate-700 text-brand-600 focus:ring-brand-500 bg-white dark:bg-slate-800"
               />
               <span>Ignore Whitespace</span>
             </label>
 
-            <label className="flex items-center gap-2 cursor-pointer text-slate-300">
+            <label className="flex items-center gap-2 cursor-pointer text-slate-700 dark:text-slate-300">
               <input
                 type="checkbox"
                 checked={charIgnoreCaps}
                 onChange={(e) => setCharIgnoreCaps(e.target.checked)}
-                className="rounded border-slate-700 text-brand-600 focus:ring-brand-500 bg-slate-800"
+                className="rounded border-slate-300 dark:border-slate-700 text-brand-600 focus:ring-brand-500 bg-white dark:bg-slate-800"
               />
               <span>Ignore Case</span>
             </label>
@@ -763,11 +763,11 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
         return (
           <div className="flex flex-wrap items-center gap-4 text-xs">
             <div className="flex items-center gap-2">
-              <span className="text-slate-400">Sort By:</span>
+              <span className="text-slate-700 dark:text-slate-300 font-medium">Sort By:</span>
               <select
                 value={wordSort}
                 onChange={(e) => setWordSort(e.target.value as "frequency" | "alphabetical")}
-                className="bg-slate-800 border border-slate-700 rounded-lg px-2.5 py-1 text-slate-200 focus:outline-none focus:border-brand-500"
+                className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1 text-slate-800 dark:text-slate-200 focus:outline-none focus:border-brand-500 shadow-2xs"
               >
                 <option value="frequency">Highest Frequency</option>
                 <option value="alphabetical">Alphabetical Order</option>
@@ -775,23 +775,23 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
             </div>
 
             <div className="flex items-center gap-2">
-              <span className="text-slate-400">Min Word Length:</span>
+              <span className="text-slate-700 dark:text-slate-300 font-medium">Min Word Length:</span>
               <input
                 type="number"
                 min={1}
                 max={20}
                 value={wordMinLen}
                 onChange={(e) => setWordMinLen(Math.max(1, parseInt(e.target.value) || 1))}
-                className="w-14 bg-slate-800 border border-slate-700 rounded-lg px-2 py-1 text-slate-200 font-mono text-center focus:outline-none focus:border-brand-500"
+                className="w-14 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2 py-1 text-slate-800 dark:text-slate-200 font-mono text-center focus:outline-none focus:border-brand-500 shadow-2xs"
               />
             </div>
 
-            <label className="flex items-center gap-2 cursor-pointer text-slate-300">
+            <label className="flex items-center gap-2 cursor-pointer text-slate-700 dark:text-slate-300">
               <input
                 type="checkbox"
                 checked={wordIgnoreCaps}
                 onChange={(e) => setWordIgnoreCaps(e.target.checked)}
-                className="rounded border-slate-700 text-brand-600 focus:ring-brand-500 bg-slate-800"
+                className="rounded border-slate-300 dark:border-slate-700 text-brand-600 focus:ring-brand-500 bg-white dark:bg-slate-800"
               />
               <span>Case Insensitive</span>
             </label>
@@ -809,13 +809,13 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
                   value={regexPattern}
                   onChange={(e) => setRegexPattern(e.target.value)}
                   placeholder="Enter regex pattern..."
-                  className="flex-1 bg-slate-800 border border-slate-700 rounded-lg px-3 py-1.5 text-slate-100 font-mono text-xs focus:outline-none focus:border-brand-500"
+                  className="flex-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-1.5 text-slate-900 dark:text-slate-100 font-mono text-xs focus:outline-none focus:border-brand-500 shadow-2xs"
                 />
                 <span className="font-mono text-slate-400 text-sm">/</span>
               </div>
 
               <div className="flex items-center gap-2">
-                <span className="text-slate-400">Flags:</span>
+                <span className="text-slate-700 dark:text-slate-300 font-medium">Flags:</span>
                 <div className="flex items-center gap-1">
                   {["g", "i", "m", "s", "u"].map((flag) => {
                     const active = regexFlags.includes(flag);
@@ -831,7 +831,7 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
                         className={`px-2 py-0.5 rounded font-mono text-xs font-semibold transition-colors ${
                           active
                             ? "bg-brand-600 text-white"
-                            : "bg-slate-800 text-slate-400 hover:text-white"
+                            : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white border border-slate-200 dark:border-slate-700"
                         }`}
                       >
                         {flag}
@@ -847,7 +847,7 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
       case "query-string-parser":
         return (
           <div className="flex items-center gap-3 text-xs">
-            <span className="text-slate-400">Display Format:</span>
+            <span className="text-slate-700 dark:text-slate-300 font-medium">Display Format:</span>
             <div className="flex items-center gap-1">
               {(["table", "json", "text"] as const).map((mode) => (
                 <button
@@ -857,7 +857,7 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
                   className={`px-2.5 py-1 rounded-lg text-xs font-medium capitalize transition-colors ${
                     queryView === mode
                       ? "bg-brand-600 text-white"
-                      : "bg-slate-800 text-slate-400 hover:text-white"
+                      : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white border border-slate-200 dark:border-slate-700"
                   }`}
                 >
                   {mode}
@@ -872,7 +872,7 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
         return (
           <div className="flex flex-wrap items-center gap-4 text-xs">
             <div className="flex items-center gap-2">
-              <span className="text-slate-400">Indentation:</span>
+              <span className="text-slate-700 dark:text-slate-300 font-medium">Indentation:</span>
               <select
                 value={jsonIndent}
                 onChange={(e) =>
@@ -880,7 +880,7 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
                     e.target.value === "minify" ? "minify" : (parseInt(e.target.value) as 2 | 4)
                   )
                 }
-                className="bg-slate-800 border border-slate-700 rounded-lg px-2.5 py-1 text-slate-200 focus:outline-none focus:border-brand-500"
+                className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1 text-slate-800 dark:text-slate-200 focus:outline-none focus:border-brand-500 shadow-2xs"
               >
                 <option value="2">2 Spaces</option>
                 <option value="4">4 Spaces</option>
@@ -888,12 +888,12 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
               </select>
             </div>
 
-            <label className="flex items-center gap-2 cursor-pointer text-slate-300">
+            <label className="flex items-center gap-2 cursor-pointer text-slate-700 dark:text-slate-300">
               <input
                 type="checkbox"
                 checked={jsonSortKeys}
                 onChange={(e) => setJsonSortKeys(e.target.checked)}
-                className="rounded border-slate-700 text-brand-600 focus:ring-brand-500 bg-slate-800"
+                className="rounded border-slate-300 dark:border-slate-700 text-brand-600 focus:ring-brand-500 bg-white dark:bg-slate-800"
               />
               <span>Sort Keys A-Z</span>
             </label>
@@ -904,11 +904,11 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
         return (
           <div className="flex flex-wrap items-center gap-4 text-xs">
             <div className="flex items-center gap-2">
-              <span className="text-slate-400">Delimiter:</span>
+              <span className="text-slate-700 dark:text-slate-300 font-medium">Delimiter:</span>
               <select
                 value={jsonToCsvDelim}
                 onChange={(e) => setJsonToCsvDelim(e.target.value)}
-                className="bg-slate-800 border border-slate-700 rounded-lg px-2.5 py-1 text-slate-200 focus:outline-none focus:border-brand-500"
+                className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1 text-slate-800 dark:text-slate-200 focus:outline-none focus:border-brand-500 shadow-2xs"
               >
                 <option value=",">Comma (,)</option>
                 <option value=";">Semicolon (;)</option>
@@ -917,12 +917,12 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
               </select>
             </div>
 
-            <label className="flex items-center gap-2 cursor-pointer text-slate-300">
+            <label className="flex items-center gap-2 cursor-pointer text-slate-700 dark:text-slate-300">
               <input
                 type="checkbox"
                 checked={jsonToCsvQuoteAll}
                 onChange={(e) => setJsonToCsvQuoteAll(e.target.checked)}
-                className="rounded border-slate-700 text-brand-600 focus:ring-brand-500 bg-slate-800"
+                className="rounded border-slate-300 dark:border-slate-700 text-brand-600 focus:ring-brand-500 bg-white dark:bg-slate-800"
               />
               <span>Quote All Fields</span>
             </label>
@@ -933,11 +933,11 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
         return (
           <div className="flex flex-wrap items-center gap-4 text-xs">
             <div className="flex items-center gap-2">
-              <span className="text-slate-400">Delimiter:</span>
+              <span className="text-slate-700 dark:text-slate-300 font-medium">Delimiter:</span>
               <select
                 value={csvToJsonDelim}
                 onChange={(e) => setCsvToJsonDelim(e.target.value)}
-                className="bg-slate-800 border border-slate-700 rounded-lg px-2.5 py-1 text-slate-200 focus:outline-none focus:border-brand-500"
+                className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1 text-slate-800 dark:text-slate-200 focus:outline-none focus:border-brand-500 shadow-2xs"
               >
                 <option value=",">Comma (,)</option>
                 <option value=";">Semicolon (;)</option>
@@ -946,22 +946,22 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
               </select>
             </div>
 
-            <label className="flex items-center gap-2 cursor-pointer text-slate-300">
+            <label className="flex items-center gap-2 cursor-pointer text-slate-700 dark:text-slate-300">
               <input
                 type="checkbox"
                 checked={csvToJsonHeaders}
                 onChange={(e) => setCsvToJsonHeaders(e.target.checked)}
-                className="rounded border-slate-700 text-brand-600 focus:ring-brand-500 bg-slate-800"
+                className="rounded border-slate-300 dark:border-slate-700 text-brand-600 focus:ring-brand-500 bg-white dark:bg-slate-800"
               />
               <span>First Row is Header</span>
             </label>
 
-            <label className="flex items-center gap-2 cursor-pointer text-slate-300">
+            <label className="flex items-center gap-2 cursor-pointer text-slate-700 dark:text-slate-300">
               <input
                 type="checkbox"
                 checked={csvToJsonParseTypes}
                 onChange={(e) => setCsvToJsonParseTypes(e.target.checked)}
-                className="rounded border-slate-700 text-brand-600 focus:ring-brand-500 bg-slate-800"
+                className="rounded border-slate-300 dark:border-slate-700 text-brand-600 focus:ring-brand-500 bg-white dark:bg-slate-800"
               />
               <span>Auto-parse Numbers & Booleans</span>
             </label>
@@ -972,22 +972,22 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
         return (
           <div className="flex flex-wrap items-center gap-4 text-xs">
             <div className="flex items-center gap-2">
-              <span className="text-slate-400">Start Number:</span>
+              <span className="text-slate-700 dark:text-slate-300 font-medium">Start Number:</span>
               <input
                 type="number"
                 min={0}
                 value={lineNumStart}
                 onChange={(e) => setLineNumStart(Math.max(0, parseInt(e.target.value) || 1))}
-                className="w-16 bg-slate-800 border border-slate-700 rounded-lg px-2 py-1 text-slate-200 font-mono text-center focus:outline-none focus:border-brand-500"
+                className="w-16 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2 py-1 text-slate-800 dark:text-slate-200 font-mono text-center focus:outline-none focus:border-brand-500 shadow-2xs"
               />
             </div>
 
             <div className="flex items-center gap-2">
-              <span className="text-slate-400">Delimiter:</span>
+              <span className="text-slate-700 dark:text-slate-300 font-medium">Delimiter:</span>
               <select
                 value={lineNumDelim}
                 onChange={(e) => setLineNumDelim(e.target.value)}
-                className="bg-slate-800 border border-slate-700 rounded-lg px-2.5 py-1 text-slate-200 focus:outline-none focus:border-brand-500"
+                className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1 text-slate-800 dark:text-slate-200 focus:outline-none focus:border-brand-500 shadow-2xs"
               >
                 <option value=". ">Period & Space (&ldquo;. &rdquo;)</option>
                 <option value=" | ">Pipe (&ldquo; | &rdquo;)</option>
@@ -997,12 +997,12 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
               </select>
             </div>
 
-            <label className="flex items-center gap-2 cursor-pointer text-slate-300">
+            <label className="flex items-center gap-2 cursor-pointer text-slate-700 dark:text-slate-300">
               <input
                 type="checkbox"
                 checked={lineNumPadZeros}
                 onChange={(e) => setLineNumPadZeros(e.target.checked)}
-                className="rounded border-slate-700 text-brand-600 focus:ring-brand-500 bg-slate-800"
+                className="rounded border-slate-300 dark:border-slate-700 text-brand-600 focus:ring-brand-500 bg-white dark:bg-slate-800"
               />
               <span>Pad with Zeros</span>
             </label>
@@ -1012,7 +1012,7 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
       case "markdown-to-html":
         return (
           <div className="flex items-center gap-3 text-xs">
-            <span className="text-slate-400">Output View:</span>
+            <span className="text-slate-700 dark:text-slate-300 font-medium">Output View:</span>
             <div className="flex items-center gap-1">
               <button
                 type="button"
@@ -1020,7 +1020,7 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
                 className={`px-2.5 py-1 rounded-lg text-xs font-medium transition-colors ${
                   markdownView === "source"
                     ? "bg-brand-600 text-white"
-                    : "bg-slate-800 text-slate-400 hover:text-white"
+                    : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white border border-slate-200 dark:border-slate-700"
                 }`}
               >
                 HTML Source
@@ -1031,7 +1031,7 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
                 className={`px-2.5 py-1 rounded-lg text-xs font-medium transition-colors ${
                   markdownView === "preview"
                     ? "bg-brand-600 text-white"
-                    : "bg-slate-800 text-slate-400 hover:text-white"
+                    : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white border border-slate-200 dark:border-slate-700"
                 }`}
               >
                 Rendered Preview
@@ -1043,22 +1043,22 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
       case "html-minifier":
         return (
           <div className="flex flex-wrap items-center gap-4 text-xs">
-            <label className="flex items-center gap-2 cursor-pointer text-slate-300">
+            <label className="flex items-center gap-2 cursor-pointer text-slate-700 dark:text-slate-300">
               <input
                 type="checkbox"
                 checked={htmlMinifyComments}
                 onChange={(e) => setHtmlMinifyComments(e.target.checked)}
-                className="rounded border-slate-700 text-brand-600 focus:ring-brand-500 bg-slate-800"
+                className="rounded border-slate-300 dark:border-slate-700 text-brand-600 focus:ring-brand-500 bg-white dark:bg-slate-800"
               />
               <span>Strip Comments</span>
             </label>
 
-            <label className="flex items-center gap-2 cursor-pointer text-slate-300">
+            <label className="flex items-center gap-2 cursor-pointer text-slate-700 dark:text-slate-300">
               <input
                 type="checkbox"
                 checked={htmlMinifyWs}
                 onChange={(e) => setHtmlMinifyWs(e.target.checked)}
-                className="rounded border-slate-700 text-brand-600 focus:ring-brand-500 bg-slate-800"
+                className="rounded border-slate-300 dark:border-slate-700 text-brand-600 focus:ring-brand-500 bg-white dark:bg-slate-800"
               />
               <span>Collapse Whitespace</span>
             </label>
@@ -1076,21 +1076,21 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
       case "remove-duplicate-lines":
         return (
           <div className="flex flex-wrap items-center gap-4 text-xs">
-            <label className="flex items-center gap-2 cursor-pointer text-slate-300">
+            <label className="flex items-center gap-2 cursor-pointer text-slate-700 dark:text-slate-300">
               <input
                 type="checkbox"
                 checked={dedupeCase}
                 onChange={(e) => setDedupeCase(e.target.checked)}
-                className="rounded border-slate-700 text-brand-600 focus:ring-brand-500 bg-slate-800"
+                className="rounded border-slate-300 dark:border-slate-700 text-brand-600 focus:ring-brand-500 bg-white dark:bg-slate-800"
               />
               <span>Case Sensitive</span>
             </label>
-            <label className="flex items-center gap-2 cursor-pointer text-slate-300">
+            <label className="flex items-center gap-2 cursor-pointer text-slate-700 dark:text-slate-300">
               <input
                 type="checkbox"
                 checked={dedupeTrim}
                 onChange={(e) => setDedupeTrim(e.target.checked)}
-                className="rounded border-slate-700 text-brand-600 focus:ring-brand-500 bg-slate-800"
+                className="rounded border-slate-300 dark:border-slate-700 text-brand-600 focus:ring-brand-500 bg-white dark:bg-slate-800"
               />
               <span>Trim Lines Before Comparing</span>
             </label>
@@ -1108,7 +1108,7 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
                 className={`px-2.5 py-1 rounded-lg text-xs font-medium transition-colors ${
                   emptyLinesMode === "remove-all"
                     ? "bg-brand-600 text-white"
-                    : "bg-slate-800 text-slate-400 hover:text-white"
+                    : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white border border-slate-200 dark:border-slate-700"
                 }`}
               >
                 Remove All Blank Lines
@@ -1119,7 +1119,7 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
                 className={`px-2.5 py-1 rounded-lg text-xs font-medium transition-colors ${
                   emptyLinesMode === "preserve-paragraphs"
                     ? "bg-brand-600 text-white"
-                    : "bg-slate-800 text-slate-400 hover:text-white"
+                    : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white border border-slate-200 dark:border-slate-700"
                 }`}
               >
                 Preserve Paragraphs (Keep 1 Blank)
@@ -1132,23 +1132,23 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
         return (
           <div className="flex flex-wrap items-center gap-4 text-xs">
             <div className="flex items-center gap-2">
-              <span className="text-slate-400">Trim:</span>
+              <span className="text-slate-700 dark:text-slate-300 font-medium">Trim:</span>
               <select
                 value={trimMode}
                 onChange={(e) => setTrimMode(e.target.value as "both" | "leading" | "trailing")}
-                className="bg-slate-800 border border-slate-700 rounded-lg px-2.5 py-1 text-slate-200 focus:outline-none focus:border-brand-500"
+                className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1 text-slate-800 dark:text-slate-200 focus:outline-none focus:border-brand-500 shadow-2xs"
               >
                 <option value="both">Both Ends</option>
                 <option value="leading">Leading Only</option>
                 <option value="trailing">Trailing Only</option>
               </select>
             </div>
-            <label className="flex items-center gap-2 cursor-pointer text-slate-300">
+            <label className="flex items-center gap-2 cursor-pointer text-slate-700 dark:text-slate-300">
               <input
                 type="checkbox"
                 checked={trimRemoveEmpty}
                 onChange={(e) => setTrimRemoveEmpty(e.target.checked)}
-                className="rounded border-slate-700 text-brand-600 focus:ring-brand-500 bg-slate-800"
+                className="rounded border-slate-300 dark:border-slate-700 text-brand-600 focus:ring-brand-500 bg-white dark:bg-slate-800"
               />
               <span>Remove Empty Lines</span>
             </label>
@@ -1158,7 +1158,7 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
       case "remove-extra-spaces":
         return (
           <div className="flex items-center gap-3 text-xs">
-            <span className="text-slate-400">Scope:</span>
+            <span className="text-slate-700 dark:text-slate-300 font-medium">Scope:</span>
             <div className="flex items-center gap-1">
               <button
                 type="button"
@@ -1166,7 +1166,7 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
                 className={`px-2.5 py-1 rounded-lg text-xs font-medium transition-colors ${
                   spacesMode === "spaces-only"
                     ? "bg-brand-600 text-white"
-                    : "bg-slate-800 text-slate-400 hover:text-white"
+                    : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white border border-slate-200 dark:border-slate-700"
                 }`}
               >
                 Spaces Only (Keep Tabs & Newlines)
@@ -1177,7 +1177,7 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
                 className={`px-2.5 py-1 rounded-lg text-xs font-medium transition-colors ${
                   spacesMode === "all-whitespace"
                     ? "bg-brand-600 text-white"
-                    : "bg-slate-800 text-slate-400 hover:text-white"
+                    : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white border border-slate-200 dark:border-slate-700"
                 }`}
               >
                 All Whitespace (One Single Line)
@@ -1189,21 +1189,21 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
       case "strip-html-tags":
         return (
           <div className="flex flex-wrap items-center gap-4 text-xs">
-            <label className="flex items-center gap-2 cursor-pointer text-slate-300">
+            <label className="flex items-center gap-2 cursor-pointer text-slate-700 dark:text-slate-300">
               <input
                 type="checkbox"
                 checked={stripHtmlBreaks}
                 onChange={(e) => setStripHtmlBreaks(e.target.checked)}
-                className="rounded border-slate-700 text-brand-600 focus:ring-brand-500 bg-slate-800"
+                className="rounded border-slate-300 dark:border-slate-700 text-brand-600 focus:ring-brand-500 bg-white dark:bg-slate-800"
               />
               <span>Preserve Line Breaks on Blocks</span>
             </label>
-            <label className="flex items-center gap-2 cursor-pointer text-slate-300">
+            <label className="flex items-center gap-2 cursor-pointer text-slate-700 dark:text-slate-300">
               <input
                 type="checkbox"
                 checked={stripHtmlEntities}
                 onChange={(e) => setStripHtmlEntities(e.target.checked)}
-                className="rounded border-slate-700 text-brand-600 focus:ring-brand-500 bg-slate-800"
+                className="rounded border-slate-300 dark:border-slate-700 text-brand-600 focus:ring-brand-500 bg-white dark:bg-slate-800"
               />
               <span>Decode Entities (e.g. &amp; → &)</span>
             </label>
@@ -1214,11 +1214,11 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
         return (
           <div className="flex flex-wrap items-center gap-4 text-xs">
             <div className="flex items-center gap-2">
-              <span className="text-slate-400">Replace With:</span>
+              <span className="text-slate-700 dark:text-slate-300 font-medium">Replace With:</span>
               <select
                 value={lineBreaksSep}
                 onChange={(e) => setLineBreaksSep(e.target.value)}
-                className="bg-slate-800 border border-slate-700 rounded-lg px-2.5 py-1 text-slate-200 focus:outline-none focus:border-brand-500"
+                className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1 text-slate-800 dark:text-slate-200 focus:outline-none focus:border-brand-500 shadow-2xs"
               >
                 <option value=" ">Space (&ldquo; &rdquo;)</option>
                 <option value=", ">Comma & Space (&ldquo;, &rdquo;)</option>
@@ -1226,12 +1226,12 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
                 <option value="">Nothing (Join Directly)</option>
               </select>
             </div>
-            <label className="flex items-center gap-2 cursor-pointer text-slate-300">
+            <label className="flex items-center gap-2 cursor-pointer text-slate-700 dark:text-slate-300">
               <input
                 type="checkbox"
                 checked={lineBreaksParagraphs}
                 onChange={(e) => setLineBreaksParagraphs(e.target.checked)}
-                className="rounded border-slate-700 text-brand-600 focus:ring-brand-500 bg-slate-800"
+                className="rounded border-slate-300 dark:border-slate-700 text-brand-600 focus:ring-brand-500 bg-white dark:bg-slate-800"
               />
               <span>Keep Double Line Breaks (Paragraphs)</span>
             </label>
@@ -1242,7 +1242,7 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
         return (
           <div className="flex flex-wrap items-center gap-4 text-xs">
             <div className="flex items-center gap-2">
-              <span className="text-slate-400">Preset:</span>
+              <span className="text-slate-700 dark:text-slate-300 font-medium">Preset:</span>
               <select
                 value={specialCharsMode}
                 onChange={(e) =>
@@ -1250,7 +1250,7 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
                     e.target.value as "alphanumeric-only" | "keep-punctuation" | "custom"
                   )
                 }
-                className="bg-slate-800 border border-slate-700 rounded-lg px-2.5 py-1 text-slate-200 focus:outline-none focus:border-brand-500"
+                className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1 text-slate-800 dark:text-slate-200 focus:outline-none focus:border-brand-500 shadow-2xs"
               >
                 <option value="alphanumeric-only">Alphanumeric Only (Letters & Numbers)</option>
                 <option value="keep-punctuation">Keep Standard Punctuation</option>
@@ -1259,13 +1259,13 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
             </div>
             {specialCharsMode === "custom" && (
               <div className="flex items-center gap-2">
-                <span className="text-slate-400">Allowed:</span>
+                <span className="text-slate-700 dark:text-slate-300 font-medium">Allowed:</span>
                 <input
                   type="text"
                   value={specialCharsCustom}
                   onChange={(e) => setSpecialCharsCustom(e.target.value)}
                   placeholder="e.g. @._-/"
-                  className="w-28 bg-slate-800 border border-slate-700 rounded-lg px-2.5 py-1 text-slate-200 font-mono text-xs focus:outline-none focus:border-brand-500"
+                  className="w-28 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1 text-slate-800 dark:text-slate-200 font-mono text-xs focus:outline-none focus:border-brand-500 shadow-2xs"
                 />
               </div>
             )}
@@ -1276,7 +1276,7 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
       case "case-converter":
         return (
           <div className="flex flex-wrap items-center gap-2 text-xs">
-            <span className="text-slate-400">Target Case:</span>
+            <span className="text-slate-700 dark:text-slate-300 font-medium">Target Case:</span>
             {(
               [
                 ["uppercase", "UPPERCASE"],
@@ -1296,7 +1296,7 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
                 className={`px-2.5 py-1 rounded-lg font-medium transition-colors ${
                   caseMode === mode
                     ? "bg-brand-600 text-white shadow-sm"
-                    : "bg-slate-800 text-slate-400 hover:text-white"
+                    : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white border border-slate-200 dark:border-slate-700"
                 }`}
               >
                 {label}
@@ -1309,11 +1309,11 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
         return (
           <div className="flex flex-wrap items-center gap-4 text-xs">
             <div className="flex items-center gap-2">
-              <span className="text-slate-400">Sort By:</span>
+              <span className="text-slate-700 dark:text-slate-300 font-medium">Sort By:</span>
               <select
                 value={sortOrder}
                 onChange={(e) => setSortOrder(e.target.value as SortOrder)}
-                className="bg-slate-800 border border-slate-700 rounded-lg px-2.5 py-1 text-slate-200 focus:outline-none focus:border-brand-500"
+                className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1 text-slate-800 dark:text-slate-200 focus:outline-none focus:border-brand-500 shadow-2xs"
               >
                 <option value="az">A → Z (Alphabetical)</option>
                 <option value="za">Z → A (Reverse Alphabetical)</option>
@@ -1322,21 +1322,21 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
                 <option value="numeric">Natural / Numeric</option>
               </select>
             </div>
-            <label className="flex items-center gap-2 cursor-pointer text-slate-300">
+            <label className="flex items-center gap-2 cursor-pointer text-slate-700 dark:text-slate-300">
               <input
                 type="checkbox"
                 checked={sortCase}
                 onChange={(e) => setSortCase(e.target.checked)}
-                className="rounded border-slate-700 text-brand-600 focus:ring-brand-500 bg-slate-800"
+                className="rounded border-slate-300 dark:border-slate-700 text-brand-600 focus:ring-brand-500 bg-white dark:bg-slate-800"
               />
               <span>Case-Sensitive</span>
             </label>
-            <label className="flex items-center gap-2 cursor-pointer text-slate-300">
+            <label className="flex items-center gap-2 cursor-pointer text-slate-700 dark:text-slate-300">
               <input
                 type="checkbox"
                 checked={sortPreserveDups}
                 onChange={(e) => setSortPreserveDups(e.target.checked)}
-                className="rounded border-slate-700 text-brand-600 focus:ring-brand-500 bg-slate-800"
+                className="rounded border-slate-300 dark:border-slate-700 text-brand-600 focus:ring-brand-500 bg-white dark:bg-slate-800"
               />
               <span>Preserve Duplicates</span>
             </label>
@@ -1346,7 +1346,7 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
       case "reverse-text":
         return (
           <div className="flex items-center gap-2 text-xs">
-            <span className="text-slate-400">Reverse:</span>
+            <span className="text-slate-700 dark:text-slate-300 font-medium">Reverse:</span>
             {(
               [
                 ["characters", "Characters (Mirror)"],
@@ -1361,7 +1361,7 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
                 className={`px-2.5 py-1 rounded-lg font-medium transition-colors ${
                   reverseMode === mode
                     ? "bg-brand-600 text-white"
-                    : "bg-slate-800 text-slate-400 hover:text-white"
+                    : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white border border-slate-200 dark:border-slate-700"
                 }`}
               >
                 {label}
@@ -1380,7 +1380,7 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
                 className={`px-3 py-1 rounded-lg font-medium transition-colors ${
                   base64Mode === "encode"
                     ? "bg-brand-600 text-white"
-                    : "bg-slate-800 text-slate-400 hover:text-white"
+                    : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white border border-slate-200 dark:border-slate-700"
                 }`}
               >
                 Encode
@@ -1391,18 +1391,18 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
                 className={`px-3 py-1 rounded-lg font-medium transition-colors ${
                   base64Mode === "decode"
                     ? "bg-brand-600 text-white"
-                    : "bg-slate-800 text-slate-400 hover:text-white"
+                    : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white border border-slate-200 dark:border-slate-700"
                 }`}
               >
                 Decode
               </button>
             </div>
-            <label className="flex items-center gap-2 cursor-pointer text-slate-300">
+            <label className="flex items-center gap-2 cursor-pointer text-slate-700 dark:text-slate-300">
               <input
                 type="checkbox"
                 checked={base64UrlSafe}
                 onChange={(e) => setBase64UrlSafe(e.target.checked)}
-                className="rounded border-slate-700 text-brand-600 focus:ring-brand-500 bg-slate-800"
+                className="rounded border-slate-300 dark:border-slate-700 text-brand-600 focus:ring-brand-500 bg-white dark:bg-slate-800"
               />
               <span>URL-Safe Base64 (- and _)</span>
             </label>
@@ -1419,7 +1419,7 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
                 className={`px-3 py-1 rounded-lg font-medium transition-colors ${
                   urlMode === "encode"
                     ? "bg-brand-600 text-white"
-                    : "bg-slate-800 text-slate-400 hover:text-white"
+                    : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white border border-slate-200 dark:border-slate-700"
                 }`}
               >
                 Encode
@@ -1430,18 +1430,18 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
                 className={`px-3 py-1 rounded-lg font-medium transition-colors ${
                   urlMode === "decode"
                     ? "bg-brand-600 text-white"
-                    : "bg-slate-800 text-slate-400 hover:text-white"
+                    : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white border border-slate-200 dark:border-slate-700"
                 }`}
               >
                 Decode
               </button>
             </div>
             <div className="flex items-center gap-2">
-              <span className="text-slate-400">Encoding Scope:</span>
+              <span className="text-slate-700 dark:text-slate-300 font-medium">Encoding Scope:</span>
               <select
                 value={urlScope}
                 onChange={(e) => setUrlScope(e.target.value as "component" | "full")}
-                className="bg-slate-800 border border-slate-700 rounded-lg px-2.5 py-1 text-slate-200 focus:outline-none focus:border-brand-500"
+                className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1 text-slate-800 dark:text-slate-200 focus:outline-none focus:border-brand-500 shadow-2xs"
               >
                 <option value="component">Component (encodeURIComponent - converts ?, &, =)</option>
                 <option value="full">Full URI (encodeURI - preserves URL structure)</option>
@@ -1464,19 +1464,19 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
                       ? algo === "SHA-1"
                         ? "bg-amber-600 text-white"
                         : "bg-brand-600 text-white"
-                      : "bg-slate-800 text-slate-400 hover:text-white"
+                      : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white border border-slate-200 dark:border-slate-700"
                   }`}
                 >
                   {algo}
                 </button>
               ))}
             </div>
-            <label className="flex items-center gap-2 cursor-pointer text-slate-300">
+            <label className="flex items-center gap-2 cursor-pointer text-slate-700 dark:text-slate-300">
               <input
                 type="checkbox"
                 checked={hashUpper}
                 onChange={(e) => setHashUpper(e.target.checked)}
-                className="rounded border-slate-700 text-brand-600 focus:ring-brand-500 bg-slate-800"
+                className="rounded border-slate-300 dark:border-slate-700 text-brand-600 focus:ring-brand-500 bg-white dark:bg-slate-800"
               />
               <span>UPPERCASE Hex</span>
             </label>
@@ -1501,7 +1501,7 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
                 className={`px-2.5 py-1 rounded-lg text-xs font-medium transition-colors ${
                   jwtView === "visual"
                     ? "bg-brand-600 text-white"
-                    : "bg-slate-800 text-slate-400 hover:text-white"
+                    : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white border border-slate-200 dark:border-slate-700"
                 }`}
               >
                 Visual Inspector
@@ -1512,7 +1512,7 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
                 className={`px-2.5 py-1 rounded-lg text-xs font-medium transition-colors ${
                   jwtView === "raw"
                     ? "bg-brand-600 text-white"
-                    : "bg-slate-800 text-slate-400 hover:text-white"
+                    : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white border border-slate-200 dark:border-slate-700"
                 }`}
               >
                 Raw JSON
@@ -1525,69 +1525,69 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
         return (
           <div className="flex flex-wrap items-center gap-4 text-xs">
             <div className="flex items-center gap-2">
-              <span className="text-slate-400">Length:</span>
+              <span className="text-slate-700 dark:text-slate-300 font-medium">Length:</span>
               <input
                 type="number"
                 min={4}
                 max={128}
                 value={pwLength}
                 onChange={(e) => setPwLength(Math.max(4, parseInt(e.target.value) || 16))}
-                className="w-16 bg-slate-800 border border-slate-700 rounded-lg px-2 py-1 text-slate-200 text-center font-mono focus:outline-none focus:border-brand-500"
+                className="w-16 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2 py-1 text-slate-800 dark:text-slate-200 text-center font-mono focus:outline-none focus:border-brand-500 shadow-2xs"
               />
             </div>
             <div className="flex items-center gap-2">
-              <span className="text-slate-400">Count:</span>
+              <span className="text-slate-700 dark:text-slate-300 font-medium">Count:</span>
               <input
                 type="number"
                 min={1}
                 max={50}
                 value={pwCount}
                 onChange={(e) => setPwCount(Math.max(1, parseInt(e.target.value) || 1))}
-                className="w-14 bg-slate-800 border border-slate-700 rounded-lg px-2 py-1 text-slate-200 text-center font-mono focus:outline-none focus:border-brand-500"
+                className="w-14 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2 py-1 text-slate-800 dark:text-slate-200 text-center font-mono focus:outline-none focus:border-brand-500 shadow-2xs"
               />
             </div>
-            <label className="flex items-center gap-1.5 cursor-pointer text-slate-300">
+            <label className="flex items-center gap-1.5 cursor-pointer text-slate-700 dark:text-slate-300">
               <input
                 type="checkbox"
                 checked={pwUpper}
                 onChange={(e) => setPwUpper(e.target.checked)}
-                className="rounded border-slate-700 text-brand-600 bg-slate-800"
+                className="rounded border-slate-300 dark:border-slate-700 text-brand-600 bg-white dark:bg-slate-800"
               />
               <span>A-Z</span>
             </label>
-            <label className="flex items-center gap-1.5 cursor-pointer text-slate-300">
+            <label className="flex items-center gap-1.5 cursor-pointer text-slate-700 dark:text-slate-300">
               <input
                 type="checkbox"
                 checked={pwLower}
                 onChange={(e) => setPwLower(e.target.checked)}
-                className="rounded border-slate-700 text-brand-600 bg-slate-800"
+                className="rounded border-slate-300 dark:border-slate-700 text-brand-600 bg-white dark:bg-slate-800"
               />
               <span>a-z</span>
             </label>
-            <label className="flex items-center gap-1.5 cursor-pointer text-slate-300">
+            <label className="flex items-center gap-1.5 cursor-pointer text-slate-700 dark:text-slate-300">
               <input
                 type="checkbox"
                 checked={pwNumbers}
                 onChange={(e) => setPwNumbers(e.target.checked)}
-                className="rounded border-slate-700 text-brand-600 bg-slate-800"
+                className="rounded border-slate-300 dark:border-slate-700 text-brand-600 bg-white dark:bg-slate-800"
               />
               <span>0-9</span>
             </label>
-            <label className="flex items-center gap-1.5 cursor-pointer text-slate-300">
+            <label className="flex items-center gap-1.5 cursor-pointer text-slate-700 dark:text-slate-300">
               <input
                 type="checkbox"
                 checked={pwSymbols}
                 onChange={(e) => setPwSymbols(e.target.checked)}
-                className="rounded border-slate-700 text-brand-600 bg-slate-800"
+                className="rounded border-slate-300 dark:border-slate-700 text-brand-600 bg-white dark:bg-slate-800"
               />
               <span>!@#$</span>
             </label>
-            <label className="flex items-center gap-1.5 cursor-pointer text-slate-300">
+            <label className="flex items-center gap-1.5 cursor-pointer text-slate-700 dark:text-slate-300">
               <input
                 type="checkbox"
                 checked={pwExcludeAmbiguous}
                 onChange={(e) => setPwExcludeAmbiguous(e.target.checked)}
-                className="rounded border-slate-700 text-brand-600 bg-slate-800"
+                className="rounded border-slate-300 dark:border-slate-700 text-brand-600 bg-white dark:bg-slate-800"
               />
               <span>No Ambiguous (il1Lo0O)</span>
             </label>
@@ -1605,31 +1605,31 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
         return (
           <div className="flex flex-wrap items-center gap-4 text-xs">
             <div className="flex items-center gap-2">
-              <span className="text-slate-400">Quantity:</span>
+              <span className="text-slate-700 dark:text-slate-300 font-medium">Quantity:</span>
               <input
                 type="number"
                 min={1}
                 max={100}
                 value={uuidCount}
                 onChange={(e) => setUuidCount(Math.max(1, parseInt(e.target.value) || 1))}
-                className="w-16 bg-slate-800 border border-slate-700 rounded-lg px-2 py-1 text-slate-200 text-center font-mono focus:outline-none focus:border-brand-500"
+                className="w-16 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2 py-1 text-slate-800 dark:text-slate-200 text-center font-mono focus:outline-none focus:border-brand-500 shadow-2xs"
               />
             </div>
-            <label className="flex items-center gap-2 cursor-pointer text-slate-300">
+            <label className="flex items-center gap-2 cursor-pointer text-slate-700 dark:text-slate-300">
               <input
                 type="checkbox"
                 checked={uuidUpper}
                 onChange={(e) => setUuidUpper(e.target.checked)}
-                className="rounded border-slate-700 text-brand-600 bg-slate-800"
+                className="rounded border-slate-300 dark:border-slate-700 text-brand-600 bg-white dark:bg-slate-800"
               />
               <span>UPPERCASE</span>
             </label>
-            <label className="flex items-center gap-2 cursor-pointer text-slate-300">
+            <label className="flex items-center gap-2 cursor-pointer text-slate-700 dark:text-slate-300">
               <input
                 type="checkbox"
                 checked={uuidNoHyphens}
                 onChange={(e) => setUuidNoHyphens(e.target.checked)}
-                className="rounded border-slate-700 text-brand-600 bg-slate-800"
+                className="rounded border-slate-300 dark:border-slate-700 text-brand-600 bg-white dark:bg-slate-800"
               />
               <span>Remove Hyphens</span>
             </label>
@@ -1647,11 +1647,11 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
         return (
           <div className="flex flex-wrap items-center gap-4 text-xs">
             <div className="flex items-center gap-2">
-              <span className="text-slate-400">Unit:</span>
+              <span className="text-slate-700 dark:text-slate-300 font-medium">Unit:</span>
               <select
                 value={loremUnit}
                 onChange={(e) => setLoremUnit(e.target.value as LoremUnit)}
-                className="bg-slate-800 border border-slate-700 rounded-lg px-2.5 py-1 text-slate-200 focus:outline-none focus:border-brand-500"
+                className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1 text-slate-800 dark:text-slate-200 focus:outline-none focus:border-brand-500 shadow-2xs"
               >
                 <option value="paragraphs">Paragraphs</option>
                 <option value="sentences">Sentences</option>
@@ -1659,22 +1659,22 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
               </select>
             </div>
             <div className="flex items-center gap-2">
-              <span className="text-slate-400">Count:</span>
+              <span className="text-slate-700 dark:text-slate-300 font-medium">Count:</span>
               <input
                 type="number"
                 min={1}
                 max={100}
                 value={loremCount}
                 onChange={(e) => setLoremCount(Math.max(1, parseInt(e.target.value) || 1))}
-                className="w-16 bg-slate-800 border border-slate-700 rounded-lg px-2 py-1 text-slate-200 text-center font-mono focus:outline-none focus:border-brand-500"
+                className="w-16 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2 py-1 text-slate-800 dark:text-slate-200 text-center font-mono focus:outline-none focus:border-brand-500 shadow-2xs"
               />
             </div>
-            <label className="flex items-center gap-2 cursor-pointer text-slate-300">
+            <label className="flex items-center gap-2 cursor-pointer text-slate-700 dark:text-slate-300">
               <input
                 type="checkbox"
                 checked={loremStartWith}
                 onChange={(e) => setLoremStartWith(e.target.checked)}
-                className="rounded border-slate-700 text-brand-600 bg-slate-800"
+                className="rounded border-slate-300 dark:border-slate-700 text-brand-600 bg-white dark:bg-slate-800"
               />
               <span>Start with &ldquo;Lorem ipsum...&rdquo;</span>
             </label>
@@ -1698,11 +1698,11 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
       case "fancy-fonts":
         return (
           <div className="flex items-center gap-3 text-xs">
-            <span className="text-slate-400">Style:</span>
+            <span className="text-slate-700 dark:text-slate-300 font-medium">Style:</span>
             <select
               value={fancyStyle}
               onChange={(e) => setFancyStyle(e.target.value as FancyFontStyle | "all")}
-              className="bg-slate-800 border border-slate-700 rounded-lg px-2.5 py-1 text-slate-200 focus:outline-none focus:border-brand-500 max-w-[260px] truncate"
+              className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1 text-slate-800 dark:text-slate-200 focus:outline-none focus:border-brand-500 shadow-2xs max-w-[260px] truncate"
             >
               <option value="all">✨ All Styles (Overview Cards)</option>
               <optgroup label="🔤 Alphabets & Letter Styles">
@@ -1783,13 +1783,13 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
         return (
           <div className="flex flex-wrap items-center gap-4 text-xs">
             <div className="flex items-center gap-2">
-              <span className="text-slate-400">Unit:</span>
+              <span className="text-slate-700 dark:text-slate-300 font-medium">Unit:</span>
               <select
                 value={unixUnit}
                 onChange={(e) =>
                   setUnixUnit(e.target.value as "auto" | "seconds" | "milliseconds")
                 }
-                className="bg-slate-800 border border-slate-700 rounded-lg px-2.5 py-1 text-slate-200 focus:outline-none focus:border-brand-500"
+                className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1 text-slate-800 dark:text-slate-200 focus:outline-none focus:border-brand-500 shadow-2xs"
               >
                 <option value="auto">Auto-Detect (10 vs 13 digits)</option>
                 <option value="seconds">Seconds (10 digits)</option>
@@ -1797,11 +1797,11 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
               </select>
             </div>
             <div className="flex items-center gap-2">
-              <span className="text-slate-400">Display Timezone:</span>
+              <span className="text-slate-700 dark:text-slate-300 font-medium">Display Timezone:</span>
               <select
                 value={unixTz}
                 onChange={(e) => setUnixTz(e.target.value)}
-                className="bg-slate-800 border border-slate-700 rounded-lg px-2.5 py-1 text-slate-200 focus:outline-none focus:border-brand-500"
+                className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1 text-slate-800 dark:text-slate-200 focus:outline-none focus:border-brand-500 shadow-2xs"
               >
                 <option value="local">Local Timezone</option>
                 <option value="UTC">UTC / GMT</option>
@@ -1828,22 +1828,22 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
         return (
           <div className="flex flex-wrap items-center gap-4 text-xs">
             <div className="flex items-center gap-2">
-              <span className="text-slate-400">Calculation Timezone:</span>
+              <span className="text-slate-700 dark:text-slate-300 font-medium">Calculation Timezone:</span>
               <select
                 value={dateDiffTz}
                 onChange={(e) => setDateDiffTz(e.target.value)}
-                className="bg-slate-800 border border-slate-700 rounded-lg px-2.5 py-1 text-slate-200 focus:outline-none focus:border-brand-500"
+                className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1 text-slate-800 dark:text-slate-200 focus:outline-none focus:border-brand-500 shadow-2xs"
               >
                 <option value="UTC">UTC / GMT (Zero Drift)</option>
                 <option value="local">Browser Local Time</option>
               </select>
             </div>
-            <label className="flex items-center gap-2 cursor-pointer text-slate-300">
+            <label className="flex items-center gap-2 cursor-pointer text-slate-700 dark:text-slate-300">
               <input
                 type="checkbox"
                 checked={dateDiffIncludeEnd}
                 onChange={(e) => setDateDiffIncludeEnd(e.target.checked)}
-                className="rounded border-slate-700 text-brand-600 bg-slate-800"
+                className="rounded border-slate-300 dark:border-slate-700 text-brand-600 bg-white dark:bg-slate-800"
               />
               <span>Include End Date (+1 Full Day)</span>
             </label>
@@ -1852,14 +1852,14 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
               <button
                 type="button"
                 onClick={() => setInput("2026-01-01 to 2026-12-31")}
-                className="px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-slate-300"
+                className="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 transition-colors"
               >
                 Year 2026
               </button>
               <button
                 type="button"
                 onClick={() => setInput("2026-09-07 to 2026-12-25")}
-                className="px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-slate-300"
+                className="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 transition-colors"
               >
                 Christmas 2026
               </button>
@@ -1995,26 +1995,26 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
       const parsed = parseQueryString(input);
       if (parsed.entries.length === 0) {
         return (
-          <div className="text-slate-400 text-xs py-8 text-center">
-            Enter a query string (e.g. <code className="text-brand-400 font-mono">?name=John&age=25</code>) to view parsed parameters.
+          <div className="text-slate-500 dark:text-slate-400 text-xs py-8 text-center">
+            Enter a query string (e.g. <code className="text-brand-600 dark:text-brand-400 font-mono">?name=John&age=25</code>) to view parsed parameters.
           </div>
         );
       }
 
       return (
         <div className="space-y-4">
-          <div className="flex items-center justify-between text-xs text-slate-400">
+          <div className="flex items-center justify-between text-xs text-slate-600 dark:text-slate-400">
             <span>
-              Total Parameters: <strong className="text-slate-200">{parsed.totalParams}</strong>
+              Total Parameters: <strong className="text-slate-900 dark:text-slate-100">{parsed.totalParams}</strong>
             </span>
             <span>
-              Unique Keys: <strong className="text-slate-200">{parsed.uniqueKeys}</strong>
+              Unique Keys: <strong className="text-slate-900 dark:text-slate-100">{parsed.uniqueKeys}</strong>
             </span>
           </div>
 
-          <div className="overflow-x-auto rounded-xl border border-slate-800">
+          <div className="overflow-x-auto rounded-xl border border-slate-200 dark:border-slate-800 shadow-2xs">
             <table className="w-full text-left text-xs font-mono">
-              <thead className="bg-slate-950/80 text-slate-400 border-b border-slate-800">
+              <thead className="bg-slate-100 dark:bg-slate-950/80 text-slate-700 dark:text-slate-300 border-b border-slate-200 dark:border-slate-800">
                 <tr>
                   <th className="p-3">#</th>
                   <th className="p-3">Key</th>
@@ -2022,13 +2022,13 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
                   <th className="p-3">Raw Value</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-800/60">
+              <tbody className="divide-y divide-slate-200 dark:divide-slate-800/60 bg-white dark:bg-slate-950/40">
                 {parsed.entries.map((entry, idx) => (
-                  <tr key={idx} className="hover:bg-slate-800/40 transition-colors">
-                    <td className="p-3 text-slate-500">{idx + 1}</td>
-                    <td className="p-3 font-semibold text-emerald-400">{entry.decodedKey}</td>
-                    <td className="p-3 text-slate-100">{entry.decodedValue || <span className="text-slate-600">(empty)</span>}</td>
-                    <td className="p-3 text-slate-400">{entry.rawValue || <span className="text-slate-600">(empty)</span>}</td>
+                  <tr key={idx} className="hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors">
+                    <td className="p-3 text-slate-400 dark:text-slate-500">{idx + 1}</td>
+                    <td className="p-3 font-semibold text-emerald-600 dark:text-emerald-400">{entry.decodedKey}</td>
+                    <td className="p-3 text-slate-900 dark:text-slate-100 font-medium">{entry.decodedValue || <span className="text-slate-400 dark:text-slate-600 font-normal">(empty)</span>}</td>
+                    <td className="p-3 text-slate-600 dark:text-slate-400">{entry.rawValue || <span className="text-slate-400 dark:text-slate-600 font-normal">(empty)</span>}</td>
                   </tr>
                 ))}
               </tbody>
@@ -2091,9 +2091,9 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
             <span className="font-semibold text-amber-600 dark:text-amber-400">{stats.readingTimeFormatted}</span>
           </div>
 
-          <div className="flex items-center justify-between p-3 rounded-xl border border-slate-800 bg-slate-950/60 text-xs">
-            <span className="text-slate-400">Speaking Time (~130 WPM):</span>
-            <span className="font-semibold text-blue-400">{stats.speakingTimeFormatted}</span>
+          <div className="flex items-center justify-between p-3 rounded-xl border border-slate-200/90 dark:border-slate-800 bg-slate-50/90 dark:bg-slate-950/60 text-xs">
+            <span className="text-slate-600 dark:text-slate-400 font-medium">Speaking Time (~130 WPM):</span>
+            <span className="font-semibold text-blue-600 dark:text-blue-400">{stats.speakingTimeFormatted}</span>
           </div>
         </div>
       );
@@ -2104,16 +2104,16 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
       return (
         <div className="space-y-4">
           <div className="flex items-center justify-between text-xs">
-            <span className="text-slate-400">
+            <span className="text-slate-600 dark:text-slate-400 font-medium">
               Matches Found:{" "}
-              <strong className={res.matchCount > 0 ? "text-emerald-400" : "text-slate-400"}>
+              <strong className={res.matchCount > 0 ? "text-emerald-600 dark:text-emerald-400" : "text-slate-500 dark:text-slate-400"}>
                 {res.matchCount}
               </strong>
             </span>
             {res.isValid ? (
-              <span className="text-[11px] text-emerald-400 font-mono">✓ Valid Expression</span>
+              <span className="text-[11px] text-emerald-600 dark:text-emerald-400 font-mono font-medium">✓ Valid Expression</span>
             ) : (
-              <span className="text-[11px] text-rose-400 font-mono">✕ Invalid Syntax</span>
+              <span className="text-[11px] text-rose-600 dark:text-rose-400 font-mono font-medium">✕ Invalid Syntax</span>
             )}
           </div>
 
@@ -2122,23 +2122,23 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
               {res.matches.map((m, idx) => (
                 <div
                   key={idx}
-                  className="p-3 rounded-xl border border-slate-800 bg-slate-950/60 text-xs font-mono space-y-1.5"
+                  className="p-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/80 dark:bg-slate-950/60 text-xs font-mono space-y-1.5 shadow-2xs"
                 >
                   <div className="flex items-center justify-between">
-                    <span className="text-slate-500 font-semibold">Match #{idx + 1}</span>
-                    <span className="text-xs text-slate-500">
+                    <span className="text-slate-700 dark:text-slate-400 font-semibold">Match #{idx + 1}</span>
+                    <span className="text-xs text-slate-500 dark:text-slate-400">
                       idx {m.index}..{m.index + m.length}
                     </span>
                   </div>
-                  <div className="p-1.5 rounded bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 break-all font-semibold">
+                  <div className="p-1.5 rounded bg-emerald-500/10 border border-emerald-500/20 text-emerald-700 dark:text-emerald-300 break-all font-semibold">
                     {m.match}
                   </div>
                   {m.groups.length > 0 && (
-                    <div className="mt-1 pt-1 border-t border-slate-800/80 space-y-1">
+                    <div className="mt-1 pt-1 border-t border-slate-200 dark:border-slate-800/80 space-y-1">
                       {m.groups.map((g, gIdx) => (
-                        <div key={gIdx} className="flex items-center gap-2 text-xs text-slate-400">
-                          <span className="text-purple-400">{g.name ? g.name : `Group ${g.index}`}:</span>
-                          <span className="text-slate-200">{g.value}</span>
+                        <div key={gIdx} className="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-400">
+                          <span className="text-purple-600 dark:text-purple-400 font-medium">{g.name ? g.name : `Group ${g.index}`}:</span>
+                          <span className="text-slate-800 dark:text-slate-200">{g.value}</span>
                         </div>
                       ))}
                     </div>
@@ -2147,7 +2147,7 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
               ))}
             </div>
           ) : (
-            <div className="text-slate-400 text-xs py-8 text-center font-mono">
+            <div className="text-slate-500 dark:text-slate-400 text-xs py-8 text-center font-mono">
               {res.isValid
                 ? "No matches found in the provided text."
                 : `Error: ${res.error}`}
@@ -2160,7 +2160,7 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
     if (tool.slug === "markdown-to-html" && markdownView === "preview") {
       const html = convertMarkdownToHtml(input);
       return (
-        <div className="prose prose-invert max-w-none text-xs sm:text-sm text-slate-200 leading-relaxed space-y-3 p-2">
+        <div className="prose dark:prose-invert max-w-none text-xs sm:text-sm text-slate-800 dark:text-slate-200 leading-relaxed space-y-3 p-2">
           <div dangerouslySetInnerHTML={{ __html: html }} />
         </div>
       );
@@ -2170,7 +2170,7 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
       const decoded = decodeJwt(input);
       if (!input.trim()) {
         return (
-          <div className="text-slate-400 text-xs py-8 text-center font-mono">
+          <div className="text-slate-500 dark:text-slate-400 text-xs py-8 text-center font-mono">
             Paste a JWT (JSON Web Token) to inspect header, claims, and payload.
           </div>
         );
@@ -2178,24 +2178,24 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
 
       if (!decoded.isValid) {
         return (
-          <div className="p-4 rounded-xl border border-rose-500/20 bg-rose-500/5 text-rose-300 text-xs space-y-2">
+          <div className="p-4 rounded-xl border border-rose-500/25 bg-rose-50 dark:bg-rose-950/20 text-rose-700 dark:text-rose-300 text-xs space-y-2">
             <div className="font-semibold flex items-center gap-1.5">
               <span>✕ Invalid JWT</span>
             </div>
-            <p className="text-slate-400">{decoded.error}</p>
+            <p className="text-slate-600 dark:text-slate-400">{decoded.error}</p>
           </div>
         );
       }
 
       return (
         <div className="space-y-4">
-          <div className="p-3 rounded-xl border border-amber-500/20 bg-amber-500/10 text-amber-300 text-xs">
+          <div className="p-3 rounded-xl border border-amber-500/30 bg-amber-50 dark:bg-amber-500/10 text-amber-800 dark:text-amber-300 text-xs font-medium">
             {decoded.warning}
           </div>
 
           <div className="flex flex-wrap items-center gap-2 text-xs">
             {decoded.algorithm && (
-              <span className="px-2.5 py-1 rounded-lg bg-pink-500/10 border border-pink-500/20 text-pink-400 font-mono font-medium">
+              <span className="px-2.5 py-1 rounded-lg bg-pink-50 dark:bg-pink-500/10 border border-pink-200 dark:border-pink-500/20 text-pink-700 dark:text-pink-400 font-mono font-medium">
                 Algorithm: {decoded.algorithm}
               </span>
             )}
@@ -2203,50 +2203,50 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
               <span
                 className={`px-2.5 py-1 rounded-lg font-mono font-medium border ${
                   decoded.isExpired
-                    ? "bg-rose-500/10 border-rose-500/20 text-rose-400"
-                    : "bg-emerald-500/10 border-emerald-500/20 text-emerald-400"
+                    ? "bg-rose-50 dark:bg-rose-500/10 border-rose-200 dark:border-rose-500/20 text-rose-700 dark:text-rose-400"
+                    : "bg-emerald-50 dark:bg-emerald-500/10 border-emerald-200 dark:border-emerald-500/20 text-emerald-700 dark:text-emerald-400"
                 }`}
               >
                 {decoded.isExpired ? "Status: Expired" : "Status: Active (Not Expired)"}
               </span>
             )}
             {decoded.expiresAt && (
-              <span className="text-slate-400 text-[11px]">
+              <span className="text-slate-600 dark:text-slate-400 text-[11px]">
                 Exp: {decoded.expiresAt}
               </span>
             )}
           </div>
 
           {/* Header Card */}
-          <div className="p-3.5 rounded-xl border border-pink-500/20 bg-pink-950/10 space-y-2">
+          <div className="p-3.5 rounded-xl border border-pink-200 dark:border-pink-500/20 bg-pink-50/60 dark:bg-pink-950/10 space-y-2">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-semibold text-pink-400 uppercase tracking-wider">
+              <span className="text-xs font-semibold text-pink-700 dark:text-pink-400 uppercase tracking-wider">
                 Header: Algorithm & Token Type
               </span>
             </div>
-            <pre className="text-xs font-mono text-pink-200 bg-slate-950/50 p-3 rounded-lg overflow-x-auto border border-pink-500/10">
+            <pre className="text-xs font-mono text-pink-900 dark:text-pink-200 bg-white dark:bg-slate-950/50 p-3 rounded-lg overflow-x-auto border border-pink-200/80 dark:border-pink-500/10">
               {decoded.formattedHeader}
             </pre>
           </div>
 
           {/* Payload Card */}
-          <div className="p-3.5 rounded-xl border border-purple-500/20 bg-purple-950/10 space-y-2">
+          <div className="p-3.5 rounded-xl border border-purple-200 dark:border-purple-500/20 bg-purple-50/60 dark:bg-purple-950/10 space-y-2">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-semibold text-purple-400 uppercase tracking-wider">
+              <span className="text-xs font-semibold text-purple-700 dark:text-purple-400 uppercase tracking-wider">
                 Payload: Data Claims
               </span>
             </div>
-            <pre className="text-xs font-mono text-purple-200 bg-slate-950/50 p-3 rounded-lg overflow-x-auto border border-purple-500/10">
+            <pre className="text-xs font-mono text-purple-900 dark:text-purple-200 bg-white dark:bg-slate-950/50 p-3 rounded-lg overflow-x-auto border border-purple-200/80 dark:border-purple-500/10">
               {decoded.formattedPayload}
             </pre>
           </div>
 
           {/* Signature Card */}
-          <div className="p-3.5 rounded-xl border border-cyan-500/20 bg-cyan-950/10 space-y-2">
-            <span className="text-xs font-semibold text-cyan-400 uppercase tracking-wider">
+          <div className="p-3.5 rounded-xl border border-cyan-200 dark:border-cyan-500/20 bg-cyan-50/60 dark:bg-cyan-950/10 space-y-2">
+            <span className="text-xs font-semibold text-cyan-700 dark:text-cyan-400 uppercase tracking-wider">
               Signature (Raw Base64)
             </span>
-            <div className="text-xs font-mono text-cyan-200 bg-slate-950/50 p-2.5 rounded-lg break-all border border-cyan-500/10">
+            <div className="text-xs font-mono text-cyan-900 dark:text-cyan-200 bg-white dark:bg-slate-950/50 p-2.5 rounded-lg break-all border border-cyan-200/80 dark:border-cyan-500/10">
               {decoded.signature || "(No signature)"}
             </div>
           </div>
@@ -2278,7 +2278,7 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
         <div className="space-y-3">
           <div className="flex items-center justify-between text-xs">
             <div className="flex items-center gap-2">
-              <span className="text-slate-400">Strength:</span>
+              <span className="text-slate-700 dark:text-slate-300 font-medium">Strength:</span>
               <span
                 className={`px-2.5 py-0.5 rounded-md font-semibold text-xs border uppercase tracking-wider ${
                   strengthColors[res.strength]
@@ -2287,7 +2287,7 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
                 {res.strength.replace("-", " ")}
               </span>
             </div>
-            <span className="text-slate-400 font-mono text-[11px]">
+            <span className="text-slate-500 dark:text-slate-400 font-mono text-[11px]">
               ~{res.entropyBits} bits of entropy
             </span>
           </div>
@@ -2296,9 +2296,9 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
             {res.passwords.map((pw, idx) => (
               <div
                 key={idx}
-                className="flex items-center justify-between p-3 rounded-xl border border-slate-800 bg-slate-950/60 text-xs font-mono"
+                className="flex items-center justify-between p-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/80 dark:bg-slate-950/60 text-xs font-mono shadow-2xs"
               >
-                <span className="text-slate-100 font-semibold tracking-wider break-all select-all">
+                <span className="text-slate-900 dark:text-slate-100 font-semibold tracking-wider break-all select-all">
                   {pw}
                 </span>
                 <CopyButton text={pw} variant="ghost" />
@@ -2315,20 +2315,20 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
 
       return (
         <div className="space-y-4">
-          <div className="p-4 rounded-xl border border-slate-800 bg-slate-950/60 space-y-3">
+          <div className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/80 dark:bg-slate-950/60 space-y-3 shadow-2xs">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
-                Unit: <strong className="text-brand-400">{res.usedUnit}</strong>
+              <span className="text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">
+                Unit: <strong className="text-brand-600 dark:text-brand-400">{res.usedUnit}</strong>
               </span>
-              <span className="text-xs font-semibold text-amber-400 bg-amber-500/10 border border-amber-500/20 px-2.5 py-0.5 rounded-full">
+              <span className="text-xs font-semibold text-amber-600 dark:text-amber-400 bg-amber-500/10 border border-amber-500/20 px-2.5 py-0.5 rounded-full">
                 {res.relativeTime}
               </span>
             </div>
-            <div className="text-lg font-bold text-slate-100 font-mono">
+            <div className="text-lg font-bold text-slate-900 dark:text-slate-100 font-mono">
               {res.utc}
             </div>
             {res.timezoneFormatted && (
-              <div className="text-xs text-slate-400">
+              <div className="text-xs text-slate-600 dark:text-slate-400">
                 {res.timezoneFormatted}
               </div>
             )}
@@ -2377,39 +2377,39 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
 
       return (
         <div className="space-y-4">
-          <div className="p-4 rounded-xl border border-brand-500/20 bg-brand-500/5 space-y-2">
+          <div className="p-4 rounded-xl border border-brand-200 dark:border-brand-500/20 bg-brand-50/70 dark:bg-brand-500/5 space-y-2 shadow-2xs">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-semibold text-brand-400 uppercase tracking-wider">
+              <span className="text-xs font-semibold text-brand-700 dark:text-brand-400 uppercase tracking-wider">
                 Exact Duration Breakdown
               </span>
-              <span className="text-xs text-slate-400 font-mono">
+              <span className="text-xs text-slate-600 dark:text-slate-400 font-mono">
                 {res.isSameDate ? "Same Date" : res.isReversed ? "Backward Interval" : "Forward Interval"}
               </span>
             </div>
-            <div className="text-base sm:text-lg font-bold text-slate-100 font-mono">
+            <div className="text-base sm:text-lg font-bold text-slate-900 dark:text-slate-100 font-mono">
               {res.humanBreakdown}
             </div>
           </div>
 
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-            <div className="p-3 rounded-xl border border-slate-800 bg-slate-950/60 text-center">
-              <div className="text-2xl font-bold text-emerald-400 font-mono">{res.totalDays.toLocaleString()}</div>
-              <div className="text-[11px] text-slate-400">Total Days</div>
+            <div className="p-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/80 dark:bg-slate-950/60 text-center shadow-2xs">
+              <div className="text-2xl font-bold text-emerald-600 dark:text-emerald-400 font-mono">{res.totalDays.toLocaleString()}</div>
+              <div className="text-[11px] text-slate-600 dark:text-slate-400">Total Days</div>
             </div>
 
-            <div className="p-3 rounded-xl border border-slate-800 bg-slate-950/60 text-center">
-              <div className="text-2xl font-bold text-cyan-400 font-mono">{res.totalHours.toLocaleString()}</div>
-              <div className="text-[11px] text-slate-400">Total Hours</div>
+            <div className="p-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/80 dark:bg-slate-950/60 text-center shadow-2xs">
+              <div className="text-2xl font-bold text-cyan-600 dark:text-cyan-400 font-mono">{res.totalHours.toLocaleString()}</div>
+              <div className="text-[11px] text-slate-600 dark:text-slate-400">Total Hours</div>
             </div>
 
-            <div className="p-3 rounded-xl border border-slate-800 bg-slate-950/60 text-center">
-              <div className="text-2xl font-bold text-blue-400 font-mono">{res.totalMinutes.toLocaleString()}</div>
-              <div className="text-[11px] text-slate-400">Total Minutes</div>
+            <div className="p-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/80 dark:bg-slate-950/60 text-center shadow-2xs">
+              <div className="text-2xl font-bold text-blue-600 dark:text-blue-400 font-mono">{res.totalMinutes.toLocaleString()}</div>
+              <div className="text-[11px] text-slate-600 dark:text-slate-400">Total Minutes</div>
             </div>
 
-            <div className="p-3 rounded-xl border border-slate-800 bg-slate-950/60 text-center">
-              <div className="text-2xl font-bold text-purple-400 font-mono">{res.totalSeconds.toLocaleString()}</div>
-              <div className="text-[11px] text-slate-400">Total Seconds</div>
+            <div className="p-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/80 dark:bg-slate-950/60 text-center shadow-2xs">
+              <div className="text-2xl font-bold text-purple-600 dark:text-purple-400 font-mono">{res.totalSeconds.toLocaleString()}</div>
+              <div className="text-[11px] text-slate-600 dark:text-slate-400">Total Seconds</div>
             </div>
           </div>
         </div>

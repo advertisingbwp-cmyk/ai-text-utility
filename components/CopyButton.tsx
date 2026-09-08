@@ -53,12 +53,12 @@ export const CopyButton: React.FC<CopyButtonProps> = ({
       className={cn(
         "inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-150 disabled:opacity-40 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-brand-500/50",
         variant === "outline" &&
-          "border border-slate-700 bg-slate-800/80 text-slate-200 hover:bg-slate-700 hover:text-white dark:border-slate-700 dark:bg-slate-900/60",
+          "border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800/80 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700 hover:text-slate-900 dark:hover:text-white shadow-2xs",
         variant === "ghost" &&
-          "text-slate-400 hover:text-white hover:bg-slate-800/50",
+          "text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/50",
         variant === "default" &&
-          "bg-brand-600 text-white hover:bg-brand-500",
-        copied && "text-emerald-400 border-emerald-500/50",
+          "bg-brand-600 text-white hover:bg-brand-500 shadow-2xs",
+        copied && "text-emerald-600 dark:text-emerald-400 border-emerald-500/50",
         className
       )}
     >

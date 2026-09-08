@@ -51,7 +51,7 @@ export const AdUnit: React.FC<AdUnitProps> = ({
       <span className="text-[10px] text-slate-500 uppercase tracking-widest mb-1.5 font-medium select-none">
         Advertisement
       </span>
-      <div className="w-full min-h-[90px] bg-slate-950/40 border border-slate-800/60 rounded-xl flex items-center justify-center p-2">
+      <div className="w-full min-h-[90px] bg-slate-100/60 dark:bg-slate-950/40 border border-slate-200 dark:border-slate-800/60 rounded-xl flex items-center justify-center p-2">
         <ins
           ref={adRef}
           className="adsbygoogle"
