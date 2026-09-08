@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils";
 
 interface FavoriteStarProps {
   toolId: string;
+  toolName?: string;
   showLabel?: boolean;
   className?: string;
   size?: number;
@@ -15,6 +16,7 @@ interface FavoriteStarProps {
 
 export const FavoriteStar: React.FC<FavoriteStarProps> = ({
   toolId,
+  toolName,
   showLabel = false,
   className = "",
   size = 18,
@@ -46,16 +48,24 @@ export const FavoriteStar: React.FC<FavoriteStarProps> = ({
     }
   };
 
+  const labelText = toolName
+    ? favorite
+      ? `Remove ${toolName} from favorites`
+      : `Add ${toolName} to favorites`
+    : favorite
+    ? "Remove from favorites"
+    : "Add to favorites";
+
   return (
     <button
       type="button"
       onClick={handleClick}
-      aria-label={favorite ? "Remove from favorites" : "Add to favorites"}
+      aria-label={labelText}
       className={cn(
-        "inline-flex items-center gap-1.5 p-1.5 rounded-lg transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-amber-400/50",
+        "inline-flex items-center justify-center min-w-[44px] min-h-[44px] p-2 rounded-lg transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-amber-400/50 hover:bg-slate-100/80 dark:hover:bg-slate-800/80",
         favorite
-          ? "text-amber-400 hover:text-amber-300"
-          : "text-slate-400 hover:text-slate-200 dark:text-slate-500 dark:hover:text-slate-300",
+          ? "text-amber-500 hover:text-amber-400"
+          : "text-slate-400 hover:text-slate-600 dark:text-slate-500 dark:hover:text-slate-300",
         className
       )}
     >
@@ -67,7 +77,7 @@ export const FavoriteStar: React.FC<FavoriteStarProps> = ({
         )}
       />
       {showLabel && (
-        <span className="text-xs font-medium">
+        <span className="text-xs font-medium ml-1.5">
           {favorite ? "Favorited" : "Favorite"}
         </span>
       )}

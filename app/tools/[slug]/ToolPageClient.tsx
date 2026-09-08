@@ -2115,7 +2115,7 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
                 >
                   <div className="flex items-center justify-between">
                     <span className="text-slate-500 font-semibold">Match #{idx + 1}</span>
-                    <span className="text-[10px] text-slate-500">
+                    <span className="text-xs text-slate-500">
                       idx {m.index}..{m.index + m.length}
                     </span>
                   </div>
@@ -2125,7 +2125,7 @@ export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
                   {m.groups.length > 0 && (
                     <div className="mt-1 pt-1 border-t border-slate-800/80 space-y-1">
                       {m.groups.map((g, gIdx) => (
-                        <div key={gIdx} className="flex items-center gap-2 text-[11px] text-slate-400">
+                        <div key={gIdx} className="flex items-center gap-2 text-xs text-slate-400">
                           <span className="text-purple-400">{g.name ? g.name : `Group ${g.index}`}:</span>
                           <span className="text-slate-200">{g.value}</span>
                         </div>

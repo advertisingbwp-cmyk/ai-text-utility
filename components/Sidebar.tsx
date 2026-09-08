@@ -68,7 +68,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ onOpenCommandPalette }) => {
             <CommandIcon size={14} className="group-hover:text-brand-400" />
             Quick search...
           </span>
-          <kbd className="text-[10px] font-mono px-1.5 py-0.5 rounded border border-slate-700 bg-slate-800 text-slate-400">
+          <kbd className="text-xs font-mono px-1.5 py-0.5 rounded border border-slate-700 bg-slate-800 text-slate-400">
             Ctrl+K
           </kbd>
         </button>
@@ -77,7 +77,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ onOpenCommandPalette }) => {
       {/* Navigation Sections */}
       <div className="flex-1 overflow-y-auto px-3 py-2 space-y-5 scrollbar-thin scrollbar-thumb-slate-800">
         <div>
-          <div className="px-3 pb-1.5 text-[10px] font-bold text-slate-500 uppercase tracking-wider">
+          <div className="px-3 pb-1.5 text-xs font-bold text-slate-500 uppercase tracking-wider">
             Explore
           </div>
           <nav className="space-y-0.5">
@@ -116,7 +116,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ onOpenCommandPalette }) => {
 
         {/* Categories */}
         <div>
-          <div className="px-3 pb-1.5 text-[10px] font-bold text-slate-500 uppercase tracking-wider">
+          <div className="px-3 pb-1.5 text-xs font-bold text-slate-500 uppercase tracking-wider">
             Categories
           </div>
           <nav className="space-y-0.5">
@@ -129,20 +129,20 @@ export const Sidebar: React.FC<SidebarProps> = ({ onOpenCommandPalette }) => {
                   onClick={closeMobile}
                   className={`flex items-center justify-between px-3 py-2 rounded-lg text-xs font-medium transition-colors group ${
                     isAI
-                      ? "text-purple-300 hover:text-purple-200 hover:bg-purple-950/20"
+                      ? "text-brand-300 hover:text-brand-200 hover:bg-brand-950/20"
                       : "text-slate-400 hover:text-slate-100 hover:bg-slate-900/60"
                   }`}
                 >
                   <span className="flex items-center gap-2.5">
                     {isAI ? (
-                      <Sparkles size={15} className="text-purple-400" />
+                      <Sparkles size={15} className="text-brand-400" />
                     ) : (
                       <DynamicIcon name={cat.icon} size={15} />
                     )}
                     {cat.name}
                   </span>
                   {isAI && (
-                    <span className="text-[9px] font-bold px-1.5 py-0.2 rounded bg-purple-500/10 text-purple-400 border border-purple-500/20">
+                    <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-brand-500/10 text-brand-400 border border-brand-500/20">
                       AI
                     </span>
                   )}
@@ -154,15 +154,15 @@ export const Sidebar: React.FC<SidebarProps> = ({ onOpenCommandPalette }) => {
       </div>
 
       {/* Footer Info */}
-      <div className="p-4 border-t border-slate-800/80 bg-slate-950/40 text-[11px] text-slate-500 space-y-2">
+      <div className="p-4 border-t border-slate-800/80 bg-slate-950/40 text-xs text-slate-500 space-y-2">
         <div className="flex items-center justify-between">
           <span className="flex items-center gap-1.5 text-slate-400">
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
             Browser Native
           </span>
-          <span className="font-mono text-[10px]">100% Private</span>
+          <span className="font-mono text-xs">100% Private</span>
         </div>
-        <div className="flex items-center gap-3 pt-1 text-[10px] text-slate-500">
+        <div className="flex items-center gap-3 pt-1 text-xs text-slate-500">
           <Link href="/privacy" onClick={closeMobile} className="hover:text-slate-300 transition-colors">
             Privacy Policy
           </Link>

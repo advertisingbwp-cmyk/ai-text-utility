@@ -126,7 +126,7 @@ export default function HomePage() {
                 setSelectedCategory("ALL");
                 setOnlyFavorites(false);
               }}
-              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all whitespace-nowrap ${
+              className={`px-3.5 py-2 rounded-xl text-xs font-semibold transition-all whitespace-nowrap ${
                 selectedCategory === "ALL" && !onlyFavorites
                   ? "bg-slate-900 text-white dark:bg-brand-600 dark:text-white shadow-xs"
                   : "bg-white dark:bg-slate-900/60 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white border border-slate-200/90 dark:border-slate-800"
@@ -143,7 +143,7 @@ export default function HomePage() {
                   setSelectedCategory(cat.name);
                   setOnlyFavorites(false);
                 }}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all whitespace-nowrap ${
+                className={`flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold transition-all whitespace-nowrap ${
                   selectedCategory === cat.name && !onlyFavorites
                     ? "bg-slate-900 text-white dark:bg-brand-600 dark:text-white shadow-xs"
                     : "bg-white dark:bg-slate-900/60 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white border border-slate-200/90 dark:border-slate-800"
@@ -153,23 +153,23 @@ export default function HomePage() {
                 <span>{cat.name}</span>
               </button>
             ))}
-          </div>
 
-          <button
-            type="button"
-            onClick={() => setOnlyFavorites((prev) => !prev)}
-            className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold border transition-all ${
-              onlyFavorites
-                ? "bg-amber-500/10 text-amber-700 dark:text-amber-300 border-amber-500/30"
-                : "bg-white dark:bg-slate-900/60 text-slate-600 dark:text-slate-400 hover:text-amber-600 dark:hover:text-amber-300 border-slate-200/90 dark:border-slate-800"
-            }`}
-          >
-            <Star
-              size={14}
-              className={onlyFavorites ? "fill-amber-500 text-amber-500" : ""}
-            />
-            <span>Favorites only ({favoritesList.length})</span>
-          </button>
+            <button
+              type="button"
+              onClick={() => setOnlyFavorites((prev) => !prev)}
+              className={`inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold border transition-all whitespace-nowrap ${
+                onlyFavorites
+                  ? "bg-amber-500/15 text-amber-700 dark:text-amber-300 border-amber-500/40 shadow-xs"
+                  : "bg-white dark:bg-slate-900/60 text-slate-600 dark:text-slate-400 hover:text-amber-600 dark:hover:text-amber-300 border-slate-200/90 dark:border-slate-800"
+              }`}
+            >
+              <Star
+                size={14}
+                className={onlyFavorites ? "fill-amber-500 text-amber-500" : ""}
+              />
+              <span>Favorites ({favoritesList.length})</span>
+            </button>
+          </div>
         </div>
       </section>
 
@@ -213,12 +213,12 @@ export default function HomePage() {
                 id={`category-${cat.name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}
                 className="space-y-4 scroll-mt-20"
               >
-                <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-800/80 pb-2.5">
-                  <div className="flex items-center gap-2.5">
+                <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-800/80 pb-3">
+                  <div className="flex items-center gap-3">
                     <div
-                      className={`p-1.5 rounded-lg ${
+                      className={`p-2 rounded-xl flex items-center justify-center ${
                         isAI
-                          ? "bg-brand-50 dark:bg-brand-950/40 text-brand-600 dark:text-brand-400 border border-brand-200/60 dark:border-brand-800/60"
+                          ? "bg-brand-50 dark:bg-brand-950/40 text-brand-600 dark:text-brand-400 border border-brand-200/80 dark:border-brand-800/60"
                           : "bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200/60 dark:border-slate-700/60"
                       }`}
                     >
@@ -229,15 +229,17 @@ export default function HomePage() {
                       )}
                     </div>
                     <div>
-                      <h2 className="text-base font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
-                        {cat.name}
+                      <div className="flex items-center gap-2.5 flex-wrap">
+                        <h2 className="text-base font-bold text-slate-900 dark:text-slate-100">
+                          {cat.name}
+                        </h2>
                         {isAI && (
-                          <span className="text-[10px] uppercase font-bold px-2 py-0.5 rounded-full bg-brand-50 text-brand-700 dark:bg-brand-950/60 dark:text-brand-300 border border-brand-200/80 dark:border-brand-800/60">
+                          <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-brand-50 text-brand-700 dark:bg-brand-950/60 dark:text-brand-300 border border-brand-200/80 dark:border-brand-800/60">
                             AI Powered
                           </span>
                         )}
-                      </h2>
-                      <p className="text-xs text-slate-500 dark:text-slate-400">{cat.description}</p>
+                      </div>
+                      <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">{cat.description}</p>
                     </div>
                   </div>
 

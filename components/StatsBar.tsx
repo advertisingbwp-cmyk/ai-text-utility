@@ -43,7 +43,7 @@ export const StatsBar: React.FC<StatsBarProps> = ({
           <Wrench size={16} />
         </div>
         <div>
-          <div className="text-[11px] font-medium text-slate-500 dark:text-slate-400">Total Tools</div>
+          <div className="text-xs font-medium text-slate-500 dark:text-slate-400">Total Tools</div>
           <div className="text-base font-bold text-slate-900 dark:text-slate-100">{totalTools}</div>
         </div>
       </div>
@@ -53,7 +53,7 @@ export const StatsBar: React.FC<StatsBarProps> = ({
           <Star size={16} />
         </div>
         <div>
-          <div className="text-[11px] font-medium text-slate-500 dark:text-slate-400">Favorites</div>
+          <div className="text-xs font-medium text-slate-500 dark:text-slate-400">Favorites</div>
           <div className="text-base font-bold text-slate-900 dark:text-slate-100">{favCount}</div>
         </div>
       </div>
@@ -63,7 +63,7 @@ export const StatsBar: React.FC<StatsBarProps> = ({
           <History size={16} />
         </div>
         <div>
-          <div className="text-[11px] font-medium text-slate-500 dark:text-slate-400">Recently Used</div>
+          <div className="text-xs font-medium text-slate-500 dark:text-slate-400">Recently Used</div>
           <div className="text-base font-bold text-slate-900 dark:text-slate-100">{recentCount}</div>
         </div>
       </div>
@@ -73,7 +73,7 @@ export const StatsBar: React.FC<StatsBarProps> = ({
           <Filter size={16} />
         </div>
         <div>
-          <div className="text-[11px] font-medium text-slate-500 dark:text-slate-400">
+          <div className="text-xs font-medium text-slate-500 dark:text-slate-400">
             {activeCategory === "ALL" ? "Showing" : activeCategory}
           </div>
           <div className="text-base font-bold text-slate-900 dark:text-slate-100">

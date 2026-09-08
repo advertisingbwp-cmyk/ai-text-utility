@@ -5,7 +5,7 @@ import Link from "next/link";
 import { ToolDefinition } from "@/data/toolsRegistry";
 import { DynamicIcon } from "@/components/DynamicIcon";
 import { FavoriteStar } from "@/components/FavoriteStar";
-import { Sparkles, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 export const ToolCard: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
   const isAI = tool.category === "AI Magic";
@@ -20,7 +20,7 @@ export const ToolCard: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
       </Link>
 
       <div>
-        <div className="flex items-start justify-between gap-3 mb-3.5">
+        <div className="flex items-center justify-between gap-3 mb-3.5">
           <div
             className={`w-10 h-10 rounded-xl flex items-center justify-center transition-transform group-hover:scale-105 ${
               isAI
@@ -31,13 +31,8 @@ export const ToolCard: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
             <DynamicIcon name={tool.icon} size={18} />
           </div>
 
-          <div className="relative z-20 flex items-center gap-1.5">
-            {isAI && (
-              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-brand-50 text-brand-700 dark:bg-brand-950/60 dark:text-brand-300 border border-brand-200/80 dark:border-brand-800/60">
-                <Sparkles size={10} /> AI
-              </span>
-            )}
-            <FavoriteStar toolId={tool.id} />
+          <div className="relative z-20 flex items-center">
+            <FavoriteStar toolId={tool.id} toolName={tool.name} />
           </div>
         </div>
 
@@ -49,11 +44,11 @@ export const ToolCard: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
         </p>
       </div>
 
-      <div className="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between text-[11px]">
+      <div className="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between text-xs">
         <span className="font-medium text-slate-500 dark:text-slate-400">{tool.category}</span>
         <span className="inline-flex items-center gap-1 text-slate-400 group-hover:text-brand-600 dark:group-hover:text-brand-400 font-medium transition-colors">
-          Open
-          <ArrowRight size={12} className="transition-transform group-hover:translate-x-0.5" />
+          Open tool
+          <ArrowRight size={13} className="transition-transform group-hover:translate-x-0.5" />
         </span>
       </div>
     </div>

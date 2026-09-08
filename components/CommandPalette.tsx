@@ -143,16 +143,16 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
                             {tool.name}
                           </span>
                           {tool.category === "AI Magic" && (
-                            <span className="inline-flex items-center gap-0.5 text-[10px] text-brand-600 dark:text-brand-400 font-semibold">
-                              <Sparkles size={10} /> AI
+                            <span className="inline-flex items-center gap-0.5 text-xs text-brand-600 dark:text-brand-400 font-semibold">
+                              <Sparkles size={11} /> AI
                             </span>
                           )}
                         </div>
-                        <p className="text-[11px] text-slate-500 dark:text-slate-400 truncate">
+                        <p className="text-xs text-slate-500 dark:text-slate-400 truncate">
                           {tool.description}
                         </p>
                       </div>
-                      <span className="text-[10px] text-slate-400 dark:text-slate-500 shrink-0 font-mono">
+                      <span className="text-xs text-slate-400 dark:text-slate-500 shrink-0 font-mono">
                         ↵ Open
                       </span>
                     </Command.Item>
@@ -162,7 +162,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
             })}
           </Command.List>
 
-          <div className="flex items-center justify-between border-t border-slate-200 dark:border-slate-800 px-4 py-2 bg-slate-50/80 dark:bg-slate-950/60 text-[11px] text-slate-500 dark:text-slate-400">
+          <div className="flex items-center justify-between border-t border-slate-200 dark:border-slate-800 px-4 py-2 bg-slate-50/80 dark:bg-slate-950/60 text-xs text-slate-500 dark:text-slate-400">
             <span>
               Use <kbd className="font-mono bg-white dark:bg-slate-800 px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300">↑</kbd> <kbd className="font-mono bg-white dark:bg-slate-800 px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300">↓</kbd> to navigate
             </span>

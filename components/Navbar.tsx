@@ -91,8 +91,8 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCommandPalette }) => {
           >
             <Search size={14} className="group-hover:text-slate-900 dark:group-hover:text-slate-200 transition-colors" />
             <span className="hidden sm:inline font-normal">Search tools...</span>
-            <kbd className="hidden sm:inline-flex items-center gap-0.5 text-[10px] font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400">
-              <span className="text-[11px]">⌘</span>K
+            <kbd className="hidden sm:inline-flex items-center gap-0.5 text-xs font-mono px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400">
+              <span className="text-xs">⌘</span>K
             </kbd>
           </button>
 
@@ -100,12 +100,12 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCommandPalette }) => {
           <Link
             href="/?favorites=true"
             aria-label={`View ${favCount} favorite tools`}
-            className="relative p-2 rounded-xl text-slate-500 hover:text-amber-500 dark:text-slate-400 dark:hover:text-amber-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+            className="relative p-2.5 rounded-xl text-slate-500 hover:text-amber-500 dark:text-slate-400 dark:hover:text-amber-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors min-w-[40px] min-h-[40px] flex items-center justify-center"
             title="View saved favorites"
           >
-            <Star size={17} className={favCount > 0 ? "fill-amber-400 text-amber-400" : ""} />
+            <Star size={18} className={favCount > 0 ? "fill-amber-400 text-amber-400" : ""} />
             {favCount > 0 && (
-              <span className="absolute -top-0.5 -right-0.5 w-4 h-4 rounded-full bg-brand-600 text-[10px] font-bold text-white flex items-center justify-center">
+              <span className="absolute 0.5 top-0.5 right-0.5 px-1 min-w-[18px] h-[18px] rounded-full bg-brand-600 text-xs font-bold text-white flex items-center justify-center leading-none">
                 {favCount}
               </span>
             )}

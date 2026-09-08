@@ -197,7 +197,7 @@ export const ToolLayout: React.FC<ToolLayoutProps> = ({
                   {tool.name}
                 </h1>
                 <span
-                  className={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full ${
+                  className={`text-xs font-semibold px-2.5 py-0.5 rounded-full ${
                     isAI
                       ? "bg-brand-50 text-brand-700 dark:bg-brand-950/60 dark:text-brand-300 border border-brand-200/80 dark:border-brand-800/60"
                       : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700"
@@ -206,7 +206,7 @@ export const ToolLayout: React.FC<ToolLayoutProps> = ({
                   {tool.category}
                 </span>
                 {tool.supportsLiveMode && (
-                  <span className="text-[10px] font-medium px-2 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800">
+                  <span className="text-xs font-medium px-2.5 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800">
                     Live Auto-Run
                   </span>
                 )}
@@ -218,7 +218,7 @@ export const ToolLayout: React.FC<ToolLayoutProps> = ({
           </div>
 
           <div className="flex items-center gap-2 shrink-0 self-start sm:self-center">
-            <FavoriteStar toolId={tool.id} showLabel size={18} />
+            <FavoriteStar toolId={tool.id} toolName={tool.name} showLabel size={18} />
           </div>
         </div>
 
@@ -355,9 +355,9 @@ export const ToolLayout: React.FC<ToolLayoutProps> = ({
                 />
               )}
 
-              <div className="flex items-center justify-between px-4 py-2 border-t border-slate-200/80 dark:border-slate-800/80 bg-slate-50/80 dark:bg-slate-950/60 text-[11px] text-slate-500 dark:text-slate-400 font-mono">
+              <div className="flex items-center justify-between px-4 py-2 border-t border-slate-200/80 dark:border-slate-800/80 bg-slate-50/80 dark:bg-slate-950/60 text-xs text-slate-500 dark:text-slate-400 font-mono">
                 <span>{output ? `${output.length} characters generated` : "Waiting for input"}</span>
-                <span className="text-[10px] text-slate-400">Read-only</span>
+                <span className="text-xs text-slate-400">Read-only</span>
               </div>
             </div>
           )}
