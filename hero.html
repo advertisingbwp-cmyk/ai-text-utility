@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Text Utility — Text tools that run like code</title>
+  <style>
+    /* RESET & BASE */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #fbfbfd;
+      background-image:
+        radial-gradient(circle at 14% 12%, rgba(109, 40, 217, 0.042) 0%, transparent 42%),
+        radial-gradient(circle at 86% 14%, rgba(13, 148, 136, 0.045) 0%, transparent 44%);
+      background-repeat: no-repeat;
+      color: #14151a;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* HERO WRAPPER */
+    .hero-container {
+      width: 100%;
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 104px 24px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 56px;
+      align-items: center;
+    }
+
+    /* LEFT COLUMN */
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    /* KICKER BADGE */
+    .kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 9999px;
+      background: rgba(13, 148, 136, 0.08);
+      border: 1px solid rgba(13, 148, 136, 0.22);
+      color: #0d9488;
+      font-family: ui-monospace, "SF Mono", Menlo, Monaco, Consolas, monospace;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      line-height: 1;
+    }
+
+    /* ANIMATION 1: PULSING STATUS RING */
+    .kicker-dot {
+      position: relative;
+      width: 7px;
+      height: 7px;
+      background-color: #0d9488;
+      border-radius: 50%;
+      display: inline-block;
+      flex-shrink: 0;
+    }
+
+    .kicker-dot::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      border: 1.5px solid #0d9488;
+      transform: translate(-50%, -50%);
+      animation: pulseRing 1.9s cubic-bezier(0.22, 0.61, 0.36, 1) infinite;
+    }
+
+    @keyframes pulseRing {
+      0% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0.85;
+      }
+      100% {
+        transform: translate(-50%, -50%) scale(2.85);
+        opacity: 0;
+      }
+    }
+
+    /* HEADLINE */
+    .headline {
+      font-size: 53px;
+      font-weight: 700;
+      letter-spacing: -0.035em;
+      line-height: 1.12;
+      color: #14151a;
+      margin-top: 22px;
+      margin-bottom: 20px;
+    }
+
+    .gradient-code {
+      background: linear-gradient(135deg, #6d28d9 0%, #0d9488 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      color: transparent;
+    }
+
+    /* SUBHEADING PARAGRAPH */
+    .subheading {
+      color: #6b7078;
+      font-size: 16.5px;
+      line-height: 1.58;
+      max-width: 42ch;
+      margin-bottom: 38px;
+    }
+
+    /* STATS ROW */
+    .stats-row {
+      width: 100%;
+      border-top: 1px solid #e6e8ee;
+      padding-top: 26px;
+      display: flex;
+      align-items: center;
+    }
+
+    .stat-block {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .stat-number {
+      font-family: ui-monospace, "SF Mono", Menlo, Monaco, Consolas, monospace;
+      font-size: 21px;
+      font-weight: 700;
+      color: #14151a;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+
+    .stat-label {
+      font-size: 11.5px;
+      color: #9a9fa8;
+      margin-top: 4px;
+      font-weight: 500;
+      letter-spacing: -0.005em;
+    }
+
+    .stat-divider {
+      width: 1px;
+      height: 32px;
+      background-color: #e6e8ee;
+      margin: 0 28px;
+      flex-shrink: 0;
+    }
+
+    /* RIGHT COLUMN — TERMINAL CARD */
+    .terminal-card {
+      background: #ffffff;
+      border: 1px solid #e6e8ee;
+      border-radius: 14px;
+      box-shadow:
+        0 1px 3px rgba(20, 21, 26, 0.02),
+        0 12px 32px -4px rgba(20, 21, 26, 0.06),
+        0 24px 48px -12px rgba(20, 21, 26, 0.04);
+      overflow: hidden;
+      width: 100%;
+    }
+
+    /* TERMINAL TOP BAR */
+    .terminal-header {
+      height: 38px;
+      background: #ffffff;
+      border-bottom: 1px solid #e6e8ee;
+      padding: 0 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      user-select: none;
+    }
+
+    .terminal-header-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .window-controls {
+      display: flex;
+      align-items: center;
+      gap: 6.5px;
+    }
+
+    .control-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    .dot-close {
+      background: #ff5f56;
+      border: 1px solid #e0443e;
+    }
+
+    .dot-minimize {
+      background: #ffbd2e;
+      border: 1px solid #dea123;
+    }
+
+    .dot-maximize {
+      background: #27c93f;
+      border: 1px solid #1aab29;
+    }
+
+    .terminal-title {
+      font-family: ui-monospace, "SF Mono", Menlo, Monaco, Consolas, monospace;
+      font-size: 11.5px;
+      color: #9a9fa8;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+    }
+
+    .terminal-header-right {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .live-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: #0d9488;
+      display: inline-block;
+      animation: blinkDot 2.2s ease-in-out infinite;
+    }
+
+    @keyframes blinkDot {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    .live-label {
+      font-family: ui-monospace, "SF Mono", Menlo, Monaco, Consolas, monospace;
+      font-size: 11px;
+      color: #9a9fa8;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    /* TERMINAL BODY */
+    .terminal-body {
+      font-family: ui-monospace, "SF Mono", Menlo, Monaco, Consolas, monospace;
+      font-size: 13px;
+      line-height: 1.62;
+      padding: 22px 20px 24px;
+      min-height: 330px;
+      color: #14151a;
+      transition: opacity 350ms ease;
+    }
+
+    .terminal-group {
+      margin-bottom: 12px;
+    }
+
+    .terminal-cmd-line {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      word-break: break-all;
+    }
+
+    .prompt-sym {
+      color: #0d9488;
+      margin-right: 8px;
+      font-weight: 600;
+      user-select: none;
+    }
+
+    /* SYNTAX HIGHLIGHTING */
+    .syntax-base {
+      color: #14151a;
+    }
+
+    .syntax-flag {
+      color: #6d28d9;
+    }
+
+    .syntax-arg {
+      color: #b45309;
+    }
+
+    /* ANIMATION 2: RESULT FADE-IN */
+    .terminal-output {
+      margin-top: 3px;
+      padding-left: 18px;
+      color: #6b7078;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      animation: fadeInUp 350ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes fadeInUp {
+      0% {
+        opacity: 0;
+        transform: translateY(4px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .arrow-sym {
+      color: #2563eb;
+      font-weight: 600;
+      user-select: none;
+    }
+
+    /* BLINKING CURSOR */
+    .terminal-cursor {
+      display: inline-block;
+      width: 7.5px;
+      height: 14.5px;
+      background-color: #0d9488;
+      vertical-align: -2px;
+      margin-left: 2px;
+      animation: blinkCursor 0.75s step-end infinite;
+    }
+
+    @keyframes blinkCursor {
+      0%, 49% { opacity: 1; }
+      50%, 100% { opacity: 0; }
+    }
+
+    /* RESPONSIVE (<860px) */
+    @media (max-width: 860px) {
+      .hero-container {
+        padding: 64px 20px;
+      }
+
+      .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+
+      .headline {
+        font-size: 40px;
+      }
+
+      .subheading {
+        max-width: 100%;
+      }
+
+      .stat-divider {
+        margin: 0 18px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .headline {
+        font-size: 34px;
+      }
+
+      .stats-row {
+        justify-content: space-between;
+      }
+
+      .stat-divider {
+        margin: 0 10px;
+      }
+
+      .stat-number {
+        font-size: 18px;
+      }
+
+      .stat-label {
+        font-size: 10.5px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <main class="hero-container">
+    <div class="hero-grid">
+      
+      <!-- LEFT COLUMN -->
+      <div class="hero-left">
+        <!-- 1. Kicker Badge -->
+        <div class="kicker">
+          <span class="kicker-dot"></span>
+          <span>system online — 43 tools loaded</span>
+        </div>
+
+        <!-- 2. Headline -->
+        <h1 class="headline">
+          Text tools that run like <span class="gradient-code">code</span>.
+        </h1>
+
+        <!-- 3. Subheading -->
+        <p class="subheading">
+          Format, decode, convert, and clean text with the speed and precision of a command line — no install, no server, no waiting.
+        </p>
+
+        <!-- 4. Stats Row -->
+        <div class="stats-row">
+          <div class="stat-block">
+            <span class="stat-number">43+</span>
+            <span class="stat-label">utilities</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-block">
+            <span class="stat-number">0ms</span>
+            <span class="stat-label">server calls</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-block">
+            <span class="stat-number">100%</span>
+            <span class="stat-label">local</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT COLUMN: TERMINAL CARD -->
+      <div class="hero-right">
+        <div class="terminal-card">
+          <!-- Top Bar -->
+          <div class="terminal-header">
+            <div class="terminal-header-left">
+              <div class="window-controls">
+                <span class="control-dot dot-close"></span>
+                <span class="control-dot dot-minimize"></span>
+                <span class="control-dot dot-maximize"></span>
+              </div>
+              <span class="terminal-title">ai-text-utility — zsh</span>
+            </div>
+            <div class="terminal-header-right">
+              <span class="live-dot"></span>
+              <span class="live-label">live</span>
+            </div>
+          </div>
+
+          <!-- Body -->
+          <div class="terminal-body" id="terminal-body">
+            <!-- Dynamic commands injected by JS -->
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <script>
+    // TERMINAL COMMAND DATA & SYNTAX SPECIFICATION
+    const SEQUENCE = [
+      {
+        parts: [
+          { text: "run word-counter ", cls: "syntax-base" },
+          { text: "--text ", cls: "syntax-flag" },
+          { text: '"Hello world"', cls: "syntax-arg" }
+        ],
+        output: "2 words · 11 chars · 1s read"
+      },
+      {
+        parts: [
+          { text: "run json-formatter ", cls: "syntax-base" },
+          { text: "--file ", cls: "syntax-flag" },
+          { text: "data.json", cls: "syntax-arg" }
+        ],
+        output: "valid JSON · formatted · 3 levels deep"
+      },
+      {
+        parts: [
+          { text: "run jwt-decode ", cls: "syntax-base" },
+          { text: "--token ", cls: "syntax-flag" },
+          { text: "eyJhbGci...", cls: "syntax-arg" }
+        ],
+        output: "alg: HS256 · exp: valid · claims: 4"
+      },
+      {
+        parts: [
+          { text: "run uuid-generate ", cls: "syntax-base" },
+          { text: "--v4", cls: "syntax-flag" }
+        ],
+        output: "9f1c2e3a-4b5d-4e6f-8a9b-0c1d2e3f4a5b"
+      },
+      {
+        parts: [
+          { text: "run case-convert ", cls: "syntax-base" },
+          { text: "--to ", cls: "syntax-flag" },
+          { text: "camelCase", cls: "syntax-arg" }
+        ],
+        output: "helloWorldExample"
+      }
+    ];
+
+    const terminalBody = document.getElementById("terminal-body");
+    const CHAR_DELAY_MS = 26;
+    const POST_TYPE_PAUSE_MS = 140;
+    const POST_OUTPUT_PAUSE_MS = 480;
+    const END_SEQUENCE_PAUSE_MS = 2400;
+
+    function sleep(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    async function runTerminalSequence() {
+      while (true) {
+        terminalBody.innerHTML = "";
+        terminalBody.style.opacity = "1";
+
+        for (let i = 0; i < SEQUENCE.length; i++) {
+          const item = SEQUENCE[i];
+
+          // 1. Create Command Container
+          const group = document.createElement("div");
+          group.className = "terminal-group";
+
+          const cmdLine = document.createElement("div");
+          cmdLine.className = "terminal-cmd-line";
+
+          const prompt = document.createElement("span");
+          prompt.className = "prompt-sym";
+          prompt.textContent = "❯";
+          cmdLine.appendChild(prompt);
+
+          const contentSpan = document.createElement("span");
+          cmdLine.appendChild(contentSpan);
+
+          const cursor = document.createElement("span");
+          cursor.className = "terminal-cursor";
+          cmdLine.appendChild(cursor);
+
+          group.appendChild(cmdLine);
+          terminalBody.appendChild(group);
+
+          // 2. Type parts character by character
+          for (let p = 0; p < item.parts.length; p++) {
+            const part = item.parts[p];
+            const partSpan = document.createElement("span");
+            partSpan.className = part.cls;
+            contentSpan.appendChild(partSpan);
+
+            for (let c = 0; c < part.text.length; c++) {
+              partSpan.textContent += part.text[c];
+              await sleep(CHAR_DELAY_MS);
+            }
+          }
+
+          // 3. Remove cursor from finished line
+          cursor.remove();
+          await sleep(POST_TYPE_PAUSE_MS);
+
+          // 4. Render output line with animation
+          const outLine = document.createElement("div");
+          outLine.className = "terminal-output";
+
+          const arrow = document.createElement("span");
+          arrow.className = "arrow-sym";
+          arrow.textContent = "→";
+
+          const outText = document.createElement("span");
+          outText.textContent = item.output;
+
+          outLine.appendChild(arrow);
+          outLine.appendChild(outText);
+          group.appendChild(outLine);
+
+          await sleep(POST_OUTPUT_PAUSE_MS);
+        }
+
+        // Add a final trailing cursor
+        const finalLine = document.createElement("div");
+        finalLine.className = "terminal-cmd-line";
+        const prompt = document.createElement("span");
+        prompt.className = "prompt-sym";
+        prompt.textContent = "❯";
+        finalLine.appendChild(prompt);
+        const finalCursor = document.createElement("span");
+        finalCursor.className = "terminal-cursor";
+        finalLine.appendChild(finalCursor);
+        terminalBody.appendChild(finalLine);
+
+        // Pause before looping
+        await sleep(END_SEQUENCE_PAUSE_MS);
+
+        // Fade terminal body out
+        terminalBody.style.opacity = "0";
+        await sleep(380);
+      }
+    }
+
+    // Start auto-typing sequence
+    runTerminalSequence();
+  </script>
+</body>
+</html>
