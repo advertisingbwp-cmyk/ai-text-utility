@@ -75,12 +75,12 @@ export default function HomePage() {
   }, [recentList]);
 
   return (
-    <div className="w-full max-w-7xl mx-auto space-y-10 pb-20">
+    <div className="w-full max-w-7xl mx-auto space-y-6 sm:space-y-8 pb-16">
       {/* Hero Section */}
       <TerminalHero />
 
       {/* 6 Category Interactive Navigation Cards (Full Width Grid) */}
-      <section className="pt-2">
+      <section>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5 sm:gap-3 w-full">
             {CATEGORIES.map((cat) => {
               const count = TOOLS_REGISTRY.filter((t) => t.category === cat.name).length;

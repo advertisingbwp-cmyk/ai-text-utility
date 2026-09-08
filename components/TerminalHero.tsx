@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React, { useEffect, useRef } from "react";
 
@@ -77,11 +77,11 @@ export const TerminalHero: React.FC = () => {
 
           // 1. Create Command Line Container
           const group = document.createElement("div");
-          group.className = "mb-3";
+          group.className = "mb-2 sm:mb-2.5";
 
           const cmdLine = document.createElement("div");
           cmdLine.className =
-            "flex items-center flex-wrap break-all text-[13px] leading-relaxed";
+            "flex items-center flex-wrap break-all text-[12.5px] leading-relaxed";
 
           const prompt = document.createElement("span");
           prompt.className = "text-[#0d9488] font-semibold mr-2 select-none";
@@ -93,7 +93,7 @@ export const TerminalHero: React.FC = () => {
 
           const cursor = document.createElement("span");
           cursor.className =
-            "terminal-cursor-blink inline-block w-[7.5px] h-[14.5px] bg-[#0d9488] -mb-0.5 ml-0.5";
+            "terminal-cursor-blink inline-block w-[7px] h-[13.5px] bg-[#0d9488] -mb-0.5 ml-0.5";
           cmdLine.appendChild(cursor);
 
           group.appendChild(cmdLine);
@@ -124,7 +124,7 @@ export const TerminalHero: React.FC = () => {
           // 4. Render output with fadeInUp
           const outLine = document.createElement("div");
           outLine.className =
-            "terminal-output-fade text-[#6b7078] pl-4 mt-1 flex items-center gap-2 text-[13px]";
+            "terminal-output-fade text-[#6b7078] pl-4 mt-0.5 flex items-center gap-2 text-[12.5px]";
 
           const arrow = document.createElement("span");
           arrow.className = "text-[#2563eb] font-semibold select-none";
@@ -143,14 +143,14 @@ export const TerminalHero: React.FC = () => {
         if (isCancelled) return;
         // Final blinking cursor
         const finalLine = document.createElement("div");
-        finalLine.className = "flex items-center text-[13px]";
+        finalLine.className = "flex items-center text-[12.5px]";
         const prompt = document.createElement("span");
         prompt.className = "text-[#0d9488] font-semibold mr-2 select-none";
         prompt.textContent = "❯";
         finalLine.appendChild(prompt);
         const finalCursor = document.createElement("span");
         finalCursor.className =
-          "terminal-cursor-blink inline-block w-[7.5px] h-[14.5px] bg-[#0d9488] -mb-0.5 ml-0.5";
+          "terminal-cursor-blink inline-block w-[7px] h-[13.5px] bg-[#0d9488] -mb-0.5 ml-0.5";
         finalLine.appendChild(finalCursor);
         container.appendChild(finalLine);
 
@@ -173,7 +173,7 @@ export const TerminalHero: React.FC = () => {
   }, []);
 
   return (
-    <section className="relative w-full rounded-3xl bg-[#fbfbfd] border border-[#e6e8ee]/80 overflow-hidden shadow-xs">
+    <section className="relative w-full">
       <style>{`
         @keyframes pulseRing {
           0% {
@@ -208,8 +208,8 @@ export const TerminalHero: React.FC = () => {
           position: absolute;
           top: 50%;
           left: 50%;
-          width: 7px;
-          height: 7px;
+          width: 6.5px;
+          height: 6.5px;
           border-radius: 50%;
           border: 1.5px solid #0d9488;
           transform: translate(-50%, -50%);
@@ -229,21 +229,21 @@ export const TerminalHero: React.FC = () => {
       {/* Subtle Background Radial Glow Blobs */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_14%_12%,rgba(109,40,217,0.042)_0%,transparent_42%),radial-gradient(circle_at_86%_14%,rgba(13,148,136,0.045)_0%,transparent_44%)]"
+        className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_14%_12%,rgba(109,40,217,0.035)_0%,transparent_42%),radial-gradient(circle_at_86%_14%,rgba(13,148,136,0.04)_0%,transparent_44%)]"
       />
 
-      <div className="max-w-[1180px] mx-auto px-6 py-16 sm:py-20 lg:py-[104px]">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-14 items-center">
+      <div className="max-w-[1180px] mx-auto pt-0 pb-1 sm:pt-1 sm:pb-2 lg:pt-1 lg:pb-3">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-7 lg:gap-10 items-center">
           {/* LEFT COLUMN */}
           <div className="flex flex-col items-start text-left">
             {/* 1. Kicker Badge */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#0d9488]/[0.08] border border-[#0d9488]/[0.22] text-[#0d9488] font-mono text-xs font-medium tracking-tight">
-              <span className="relative w-[7px] h-[7px] bg-[#0d9488] rounded-full shrink-0 pulse-ring" />
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0d9488]/[0.08] border border-[#0d9488]/[0.22] text-[#0d9488] font-mono text-[11.5px] font-medium tracking-tight">
+              <span className="relative w-[6.5px] h-[6.5px] bg-[#0d9488] rounded-full shrink-0 pulse-ring" />
               <span>system online — 43 tools loaded</span>
             </div>
 
             {/* 2. Headline */}
-            <h1 className="text-[34px] sm:text-[44px] lg:text-[53px] font-bold tracking-[-0.035em] leading-[1.12] text-[#14151a] mt-5 mb-5">
+            <h1 className="text-[26px] sm:text-[34px] lg:text-[40px] font-bold tracking-[-0.035em] leading-[1.15] text-[#14151a] mt-3 mb-2">
               Text tools that run like{" "}
               <span className="bg-gradient-to-br from-[#6d28d9] to-[#0d9488] bg-clip-text text-transparent">
                 code
@@ -252,40 +252,40 @@ export const TerminalHero: React.FC = () => {
             </h1>
 
             {/* 3. Subheading Paragraph */}
-            <p className="text-[#6b7078] text-[16.5px] leading-[1.58] max-w-[42ch] mb-9">
+            <p className="text-[#6b7078] text-[14.5px] sm:text-[15px] leading-[1.5] max-w-[42ch] mb-4">
               Format, decode, convert, and clean text with the speed and precision
               of a command line — no install, no server, no waiting.
             </p>
 
             {/* 4. Stats Row */}
-            <div className="w-full border-t border-[#e6e8ee] pt-6 flex items-center">
+            <div className="w-full border-t border-[#e6e8ee] pt-3 flex items-center">
               <div className="flex flex-col">
-                <span className="font-mono font-bold text-[21px] text-[#14151a] tracking-tight leading-none">
+                <span className="font-mono font-bold text-[18px] text-[#14151a] tracking-tight leading-none">
                   43+
                 </span>
-                <span className="text-[11.5px] text-[#9a9fa8] font-medium mt-1">
+                <span className="text-[11px] text-[#9a9fa8] font-medium mt-1">
                   utilities
                 </span>
               </div>
 
-              <div className="w-px h-8 bg-[#e6e8ee] mx-5 sm:mx-7 shrink-0" />
+              <div className="w-px h-6 bg-[#e6e8ee] mx-5 sm:mx-6 shrink-0" />
 
               <div className="flex flex-col">
-                <span className="font-mono font-bold text-[21px] text-[#14151a] tracking-tight leading-none">
+                <span className="font-mono font-bold text-[18px] text-[#14151a] tracking-tight leading-none">
                   0ms
                 </span>
-                <span className="text-[11.5px] text-[#9a9fa8] font-medium mt-1">
+                <span className="text-[11px] text-[#9a9fa8] font-medium mt-1">
                   server calls
                 </span>
               </div>
 
-              <div className="w-px h-8 bg-[#e6e8ee] mx-5 sm:mx-7 shrink-0" />
+              <div className="w-px h-6 bg-[#e6e8ee] mx-5 sm:mx-6 shrink-0" />
 
               <div className="flex flex-col">
-                <span className="font-mono font-bold text-[21px] text-[#14151a] tracking-tight leading-none">
+                <span className="font-mono font-bold text-[18px] text-[#14151a] tracking-tight leading-none">
                   100%
                 </span>
-                <span className="text-[11.5px] text-[#9a9fa8] font-medium mt-1">
+                <span className="text-[11px] text-[#9a9fa8] font-medium mt-1">
                   local
                 </span>
               </div>
@@ -294,22 +294,22 @@ export const TerminalHero: React.FC = () => {
 
           {/* RIGHT COLUMN: TERMINAL CARD */}
           <div className="w-full">
-            <div className="bg-white border border-[#e6e8ee] rounded-[14px] shadow-[0_1px_3px_rgba(20,21,26,0.02),0_12px_32px_-4px_rgba(20,21,26,0.06),0_24px_48px_-12px_rgba(20,21,26,0.04)] overflow-hidden">
+            <div className="bg-white border border-[#e6e8ee] rounded-[14px] shadow-[0_1px_3px_rgba(20,21,26,0.02),0_10px_24px_-4px_rgba(20,21,26,0.05)] overflow-hidden">
               {/* Window Header */}
-              <div className="h-[38px] bg-white border-b border-[#e6e8ee] px-4 flex items-center justify-between select-none">
-                <div className="flex items-center gap-3.5">
-                  <div className="flex items-center gap-[6.5px]">
+              <div className="h-[34px] bg-white border-b border-[#e6e8ee] px-3.5 flex items-center justify-between select-none">
+                <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-[6px]">
                     <span className="w-2.5 h-2.5 rounded-full bg-[#ff5f56] border border-[#e0443e]" />
                     <span className="w-2.5 h-2.5 rounded-full bg-[#ffbd2e] border border-[#dea123]" />
                     <span className="w-2.5 h-2.5 rounded-full bg-[#27c93f] border border-[#1aab29]" />
                   </div>
-                  <span className="font-mono text-[11.5px] text-[#9a9fa8] font-medium ml-1 tracking-tight">
+                  <span className="font-mono text-[11px] text-[#9a9fa8] font-medium ml-1 tracking-tight">
                     ai-text-utility — zsh
                   </span>
                 </div>
                 <div className="flex items-center gap-1.5">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#0d9488] live-dot-blink" />
-                  <span className="font-mono text-[11px] text-[#9a9fa8] font-medium uppercase tracking-wider">
+                  <span className="font-mono text-[10.5px] text-[#9a9fa8] font-medium uppercase tracking-wider">
                     live
                   </span>
                 </div>
@@ -318,7 +318,7 @@ export const TerminalHero: React.FC = () => {
               {/* Terminal Body */}
               <div
                 ref={terminalBodyRef}
-                className="font-mono text-[13px] leading-[1.62] p-5 sm:p-6 min-h-[330px] text-[#14151a]"
+                className="font-mono text-[12.5px] leading-[1.55] p-3.5 sm:p-4 min-h-[235px] text-[#14151a]"
               >
                 {/* Dynamically typed content */}
               </div>
