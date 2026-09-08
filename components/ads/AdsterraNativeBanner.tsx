@@ -7,37 +7,13 @@ export const AdsterraNativeBanner: React.FC<{ className?: string }> = ({ classNa
 
   useEffect(() => {
     if (!bannerRef.current) return;
+    if (bannerRef.current.querySelector("script")) return;
 
-    // A11y: Observe dynamic script additions and ensure all links have accessible text
-    const observer = new MutationObserver(() => {
-      if (!bannerRef.current) return;
-      const links = bannerRef.current.querySelectorAll<HTMLAnchorElement>("a");
-      links.forEach((link, idx) => {
-        if (!link.getAttribute("aria-label") && !link.textContent?.trim()) {
-          const title =
-            link.closest("div")?.querySelector(".container-8aca604b8b2ab0a3b2106d4958e02b1d__title")?.textContent?.trim() ||
-            `Sponsored link ${idx + 1}`;
-          link.setAttribute("aria-label", `Visit sponsored ad: ${title}`);
-        }
-        if (!link.getAttribute("rel") || !link.getAttribute("rel")?.includes("noopener")) {
-          link.setAttribute("rel", "noopener noreferrer nofollow");
-        }
-      });
-    });
-
-    observer.observe(bannerRef.current, { childList: true, subtree: true });
-
-    if (!bannerRef.current.querySelector("script")) {
-      const script = document.createElement("script");
-      script.src = "https://bibleearthquake.com/8aca604b8b2ab0a3b2106d4958e02b1d/invoke.js";
-      script.async = true;
-      script.setAttribute("data-cfasync", "false");
-      bannerRef.current.appendChild(script);
-    }
-
-    return () => {
-      observer.disconnect();
-    };
+    const script = document.createElement("script");
+    script.src = "https://bibleearthquake.com/8aca604b8b2ab0a3b2106d4958e02b1d/invoke.js";
+    script.async = true;
+    script.setAttribute("data-cfasync", "false");
+    bannerRef.current.appendChild(script);
   }, []);
 
   return (
@@ -53,7 +29,7 @@ export const AdsterraNativeBanner: React.FC<{ className?: string }> = ({ classNa
           Sponsored Content
         </span>
       </div>
-      <div ref={bannerRef} className="w-full flex justify-center overflow-hidden">
+      <div ref={bannerRef} className="w-full flex justify-center overflow-hidden relative isolate">
         <div id="container-8aca604b8b2ab0a3b2106d4958e02b1d" />
       </div>
     </aside>

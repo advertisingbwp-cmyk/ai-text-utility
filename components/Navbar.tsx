@@ -73,7 +73,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCommandPalette }) => {
               aria-label="Command K shortcut"
               className="inline-flex items-center gap-0.5 text-xs font-mono px-1.5 py-0.5 rounded border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 shadow-2xs"
             >
-              <span className="text-xs" aria-hidden="true">⌘</span>K
+              <span className="text-xs text-slate-700 dark:text-slate-300 font-semibold" aria-hidden="true">⌘</span>K
             </kbd>
           </button>
         </div>

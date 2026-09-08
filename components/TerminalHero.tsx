@@ -69,7 +69,7 @@ export const TerminalHero: React.FC = () => {
             "flex items-center flex-wrap break-all text-[12.5px] leading-relaxed";
 
           const prompt = document.createElement("span");
-          prompt.className = "text-[#0d9488] font-semibold mr-2 select-none";
+          prompt.className = "text-teal-700 dark:text-teal-300 font-semibold mr-2 select-none";
           prompt.setAttribute("aria-hidden", "true");
           prompt.textContent = "❯";
           cmdLine.appendChild(prompt);
@@ -79,7 +79,7 @@ export const TerminalHero: React.FC = () => {
 
           const cursor = document.createElement("span");
           cursor.className =
-            "terminal-cursor-blink inline-block w-[7px] h-[13.5px] bg-[#0d9488] -mb-0.5 ml-0.5";
+            "terminal-cursor-blink inline-block w-[7px] h-[13.5px] bg-teal-700 dark:bg-teal-400 -mb-0.5 ml-0.5";
           cursor.setAttribute("aria-hidden", "true");
           cmdLine.appendChild(cursor);
 
@@ -116,7 +116,7 @@ export const TerminalHero: React.FC = () => {
             "terminal-output-fade text-[#6b7078] pl-4 mt-0.5 flex items-center gap-2 text-[12.5px]";
 
           const arrow = document.createElement("span");
-          arrow.className = "text-[#2563eb] font-semibold select-none";
+          arrow.className = "text-blue-700 dark:text-blue-300 font-semibold select-none";
           arrow.setAttribute("aria-hidden", "true");
           arrow.textContent = "→";
 
@@ -223,7 +223,7 @@ export const TerminalHero: React.FC = () => {
             {/* 2. Headline */}
             <h1 className="text-[26px] sm:text-[34px] lg:text-[40px] font-bold tracking-[-0.035em] leading-[1.15] text-slate-900 dark:text-slate-100 mt-3 mb-2">
               Text tools that run like{" "}
-              <span className="bg-gradient-to-br from-violet-700 to-teal-700 dark:from-violet-400 dark:to-teal-400 bg-clip-text text-transparent font-bold">
+              <span className="text-brand-700 dark:text-brand-400 font-bold">
                 code
               </span>
               .
