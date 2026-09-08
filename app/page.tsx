@@ -19,7 +19,6 @@ import {
   ToolDefinition,
 } from "@/data/toolsRegistry";
 import { ToolCard } from "@/components/ToolCard";
-import { StatsBar } from "@/components/StatsBar";
 import { EmptyState } from "@/components/EmptyState";
 import { DynamicIcon } from "@/components/DynamicIcon";
 import { TerminalHero } from "@/components/TerminalHero";
@@ -106,20 +105,7 @@ export default function HomePage() {
       {/* Hero Section */}
       <TerminalHero />
 
-      {/* Compact Real-time Stats Strip */}
-      <section>
-        <StatsBar
-          totalTools={TOOLS_REGISTRY.length}
-          filteredCount={filteredTools.length}
-          activeCategory={onlyFavorites ? "Favorites" : selectedCategory}
-          onFavoritesClick={() => {
-            setOnlyFavorites((prev) => !prev);
-            if (!onlyFavorites) setSelectedCategory("ALL");
-          }}
-        />
-      </section>
-
-      {/* Filter Tabs */}
+      {/* Filter Tabs (All Tools, Favorites, Categories) */}
       <section id="tools-section" className="space-y-4 scroll-mt-24">
         <div className="flex items-center justify-between gap-3 flex-wrap border-b border-slate-200 dark:border-slate-800/80 pb-3">
           <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none max-w-full">
