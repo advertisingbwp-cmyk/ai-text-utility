@@ -17,13 +17,11 @@ import {
 } from "@/data/toolsRegistry";
 import { ToolCard } from "@/components/ToolCard";
 import { StatsBar } from "@/components/StatsBar";
-import { SearchBar } from "@/components/SearchBar";
 import { EmptyState } from "@/components/EmptyState";
 import { DynamicIcon } from "@/components/DynamicIcon";
 import { getFavorites, getRecentTools } from "@/lib/storage";
 
 export default function HomePage() {
-  const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string>("ALL");
   const [onlyFavorites, setOnlyFavorites] = useState(false);
   const [favoritesList, setFavoritesList] = useState<string[]>([]);
@@ -37,6 +35,10 @@ export default function HomePage() {
     };
 
     updateStorage();
+    if (typeof window !== "undefined" && window.location.search.includes("favorites=true")) {
+      setOnlyFavorites(true);
+    }
+
     window.addEventListener("favorites-updated", updateStorage);
     window.addEventListener("recent-updated", updateStorage);
     window.addEventListener("storage", updateStorage);
@@ -48,26 +50,17 @@ export default function HomePage() {
     };
   }, []);
 
-  // Filter tools based on search, category, and favorites
+  // Filter tools based on category and favorites
   const filteredTools = useMemo(() => {
     return TOOLS_REGISTRY.filter((tool) => {
-      const matchesSearch =
-        !searchQuery ||
-        tool.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        tool.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        tool.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        tool.keywords.some((k) =>
-          k.toLowerCase().includes(searchQuery.toLowerCase())
-        );
-
       const matchesCat =
         selectedCategory === "ALL" || tool.category === selectedCategory;
 
       const matchesFav = !onlyFavorites || favoritesList.includes(tool.id);
 
-      return matchesSearch && matchesCat && matchesFav;
+      return matchesCat && matchesFav;
     });
-  }, [searchQuery, selectedCategory, onlyFavorites, favoritesList]);
+  }, [selectedCategory, onlyFavorites, favoritesList]);
 
   // Resolve recently used tool definitions
   const recentTools = useMemo(() => {
@@ -80,7 +73,7 @@ export default function HomePage() {
   return (
     <div className="max-w-6xl mx-auto space-y-10 pb-20">
       {/* Hero Section */}
-      <section className="text-center py-6 sm:py-12 space-y-4 max-w-3xl mx-auto">
+      <section className="text-center pt-4 pb-2 sm:pt-8 sm:pb-4 space-y-4 max-w-3xl mx-auto">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-brand-200 dark:border-brand-800/80 bg-brand-50/80 dark:bg-brand-950/40 text-brand-700 dark:text-brand-300 text-xs font-semibold shadow-xs">
           <Zap size={14} className="text-brand-600 dark:text-brand-400" />
           <span>43+ Free Utilities • Client-Side Native • Zero Latency</span>
@@ -94,16 +87,27 @@ export default function HomePage() {
         </h1>
 
         <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400 leading-relaxed max-w-2xl mx-auto">
-          Format, clean, convert, analyze, and transform text instantly. Private by design—client tools run 100% locally in your browser.
+          Format, clean, convert, analyze, and transform text instantly. Private by design—client tools run locally in your browser.
         </p>
 
-        {/* Global Search Bar */}
-        <div className="pt-3 max-w-xl mx-auto">
-          <SearchBar
-            value={searchQuery}
-            onChange={setSearchQuery}
-            placeholder="Search tools by name, description, or keyword (e.g. slug, regex, json)..."
-          />
+        {/* Compact Visual Category Chips */}
+        <div className="pt-2 flex items-center justify-center gap-2 sm:gap-2.5 flex-wrap max-w-xl mx-auto">
+          {CATEGORIES.map((cat) => (
+            <a
+              key={cat.name}
+              href={`#category-${cat.name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}
+              onClick={() => {
+                if (selectedCategory !== "ALL" || onlyFavorites) {
+                  setSelectedCategory("ALL");
+                  setOnlyFavorites(false);
+                }
+              }}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium bg-white/90 dark:bg-slate-900/80 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200/90 dark:border-slate-800 shadow-2xs transition-all hover:scale-[1.02] hover:border-brand-500/40 dark:hover:border-brand-500/40"
+            >
+              <DynamicIcon name={cat.icon} size={13} className="text-slate-500 dark:text-slate-400" />
+              <span>{cat.name}</span>
+            </a>
+          ))}
         </div>
       </section>
 
@@ -173,8 +177,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Recently Used Section (Client only if exists and no active query) */}
-      {!searchQuery && selectedCategory === "ALL" && !onlyFavorites && recentTools.length > 0 && (
+      {/* Recently Used Section (Client only if exists and default view) */}
+      {selectedCategory === "ALL" && !onlyFavorites && recentTools.length > 0 && (
         <section id="recent" className="space-y-3">
           <div className="flex items-center gap-2 text-sm font-bold text-slate-900 dark:text-slate-200">
             <Clock size={16} className="text-brand-600 dark:text-brand-400" />
@@ -191,16 +195,19 @@ export default function HomePage() {
       {/* Main Tools Catalog */}
       {filteredTools.length === 0 ? (
         <EmptyState
-          title="No utilities match your search"
-          description={`No tools found matching "${searchQuery}". Try a different keyword or reset filters.`}
-          actionText="Reset Search & Filters"
+          title={onlyFavorites ? "No favorites yet" : "No utilities found"}
+          description={
+            onlyFavorites
+              ? "You haven't saved any favorite tools yet. Click the star icon on any tool to save it here for quick access."
+              : "No tools found in this category. Try selecting a different category."
+          }
+          actionText="Browse All Tools"
           onAction={() => {
-            setSearchQuery("");
             setSelectedCategory("ALL");
             setOnlyFavorites(false);
           }}
         />
-      ) : selectedCategory === "ALL" && !onlyFavorites && !searchQuery ? (
+      ) : selectedCategory === "ALL" && !onlyFavorites ? (
         // Render by Category sections
         <div className="space-y-12">
           {CATEGORIES.map((cat) => {
@@ -264,9 +271,7 @@ export default function HomePage() {
             <h2 className="text-base font-bold text-slate-900 dark:text-slate-100">
               {onlyFavorites
                 ? "Favorited Utilities"
-                : selectedCategory !== "ALL"
-                ? `${selectedCategory} Utilities`
-                : `Search results for "${searchQuery}"`}
+                : `${selectedCategory} Utilities`}
             </h2>
             <span className="text-xs text-slate-500 dark:text-slate-400 font-medium">
               {filteredTools.length} tools found
