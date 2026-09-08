@@ -23,9 +23,11 @@ export const ToolCard: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
       <div>
         <div className="flex items-center justify-between gap-2 mb-2 sm:mb-3.5">
           <div
-            className={`w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl flex items-center justify-center transition-all duration-200 group-hover:scale-110 shrink-0 shadow-2xs border ${theme.bg} ${theme.text} ${theme.border}`}
+            className={`w-9 h-9 sm:w-11 sm:h-11 rounded-lg sm:rounded-xl flex items-center justify-center transition-all duration-200 group-hover:scale-110 shrink-0 shadow-2xs border ${theme.bg} ${theme.border}`}
           >
-            <DynamicIcon name={tool.icon} size={16} className="sm:w-[18px] sm:h-[18px]" />
+            <span className="text-[19px] sm:text-[22px] leading-none select-none transition-transform group-hover:rotate-6" role="img" aria-hidden="true">
+              {theme.emoji}
+            </span>
           </div>
 
           <div className="relative z-20 flex items-center">

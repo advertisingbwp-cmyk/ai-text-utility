@@ -1,6 +1,7 @@
 ﻿import { ToolCategory } from "@/data/toolsRegistry";
 
 export interface ColorTheme {
+  emoji: string;
   bg: string;
   text: string;
   border: string;
@@ -11,6 +12,7 @@ export interface ColorTheme {
 
 export const CATEGORY_THEMES: Record<ToolCategory, ColorTheme> = {
   Text: {
+    emoji: "📝",
     bg: "bg-blue-50 dark:bg-blue-950/40",
     text: "text-blue-600 dark:text-blue-400",
     border: "border-blue-200/80 dark:border-blue-800/60",
@@ -19,6 +21,7 @@ export const CATEGORY_THEMES: Record<ToolCategory, ColorTheme> = {
     badgeBorder: "border-blue-200/80 dark:border-blue-800/60",
   },
   Format: {
+    emoji: "⚡",
     bg: "bg-emerald-50 dark:bg-emerald-950/40",
     text: "text-emerald-600 dark:text-emerald-400",
     border: "border-emerald-200/80 dark:border-emerald-800/60",
@@ -27,6 +30,7 @@ export const CATEGORY_THEMES: Record<ToolCategory, ColorTheme> = {
     badgeBorder: "border-emerald-200/80 dark:border-emerald-800/60",
   },
   Cleanup: {
+    emoji: "🧹",
     bg: "bg-amber-50 dark:bg-amber-950/40",
     text: "text-amber-600 dark:text-amber-400",
     border: "border-amber-200/80 dark:border-amber-800/60",
@@ -35,6 +39,7 @@ export const CATEGORY_THEMES: Record<ToolCategory, ColorTheme> = {
     badgeBorder: "border-amber-200/80 dark:border-amber-800/60",
   },
   Transform: {
+    emoji: "🔄",
     bg: "bg-purple-50 dark:bg-purple-950/40",
     text: "text-purple-600 dark:text-purple-400",
     border: "border-purple-200/80 dark:border-purple-800/60",
@@ -43,6 +48,7 @@ export const CATEGORY_THEMES: Record<ToolCategory, ColorTheme> = {
     badgeBorder: "border-purple-200/80 dark:border-purple-800/60",
   },
   "Date & Time": {
+    emoji: "📅",
     bg: "bg-sky-50 dark:bg-sky-950/40",
     text: "text-sky-600 dark:text-sky-400",
     border: "border-sky-200/80 dark:border-sky-800/60",
@@ -51,6 +57,7 @@ export const CATEGORY_THEMES: Record<ToolCategory, ColorTheme> = {
     badgeBorder: "border-sky-200/80 dark:border-sky-800/60",
   },
   "AI Magic": {
+    emoji: "✨",
     bg: "bg-fuchsia-50 dark:bg-fuchsia-950/40",
     text: "text-fuchsia-600 dark:text-fuchsia-400",
     border: "border-fuchsia-200/80 dark:border-fuchsia-800/60",
@@ -63,6 +70,7 @@ export const CATEGORY_THEMES: Record<ToolCategory, ColorTheme> = {
 export const TOOL_THEMES: Record<string, ColorTheme> = {
   // === Text Tools ===
   "word-counter": {
+    emoji: "🧮",
     bg: "bg-emerald-50 dark:bg-emerald-950/40",
     text: "text-emerald-600 dark:text-emerald-400",
     border: "border-emerald-200/80 dark:border-emerald-800/60",
@@ -71,6 +79,7 @@ export const TOOL_THEMES: Record<string, ColorTheme> = {
     badgeBorder: "border-emerald-200/80 dark:border-emerald-800/60",
   },
   "slug-generator": {
+    emoji: "🔗",
     bg: "bg-indigo-50 dark:bg-indigo-950/40",
     text: "text-indigo-600 dark:text-indigo-400",
     border: "border-indigo-200/80 dark:border-indigo-800/60",
@@ -79,6 +88,7 @@ export const TOOL_THEMES: Record<string, ColorTheme> = {
     badgeBorder: "border-indigo-200/80 dark:border-indigo-800/60",
   },
   "remove-emojis": {
+    emoji: "🧹",
     bg: "bg-amber-50 dark:bg-amber-950/40",
     text: "text-amber-600 dark:text-amber-400",
     border: "border-amber-200/80 dark:border-amber-800/60",
@@ -87,6 +97,7 @@ export const TOOL_THEMES: Record<string, ColorTheme> = {
     badgeBorder: "border-amber-200/80 dark:border-amber-800/60",
   },
   "tabs-to-spaces": {
+    emoji: "🔀",
     bg: "bg-cyan-50 dark:bg-cyan-950/40",
     text: "text-cyan-600 dark:text-cyan-400",
     border: "border-cyan-200/80 dark:border-cyan-800/60",
@@ -95,6 +106,7 @@ export const TOOL_THEMES: Record<string, ColorTheme> = {
     badgeBorder: "border-cyan-200/80 dark:border-cyan-800/60",
   },
   "remove-accents": {
+    emoji: "🔤",
     bg: "bg-rose-50 dark:bg-rose-950/40",
     text: "text-rose-600 dark:text-rose-400",
     border: "border-rose-200/80 dark:border-rose-800/60",
@@ -103,6 +115,7 @@ export const TOOL_THEMES: Record<string, ColorTheme> = {
     badgeBorder: "border-rose-200/80 dark:border-rose-800/60",
   },
   "character-frequency": {
+    emoji: "📊",
     bg: "bg-violet-50 dark:bg-violet-950/40",
     text: "text-violet-600 dark:text-violet-400",
     border: "border-violet-200/80 dark:border-violet-800/60",
@@ -111,6 +124,7 @@ export const TOOL_THEMES: Record<string, ColorTheme> = {
     badgeBorder: "border-violet-200/80 dark:border-violet-800/60",
   },
   "word-frequency": {
+    emoji: "📋",
     bg: "bg-blue-50 dark:bg-blue-950/40",
     text: "text-blue-600 dark:text-blue-400",
     border: "border-blue-200/80 dark:border-blue-800/60",
@@ -119,6 +133,7 @@ export const TOOL_THEMES: Record<string, ColorTheme> = {
     badgeBorder: "border-blue-200/80 dark:border-blue-800/60",
   },
   "extract-emails-urls": {
+    emoji: "📧",
     bg: "bg-teal-50 dark:bg-teal-950/40",
     text: "text-teal-600 dark:text-teal-400",
     border: "border-teal-200/80 dark:border-teal-800/60",
@@ -127,6 +142,7 @@ export const TOOL_THEMES: Record<string, ColorTheme> = {
     badgeBorder: "border-teal-200/80 dark:border-teal-800/60",
   },
   "regex-tester": {
+    emoji: "🎯",
     bg: "bg-orange-50 dark:bg-orange-950/40",
     text: "text-orange-600 dark:text-orange-400",
     border: "border-orange-200/80 dark:border-orange-800/60",
@@ -135,6 +151,7 @@ export const TOOL_THEMES: Record<string, ColorTheme> = {
     badgeBorder: "border-orange-200/80 dark:border-orange-800/60",
   },
   "query-string-parser": {
+    emoji: "🧩",
     bg: "bg-fuchsia-50 dark:bg-fuchsia-950/40",
     text: "text-fuchsia-600 dark:text-fuchsia-400",
     border: "border-fuchsia-200/80 dark:border-fuchsia-800/60",
@@ -145,6 +162,7 @@ export const TOOL_THEMES: Record<string, ColorTheme> = {
 
   // === Format Tools ===
   "json-formatter": {
+    emoji: "📦",
     bg: "bg-amber-50 dark:bg-amber-950/40",
     text: "text-amber-600 dark:text-amber-400",
     border: "border-amber-200/80 dark:border-amber-800/60",
@@ -153,6 +171,7 @@ export const TOOL_THEMES: Record<string, ColorTheme> = {
     badgeBorder: "border-amber-200/80 dark:border-amber-800/60",
   },
   "json-to-csv": {
+    emoji: "🔄",
     bg: "bg-emerald-50 dark:bg-emerald-950/40",
     text: "text-emerald-600 dark:text-emerald-400",
     border: "border-emerald-200/80 dark:border-emerald-800/60",
@@ -161,6 +180,7 @@ export const TOOL_THEMES: Record<string, ColorTheme> = {
     badgeBorder: "border-emerald-200/80 dark:border-emerald-800/60",
   },
   "csv-to-json": {
+    emoji: "📑",
     bg: "bg-sky-50 dark:bg-sky-950/40",
     text: "text-sky-600 dark:text-sky-400",
     border: "border-sky-200/80 dark:border-sky-800/60",
@@ -169,6 +189,7 @@ export const TOOL_THEMES: Record<string, ColorTheme> = {
     badgeBorder: "border-sky-200/80 dark:border-sky-800/60",
   },
   "add-line-numbers": {
+    emoji: "🔢",
     bg: "bg-indigo-50 dark:bg-indigo-950/40",
     text: "text-indigo-600 dark:text-indigo-400",
     border: "border-indigo-200/80 dark:border-indigo-800/60",
@@ -177,6 +198,7 @@ export const TOOL_THEMES: Record<string, ColorTheme> = {
     badgeBorder: "border-indigo-200/80 dark:border-indigo-800/60",
   },
   "markdown-to-html": {
+    emoji: "👁️",
     bg: "bg-rose-50 dark:bg-rose-950/40",
     text: "text-rose-600 dark:text-rose-400",
     border: "border-rose-200/80 dark:border-rose-800/60",
@@ -185,6 +207,7 @@ export const TOOL_THEMES: Record<string, ColorTheme> = {
     badgeBorder: "border-rose-200/80 dark:border-rose-800/60",
   },
   "html-minifier": {
+    emoji: "⚡",
     bg: "bg-purple-50 dark:bg-purple-950/40",
     text: "text-purple-600 dark:text-purple-400",
     border: "border-purple-200/80 dark:border-purple-800/60",
@@ -195,6 +218,7 @@ export const TOOL_THEMES: Record<string, ColorTheme> = {
 
   // === Cleanup Tools ===
   "remove-extra-spaces": {
+    emoji: "🧼",
     bg: "bg-sky-50 dark:bg-sky-950/40",
     text: "text-sky-600 dark:text-sky-400",
     border: "border-sky-200/80 dark:border-sky-800/60",
@@ -203,6 +227,7 @@ export const TOOL_THEMES: Record<string, ColorTheme> = {
     badgeBorder: "border-sky-200/80 dark:border-sky-800/60",
   },
   "remove-duplicate-lines": {
+    emoji: "✂️",
     bg: "bg-red-50 dark:bg-red-950/40",
     text: "text-red-600 dark:text-red-400",
     border: "border-red-200/80 dark:border-red-800/60",
@@ -211,6 +236,7 @@ export const TOOL_THEMES: Record<string, ColorTheme> = {
     badgeBorder: "border-red-200/80 dark:border-red-800/60",
   },
   "remove-empty-lines": {
+    emoji: "🗑️",
     bg: "bg-amber-50 dark:bg-amber-950/40",
     text: "text-amber-600 dark:text-amber-400",
     border: "border-amber-200/80 dark:border-amber-800/60",
@@ -219,6 +245,7 @@ export const TOOL_THEMES: Record<string, ColorTheme> = {
     badgeBorder: "border-amber-200/80 dark:border-amber-800/60",
   },
   "trim-lines": {
+    emoji: "✂️",
     bg: "bg-teal-50 dark:bg-teal-950/40",
     text: "text-teal-600 dark:text-teal-400",
     border: "border-teal-200/80 dark:border-teal-800/60",
@@ -227,6 +254,7 @@ export const TOOL_THEMES: Record<string, ColorTheme> = {
     badgeBorder: "border-teal-200/80 dark:border-teal-800/60",
   },
   "strip-html-tags": {
+    emoji: "🏷️",
     bg: "bg-violet-50 dark:bg-violet-950/40",
     text: "text-violet-600 dark:text-violet-400",
     border: "border-violet-200/80 dark:border-violet-800/60",
@@ -235,6 +263,7 @@ export const TOOL_THEMES: Record<string, ColorTheme> = {
     badgeBorder: "border-violet-200/80 dark:border-violet-800/60",
   },
   "remove-line-breaks": {
+    emoji: "📜",
     bg: "bg-pink-50 dark:bg-pink-950/40",
     text: "text-pink-600 dark:text-pink-400",
     border: "border-pink-200/80 dark:border-pink-800/60",
@@ -243,6 +272,7 @@ export const TOOL_THEMES: Record<string, ColorTheme> = {
     badgeBorder: "border-pink-200/80 dark:border-pink-800/60",
   },
   "remove-special-chars": {
+    emoji: "🔣",
     bg: "bg-blue-50 dark:bg-blue-950/40",
     text: "text-blue-600 dark:text-blue-400",
     border: "border-blue-200/80 dark:border-blue-800/60",
@@ -253,6 +283,7 @@ export const TOOL_THEMES: Record<string, ColorTheme> = {
 
   // === Transform Tools ===
   "case-converter": {
+    emoji: "🔠",
     bg: "bg-violet-50 dark:bg-violet-950/40",
     text: "text-violet-600 dark:text-violet-400",
     border: "border-violet-200/80 dark:border-violet-800/60",
@@ -261,6 +292,7 @@ export const TOOL_THEMES: Record<string, ColorTheme> = {
     badgeBorder: "border-violet-200/80 dark:border-violet-800/60",
   },
   "fancy-fonts": {
+    emoji: "✨",
     bg: "bg-fuchsia-50 dark:bg-fuchsia-950/40",
     text: "text-fuchsia-600 dark:text-fuchsia-400",
     border: "border-fuchsia-200/80 dark:border-fuchsia-800/60",
@@ -269,6 +301,7 @@ export const TOOL_THEMES: Record<string, ColorTheme> = {
     badgeBorder: "border-fuchsia-200/80 dark:border-fuchsia-800/60",
   },
   "sort-lines": {
+    emoji: "📶",
     bg: "bg-cyan-50 dark:bg-cyan-950/40",
     text: "text-cyan-600 dark:text-cyan-400",
     border: "border-cyan-200/80 dark:border-cyan-800/60",
@@ -277,6 +310,7 @@ export const TOOL_THEMES: Record<string, ColorTheme> = {
     badgeBorder: "border-cyan-200/80 dark:border-cyan-800/60",
   },
   "reverse-text": {
+    emoji: "🔁",
     bg: "bg-orange-50 dark:bg-orange-950/40",
     text: "text-orange-600 dark:text-orange-400",
     border: "border-orange-200/80 dark:border-orange-800/60",
@@ -285,6 +319,7 @@ export const TOOL_THEMES: Record<string, ColorTheme> = {
     badgeBorder: "border-orange-200/80 dark:border-orange-800/60",
   },
   base64: {
+    emoji: "🔐",
     bg: "bg-emerald-50 dark:bg-emerald-950/40",
     text: "text-emerald-600 dark:text-emerald-400",
     border: "border-emerald-200/80 dark:border-emerald-800/60",
@@ -293,6 +328,7 @@ export const TOOL_THEMES: Record<string, ColorTheme> = {
     badgeBorder: "border-emerald-200/80 dark:border-emerald-800/60",
   },
   "url-encoder": {
+    emoji: "🌐",
     bg: "bg-blue-50 dark:bg-blue-950/40",
     text: "text-blue-600 dark:text-blue-400",
     border: "border-blue-200/80 dark:border-blue-800/60",
@@ -301,6 +337,7 @@ export const TOOL_THEMES: Record<string, ColorTheme> = {
     badgeBorder: "border-blue-200/80 dark:border-blue-800/60",
   },
   "hash-generator": {
+    emoji: "🔑",
     bg: "bg-rose-50 dark:bg-rose-950/40",
     text: "text-rose-600 dark:text-rose-400",
     border: "border-rose-200/80 dark:border-rose-800/60",
@@ -309,6 +346,7 @@ export const TOOL_THEMES: Record<string, ColorTheme> = {
     badgeBorder: "border-rose-200/80 dark:border-rose-800/60",
   },
   "jwt-decoder": {
+    emoji: "🎫",
     bg: "bg-amber-50 dark:bg-amber-950/40",
     text: "text-amber-600 dark:text-amber-400",
     border: "border-amber-200/80 dark:border-amber-800/60",
@@ -317,6 +355,7 @@ export const TOOL_THEMES: Record<string, ColorTheme> = {
     badgeBorder: "border-amber-200/80 dark:border-amber-800/60",
   },
   "password-generator": {
+    emoji: "🎲",
     bg: "bg-green-50 dark:bg-green-950/40",
     text: "text-green-600 dark:text-green-400",
     border: "border-green-200/80 dark:border-green-800/60",
@@ -325,6 +364,7 @@ export const TOOL_THEMES: Record<string, ColorTheme> = {
     badgeBorder: "border-green-200/80 dark:border-green-800/60",
   },
   "uuid-generator": {
+    emoji: "🆔",
     bg: "bg-indigo-50 dark:bg-indigo-950/40",
     text: "text-indigo-600 dark:text-indigo-400",
     border: "border-indigo-200/80 dark:border-indigo-800/60",
@@ -333,6 +373,7 @@ export const TOOL_THEMES: Record<string, ColorTheme> = {
     badgeBorder: "border-indigo-200/80 dark:border-indigo-800/60",
   },
   "lorem-ipsum": {
+    emoji: "📜",
     bg: "bg-teal-50 dark:bg-teal-950/40",
     text: "text-teal-600 dark:text-teal-400",
     border: "border-teal-200/80 dark:border-teal-800/60",
@@ -341,6 +382,7 @@ export const TOOL_THEMES: Record<string, ColorTheme> = {
     badgeBorder: "border-teal-200/80 dark:border-teal-800/60",
   },
   rot13: {
+    emoji: "🕵️",
     bg: "bg-purple-50 dark:bg-purple-950/40",
     text: "text-purple-600 dark:text-purple-400",
     border: "border-purple-200/80 dark:border-purple-800/60",
@@ -351,6 +393,7 @@ export const TOOL_THEMES: Record<string, ColorTheme> = {
 
   // === Date & Time Tools ===
   "unix-timestamp": {
+    emoji: "⏰",
     bg: "bg-sky-50 dark:bg-sky-950/40",
     text: "text-sky-600 dark:text-sky-400",
     border: "border-sky-200/80 dark:border-sky-800/60",
@@ -359,6 +402,7 @@ export const TOOL_THEMES: Record<string, ColorTheme> = {
     badgeBorder: "border-sky-200/80 dark:border-sky-800/60",
   },
   "date-difference": {
+    emoji: "📅",
     bg: "bg-emerald-50 dark:bg-emerald-950/40",
     text: "text-emerald-600 dark:text-emerald-400",
     border: "border-emerald-200/80 dark:border-emerald-800/60",
@@ -369,6 +413,7 @@ export const TOOL_THEMES: Record<string, ColorTheme> = {
 
   // === AI Magic Tools ===
   "ai-grammar": {
+    emoji: "✍️",
     bg: "bg-violet-50 dark:bg-violet-950/40",
     text: "text-violet-600 dark:text-violet-400",
     border: "border-violet-200/80 dark:border-violet-800/60",
@@ -377,6 +422,7 @@ export const TOOL_THEMES: Record<string, ColorTheme> = {
     badgeBorder: "border-violet-200/80 dark:border-violet-800/60",
   },
   "ai-professional": {
+    emoji: "💼",
     bg: "bg-blue-50 dark:bg-blue-950/40",
     text: "text-blue-600 dark:text-blue-400",
     border: "border-blue-200/80 dark:border-blue-800/60",
@@ -385,6 +431,7 @@ export const TOOL_THEMES: Record<string, ColorTheme> = {
     badgeBorder: "border-blue-200/80 dark:border-blue-800/60",
   },
   "ai-friendly": {
+    emoji: "😊",
     bg: "bg-amber-50 dark:bg-amber-950/40",
     text: "text-amber-600 dark:text-amber-400",
     border: "border-amber-200/80 dark:border-amber-800/60",
@@ -393,6 +440,7 @@ export const TOOL_THEMES: Record<string, ColorTheme> = {
     badgeBorder: "border-amber-200/80 dark:border-amber-800/60",
   },
   "ai-summarize": {
+    emoji: "💡",
     bg: "bg-fuchsia-50 dark:bg-fuchsia-950/40",
     text: "text-fuchsia-600 dark:text-fuchsia-400",
     border: "border-fuchsia-200/80 dark:border-fuchsia-800/60",
@@ -401,6 +449,7 @@ export const TOOL_THEMES: Record<string, ColorTheme> = {
     badgeBorder: "border-fuchsia-200/80 dark:border-fuchsia-800/60",
   },
   "ai-paraphrase": {
+    emoji: "🪶",
     bg: "bg-teal-50 dark:bg-teal-950/40",
     text: "text-teal-600 dark:text-teal-400",
     border: "border-teal-200/80 dark:border-teal-800/60",
@@ -409,6 +458,7 @@ export const TOOL_THEMES: Record<string, ColorTheme> = {
     badgeBorder: "border-teal-200/80 dark:border-teal-800/60",
   },
   "ai-expand": {
+    emoji: "🚀",
     bg: "bg-rose-50 dark:bg-rose-950/40",
     text: "text-rose-600 dark:text-rose-400",
     border: "border-rose-200/80 dark:border-rose-800/60",
@@ -426,6 +476,7 @@ export function getToolTheme(toolId: string, category?: ToolCategory): ColorThem
     return CATEGORY_THEMES[category];
   }
   return {
+    emoji: "⚡",
     bg: "bg-blue-50 dark:bg-blue-950/40",
     text: "text-blue-600 dark:text-blue-400",
     border: "border-blue-200/80 dark:border-blue-800/60",

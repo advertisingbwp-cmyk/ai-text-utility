@@ -110,10 +110,10 @@ export default function HomePage() {
                       className={`w-7 h-7 rounded-lg flex items-center justify-center transition-transform group-hover:scale-110 ${
                         isSelected
                           ? "bg-white/20 text-white"
-                          : `${catTheme.bg} ${catTheme.text} border ${catTheme.border}`
+                          : `${catTheme.bg} border ${catTheme.border}`
                       }`}
                     >
-                      <DynamicIcon name={cat.icon} size={15} />
+                      <span className="text-sm leading-none select-none">{catTheme.emoji}</span>
                     </div>
                     <span
                       className={`text-[11px] font-mono px-1.5 py-0.5 rounded-md font-semibold ${
@@ -181,7 +181,7 @@ export default function HomePage() {
                     : "bg-white dark:bg-slate-900/60 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white border border-slate-200/90 dark:border-slate-800"
                 }`}
               >
-                <DynamicIcon name={cat.icon} size={14} />
+                <span className="text-sm leading-none">{getCategoryTheme(cat.name).emoji}</span>
                 <span>{cat.name}</span>
               </button>
             ))}
@@ -252,13 +252,9 @@ export default function HomePage() {
                 <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-800/80 pb-3">
                   <div className="flex items-center gap-3">
                     <div
-                      className={`p-2 rounded-xl flex items-center justify-center border shadow-2xs ${catTheme.bg} ${catTheme.text} ${catTheme.border}`}
+                      className={`w-9 h-9 rounded-xl flex items-center justify-center border shadow-2xs ${catTheme.bg} ${catTheme.border}`}
                     >
-                      {isAI ? (
-                        <Sparkles size={18} />
-                      ) : (
-                        <DynamicIcon name={cat.icon} size={18} />
-                      )}
+                      <span className="text-lg leading-none select-none">{catTheme.emoji}</span>
                     </div>
                     <div>
                       <div className="flex items-center gap-2.5 flex-wrap">

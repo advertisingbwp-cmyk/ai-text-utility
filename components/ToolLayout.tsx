@@ -184,9 +184,11 @@ export const ToolLayout: React.FC<ToolLayoutProps> = ({
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="flex items-start gap-4">
             <div
-              className={`w-12 h-12 rounded-xl flex items-center justify-center shrink-0 shadow-xs border ${theme.bg} ${theme.text} ${theme.border}`}
+              className={`w-12 h-12 rounded-xl flex items-center justify-center shrink-0 shadow-xs border ${theme.bg} ${theme.border}`}
             >
-              <DynamicIcon name={tool.icon} size={24} />
+              <span className="text-2xl select-none" role="img" aria-hidden="true">
+                {theme.emoji}
+              </span>
             </div>
 
             <div>
