@@ -73,6 +73,9 @@ export const metadata: Metadata = {
       "Fast, private browser-based utilities for developers, writers, and students.",
     images: ["/og-image.png"],
   },
+  verification: {
+    google: "googlef25910401568c702",
+  },
 };
 
 export default function RootLayout({
