@@ -106,71 +106,16 @@ export default function HomePage() {
       {/* Hero Section */}
       <TerminalHero />
 
-      {/* 6 Category Interactive Navigation Cards (Full Width Grid) */}
-      <section>
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5 sm:gap-3 w-full">
-            {CATEGORIES.map((cat) => {
-              const count = TOOLS_REGISTRY.filter((t) => t.category === cat.name).length;
-              const isSelected = selectedCategory === cat.name && !onlyFavorites;
-              const catTheme = getCategoryTheme(cat.name);
-
-              return (
-                <a
-                  key={cat.name}
-                  href={`#category-${cat.name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}
-                  onClick={() => {
-                    if (selectedCategory !== "ALL" || onlyFavorites) {
-                      setSelectedCategory("ALL");
-                      setOnlyFavorites(false);
-                    }
-                  }}
-                  className={`group flex flex-col items-start p-3 sm:p-3.5 rounded-2xl border transition-all duration-200 cursor-pointer shadow-2xs hover:-translate-y-0.5 hover:shadow-xs active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 ${
-                    isSelected
-                      ? "bg-slate-900 text-white dark:bg-brand-600 dark:text-white border-transparent shadow-xs"
-                      : "bg-white/90 dark:bg-slate-900/80 hover:bg-white dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 border-slate-200/90 dark:border-slate-800 hover:border-brand-500/40 dark:hover:border-brand-500/40"
-                  }`}
-                  aria-label={`Jump to ${cat.name} tools (${count} available)`}
-                >
-                  <div className="w-full flex items-center justify-between mb-2">
-                    <div
-                      className={`w-7 h-7 rounded-lg flex items-center justify-center transition-transform group-hover:scale-110 ${
-                        isSelected
-                          ? "bg-white/20 text-white"
-                          : `${catTheme.bg} border ${catTheme.border}`
-                      }`}
-                    >
-                      <span className="text-sm leading-none select-none">{catTheme.emoji}</span>
-                    </div>
-                    <span
-                      className={`text-[11px] font-mono px-1.5 py-0.5 rounded-md font-semibold ${
-                        isSelected
-                          ? "bg-white/20 text-white"
-                          : "bg-slate-100 dark:bg-slate-800/90 text-slate-500 dark:text-slate-400 group-hover:bg-brand-50 dark:group-hover:bg-brand-950/60 group-hover:text-brand-600 dark:group-hover:text-brand-300 transition-colors"
-                      }`}
-                    >
-                      {count}
-                    </span>
-                  </div>
-                  <div className="font-bold text-xs sm:text-sm tracking-tight">{cat.name}</div>
-                  <div
-                    className={`text-[10px] mt-0.5 truncate max-w-full ${
-                      isSelected ? "text-slate-200" : "text-slate-400 dark:text-slate-500"
-                    }`}
-                  >
-                    {cat.description.split(",")[0]}
-                  </div>
-                </a>
-              );
-            })}
-          </div>
-      </section>
-
-      {/* Real-time Stats Bar */}
+      {/* Compact Real-time Stats Strip */}
       <section>
         <StatsBar
           totalTools={TOOLS_REGISTRY.length}
           filteredCount={filteredTools.length}
           activeCategory={onlyFavorites ? "Favorites" : selectedCategory}
+          onFavoritesClick={() => {
+            setOnlyFavorites((prev) => !prev);
+            if (!onlyFavorites) setSelectedCategory("ALL");
+          }}
         />
       </section>
 
