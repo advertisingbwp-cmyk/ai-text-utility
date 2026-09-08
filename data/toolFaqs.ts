@@ -182,11 +182,58 @@ const CATEGORY_DEFAULT_CONTENT: Record<
   },
 };
 
+const TOOL_SPECIFIC_CONTENT: Record<
+  string,
+  { howToSteps: string[]; features: string[]; faqs: ToolFaqItem[] }
+> = {
+  "fancy-fonts": {
+    howToSteps: [
+      "Type or paste your text into the top input field.",
+      "Browse the list of generated styles and find the font that fits your needs.",
+      "Filter styles by category (Alphabets, Circles, Glitch, Wings, Connectors) or search by name.",
+      "Click 'Copy' on any card to instantly save the stylized text to your clipboard.",
+    ],
+    features: [
+      "Wide variety of stylistic Unicode characters including Gothic, Script, and Bubble text",
+      "Instant live preview as you type your text across 57+ unique font variations",
+      "One-click copy for quick sharing to Instagram, TikTok, Twitter, Discord, and gaming profiles",
+      "100% Client-side conversion with full emoji, punctuation, and Unicode compatibility",
+    ],
+    faqs: [
+      {
+        question: "Are these fonts compatible with social media platforms?",
+        answer:
+          "Yes. These styles use standard Unicode characters, symbols, and combining marks rather than actual font files. They copy and paste seamlessly into Instagram bios, TikTok captions, Twitter/X tweets, Facebook posts, Discord names, and gaming nicknames.",
+      },
+      {
+        question: "How do I copy and paste these styles?",
+        answer:
+          "Simply click the 'Copy' button on any font card to copy the generated text to your clipboard, then press Ctrl+V (or Cmd+V on Mac) or tap 'Paste' in your destination app.",
+      },
+      {
+        question: "Why do some characters look like empty boxes or question marks on older devices?",
+        answer:
+          "Most modern operating systems (iOS, Android, Windows 10/11, macOS) support these Unicode mathematical and symbol ranges out of the box. Extremely legacy devices without comprehensive Unicode fallback fonts might display replacement glyphs for select specialized blocks.",
+      },
+    ],
+  },
+};
+
 export function getToolEducationalContent(
   category: string,
   slug: string,
   toolName: string
 ): ToolEducationalContent {
+  const specific = TOOL_SPECIFIC_CONTENT[slug];
+  if (specific) {
+    return {
+      slug,
+      howToSteps: specific.howToSteps,
+      features: specific.features,
+      faqs: specific.faqs,
+    };
+  }
+
   const defaults =
     CATEGORY_DEFAULT_CONTENT[category] || CATEGORY_DEFAULT_CONTENT["Text"];
 
