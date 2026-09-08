@@ -550,8 +550,10 @@
             }
           }
 
-          // 3. Remove cursor from finished line
-          cursor.remove();
+          // 3. Remove cursor from finished line (keep on last item so it stays on line 3)
+          if (i < SEQUENCE.length - 1) {
+            cursor.remove();
+          }
           await sleep(POST_TYPE_PAUSE_MS);
 
           // 4. Render output line with animation
@@ -572,19 +574,7 @@
           await sleep(POST_OUTPUT_PAUSE_MS);
         }
 
-        // Add a final trailing cursor
-        const finalLine = document.createElement("div");
-        finalLine.className = "terminal-cmd-line";
-        const prompt = document.createElement("span");
-        prompt.className = "prompt-sym";
-        prompt.textContent = "❯";
-        finalLine.appendChild(prompt);
-        const finalCursor = document.createElement("span");
-        finalCursor.className = "terminal-cursor";
-        finalLine.appendChild(finalCursor);
-        terminalBody.appendChild(finalLine);
-
-        // Pause before looping
+        // Pause on 3rd command before looping (no 4th line)
         await sleep(END_SEQUENCE_PAUSE_MS);
 
         // Fade terminal body out

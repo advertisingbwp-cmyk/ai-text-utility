@@ -101,8 +101,10 @@ export const TerminalHero: React.FC = () => {
             }
           }
 
-          // 3. Remove cursor from finished line
-          cursor.remove();
+          // 3. Remove cursor from finished line (keep on the last item so it stays on line 3)
+          if (i < SEQUENCE.length - 1) {
+            cursor.remove();
+          }
           await sleep(140);
           if (isCancelled) return;
 
@@ -126,20 +128,8 @@ export const TerminalHero: React.FC = () => {
         }
 
         if (isCancelled) return;
-        // Final blinking cursor
-        const finalLine = document.createElement("div");
-        finalLine.className = "flex items-center text-[12.5px]";
-        const prompt = document.createElement("span");
-        prompt.className = "text-[#0d9488] font-semibold mr-2 select-none";
-        prompt.textContent = "❯";
-        finalLine.appendChild(prompt);
-        const finalCursor = document.createElement("span");
-        finalCursor.className =
-          "terminal-cursor-blink inline-block w-[7px] h-[13.5px] bg-[#0d9488] -mb-0.5 ml-0.5";
-        finalLine.appendChild(finalCursor);
-        container.appendChild(finalLine);
 
-        // Pause before looping
+        // Pause on 3rd command before looping (no 4th line)
         await sleep(2400);
         if (isCancelled) return;
 
