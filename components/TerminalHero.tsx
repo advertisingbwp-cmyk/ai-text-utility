@@ -37,13 +37,6 @@ const SEQUENCE: CommandItem[] = [
     ],
     output: "alg: HS256 · exp: valid · claims: 4",
   },
-  {
-    parts: [
-      { text: "run uuid-generate ", cls: "base" },
-      { text: "--v4", cls: "flag" },
-    ],
-    output: "9f1c2e3a-4b5d-4e6f-8a9b-0c1d2e3f4a5b",
-  },
 ];
 
 export const TerminalHero: React.FC = () => {
@@ -310,7 +303,7 @@ export const TerminalHero: React.FC = () => {
               {/* Terminal Body */}
               <div
                 ref={terminalBodyRef}
-                className="font-mono text-[12.5px] leading-[1.55] p-3.5 sm:p-4 min-h-[220px] text-[#14151a]"
+                className="font-mono text-[12.5px] leading-[1.55] p-3.5 sm:p-4 min-h-[175px] text-[#14151a]"
               >
                 {/* Dynamically typed content */}
               </div>
