@@ -194,7 +194,9 @@ export const ToolLayout: React.FC<ToolLayoutProps> = ({
             <div>
               <div className="flex items-center gap-2.5 flex-wrap">
                 <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-slate-900 dark:text-white">
-                  {tool.name}
+                  {tool.slug === "fancy-fonts"
+                    ? "Fancy Font Generator & Cool Fancy Text Maker"
+                    : tool.name}
                 </h1>
                 <span
                   className={`text-xs font-semibold px-2.5 py-0.5 rounded-full border ${theme.badgeBg} ${theme.badgeText} ${theme.badgeBorder}`}
@@ -208,7 +210,9 @@ export const ToolLayout: React.FC<ToolLayoutProps> = ({
                 )}
               </div>
               <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1 max-w-2xl leading-relaxed">
-                {tool.description}
+                {tool.slug === "fancy-fonts"
+                  ? "Generate 57+ stylish aesthetic fonts, cursive scripts, gothic symbols, and cool copy-paste text for Instagram, Discord, TikTok, and gaming profiles."
+                  : tool.description}
               </p>
             </div>
           </div>

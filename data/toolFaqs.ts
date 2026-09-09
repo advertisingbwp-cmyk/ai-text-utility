@@ -230,37 +230,64 @@ export const TOOL_SPECIFIC_CONTENT: Record<
         answer:
           "Yes. The converter intelligently recognizes existing delimiter boundaries such as underscores, dashes, spaces, and camelCase transitions, allowing seamless conversion between naming styles.",
       },
+      {
+        question: "How can I convert plain text into aesthetic Unicode fonts or social media cursive?",
+        answer:
+          "If you want to go beyond standard casing and stylize your text with aesthetic cursive, gothic Fraktur, small-caps, or circled characters, use our [Fancy Font Generator](/tools/fancy-fonts).",
+      },
     ],
   },
 
   "fancy-fonts": {
     howToSteps: [
-      "Type or paste your text into the top input field.",
-      "Browse the list of generated styles and find the font that fits your needs.",
-      "Filter styles by category (Alphabets, Circles, Glitch, Wings, Connectors) or search by name.",
-      "Click 'Copy' on any card to instantly save the stylized text to your clipboard.",
+      "Type or paste your text into the input field above.",
+      "Instantly preview your text rendered across 57+ stylish Unicode font variations.",
+      "Filter by category (All, Alphabets, Circled & Boxed, Lines & Glitch, Brackets, Connectors, Wings & Cute) or use the search bar to locate specific aesthetic styles like Gothic, Cursive, or Double Struck.",
+      "Click or tap the 'Copy' button on any card to instantly copy the styled Unicode text to your clipboard.",
+      "Paste directly into your Instagram bio, TikTok caption, Discord chat, Twitter/X post, WhatsApp message, or gaming profile (Free Fire, Roblox, Steam).",
     ],
     features: [
-      "Wide variety of stylistic Unicode characters including Gothic, Script, and Bubble text",
-      "Instant live preview as you type your text across 57+ unique font variations",
-      "One-click copy for quick sharing to Instagram, TikTok, Twitter, Discord, and gaming profiles",
-      "100% Client-side conversion with full emoji, punctuation, and Unicode compatibility",
+      "57+ unique aesthetic font styles including Gothic (Fraktur), Cursive Script, Double Struck, Bubble, Small Caps, and Zalgo Glitch",
+      "Instant real-time conversion with zero latency as you type in your browser",
+      "One-click copy button with visual feedback for quick mobile and desktop workflows",
+      "100% Client-side execution in browser memory — your text is never stored or transmitted to external servers",
+      "Universal Unicode standard compatibility across iOS, Android, macOS, Windows, and Linux",
     ],
     faqs: [
       {
-        question: "Are these fonts compatible with social media platforms?",
+        question: "Are fancy fonts compatible with Instagram, TikTok, Discord, and gaming platforms?",
         answer:
-          "Yes. These styles use standard Unicode characters, symbols, and combining marks rather than actual font files. They copy and paste seamlessly into Instagram bios, TikTok captions, Twitter/X tweets, Facebook posts, Discord names, and gaming nicknames.",
+          "Yes. Because these styles are generated using standardized Unicode character codepoints rather than downloadable font files (.ttf/.otf), they are recognized as plain text by virtually all modern apps. You can copy and paste them into Instagram bios and captions, TikTok usernames and video descriptions, Discord messages and channel names, Twitter/X posts, WhatsApp statuses, and gaming handles (Roblox, Free Fire, Steam, PUBG).",
       },
       {
-        question: "How do I copy and paste these styles?",
+        question: "How do I copy and paste fancy text on iPhone, Android, and Desktop?",
         answer:
-          "Simply click the 'Copy' button on any font card to copy the generated text to your clipboard, then press Ctrl+V (or Cmd+V on Mac) or tap 'Paste' in your destination app.",
+          "On Desktop, simply click the 'Copy' button on any style card to copy the stylized text directly to your clipboard, then use Ctrl+V (Windows) or Cmd+V (Mac) to paste. On iPhone, iPad, or Android smartphones, tap the 'Copy' button, switch to your target app (e.g. Instagram or WhatsApp), tap and hold the text field, and select 'Paste' from the pop-up menu.",
       },
       {
-        question: "Why do some characters look like empty boxes or question marks on older devices?",
+        question: "Why do these fonts work without installing any TTF or OTF font files?",
         answer:
-          "Most modern operating systems (iOS, Android, Windows 10/11, macOS) support these Unicode mathematical and symbol ranges out of the box. Extremely legacy devices without comprehensive Unicode fallback fonts might display replacement glyphs for select specialized blocks.",
+          "Traditional fonts require operating system font files to render typography. In contrast, our tool utilizes the Unicode Mathematical Alphanumeric Symbols and Enclosed Alphanumerics blocks (U+1D400 to U+1D7FF and U+2460 to U+24FF). Modern operating systems already include fallback glyphs for these Unicode characters, enabling any device to render stylized gothic, script, or circled characters instantly without downloading fonts.",
+      },
+      {
+        question: "Why do some characters show up as boxes (tofu) or question marks on older phones?",
+        answer:
+          "When a device displays a hollow rectangle or question mark (often called 'tofu'), it indicates that the device's operating system font library lacks glyph representations for that specific Unicode character block. This typically happens only on very old legacy operating systems (such as Android 5 or older). Modern iOS, Android, macOS, and Windows devices support over 99% of these Unicode glyphs natively.",
+      },
+      {
+        question: "Are Unicode fancy fonts accessible for screen readers and visually impaired users?",
+        answer:
+          "Screen readers (such as Apple VoiceOver, NVDA, and Android TalkBack) read Unicode mathematical symbols literally. For example, a word typed in Mathematical Bold Script will be read aloud as 'Mathematical Bold Script Capital H, Mathematical Bold Script Small e...'. For this reason, we recommend using fancy fonts for accents, usernames, short titles, and social bios, while keeping important accessibility-critical text and long-form body content in standard plain text.",
+      },
+      {
+        question: "Can I use these stylish fonts in usernames for Free Fire, PUBG, Roblox, or Steam?",
+        answer:
+          "Yes! Gaming platforms like Free Fire, PUBG Mobile, Roblox, and Steam permit Unicode symbols in player nicknames and guild tags. Popular gamer aesthetics include Kaomoji wings (e.g. ꧁༺Name༻꧂), cross-hatch strikethroughs, and tiny small-caps. If a particular game enforces strict ASCII rules for usernames, it will display a warning during name changes, but most titles support these characters.",
+      },
+      {
+        question: "Is this fancy font generator free and safe to use?",
+        answer:
+          "Yes, 100% free with no subscription, registration, or credit card required. All font conversions happen entirely on the client side inside your web browser using JavaScript. No text is ever uploaded to a remote server, logged to databases, or processed by third parties, ensuring total data privacy and zero latency.",
       },
     ],
   },
@@ -616,6 +643,11 @@ export const TOOL_SPECIFIC_CONTENT: Record<
         question: "Is my document private when using the word counter?",
         answer:
           "Yes. All counting calculations take place strictly inside your browser's local memory. No text is transmitted to our servers or stored in cookies.",
+      },
+      {
+        question: "How do I make my counted text stand out for social media bios and captions?",
+        answer:
+          "Once you have verified your character and word count within platform limits (such as Instagram's 150-character bio limit), you can copy your text into our [Fancy Font Generator](/tools/fancy-fonts) to create stylish gothic, cursive, or glitch text.",
       },
     ],
   },
@@ -1326,6 +1358,11 @@ export const TOOL_SPECIFIC_CONTENT: Record<
         question: "Is this tool useful for preparing database inputs or filenames?",
         answer:
           "Yes. Sanitizing filenames and database keys by removing special characters prevents path traversal bugs, syntax errors, and injection vulnerabilities.",
+      },
+      {
+        question: "How do I strip or generate aesthetic Unicode symbols and combining marks?",
+        answer:
+          "This tool strips out unwanted special symbols, punctuation, and combining marks from messy text. Conversely, if you want to generate decorative Unicode text, symbols, or aesthetic lettering, check out our [Fancy Font Generator](/tools/fancy-fonts).",
       },
     ],
   },
