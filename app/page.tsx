@@ -18,7 +18,9 @@ import {
   CATEGORIES,
   ToolCategory,
   ToolDefinition,
+  getToolBySlug,
 } from "@/data/toolsRegistry";
+import { getToolSeoBlueprint, TOP_10_P0_TOOLS } from "@/data/seoBlueprint";
 import { ToolCard } from "@/components/ToolCard";
 import { EmptyState } from "@/components/EmptyState";
 import { DynamicIcon } from "@/components/DynamicIcon";
@@ -325,6 +327,48 @@ export default function HomePage() {
           )}
         </section>
       )}
+
+      {/* Popular Free Tools - SEO Hub */}
+      <section aria-labelledby="popular-tools-heading" className="pt-8 border-t border-slate-200 dark:border-slate-800 space-y-4">
+        <div className="flex items-center justify-between">
+          <div>
+            <h2 id="popular-tools-heading" className="text-base sm:text-lg font-bold text-slate-900 dark:text-white tracking-tight">
+              Popular Free Developer &amp; Text Tools
+            </h2>
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              Fast, privacy-focused browser utilities with client-side execution
+            </p>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
+          {TOP_10_P0_TOOLS.map((slug) => {
+            const blueprint = getToolSeoBlueprint(slug);
+            const tool = getToolBySlug(slug);
+            if (!blueprint || !tool) return null;
+
+            return (
+              <Link
+                key={slug}
+                href={`/tools/${slug}`}
+                className="group p-3 rounded-xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle hover:shadow-cardHover hover:border-brand-500/50 dark:hover:border-brand-500/50 transition-all flex flex-col justify-between space-y-1.5"
+              >
+                <div className="flex items-center gap-2">
+                  <div className="w-6 h-6 rounded-lg bg-brand-50 dark:bg-brand-950/50 border border-brand-200 dark:border-brand-800/60 flex items-center justify-center text-brand-600 dark:text-brand-400 shrink-0">
+                    <DynamicIcon name={tool.icon} size={13} />
+                  </div>
+                  <span className="text-xs font-semibold text-slate-900 dark:text-white group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors truncate">
+                    {blueprint.popularAnchor}
+                  </span>
+                </div>
+                <p className="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-2 leading-relaxed">
+                  {blueprint.aboveTheFoldIntro}
+                </p>
+              </Link>
+            );
+          })}
+        </div>
+      </section>
 
       {/* Privacy & Architecture Feature Band */}
       <section className="pt-10 border-t border-slate-200 dark:border-slate-800 grid grid-cols-1 sm:grid-cols-3 gap-5 text-left">

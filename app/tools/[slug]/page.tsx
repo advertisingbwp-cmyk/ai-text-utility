@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { TOOLS_REGISTRY, getToolBySlug } from "@/data/toolsRegistry";
 import { getToolEducationalContent } from "@/data/toolFaqs";
+import { getToolSeoBlueprint } from "@/data/seoBlueprint";
 import { ToolPageClient } from "./ToolPageClient";
 import { ToolSeoContent } from "@/components/ToolSeoContent";
 import { AdsterraResponsiveBanner, AdsterraNativeBanner } from "@/components/ads";
@@ -38,6 +39,39 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     process.env.NEXT_PUBLIC_SITE_URL || "https://ai-text-utility.vercel.app";
 
   const canonicalUrl = `${baseUrl}/tools/${tool.slug}`;
+
+  // Check P0 SEO Blueprint first
+  const blueprint = getToolSeoBlueprint(tool.slug);
+  if (blueprint) {
+    return {
+      title: blueprint.title,
+      description: blueprint.metaDescription,
+      keywords: [
+        ...tool.keywords,
+        blueprint.primaryKeyword,
+        ...blueprint.secondaryKeywords,
+        tool.category,
+        "online text tool",
+        "developer utility",
+        "free text tools",
+      ],
+      alternates: {
+        canonical: canonicalUrl,
+      },
+      openGraph: {
+        title: blueprint.title,
+        description: blueprint.metaDescription,
+        url: canonicalUrl,
+        type: "website",
+        siteName: "AI Text Utility",
+      },
+      twitter: {
+        card: "summary_large_image",
+        title: blueprint.title,
+        description: blueprint.metaDescription,
+      },
+    };
+  }
 
   if (tool.slug === "fancy-fonts") {
     const fancyTitle = "Fancy Font Generator — Cool Fancy Text (𝒞𝑜𝓅𝓎 𝒶𝓃𝒹 𝒫𝒶𝓈𝓉𝑒) | AI Text Utility";
@@ -120,14 +154,19 @@ export default async function ToolPage({ params }: PageProps) {
     process.env.NEXT_PUBLIC_SITE_URL || "https://ai-text-utility.vercel.app";
   const toolUrl = `${baseUrl}/tools/${tool.slug}`;
   const content = getToolEducationalContent(tool.category, tool.slug, tool.name);
+  const blueprint = getToolSeoBlueprint(tool.slug);
 
   // Schema.org WebApplication JSON-LD
   const webAppSchema = {
     "@context": "https://schema.org",
     "@type": "WebApplication",
-    name: tool.slug === "fancy-fonts" ? "Fancy Font Generator & Cool Fancy Text Maker" : tool.name,
+    name: blueprint
+      ? blueprint.h1
+      : tool.slug === "fancy-fonts"
+      ? "Fancy Font Generator & Cool Fancy Text Maker"
+      : tool.name,
     url: toolUrl,
-    description: tool.description,
+    description: blueprint ? blueprint.metaDescription : tool.description,
     applicationCategory: "UtilitiesApplication",
     operatingSystem: "Any",
     browserRequirements: "Requires JavaScript. Requires modern browser.",
@@ -137,17 +176,6 @@ export default async function ToolPage({ params }: PageProps) {
       priceCurrency: "USD",
     },
     featureList: content.features,
-    ...(tool.slug === "fancy-fonts"
-      ? {
-          aggregateRating: {
-            "@type": "AggregateRating",
-            ratingValue: "4.9",
-            ratingCount: "1420",
-            bestRating: "5",
-            worstRating: "1",
-          },
-        }
-      : {}),
   };
 
   // Schema.org BreadcrumbList JSON-LD

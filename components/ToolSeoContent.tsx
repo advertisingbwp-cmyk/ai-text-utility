@@ -1,9 +1,22 @@
 import React from "react";
 import Link from "next/link";
-import { ToolDefinition, getToolsByCategory, getFeaturedTools } from "@/data/toolsRegistry";
+import { ToolDefinition, getToolsByCategory, getFeaturedTools, getToolBySlug } from "@/data/toolsRegistry";
 import { getToolEducationalContent } from "@/data/toolFaqs";
+import { getToolSeoBlueprint } from "@/data/seoBlueprint";
 import { DynamicIcon } from "@/components/DynamicIcon";
 import { AdUnit } from "@/components/AdUnit";
+import {
+  WordCounterEditorial,
+  JsonFormatterEditorial,
+  PasswordGeneratorEditorial,
+  UuidGeneratorEditorial,
+  RegexTesterEditorial,
+  CaseConverterEditorial,
+  Base64Editorial,
+  UrlEncoderEditorial,
+  JwtDecoderEditorial,
+  LoremIpsumEditorial,
+} from "@/components/seo/ToolEditorialSections";
 import {
   Check,
   ShieldCheck,
@@ -470,26 +483,51 @@ const FancyFontsEditorial: React.FC = () => {
   );
 };
 
+const EDITORIAL_MAP: Record<string, React.FC> = {
+  "fancy-fonts": FancyFontsEditorial,
+  "word-counter": WordCounterEditorial,
+  "json-formatter": JsonFormatterEditorial,
+  "password-generator": PasswordGeneratorEditorial,
+  "uuid-generator": UuidGeneratorEditorial,
+  "regex-tester": RegexTesterEditorial,
+  "case-converter": CaseConverterEditorial,
+  base64: Base64Editorial,
+  "url-encoder": UrlEncoderEditorial,
+  "jwt-decoder": JwtDecoderEditorial,
+  "lorem-ipsum": LoremIpsumEditorial,
+};
+
 export const ToolSeoContent: React.FC<ToolSeoContentProps> = ({ tool }) => {
   const content = getToolEducationalContent(tool.category, tool.slug, tool.name);
+  const blueprint = getToolSeoBlueprint(tool.slug);
+  const EditorialComponent = EDITORIAL_MAP[tool.slug];
 
-  // Find related tools (excluding current tool)
-  const relatedTools = getToolsByCategory(tool.category)
-    .filter((t) => t.slug !== tool.slug)
-    .slice(0, 4);
+  // Prioritize cluster slugs from SEO blueprint if available
+  let fallbackTools: ToolDefinition[] = [];
+  if (blueprint && blueprint.clusterSlugs && blueprint.clusterSlugs.length > 0) {
+    const clusterTools = blueprint.clusterSlugs
+      .map((slug) => getToolBySlug(slug))
+      .filter((t): t is ToolDefinition => t !== undefined && t.slug !== tool.slug);
+    fallbackTools = clusterTools.slice(0, 4);
+  }
 
-  const fallbackTools =
-    relatedTools.length >= 3
-      ? relatedTools
-      : [
-          ...relatedTools,
-          ...getFeaturedTools().filter(
-            (t) => t.slug !== tool.slug && !relatedTools.some((r) => r.slug === t.slug)
-          ),
-        ].slice(0, 4);
+  // Fill up with category tools
+  if (fallbackTools.length < 4) {
+    const categoryTools = getToolsByCategory(tool.category).filter(
+      (t) => t.slug !== tool.slug && !fallbackTools.some((r) => r.slug === t.slug)
+    );
+    fallbackTools = [...fallbackTools, ...categoryTools].slice(0, 4);
+  }
+
+  // Fill up with featured tools if needed
+  if (fallbackTools.length < 4) {
+    const featured = getFeaturedTools().filter(
+      (t) => t.slug !== tool.slug && !fallbackTools.some((r) => r.slug === t.slug)
+    );
+    fallbackTools = [...fallbackTools, ...featured].slice(0, 4);
+  }
 
   const isAI = tool.category === "AI Magic";
-  const isFancyFonts = tool.slug === "fancy-fonts";
 
   return (
     <div className="max-w-6xl mx-auto mt-12 space-y-12 text-slate-600 dark:text-slate-300">
@@ -556,8 +594,8 @@ export const ToolSeoContent: React.FC<ToolSeoContentProps> = ({ tool }) => {
       {/* Responsive Non-Intrusive Ad Banner */}
       <AdUnit slotId="tool-content-ad" format="horizontal" />
 
-      {/* Dedicated Deep Editorial Guide for Fancy Fonts */}
-      {isFancyFonts && <FancyFontsEditorial />}
+      {/* Dedicated Deep Editorial Guide */}
+      {EditorialComponent && <EditorialComponent />}
 
       {/* Frequently Asked Questions */}
       <section aria-labelledby="faq-heading" className="space-y-6">

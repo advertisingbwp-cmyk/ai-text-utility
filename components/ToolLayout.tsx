@@ -21,6 +21,7 @@ import { FavoriteStar } from "@/components/FavoriteStar";
 import { CopyButton } from "@/components/CopyButton";
 import { addRecentTool } from "@/lib/storage";
 import { getToolTheme } from "@/lib/toolThemes";
+import { getToolSeoBlueprint } from "@/data/seoBlueprint";
 
 export interface ToolLayoutProps {
   tool: ToolDefinition;
@@ -69,6 +70,7 @@ export const ToolLayout: React.FC<ToolLayoutProps> = ({
 }) => {
   const [showShortcutsHelp, setShowShortcutsHelp] = useState(false);
   const theme = getToolTheme(tool.id, tool.category);
+  const blueprint = getToolSeoBlueprint(tool.slug);
 
   // Track as recently used in localStorage
   useEffect(() => {
@@ -194,7 +196,9 @@ export const ToolLayout: React.FC<ToolLayoutProps> = ({
             <div>
               <div className="flex items-center gap-2.5 flex-wrap">
                 <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-slate-900 dark:text-white">
-                  {tool.slug === "fancy-fonts"
+                  {blueprint
+                    ? blueprint.h1
+                    : tool.slug === "fancy-fonts"
                     ? "Fancy Font Generator & Cool Fancy Text Maker"
                     : tool.name}
                 </h1>
@@ -210,7 +214,9 @@ export const ToolLayout: React.FC<ToolLayoutProps> = ({
                 )}
               </div>
               <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1 max-w-2xl leading-relaxed">
-                {tool.slug === "fancy-fonts"
+                {blueprint
+                  ? blueprint.aboveTheFoldIntro
+                  : tool.slug === "fancy-fonts"
                   ? "Generate 57+ stylish aesthetic fonts, cursive scripts, gothic symbols, and cool copy-paste text for Instagram, Discord, TikTok, and gaming profiles."
                   : tool.description}
               </p>

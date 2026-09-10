@@ -204,36 +204,46 @@ export const TOOL_SPECIFIC_CONTENT: Record<
   "case-converter": {
     howToSteps: [
       "Paste or type your source text into the input field.",
-      "Click your desired casing format (UPPERCASE, lowercase, Title Case, camelCase, snake_case, kebab-case, PascalCase, or CONSTANT_CASE).",
-      "Inspect the live converted result in the preview box.",
+      "Click your desired casing format: UPPERCASE, lowercase, Title Case, Sentence case, camelCase, snake_case, kebab-case, or PascalCase.",
+      "Inspect the live converted result instantly in the preview box.",
       "Click 'Copy' to immediately copy the converted text to your clipboard.",
     ],
     features: [
       "Instant conversion across 8+ standard casing conventions",
       "Full support for international characters, accents, and punctuation",
-      "Specialized programmer conventions: camelCase, snake_case, and kebab-case",
+      "Specialized programmer conventions: camelCase, snake_case, kebab-case, and PascalCase",
       "100% Client-side execution with zero data uploaded to servers",
     ],
     faqs: [
       {
-        question: "What is the difference between camelCase and PascalCase?",
+        question: "How do I convert text to uppercase?",
         answer:
-          "camelCase starts with a lowercase letter and capitalizes each subsequent word (e.g. `userProfileData`), which is standard for JavaScript variables. PascalCase capitalizes the first letter of every word (e.g. `UserProfileData`), commonly used for classes and React components.",
+          "Paste your text into the box and click the 'UPPERCASE' button. Every alphabetical character is instantly capitalized using standard Unicode casing rules.",
       },
       {
-        question: "How does Title Case treat minor conjunctions and prepositions?",
+        question: "How do I convert uppercase to lowercase?",
         answer:
-          "Title Case adheres to standard editorial capitalization rules. Short words such as 'and', 'or', 'in', 'on', 'of', and 'the' remain in lowercase unless they appear as the first or last word of the title.",
+          "Simply paste your text and click 'lowercase'. All capital letters are immediately transformed into their lowercase equivalents.",
       },
       {
-        question: "Can I convert programming identifiers with underscores or hyphens?",
+        question: "What is title case?",
         answer:
-          "Yes. The converter intelligently recognizes existing delimiter boundaries such as underscores, dashes, spaces, and camelCase transitions, allowing seamless conversion between naming styles.",
+          "Title case capitalizes the first letter of major words while keeping minor grammatical conjunctions and prepositions (such as 'and', 'in', 'of', 'the') in lowercase, adhering to editorial headline standards.",
       },
       {
-        question: "How can I convert plain text into aesthetic Unicode fonts or social media cursive?",
+        question: "What is sentence case?",
         answer:
-          "If you want to go beyond standard casing and stylize your text with aesthetic cursive, gothic Fraktur, small-caps, or circled characters, use our [Fancy Font Generator](/tools/fancy-fonts).",
+          "Sentence case capitalizes only the first letter of each sentence and proper nouns, leaving all subsequent words in lowercase, mirroring standard grammatical prose.",
+      },
+      {
+        question: "Is this case converter free?",
+        answer:
+          "Yes, this case converter is completely free with no registration, subscription, or daily usage caps required.",
+      },
+      {
+        question: "Can I convert large amounts of text?",
+        answer:
+          "Yes. Because the tool runs entirely inside your browser's local memory, you can convert full essays, source code files, and long articles of 100,000+ characters with zero network lag. For counting length, you can verify your text with our [Word Counter](/tools/word-counter).",
       },
     ],
   },
@@ -358,64 +368,94 @@ export const TOOL_SPECIFIC_CONTENT: Record<
 
   base64: {
     howToSteps: [
-      "Paste plain text or a Base64 string into the input box.",
-      "Select 'Encode' to generate Base64 or 'Decode' to convert Base64 back to plain text.",
-      "Inspect the generated output in the right-hand panel.",
-      "Copy the result with one click or download as a text file.",
+      "Paste plain text or a Base64 encoded string into the input box.",
+      "Select 'Encode' to convert text into Base64 or 'Decode' to restore Base64 back to plain text.",
+      "The tool executes in real time with comprehensive UTF-8 multi-byte Unicode support.",
+      "Copy the converted output to your clipboard or download it as a text file.",
     ],
     features: [
       "Standard RFC 4648 Base64 encoding and decoding",
-      "Full UTF-8 Unicode support preventing character corruption with emojis and non-Latin scripts",
-      "Instant real-time processing with zero latency",
-      "100% Client-side operation with complete credential privacy",
+      "Full UTF-8 support preserving emojis, accented letters, and non-Latin scripts",
+      "Real-time bidirectional conversion with instant validation",
+      "100% Client-side execution ensuring your strings remain completely private",
     ],
     faqs: [
       {
-        question: "Is Base64 a form of encryption?",
+        question: "What is Base64?",
         answer:
-          "No. Base64 is a binary-to-text encoding scheme, not encryption. It provides zero confidentiality or security because anyone can decode Base64 in milliseconds without a secret key. Never use Base64 alone to protect sensitive passwords or secrets.",
+          "Base64 is a binary-to-text encoding scheme that represents binary data in an ASCII string format using 64 printable characters (A–Z, a–z, 0–9, +, and /). It is defined in RFC 4648.",
       },
       {
-        question: "How does this tool handle non-ASCII and Unicode characters?",
+        question: "How do I encode text in Base64?",
         answer:
-          "Native JavaScript `btoa()` only handles Latin1 characters and throws an error on Unicode. Our tool encodes text into UTF-8 byte arrays via `TextEncoder` first, ensuring emojis, Cyrillic, Arabic, Chinese, and mathematical symbols encode and decode seamlessly.",
+          "Paste your normal text into the input field and select 'Encode'. The tool converts each 3 bytes of binary data into 4 ASCII characters in real time.",
       },
       {
-        question: "What are the most common use cases for Base64?",
+        question: "How do I decode Base64?",
         answer:
-          "Base64 is widely used for embedding small images or fonts directly into HTML and CSS data URIs, sending binary data across text-only protocols (such as email MIME or JSON APIs), and constructing HTTP Basic Authorization headers.",
+          "Paste your Base64 encoded string into the box and select 'Decode'. The engine parses the 64-character alphabet, reverses the bit shift arithmetic, and outputs readable plain text.",
+      },
+      {
+        question: "Is Base64 encryption?",
+        answer:
+          "No. Base64 is an encoding format, not encryption. It provides zero data confidentiality because anyone can decode it instantly without a key. Never use Base64 alone to protect sensitive passwords or secrets.",
+      },
+      {
+        question: "Is this Base64 tool free?",
+        answer:
+          "Yes, the Base64 encoder and decoder is 100% free with unlimited conversions, no account sign-up, and zero tracking.",
+      },
+      {
+        question: "Does Base64 work with binary data?",
+        answer:
+          "Yes. Base64 was explicitly designed to safely transmit binary data—such as images, file attachments, and cryptographic keys—across text-only communication channels like HTTP, JSON APIs, and email protocols. For URL parameter encoding, pair with our [URL Encoder](/tools/url-encoder).",
       },
     ],
   },
 
   "url-encoder": {
     howToSteps: [
-      "Paste your URL, query string, or plain parameter text into the input field.",
-      "Choose 'Encode' for percent-encoding or 'Decode' to convert percent-encoded strings back to human-readable text.",
-      "Inspect the safely encoded or decoded URL in the output panel.",
-      "Copy the result to paste directly into your browser address bar or code.",
+      "Paste your target URL, query string, or text into the input field.",
+      "Select 'Encode' to escape special characters or 'Decode' to convert percent codes back to plain text.",
+      "Inspect the live output sanitized according to RFC 3986 percent-encoding standards.",
+      "Copy the URL-safe result with one click.",
     ],
     features: [
-      "Strict RFC 3986 percent-encoding specification compliance",
-      "Safe encoding of reserved characters (`&`, `?`, `=`, `/`, `#`, spaces)",
-      "Accurate decoding of both `%20` and `+` space representations",
-      "100% Client-side execution keeping confidential URLs completely private",
+      "Compliant RFC 3986 percent-encoding and decoding",
+      "Safely escapes spaces, query delimiters, and non-ASCII Unicode characters",
+      "Instant bidirectional conversion with automatic percent syntax detection",
+      "100% Browser-based processing with zero server transmission",
     ],
     faqs: [
       {
-        question: "Is URL encoding equivalent to encryption?",
+        question: "What is URL encoding?",
         answer:
-          "No. URL encoding (percent-encoding) translates reserved and unsafe ASCII characters into a '%' followed by two hexadecimal digits so web servers and browsers can transport them safely. It does not hide or encrypt data.",
+          "URL encoding (also known as percent-encoding) is a mechanism for encoding reserved characters, non-ASCII letters, and spaces in a URI so they can be safely transmitted over the internet without corrupting the URL structure.",
       },
       {
-        question: "What is the difference between encodeURI and encodeURIComponent?",
+        question: "How do I encode a URL?",
         answer:
-          "encodeURI preserves structural URL delimiters (like `http://`, `:`, `/`, `?`, and `&`) to keep the URL navigable, whereas encodeURIComponent encodes all special characters including delimiters, making it safe for individual query parameter values.",
+          "Paste your raw URL or query parameter into the input box and choose 'Encode'. Characters that are not permitted in URLs are automatically transformed into their hexadecimal percent representations.",
       },
       {
-        question: "Why are spaces sometimes encoded as '+' instead of '%20'?",
+        question: "How do I decode a URL?",
         answer:
-          "`%20` is the strict RFC 3986 standard for URI encoding, while `+` is used in legacy HTML form submissions (`application/x-www-form-urlencoded`). Our tool handles and decodes both representations accurately.",
+          "Paste a percent-encoded URL (containing sequences like `%20` or `%3F`) and click 'Decode'. The tool translates all hexadecimal triplets back into human-readable characters.",
+      },
+      {
+        question: "What does %20 mean?",
+        answer:
+          "`%20` is the standard percent-encoded representation of a space character (ASCII code 32, which is 20 in hexadecimal). In URL query strings, spaces are also sometimes represented as `+`.",
+      },
+      {
+        question: "What is percent encoding?",
+        answer:
+          "Percent-encoding replaces unsafe or reserved characters with a `%` followed by two hexadecimal digits representing the character's numeric byte value in ASCII or UTF-8.",
+      },
+      {
+        question: "Is this URL encoder free?",
+        answer:
+          "Yes, this URL encoder and decoder is completely free with no limits, no login requirements, and instant browser-side conversion. You can also explore our [Base64 Tool](/tools/base64) for data payloads.",
       },
     ],
   },
@@ -454,128 +494,188 @@ export const TOOL_SPECIFIC_CONTENT: Record<
 
   "jwt-decoder": {
     howToSteps: [
-      "Paste any JSON Web Token (Header.Payload.Signature) into the input box.",
-      "The tool splits the token at the dot separators and decodes the Base64URL header and payload.",
-      "Inspect the formatted JSON claims (sub, iss, exp, iat, roles) and expiration status.",
-      "Copy the decoded JSON payload or header with one click.",
+      "Paste an encoded JSON Web Token (JWT) into the input box.",
+      "Inspect the decoded JOSE Header (algorithm, token type).",
+      "Review the decoded Payload claims (`sub`, `iat`, `exp`, roles) and parsed expiration timestamps.",
+      "Copy the formatted JSON payload or individual claim values.",
     ],
     features: [
-      "Decodes and formats both JWT Header and Payload JSON structures",
-      "Real-time token expiration calculation with relative human-friendly status",
-      "Syntax-highlighted, formatted JSON tree view",
-      "100% Local browser execution with zero token or secret key leakage",
+      "Decodes JOSE Header, Payload claims, and Signature elements",
+      "Parses UNIX timestamps (`iat`, `exp`, `nbf`) into human-readable local dates",
+      "Highlights expired tokens with visual countdown or expired status",
+      "100% Client-side decoding — tokens are never transmitted to any external server",
     ],
     faqs: [
       {
-        question: "Does decoding a JWT verify its cryptographic signature?",
+        question: "What is a JWT?",
         answer:
-          "No. Decoding simply parses the Base64URL-encoded header and payload so you can inspect claims. It does not verify the signature against a secret or public key. Never trust an unverified token for authorization decisions in backend code.",
+          "A JSON Web Token (JWT) is an open standard (RFC 7519) for securely transmitting information between parties as a compact, URL-safe JSON object. It consists of three parts separated by dots: Header, Payload, and Signature.",
       },
       {
-        question: "Is it safe to paste authentication tokens into this tool?",
+        question: "How do I decode a JWT?",
         answer:
-          "Yes. This tool runs 100% in your local browser memory. Tokens are never transmitted across the network, sent to third-party endpoints, or saved in cookies or logs.",
+          "Paste your raw token string into the input area. The tool automatically splits the three dot-separated components, decodes the Base64URL strings, and formats the header and payload into readable JSON.",
       },
       {
-        question: "Why does my token indicate that it is expired?",
+        question: "Can I decode a JWT without the secret key?",
         answer:
-          "JWT tokens contain an `exp` (expiration) timestamp claim representing the number of seconds since January 1, 1970 UTC. If this timestamp is older than your computer's current clock time, the token is expired and will be rejected by APIs.",
+          "Yes. The Header and Payload of a standard JWT are merely Base64URL encoded, not encrypted. Anyone who has the token can decode and inspect the claims without needing the private key or secret.",
+      },
+      {
+        question: "What is the JWT payload?",
+        answer:
+          "The payload is the central body of the token containing claims—statements about an entity (typically the user) and additional metadata such as `sub` (subject), `iss` (issuer), `iat` (issued at), and `exp` (expiration time).",
+      },
+      {
+        question: "What is the difference between decoding and verifying a JWT?",
+        answer:
+          "Decoding simply reads the plain text claims inside the token. Verifying checks whether the cryptographic signature matches the payload and secret key, proving the token has not been tampered with. Decoding does NOT prove the token is valid or authentic.",
+      },
+      {
+        question: "Is this JWT decoder free?",
+        answer:
+          "Yes, this tool is 100% free and runs completely inside your browser memory. For formatting complex payloads, you can also use our [JSON Formatter](/tools/json-formatter).",
       },
     ],
   },
 
   "password-generator": {
     howToSteps: [
-      "Select your preferred password length using the slider (8 to 128 characters).",
-      "Toggle the character types you want to include: Uppercase (A-Z), Lowercase (a-z), Numbers (0-9), and Symbols (!@#$...).",
-      "Optionally enable 'Exclude Ambiguous Characters' to eliminate confusing characters like 1, l, I, 0, and O.",
-      "Click 'Generate Password' and copy your cryptographically secure password.",
+      "Choose your desired password length using the slider or input field (e.g. 16 or 20 characters).",
+      "Select character types: Uppercase, Lowercase, Numbers, and Special Symbols.",
+      "Click 'Generate Password' to create a high-entropy string using Web Crypto API.",
+      "Click 'Copy' to copy the secure password directly to your clipboard.",
     ],
     features: [
-      "Generates true cryptographically secure random values via `window.crypto.getRandomValues()`",
-      "Customizable length, character sets, and exclusion of ambiguous glyphs",
-      "Live entropy and password strength scoring",
-      "100% Client-side generation with zero passwords saved or transmitted",
+      "Cryptographically secure randomness via browser window.crypto.getRandomValues",
+      "Configurable length from 8 to 64 characters with custom character set selection",
+      "Real-time password entropy estimation and strength rating indicator",
+      "Strict zero-storage guarantee: generated passwords exist only in temporary memory",
     ],
     faqs: [
       {
-        question: "Are these passwords truly cryptographically secure?",
+        question: "What makes a password strong?",
         answer:
-          "Yes. Passwords are generated using the browser's native `window.crypto.getRandomValues()` API (CSPRNG), which gathers high-entropy randomness directly from your operating system kernel, unlike predictable pseudo-random functions like `Math.random()`.",
+          "A strong password combines substantial length (at least 16 characters) with unpredictable randomness across multiple character sets—uppercase letters, lowercase letters, numbers, and symbols—making it practically immune to brute-force dictionary attacks.",
       },
       {
-        question: "Are generated passwords saved or logged on your server?",
+        question: "How long should a password be?",
         answer:
-          "No. Generation occurs completely inside your local browser runtime. We have no backend database or logging mechanism for generated passwords.",
+          "Security experts recommend a minimum of 16 characters for general accounts and 20+ characters for high-risk accounts (such as email, banking, or password manager master vaults). Each added character exponentially increases cracking difficulty.",
       },
       {
-        question: "What makes a strong password according to security standards?",
+        question: "Is a random password more secure?",
         answer:
-          "A strong password should have at least 16 characters, combine uppercase letters, lowercase letters, numbers, and symbols, and possess high Shannon entropy without containing dictionary words or repetitive sequences.",
+          "Yes. Completely random character sequences eliminate human patterns, common dictionary words, predictable leetspeak substitutions, and personal data that attackers exploit during automated credential-stuffing attacks.",
+      },
+      {
+        question: "Is this password generator free?",
+        answer:
+          "Yes, this password generator is 100% free with unlimited generation and no hidden fees.",
+      },
+      {
+        question: "Are generated passwords stored?",
+        answer:
+          "No. Passwords are generated exclusively inside your browser's local memory using the native Web Crypto API (`window.crypto.getRandomValues`). They are never saved in cookies, local storage, or sent to any server.",
+      },
+      {
+        question: "Can I generate passwords without an account?",
+        answer:
+          "Yes. No registration, account creation, or email address is ever required to use this utility. For generating unique machine identifiers, check out our [UUID Generator](/tools/uuid-generator).",
       },
     ],
   },
 
   "uuid-generator": {
     howToSteps: [
-      "Select how many UUIDs you want to generate (from 1 up to 100).",
-      "Choose formatting preferences such as hyphens, uppercase lettering, or enclosing braces `{}`.",
-      "Click 'Generate UUIDs' to create fresh identifiers instantly.",
-      "Copy individual UUIDs or click 'Copy All' to copy the complete list.",
+      "Select the number of UUIDs you wish to generate (from 1 to 50 identifiers).",
+      "Click 'Generate UUID' to produce RFC 4122 compliant v4 identifiers.",
+      "Copy individual identifiers or click 'Copy All' to save the complete batch to your clipboard.",
+      "Click generate again whenever you require fresh, collision-resistant identifiers.",
     ],
     features: [
-      "RFC 4122 Version 4 UUID compliant generation",
-      "CSPRNG randomness powered by browser `crypto.randomUUID()` and Web Crypto API",
-      "Custom formatting: toggle hyphens, uppercase letters, and braces",
-      "Bulk generation with instant one-click copy",
+      "RFC 4122 compliant UUID Version 4 generation",
+      "Powered by browser window.crypto.randomUUID() for true cryptographic randomness",
+      "Batch generation support up to 50 UUIDs with one-click bulk copy",
+      "100% Client-side execution with zero latency and zero server logging",
     ],
     faqs: [
       {
-        question: "What is a UUID v4 and how is it generated?",
+        question: "What is a UUID?",
         answer:
-          "A Version 4 UUID is a 128-bit universally unique identifier formatted as 32 hexadecimal digits across five hyphenated groups (e.g. `de305d54-75b4-431b-adb2-eb6b9e546014`). It uses 122 cryptographically secure random bits alongside 6 version and variant bits.",
+          "A UUID (Universally Unique Identifier) is a 128-bit label used to identify information in computer systems without central coordination. It is represented as a 36-character string formatted in five groups separated by hyphens (8-4-4-4-12).",
       },
       {
-        question: "Can two generated UUID v4 identifiers ever collide?",
+        question: "What is UUID v4?",
         answer:
-          "The probability of generating a duplicate UUID v4 is astronomically negligible. You would need to generate approximately 1 billion UUIDs per second for roughly 85 years before having a 50% chance of a single collision.",
+          "UUID Version 4 is generated using random numbers. Out of the 128 bits, 122 bits are purely random, with 6 bits reserved for the version (4) and variant (RFC 4122).",
       },
       {
-        question: "Does this tool transmit generated UUIDs across the network?",
+        question: "What is the difference between UUID and GUID?",
         answer:
-          "No. All UUIDs are generated directly inside your browser via native `crypto.randomUUID()`. No network requests are made, ensuring complete confidentiality.",
+          "UUID and GUID refer to the same concept. GUID (Globally Unique Identifier) is Microsoft's implementation and terminology for the universal UUID standard (RFC 4122 / ITU-T X.667). They are structurally identical.",
+      },
+      {
+        question: "Are UUIDs unique?",
+        answer:
+          "While mathematically possible for a collision to occur, the probability of generating duplicate UUID v4 identifiers is so infinitesimally small (1 in billions of billions) that they are considered practically unique across distributed databases.",
+      },
+      {
+        question: "Can I generate UUIDs online?",
+        answer:
+          "Yes. This tool runs directly in your browser using modern cryptographic APIs, enabling you to generate batches of fresh UUIDs instantly without downloading command-line tools.",
+      },
+      {
+        question: "Is this UUID generator free?",
+        answer:
+          "Yes, this UUID generator is completely free with no limits. For random security keys, you can also use our [Password Generator](/tools/password-generator).",
       },
     ],
   },
 
   "lorem-ipsum": {
     howToSteps: [
-      "Select your generation unit: Paragraphs, Sentences, Words, or List Items.",
-      "Specify the quantity of placeholder text you need.",
-      "Optionally choose whether to start with the traditional 'Lorem ipsum dolor sit amet...'.",
-      "Copy the generated placeholder text or export with HTML `<p>` tags.",
+      "Choose your generation unit: Paragraphs, Sentences, or Words.",
+      "Select the desired quantity using the slider or numeric input.",
+      "Toggle optional settings, such as starting with the traditional 'Lorem ipsum dolor sit amet...'.",
+      "Copy the generated dummy text directly to your clipboard for your layout mockup.",
     ],
     features: [
-      "Classical Cicero Latin placeholder text generation",
-      "Configurable counts for paragraphs, sentences, words, and bulleted lists",
-      "Optional HTML markup wrapping for rapid web development",
-      "Instant offline generation without network requests",
+      "Generate custom quantities of paragraphs, sentences, or individual words",
+      "Option to include or exclude the classic 'Lorem ipsum dolor sit amet' opening sentence",
+      "Natural sentence lengths and punctuation cadence simulating authentic body copy",
+      "Instant real-time generation with one-click clipboard copying",
     ],
     faqs: [
       {
-        question: "What is the origin of Lorem Ipsum dummy text?",
+        question: "What is Lorem Ipsum?",
         answer:
-          "Lorem Ipsum is derived from sections 1.10.32 and 1.10.33 of Cicero's 45 BC philosophical treatise 'De Finibus Bonorum et Malorum'. Typesetters have used modified versions of this Latin passage as standard dummy text since the 1500s.",
+          "Lorem Ipsum is standard dummy placeholder text used in the printing, publishing, and web design industries to demonstrate the visual layout of documents or fonts without being distracted by readable content.",
       },
       {
-        question: "Why use Lorem Ipsum instead of English placeholder text?",
+        question: "Why is Lorem Ipsum used?",
         answer:
-          "Readable English distracts reviewers, drawing attention to grammar rather than visual design. Lorem Ipsum provides a natural distribution of letters and word lengths, allowing designers to evaluate typography, hierarchy, and layout objectively.",
+          "When reviewing visual layouts, human readers naturally focus on reading meaningful text rather than assessing typography, column widths, and spacing. Lorem Ipsum provides a natural distribution of letters that simulates real content without readable distraction.",
       },
       {
-        question: "Can I generate HTML tags like <p> or <li> automatically?",
+        question: "How do I generate Lorem Ipsum?",
         answer:
-          "Yes. You can toggle HTML formatting to wrap paragraphs in `<p>...</p>` tags or generate `<ul><li>...</li></ul>` structures for direct insertion into web templates.",
+          "Select whether you want paragraphs, sentences, or words, specify the quantity, and click 'Generate'. The generated placeholder copy is ready for instant copying into your design software.",
+      },
+      {
+        question: "Can I generate paragraphs of Lorem Ipsum?",
+        answer:
+          "Yes. You can generate multiple structured paragraphs with natural paragraph breaks, ideal for wireframes, Figma prototypes, and CMS content staging.",
+      },
+      {
+        question: "Is this Lorem Ipsum generator free?",
+        answer:
+          "Yes, this placeholder text generator is 100% free with no account creation and unlimited usage.",
+      },
+      {
+        question: "Can I copy the generated text?",
+        answer:
+          "Yes. Click the 'Copy' button to immediately save the generated placeholder text to your clipboard. To count words or character limits in your layout, use our [Word Counter](/tools/word-counter).",
       },
     ],
   },
@@ -617,37 +717,47 @@ export const TOOL_SPECIFIC_CONTENT: Record<
   // ==========================================
   "word-counter": {
     howToSteps: [
-      "Paste or type your document, article, or essay into the input editor.",
-      "Review real-time statistics including word count, characters (with and without spaces), sentences, and paragraphs.",
-      "Inspect estimated reading time and speaking presentation time.",
-      "Copy statistics or clear the editor with one click.",
+      "Enter or paste your text into the input editor area.",
+      "Review the live statistics strip showing words, characters, characters excluding spaces, sentences, paragraphs, and reading time.",
+      "Edit the text if needed to meet specific target length constraints or character limits.",
+      "Copy your final content or download it as a text file with one click.",
     ],
     features: [
-      "Live counter for words, characters, sentences, lines, and paragraphs",
-      "Accurate reading time estimate based on average reading rates (200-250 wpm)",
-      "Speaking time estimate calibrated for keynote presentations (130-150 wpm)",
-      "100% In-browser execution with unlimited document size support",
+      "Live counter for words, characters (with & without spaces), sentences, lines, and paragraphs",
+      "Accurate reading time calculation calibrated at 200 words per minute",
+      "Speaking time estimate calibrated for presentations and podcasts at 130 words per minute",
+      "100% In-browser execution handling documents of 100,000+ characters with zero latency",
     ],
     faqs: [
       {
-        question: "How is the word count calculated?",
+        question: "How do I count words online?",
         answer:
-          "Words are calculated by splitting text across Unicode whitespace and punctuation boundaries while respecting compound hyphenated words. Leading, trailing, and duplicate spaces are ignored.",
+          "Simply paste or type your text into the editor above. The word counter calculates total words, characters, sentences, and paragraphs in real time as you type, with zero clicks required.",
       },
       {
-        question: "How are reading and speaking times estimated?",
+        question: "How is word count calculated?",
         answer:
-          "Reading time is calculated at an average silent reading speed of 200 words per minute. Speaking time is calculated at 130 words per minute, the standard cadence for speeches, podcasts, and video presentations.",
+          "Words are calculated by segmenting text across Unicode whitespace and punctuation boundaries while preserving hyphenated compound terms. Leading, trailing, and duplicate spaces are ignored.",
       },
       {
-        question: "Is my document private when using the word counter?",
+        question: "What is the difference between word count and character count?",
         answer:
-          "Yes. All counting calculations take place strictly inside your browser's local memory. No text is transmitted to our servers or stored in cookies.",
+          "Word count measures distinct lexical words separated by spaces. Character count tallies every single letter, number, punctuation symbol, and whitespace character in your text.",
       },
       {
-        question: "How do I make my counted text stand out for social media bios and captions?",
+        question: "Does the word counter count punctuation?",
         answer:
-          "Once you have verified your character and word count within platform limits (such as Instagram's 150-character bio limit), you can copy your text into our [Fancy Font Generator](/tools/fancy-fonts) to create stylish gothic, cursive, or glitch text.",
+          "In the character count, punctuation marks (such as commas, periods, and quotation marks) are counted as individual characters. In the word count, punctuation attached to words is not counted as separate words.",
+      },
+      {
+        question: "Can I use this word counter for an essay?",
+        answer:
+          "Yes. It is ideal for academic essays, college admissions statements, research papers, and assignments where strict minimum or maximum word limits must be satisfied.",
+      },
+      {
+        question: "Is this word counter free?",
+        answer:
+          "Yes, this word counter is 100% free with no document size caps, no registration, and complete browser privacy. For deeper text analysis, you can also explore our [Character Frequency](/tools/character-frequency) tool.",
       },
     ],
   },
@@ -878,32 +988,47 @@ export const TOOL_SPECIFIC_CONTENT: Record<
 
   "regex-tester": {
     howToSteps: [
-      "Type your regular expression pattern into the Regex field.",
-      "Select flags such as Global (`g`), Case-Insensitive (`i`), or Multiline (`m`).",
-      "Enter your test string into the text area below.",
-      "Inspect live highlighted matches, match counts, and capture group details.",
+      "Enter your regular expression pattern into the Regex input field.",
+      "Select your active regex flags: Global (`g`), Case-Insensitive (`i`), Multiline (`m`), or DotAll (`s`).",
+      "Paste or type your sample test text into the test area.",
+      "Review the highlighted matches and captured groups in real time, and adjust your expression until all test cases pass.",
     ],
     features: [
-      "Powered by native JavaScript ECMAScript RegExp engine",
-      "Real-time visual highlighting of matches within the test string",
-      "Detailed breakdown of capture groups and match index positions",
-      "Zero server latency and full privacy for sensitive test strings",
+      "Real-time syntax validation using the native JavaScript RegExp engine",
+      "Support for standard ECMAScript flags: g, i, m, s, u",
+      "Visual match highlighting with numbered capture group inspection",
+      "100% Client-side execution ensuring your test data is never transmitted to servers",
     ],
     faqs: [
       {
-        question: "Which regular expression engine does this tester use?",
+        question: "What is a regex tester?",
         answer:
-          "It uses your browser's native JavaScript ECMAScript RegExp engine. Any pattern that matches here will behave identically when executed in production client-side JavaScript or Node.js environments.",
+          "A regex tester is an interactive developer tool that evaluates regular expression patterns against sample text in real time, highlighting matching substrings and capture groups to help you debug pattern syntax.",
       },
       {
-        question: "What do the regex flags (g, i, m, s, u) mean?",
+        question: "How do I test a regular expression?",
         answer:
-          "`g` matches all occurrences rather than stopping at the first; `i` ignores letter casing; `m` makes `^` and `$` match the start and end of individual lines; `s` allows `.` to match newline characters; `u` enables full Unicode codepoint matching.",
+          "Enter your regular expression in the pattern field (e.g. `[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}`) and type sample text below. The tool highlights matches and displays capture groups instantly.",
       },
       {
-        question: "Is my test data or regex pattern shared?",
+        question: "What regex syntax does this tool support?",
         answer:
-          "No. All regex evaluation is executed directly in your browser's JavaScript runtime. Your patterns and test strings are never sent to any server.",
+          "This tool supports the standard ECMAScript (JavaScript) regular expression engine, including character classes, lookaheads, lookbehinds, non-capturing groups, and Unicode property escapes (`\\p{L}`).",
+      },
+      {
+        question: "What are regex flags?",
+        answer:
+          "Regex flags modify how patterns match text: `g` (global) finds all matches rather than stopping at the first; `i` ignores letter casing; `m` treats `^` and `$` as line anchors; and `s` allows `.` to match newlines.",
+      },
+      {
+        question: "Can I test multiple matches?",
+        answer:
+          "Yes. When the Global (`g`) flag is active, the tester highlights all matching occurrences throughout your entire sample text and reports the total match count.",
+      },
+      {
+        question: "Is this regex tester free?",
+        answer:
+          "Yes, this regex tester is completely free with no limits and zero server logging. To extract emails or links directly without regex, try our [Extract Emails & URLs](/tools/extract-emails-urls) tool.",
       },
     ],
   },
@@ -945,32 +1070,47 @@ export const TOOL_SPECIFIC_CONTENT: Record<
   // ==========================================
   "json-formatter": {
     howToSteps: [
-      "Paste raw, unformatted, or minified JSON into the editor.",
-      "Select your formatting indentation: 2 spaces, 4 spaces, tabs, or compact minification.",
-      "The built-in validator inspects syntax and highlights any errors with exact line and column locations.",
-      "Copy the clean JSON or download it as a `.json` file.",
+      "Paste or type raw, minified, or unformatted JSON data into the editor.",
+      "Select your indentation preference (2 spaces, 4 spaces, or tabs) or click 'Minify'.",
+      "Review syntax error diagnostics, exact line numbers, and character offsets if the JSON is invalid.",
+      "Copy the beautified, valid JSON directly to your clipboard or download it as a `.json` file.",
     ],
     features: [
-      "RFC 8259 compliant JSON parser and beautifier",
-      "Precise syntax validation with exact line, column, and error descriptions",
-      "Configurable indentation: 2-space, 4-space, tab, or compact minification",
-      "100% Private local processing keeping proprietary payloads and API tokens secure",
+      "Instant formatting, beautification, and minification with custom indentation",
+      "Strict RFC 8259 JSON syntax validation with precise error coordinates",
+      "Interactive tree viewer with collapsible keys and data type highlighting",
+      "100% Client-side execution ensuring your sensitive JSON payloads never touch a server",
     ],
     faqs: [
       {
-        question: "Does this tool validate JSON schema or JSON syntax?",
+        question: "What is a JSON formatter?",
         answer:
-          "It validates standard RFC 8259 JSON syntax. If your payload has missing quotes, unescaped characters, or illegal trailing commas, it pinpoints the exact line and character where the error occurred.",
+          "A JSON formatter is an online utility that parses raw, compressed, or unreadable JSON strings and formats them with structured indentation, line breaks, and syntax coloring to improve human readability.",
       },
       {
-        question: "Is it safe to format sensitive JSON data like API tokens or customer records?",
+        question: "How do I format JSON?",
         answer:
-          "Yes. Formatting is performed purely inside your browser using native `JSON.parse()` and `JSON.stringify()`. No data is ever transmitted to a server or stored in cookies.",
+          "Paste your raw JSON into the editor. The tool automatically parses and beautifies the data using 2-space or 4-space indentation in real time.",
       },
       {
-        question: "Can this tool fix trailing commas in JSON?",
+        question: "How do I validate JSON?",
         answer:
-          "Standard JSON specifications forbid trailing commas. When detected, the validator alerts you to the exact line so you can remove it for strict JSON compliance.",
+          "Validation runs automatically upon text input. If the JSON violates RFC 8259 specifications, the tool highlights the exact error line and provides a clear description of the syntax defect.",
+      },
+      {
+        question: "Why is my JSON invalid?",
+        answer:
+          "Common causes of invalid JSON include trailing commas after the last array or object element, single quotes instead of double quotes around keys and strings, unquoted property names, or mismatched brackets and braces.",
+      },
+      {
+        question: "Is this JSON formatter free?",
+        answer:
+          "Yes, this JSON formatter and validator is 100% free with no file size limits, no subscription, and no account required.",
+      },
+      {
+        question: "Does the formatter send my JSON to a server?",
+        answer:
+          "No. All parsing, validation, and beautification happen strictly inside your web browser's JavaScript memory using native `JSON.parse` and `JSON.stringify`. Your proprietary data is never transmitted to any server. To convert JSON into spreadsheets, see our [JSON to CSV](/tools/json-to-csv) converter.",
       },
     ],
   },
