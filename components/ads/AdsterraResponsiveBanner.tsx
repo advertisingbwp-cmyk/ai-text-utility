@@ -8,12 +8,12 @@ export const AdsterraResponsiveBanner: React.FC<{ className?: string }> = ({ cla
   return (
     <div className={`w-full flex justify-center items-center my-5 ${className}`}>
       {/* Mobile: 320x50 */}
-      <div className="block sm:hidden">
+      <div className="block sm:hidden min-h-[50px]">
         <AdsterraBanner320x50 />
       </div>
 
       {/* Tablet & Desktop: 300x250 */}
-      <div className="hidden sm:block">
+      <div className="hidden sm:block min-h-[250px]">
         <AdsterraBanner300x250 />
       </div>
     </div>

@@ -35,21 +35,29 @@ export function testRegex(
     };
   }
 
-  // Ensure 'g' flag is present for multi-match search unless deliberately omitted
-  const cleanFlags = flags.includes("g") ? flags : `${flags}g`;
+  // Ensure 'g' and 'd' flags are present for multi-match search and group index mapping
+  let cleanFlags = flags;
+  if (!cleanFlags.includes("g")) cleanFlags += "g";
+  if (!cleanFlags.includes("d")) cleanFlags += "d";
 
   let regex: RegExp;
   try {
     regex = new RegExp(pattern, cleanFlags);
-  } catch (err) {
-    return {
-      isValid: false,
-      error: err instanceof Error ? err.message : "Invalid regular expression",
-      pattern,
-      flags,
-      matches: [],
-      matchCount: 0,
-    };
+  } catch {
+    // If 'd' flag isn't supported or fails, fallback without 'd'
+    cleanFlags = flags.includes("g") ? flags : `${flags}g`;
+    try {
+      regex = new RegExp(pattern, cleanFlags);
+    } catch (err) {
+      return {
+        isValid: false,
+        error: err instanceof Error ? err.message : "Invalid regular expression",
+        pattern,
+        flags,
+        matches: [],
+        matchCount: 0,
+      };
+    }
   }
 
   if (!text) {
@@ -69,27 +77,36 @@ export function testRegex(
 
   while ((match = regex.exec(text)) !== null) {
     const groups: RegexMatchGroup[] = [];
+    const matchIndices = (match as unknown as { indices?: { [key: number]: [number, number]; groups?: Record<string, [number, number]> } }).indices;
 
-    // Capture numbered groups
+    // Capture groups without duplication
     for (let i = 1; i < match.length; i++) {
       if (match[i] !== undefined) {
+        let name: string | undefined;
+
+        if (matchIndices?.groups && matchIndices[i]) {
+          const range = matchIndices[i];
+          for (const [k, v] of Object.entries(matchIndices.groups)) {
+            if (v && v[0] === range[0] && v[1] === range[1]) {
+              name = k;
+              break;
+            }
+          }
+        } else if (match.groups) {
+          // Fallback: match by value if indices are unavailable
+          for (const [k, v] of Object.entries(match.groups)) {
+            if (v === match[i]) {
+              name = k;
+              break;
+            }
+          }
+        }
+
         groups.push({
           index: i,
+          name,
           value: match[i],
         });
-      }
-    }
-
-    // Capture named groups
-    if (match.groups) {
-      for (const [name, val] of Object.entries(match.groups)) {
-        if (val !== undefined) {
-          groups.push({
-            index: groups.length + 1,
-            name,
-            value: val,
-          });
-        }
       }
     }
 

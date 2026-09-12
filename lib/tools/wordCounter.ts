@@ -36,7 +36,7 @@ export function calculateWordStatistics(input: string): WordStatistics {
   const lines = input.split(/\r?\n/).length;
 
   const paragraphs = trimmed
-    ? trimmed.split(/\n\s*\n/).filter((p) => p.trim().length > 0).length
+    ? trimmed.split(/\r?\n\s*\r?\n/).filter((p) => p.trim().length > 0).length
     : 0;
 
   const sentences = trimmed

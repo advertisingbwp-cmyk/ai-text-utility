@@ -7,6 +7,7 @@ import { ToolDefinition } from "@/data/toolsRegistry";
 import { FavoriteStar } from "@/components/FavoriteStar";
 import { addRecentTool } from "@/lib/storage";
 import { getToolTheme } from "@/lib/toolThemes";
+import { getToolSeoBlueprint } from "@/data/seoBlueprint";
 
 export interface ToolShellProps {
   tool: ToolDefinition;
@@ -27,6 +28,7 @@ export const ToolShell: React.FC<ToolShellProps> = ({
 }) => {
   const [showShortcutsHelp, setShowShortcutsHelp] = useState(false);
   const theme = getToolTheme(tool.id, tool.category);
+  const blueprint = getToolSeoBlueprint(tool.slug);
 
   // Track as recently used in localStorage
   useEffect(() => {
@@ -116,7 +118,7 @@ export const ToolShell: React.FC<ToolShellProps> = ({
             <div>
               <div className="flex items-center gap-2.5 flex-wrap">
                 <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-slate-900 dark:text-white">
-                  {tool.name}
+                  {blueprint?.h1 || tool.name}
                 </h1>
                 <span
                   className={`text-xs font-semibold px-2.5 py-0.5 rounded-full border ${theme.badgeBg} ${theme.badgeText} ${theme.badgeBorder}`}
@@ -130,7 +132,7 @@ export const ToolShell: React.FC<ToolShellProps> = ({
                 )}
               </div>
               <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1 max-w-2xl leading-relaxed">
-                {tool.description}
+                {blueprint?.aboveTheFoldIntro || tool.description}
               </p>
             </div>
           </div>

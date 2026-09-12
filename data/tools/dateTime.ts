@@ -1,0 +1,37 @@
+import type { ToolDefinition } from "./types.ts";
+
+export const DATE_TIME_TOOLS: ToolDefinition[] = [
+  {
+    id: "unix-timestamp",
+    name: "Unix Timestamp Converter",
+    slug: "unix-timestamp",
+    category: "Date & Time",
+    layout: "compact",
+    description: "Convert Unix epoch timestamps (seconds/ms) to human-readable dates and UTC times.",
+    icon: "Clock",
+    keywords: ["unix timestamp", "epoch time", "epoch converter", "date to timestamp", "utc"],
+    featured: true,
+    logicReference: "unixTimestamp",
+    supportsLiveMode: true,
+    requiresAI: false,
+    aliases: ["unix-timestamp-converter"],
+    sampleInput: "1773000000",
+  },
+  {
+    id: "date-difference",
+    name: "Date Difference Calculator",
+    slug: "date-difference",
+    category: "Date & Time",
+    layout: "compact",
+    description: "Calculate the exact duration, days, hours, and minutes between two dates.",
+    icon: "CalendarDays",
+    keywords: ["date difference", "days between", "duration", "time interval", "countdown"],
+    featured: false,
+    logicReference: "dateDifference",
+    supportsLiveMode: true,
+    requiresAI: false,
+    aliases: ["date-difference-calculator"],
+    customComponent: "date-calculator",
+    sampleInput: "2026-01-01 to 2026-12-31",
+  },
+];

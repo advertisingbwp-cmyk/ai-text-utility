@@ -1,28 +1,31 @@
 import { NextResponse } from "next/server";
 import { isAllowedAiMode, ALLOWED_AI_MODES, AiMode, AiResponseBody } from "@/lib/ai/types";
-import { getAiProvider } from "@/lib/ai/provider";
-import { globalAiRateLimiter } from "@/lib/ai/rateLimiter";
+import { getAiProvider, AiProviderError, redactSensitiveText } from "@/lib/ai/provider";
+import { getAiRateLimiter } from "@/lib/ai/rateLimiter";
+import { extractClientIp } from "@/lib/ai/ip";
 
 export const dynamic = "force-dynamic";
 
 export async function POST(req: Request): Promise<NextResponse<AiResponseBody>> {
   try {
-    // 1. IP-based Abuse Protection & Rate Limiting
-    const forwarded = req.headers.get("x-forwarded-for");
-    const realIp = req.headers.get("x-real-ip");
-    const clientIp = (forwarded ? forwarded.split(",")[0].trim() : realIp) || "127.0.0.1";
+    // 1. IP-based Abuse Protection & Distributed/In-Memory Rate Limiting
+    const clientIp = extractClientIp(req.headers);
+    const rateLimiter = getAiRateLimiter();
+    const rateLimit = await rateLimiter.check(clientIp);
 
-    const rateLimit = globalAiRateLimiter.check(clientIp);
     if (!rateLimit.allowed) {
       return NextResponse.json(
         {
           success: false,
-          error: "Rate limit exceeded. Too many AI requests from this IP. Please wait a minute before trying again.",
+          error: "Rate limit exceeded. Too many AI requests. Please wait a moment before trying again.",
         },
         {
           status: 429,
           headers: {
             "Retry-After": Math.ceil(rateLimit.resetMs / 1000).toString(),
+            "X-RateLimit-Limit": rateLimit.limit.toString(),
+            "X-RateLimit-Remaining": rateLimit.remaining.toString(),
+            "X-RateLimit-Reset": Math.ceil((Date.now() + rateLimit.resetMs) / 1000).toString(),
           },
         }
       );
@@ -102,6 +105,7 @@ export async function POST(req: Request): Promise<NextResponse<AiResponseBody>> 
       process.env.EXPLABS_API_KEY;
 
     if (!apiKey) {
+      console.error("[AI Route Error]: AI service credentials missing (GEMINI_API_KEY not configured).");
       return NextResponse.json(
         {
           success: false,
@@ -116,7 +120,6 @@ export async function POST(req: Request): Promise<NextResponse<AiResponseBody>> 
       "https://generativelanguage.googleapis.com/v1beta";
 
     const model = process.env.AI_MODEL || "gemini-flash-latest";
-
     const timeoutMs = parseInt(process.env.AI_TIMEOUT_MS || "25000", 10);
     const maxOutputTokens = parseInt(process.env.AI_MAX_OUTPUT_TOKENS || "2000", 10);
     const envTemp = process.env.AI_TEMPERATURE ? parseFloat(process.env.AI_TEMPERATURE) : 0.7;
@@ -129,25 +132,55 @@ export async function POST(req: Request): Promise<NextResponse<AiResponseBody>> 
       model,
       timeoutMs: isNaN(timeoutMs) ? 25000 : timeoutMs,
       maxOutputTokens: isNaN(maxOutputTokens) ? 2000 : maxOutputTokens,
-      temperature: isNaN(envTemp) ? 1.0 : envTemp,
+      temperature: isNaN(envTemp) ? 0.7 : envTemp,
     });
 
-    return NextResponse.json({
-      success: true,
-      result,
-      model,
-    });
+    return NextResponse.json(
+      {
+        success: true,
+        result,
+        model,
+      },
+      {
+        status: 200,
+        headers: {
+          "X-RateLimit-Limit": rateLimit.limit.toString(),
+          "X-RateLimit-Remaining": rateLimit.remaining.toString(),
+        },
+      }
+    );
   } catch (err: unknown) {
-    // Sanitized error logging without logging full user text
-    const message = err instanceof Error ? err.message : "An unexpected server error occurred.";
-    console.error("[AI Route Error]:", message);
+    let statusCode = 500;
+    let clientMessage = "An error occurred while processing your request with AI.";
+    const rawLog = err instanceof Error ? err.message : String(err);
+
+    if (err instanceof AiProviderError) {
+      statusCode = err.status;
+      if (statusCode === 400) {
+        clientMessage = "Invalid request payload sent to the AI service.";
+      } else if (statusCode === 401 || statusCode === 403) {
+        clientMessage = "AI service authentication error. Please check server API key configuration.";
+      } else if (statusCode === 429) {
+        clientMessage = "Rate limit exceeded from upstream AI provider. Please wait a moment.";
+      } else if (statusCode === 503 || statusCode === 504) {
+        clientMessage = "AI service is temporarily unavailable or timed out. Please try again shortly.";
+      } else {
+        clientMessage = "The AI provider encountered an issue while processing your text.";
+      }
+    } else if (err instanceof Error && err.name === "AbortError") {
+      statusCode = 504;
+      clientMessage = "AI request timed out. Please try again with shorter text.";
+    }
+
+    // Redact any sensitive tokens or keys before logging server-side
+    console.error(`[AI Route Error] [Status ${statusCode}]:`, redactSensitiveText(rawLog));
 
     return NextResponse.json(
       {
         success: false,
-        error: message,
+        error: clientMessage,
       },
-      { status: 500 }
+      { status: statusCode }
     );
   }
 }

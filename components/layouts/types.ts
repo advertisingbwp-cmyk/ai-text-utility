@@ -19,5 +19,5 @@ export interface WorkspaceProps {
   customControls?: React.ReactNode;
   customPreview?: React.ReactNode;
   customWorkspace?: React.ReactNode;
-  customData?: any;
+  customData?: unknown;
 }

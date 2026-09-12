@@ -8,12 +8,19 @@ import {
 import type { AiMode } from "../../lib/ai/types.ts";
 
 import { SYSTEM_PROMPTS, getSystemPrompt } from "../../lib/ai/prompts.ts";
-import { RateLimiter } from "../../lib/ai/rateLimiter.ts";
+import {
+  RateLimiter,
+  InMemoryRateLimiter,
+  UpstashRedisRateLimiter,
+} from "../../lib/ai/rateLimiter.ts";
 import {
   GeminiProvider,
   OpenAiCompatibleProvider,
   getAiProvider,
+  AiProviderError,
+  redactSensitiveText,
 } from "../../lib/ai/provider.ts";
+import { isValidIp, extractClientIp } from "../../lib/ai/ip.ts";
 
 test("1. AI Mode Validation", () => {
   // Allowed modes
@@ -47,7 +54,7 @@ test("2. AI Prompts - Strict Specification Matching", () => {
   assert.ok(SYSTEM_PROMPTS.expand.includes("Expand the content with useful detail"));
 });
 
-test("3. Rate Limiter - Abuse Protection & Serverless Compatibility", () => {
+test("3. Rate Limiter - Abuse Protection & Sliding Window", () => {
   const limiter = new RateLimiter(3, 1000); // 3 requests per 1000ms
 
   // First 3 requests allowed
@@ -228,4 +235,115 @@ test("8. AI Provider Factory - Default to GeminiProvider", () => {
 
   const openAiProvider = getAiProvider("openai");
   assert.equal(openAiProvider.name, "OpenAI-Compatible");
+});
+
+test("9. IP Address Extraction & Validation", () => {
+  // Valid IPv4
+  assert.equal(isValidIp("127.0.0.1"), true);
+  assert.equal(isValidIp("192.168.1.1"), true);
+  assert.equal(isValidIp("10.0.0.1"), true);
+  assert.equal(isValidIp("255.255.255.255"), true);
+
+  // Invalid IPv4
+  assert.equal(isValidIp("256.0.0.1"), false);
+  assert.equal(isValidIp("1.2.3"), false);
+  assert.equal(isValidIp("1.2.3.4.5"), false);
+  assert.equal(isValidIp("192.168.1.1; DROP TABLE users;"), false);
+  assert.equal(isValidIp(""), false);
+
+  // Valid IPv6
+  assert.equal(isValidIp("::1"), true);
+  assert.equal(isValidIp("2001:0db8:85a3:0000:0000:8a2e:0370:7334"), true);
+
+  // Header extraction priority
+  const headersVercel = new Headers({
+    "x-vercel-forwarded-for": "203.0.113.195, 198.51.100.1",
+    "x-real-ip": "198.51.100.2",
+    "x-forwarded-for": "198.51.100.3",
+  });
+  assert.equal(extractClientIp(headersVercel), "203.0.113.195");
+
+  const headersRealIp = new Headers({
+    "x-real-ip": "198.51.100.2",
+    "x-forwarded-for": "198.51.100.3",
+  });
+  assert.equal(extractClientIp(headersRealIp), "198.51.100.2");
+
+  const headersForwarded = new Headers({
+    "x-forwarded-for": "198.51.100.3, 10.0.0.1",
+  });
+  assert.equal(extractClientIp(headersForwarded), "198.51.100.3");
+
+  const emptyHeaders = new Headers();
+  assert.equal(extractClientIp(emptyHeaders), "127.0.0.1");
+});
+
+test("10. Sensitive Token Redaction", () => {
+  const geminiSample = "Error calling https://generativelanguage.googleapis.com with key AIzaSyA1B2C3D4E5F6G7H8I9J0K1L2M3N4O5P6Q failed";
+  const redactedGemini = redactSensitiveText(geminiSample);
+  assert.ok(!redactedGemini.includes("AIzaSyA1B2C3D4E5F6G7H8I9J0K1L2M3N4O5P6Q"));
+  assert.ok(redactedGemini.includes("[REDACTED_GEMINI_KEY]"));
+
+  const openAiSample = "Authorization failed for sk-1234567890abcdef1234567890abcdef token";
+  const redactedOpenAi = redactSensitiveText(openAiSample);
+  assert.ok(!redactedOpenAi.includes("sk-1234567890abcdef1234567890abcdef"));
+  assert.ok(redactedOpenAi.includes("[REDACTED_OPENAI_KEY]"));
+
+  const bearerSample = "Request failed with header Bearer eyJhbGciOiJIUzI1NiJ9.test";
+  const redactedBearer = redactSensitiveText(bearerSample);
+  assert.ok(!redactedBearer.includes("eyJhbGciOiJIUzI1NiJ9.test"));
+  assert.ok(redactedBearer.includes("Bearer [REDACTED_TOKEN]"));
+});
+
+test("11. Distributed Upstash Redis Rate Limiter & Graceful Failover", async () => {
+  const originalFetch = globalThis.fetch;
+  let pipelineCallCount = 0;
+
+  try {
+    // Mock Upstash REST pipeline endpoint
+    globalThis.fetch = async (url, options) => {
+      assert.ok(String(url).includes("/pipeline"));
+      assert.equal(options?.headers?.["Authorization"], "Bearer test-upstash-token");
+      pipelineCallCount++;
+
+      // Return simulated INCR result
+      return new Response(
+        JSON.stringify([
+          { result: pipelineCallCount }, // INCR count
+          { result: 1 },                 // EXPIRE result
+        ]),
+        { status: 200, headers: { "Content-Type": "application/json" } }
+      );
+    };
+
+    const upstashLimiter = new UpstashRedisRateLimiter({
+      url: "https://test-redis.upstash.io",
+      token: "test-upstash-token",
+      maxRequests: 2,
+      windowMs: 60000,
+    });
+
+    const res1 = await upstashLimiter.check("192.168.1.100");
+    assert.equal(res1.allowed, true);
+    assert.equal(res1.remaining, 1);
+
+    const res2 = await upstashLimiter.check("192.168.1.100");
+    assert.equal(res2.allowed, true);
+    assert.equal(res2.remaining, 0);
+
+    const res3 = await upstashLimiter.check("192.168.1.100");
+    assert.equal(res3.allowed, false);
+    assert.equal(res3.remaining, 0);
+
+    // Failover test: Upstash network error
+    globalThis.fetch = async () => {
+      throw new Error("Connection refused to Upstash Redis REST");
+    };
+
+    // Should fail over gracefully to local in-memory limiter without throwing
+    const failoverRes = await upstashLimiter.check("192.168.1.200");
+    assert.equal(failoverRes.allowed, true);
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
 });

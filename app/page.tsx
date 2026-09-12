@@ -315,7 +315,7 @@ export default function HomePage() {
                 }}
                 className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold bg-slate-900 text-white dark:bg-brand-600 dark:text-white shadow-xs hover:bg-slate-800 transition-colors cursor-pointer"
               >
-                Browse All Tools (43)
+                Browse All Tools ({TOOLS_REGISTRY.length})
               </button>
             </div>
           ) : (

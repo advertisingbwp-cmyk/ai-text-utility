@@ -46,7 +46,14 @@ export function removeSpecialChars(
 
   if (collapseSpaces && preserveSpaces) {
     // Collapse multi-spaces left by stripped characters
-    result = result.replace(/ {2,}/g, " ").trim();
+    if (preserveNewlines) {
+      result = result
+        .split(/\r?\n/)
+        .map((line) => line.replace(/[ \t]{2,}/g, " "))
+        .join("\n");
+    } else {
+      result = result.replace(/ {2,}/g, " ").trim();
+    }
   }
 
   return result;

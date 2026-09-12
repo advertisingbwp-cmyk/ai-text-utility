@@ -26,7 +26,7 @@ export function minifyHtml(
   const stripComments = options.stripComments ?? true;
   const collapseWhitespace = options.collapseWhitespace ?? true;
 
-  const originalSizeBytes = new Blob([html]).size;
+  const originalSizeBytes = new TextEncoder().encode(html).length;
 
   // 1. Preserve verbatim tags: <script>, <style>, <pre>, <textarea>
   const preservedBlocks: string[] = [];
@@ -71,7 +71,7 @@ export function minifyHtml(
   );
 
   const minified = workingHtml.trim();
-  const minifiedSizeBytes = new Blob([minified]).size;
+  const minifiedSizeBytes = new TextEncoder().encode(minified).length;
   const savedBytes = Math.max(0, originalSizeBytes - minifiedSizeBytes);
   const savedPercentage =
     originalSizeBytes > 0

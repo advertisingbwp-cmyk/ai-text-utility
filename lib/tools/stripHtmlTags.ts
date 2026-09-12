@@ -35,9 +35,9 @@ export function stripHtmlTags(
 
   let text = input;
 
-  // 1. Strip script and style contents completely
-  text = text.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, "");
-  text = text.replace(/<style\b[^<]*(?:(?!<\/style>)<[^<]*)*<\/style>/gi, "");
+  // 1. Strip script and style contents completely (safe linear matching)
+  text = text.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, "");
+  text = text.replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, "");
 
   // 2. Replace block tags with newlines or spaces to prevent word concatenation
   if (preserveLineBreaks) {

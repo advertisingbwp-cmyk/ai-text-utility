@@ -81,8 +81,19 @@ export function convertCsvToJson(
     if (val === "true") return true;
     if (val === "false") return false;
     if (val === "null") return null;
-    if (!isNaN(Number(val)) && val.trim() !== "") {
-      return Number(val);
+
+    const trimmed = val.trim();
+    // Preserve leading zeros in numeric codes (e.g. "01234", "007")
+    if (/^0\d+$/.test(trimmed)) {
+      return val;
+    }
+
+    // Only coerce strictly valid finite numbers (prevent "Infinity", "NaN", hex, etc.)
+    if (/^-?(?:0|[1-9]\d*)(?:\.\d+)?(?:[eE][+-]?\d+)?$/.test(trimmed)) {
+      const num = Number(trimmed);
+      if (Number.isFinite(num)) {
+        return num;
+      }
     }
     return val;
   };

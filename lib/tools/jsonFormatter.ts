@@ -49,15 +49,15 @@ export function formatAndValidateJson(
       isValid: true,
       formatted,
       type,
-      sizeBytes: new Blob([formatted]).size,
+      sizeBytes: new TextEncoder().encode(formatted).length,
     };
   } catch (err) {
     let errorMsg = err instanceof Error ? err.message : "Invalid JSON";
     let errorLine: number | undefined;
     let errorColumn: number | undefined;
 
-    // Extract line/column from standard V8 error if present (e.g. at line 2 column 5)
-    const lineColMatch = errorMsg.match(/at line (\d+) column (\d+)/i);
+    // Extract line/column from standard V8 error if present (e.g. at line 2 column 5 or (line 2 column 5))
+    const lineColMatch = errorMsg.match(/(?:at\s+)?line (\d+) column (\d+)/i);
     if (lineColMatch) {
       errorLine = parseInt(lineColMatch[1], 10);
       errorColumn = parseInt(lineColMatch[2], 10);
@@ -66,10 +66,26 @@ export function formatAndValidateJson(
       if (posMatch) {
         const pos = parseInt(posMatch[1], 10);
         const upToPos = input.slice(0, pos);
-        const lines = upToPos.split("\n");
+        const lines = upToPos.split(/\r?\n/);
         errorLine = lines.length;
         errorColumn = lines[lines.length - 1].length + 1;
         errorMsg += ` (Line ${errorLine}, Column ${errorColumn})`;
+      } else {
+        // Fallback: extract from V8 context snippet e.g. ..."snippet" is not valid JSON
+        const snippetMatch = errorMsg.match(/\.\.\."(.*)"\s+is not valid JSON/s);
+        if (snippetMatch) {
+          const snippet = snippetMatch[1]
+            .replace(/\\n/g, "\n")
+            .replace(/\\r/g, "\r")
+            .replace(/\\"/g, '"');
+          const pos = input.indexOf(snippet);
+          if (pos !== -1) {
+            const lines = input.slice(0, pos).split(/\r?\n/);
+            errorLine = lines.length;
+            errorColumn = lines[lines.length - 1].length + 1;
+            errorMsg += ` (Line ${errorLine}, Column ${errorColumn})`;
+          }
+        }
       }
     }
 

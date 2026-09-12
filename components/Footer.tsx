@@ -61,6 +61,16 @@ export const Footer: React.FC = () => {
             </h4>
             <ul className="space-y-2 text-xs text-slate-500 dark:text-slate-400">
               <li>
+                <Link href="/about" className="hover:text-slate-900 dark:hover:text-white transition-colors">
+                  About Us
+                </Link>
+              </li>
+              <li>
+                <Link href="/contact" className="hover:text-slate-900 dark:hover:text-white transition-colors">
+                  Contact Us
+                </Link>
+              </li>
+              <li>
                 <Link href="/privacy" className="hover:text-slate-900 dark:hover:text-white transition-colors">
                   Privacy Policy
                 </Link>

@@ -29,7 +29,7 @@ export const AdsterraNativeBanner: React.FC<{ className?: string }> = ({ classNa
           Sponsored Content
         </span>
       </div>
-      <div ref={bannerRef} className="w-full flex justify-center overflow-hidden relative isolate">
+      <div ref={bannerRef} className="w-full min-h-[160px] flex justify-center overflow-hidden relative isolate">
         <div id="container-8aca604b8b2ab0a3b2106d4958e02b1d" />
       </div>
     </aside>
