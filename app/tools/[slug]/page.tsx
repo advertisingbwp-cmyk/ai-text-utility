@@ -5,7 +5,6 @@ import { getToolEducationalContent } from "@/data/toolFaqs";
 import { getToolSeoBlueprint } from "@/data/seoBlueprint";
 import { ToolPageClient } from "./ToolPageClient";
 import { ToolSeoContent } from "@/components/ToolSeoContent";
-import { AdsterraResponsiveBanner, AdsterraNativeBanner } from "@/components/ads";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -40,7 +39,6 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   const canonicalUrl = `${baseUrl}/tools/${tool.slug}`;
 
-  // Check P0 SEO Blueprint first
   const blueprint = getToolSeoBlueprint(tool.slug);
   if (blueprint) {
     return {
@@ -156,7 +154,6 @@ export default async function ToolPage({ params }: PageProps) {
   const content = getToolEducationalContent(tool.category, tool.slug, tool.name);
   const blueprint = getToolSeoBlueprint(tool.slug);
 
-  // Schema.org WebApplication JSON-LD
   const webAppSchema = {
     "@context": "https://schema.org",
     "@type": "WebApplication",
@@ -178,7 +175,6 @@ export default async function ToolPage({ params }: PageProps) {
     featureList: content.features,
   };
 
-  // Schema.org BreadcrumbList JSON-LD
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -204,7 +200,6 @@ export default async function ToolPage({ params }: PageProps) {
     ],
   };
 
-  // Schema.org FAQPage JSON-LD
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -220,7 +215,6 @@ export default async function ToolPage({ params }: PageProps) {
 
   return (
     <>
-      {/* Structured Data Scripts */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppSchema) }}
@@ -236,8 +230,6 @@ export default async function ToolPage({ params }: PageProps) {
 
       <article>
         <ToolPageClient tool={tool} />
-        <AdsterraResponsiveBanner />
-        <AdsterraNativeBanner />
         <ToolSeoContent tool={tool} />
       </article>
     </>
