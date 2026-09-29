@@ -113,6 +113,19 @@ export default function TermsPage() {
             We reserve the right to modify, suspend, or discontinue any feature, tool, or aspect of the Service at any time without prior notice.
           </p>
         </section>
+
+        <section className="space-y-3">
+          <h2 className="text-lg font-semibold text-slate-900 dark:text-white">8. Contact Information</h2>
+          <p className="text-slate-500 dark:text-slate-400">
+            For questions or legal notices regarding these Terms, please contact{" "}
+            <a
+              href="mailto:support@aitextutility.com"
+              className="text-brand-600 dark:text-brand-400 underline hover:text-brand-700 dark:hover:text-brand-300 font-medium"
+            >
+              support@aitextutility.com
+            </a>.
+          </p>
+        </section>
       </div>
     </div>
   );

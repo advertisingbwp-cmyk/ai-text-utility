@@ -127,31 +127,35 @@ export default function PrivacyPage() {
         </section>
 
         <section className="space-y-3">
-          <h2 className="text-lg font-semibold text-slate-900 dark:text-white">5. Advertising & Third-Party Cookies</h2>
+          <h2 className="text-lg font-semibold text-slate-900 dark:text-white">5. Advertising & Third-Party Partners</h2>
           <p>
-            To keep these tools 100% free and accessible, we may display non-intrusive advertisements served by Google AdSense
-            and affiliated ad networks.
+            To keep our utility suite 100% free and accessible without subscription paywalls, we display advertisements and sponsored links served by third-party advertising networks, including Adsterra and its affiliated distribution partners.
           </p>
           <p className="text-slate-500 dark:text-slate-400">
-            Third-party vendors, including Google, use cookies to serve ads based on prior visits to this website or other sites on the Internet.
-            You can opt out of personalized advertising by visiting{" "}
-            <a
-              href="https://www.google.com/settings/ads"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-brand-600 dark:text-brand-400 underline hover:text-brand-700 dark:hover:text-brand-300"
-            >
-              Google Ads Settings
-            </a>
-            .
+            These ad networks may use anonymous cookies, web beacons, or device identifiers to serve contextual advertisements and measure campaign effectiveness. These third-party technologies operate subject to the respective privacy policies of those networks.
+          </p>
+          <p className="text-slate-500 dark:text-slate-400">
+            You can control or disable cookie tracking at any time via your browser privacy settings, or by utilizing industry opt-out tools such as the Network Advertising Initiative (NAI) or Digital Advertising Alliance (DAA).
           </p>
         </section>
 
         <section className="space-y-3">
-          <h2 className="text-lg font-semibold text-slate-900 dark:text-white">6. Contact & Updates</h2>
+          <h2 className="text-lg font-semibold text-slate-900 dark:text-white">6. Contact & Inquiries</h2>
           <p className="text-slate-500 dark:text-slate-400">
-            We may update this Privacy Policy periodically to reflect new browser capabilities or regulatory standards. If you have questions
-            regarding this policy or our data practices, please reach out via our project repository.
+            If you have questions, feedback, or privacy-related inquiries regarding AI Text Utility, please contact our support team at{" "}
+            <a
+              href="mailto:support@aitextutility.com"
+              className="text-brand-600 dark:text-brand-400 underline hover:text-brand-700 dark:hover:text-brand-300 font-medium"
+            >
+              support@aitextutility.com
+            </a>{" "}
+            or visit our{" "}
+            <Link
+              href="/contact"
+              className="text-brand-600 dark:text-brand-400 underline hover:text-brand-700 dark:hover:text-brand-300 font-medium"
+            >
+              Contact page
+            </Link>.
           </p>
         </section>
       </div>

@@ -4,7 +4,6 @@ import { ToolDefinition, getToolsByCategory, getFeaturedTools, getToolBySlug } f
 import { getToolEducationalContent } from "@/data/toolFaqs";
 import { getToolSeoBlueprint } from "@/data/seoBlueprint";
 import { DynamicIcon } from "@/components/DynamicIcon";
-import { AdUnit } from "@/components/AdUnit";
 import {
   WordCounterEditorial,
   JsonFormatterEditorial,
@@ -590,9 +589,6 @@ export const ToolSeoContent: React.FC<ToolSeoContentProps> = ({ tool }) => {
           </div>
         </div>
       </section>
-
-      {/* Responsive Non-Intrusive Ad Banner */}
-      <AdUnit slotId="tool-content-ad" format="horizontal" />
 
       {/* Dedicated Deep Editorial Guide */}
       {EditorialComponent && <EditorialComponent />}

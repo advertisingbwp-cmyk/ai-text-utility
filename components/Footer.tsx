@@ -23,7 +23,7 @@ export const Footer: React.FC = () => {
             <div className="flex flex-wrap items-center gap-4 text-xs text-slate-500 dark:text-slate-400 pt-1">
               <span className="inline-flex items-center gap-1.5">
                 <Shield size={14} className="text-emerald-500" />
-                100% Private Client-Side
+                Local Client-Side Processing
               </span>
               <span className="inline-flex items-center gap-1.5">
                 <Zap size={14} className="text-amber-500" />
@@ -31,7 +31,7 @@ export const Footer: React.FC = () => {
               </span>
               <span className="inline-flex items-center gap-1.5">
                 <Sparkles size={14} className="text-brand-500" />
-                AI Enhanced
+                AI Enhanced (Encrypted)
               </span>
             </div>
           </div>
@@ -104,7 +104,7 @@ export const Footer: React.FC = () => {
             © {new Date().getFullYear()} AI Text Utility. All rights reserved.
           </div>
           <div className="text-slate-500 text-center sm:text-right">
-            Client-side transformations execute locally in your browser memory.
+            Browser utilities execute 100% in your local memory. AI requests are ephemeral & encrypted.
           </div>
         </div>
       </div>

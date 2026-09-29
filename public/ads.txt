@@ -1,1 +1,2 @@
-google.com, pub-3168330263525370, DIRECT, f08c47fec0942fa0
+# ads.txt for ai-text-utility.vercel.app
+# Monetization powered by Adsterra

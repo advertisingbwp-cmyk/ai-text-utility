@@ -83,8 +83,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const adsensePublisherId =
-    process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID || "ca-pub-3168330263525370";
   const baseUrl =
     process.env.NEXT_PUBLIC_SITE_URL || "https://ai-text-utility.vercel.app";
 
@@ -95,14 +93,6 @@ export default function RootLayout({
     url: baseUrl,
     description:
       "Instant, private, browser-based text utilities. Word counters, regex testers, JSON formatters, slug generators, case converters, and AI writing assistants.",
-    potentialAction: {
-      "@type": "SearchAction",
-      target: {
-        "@type": "EntryPoint",
-        urlTemplate: `${baseUrl}/#search={search_term_string}`,
-      },
-      "query-input": "required name=search_term_string",
-    },
   };
 
   const organizationSchema = {
@@ -115,9 +105,6 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        {/* Google AdSense Account Meta Tag for Site Ownership Verification */}
-        <meta name="google-adsense-account" content={adsensePublisherId} />
-
         {/* Global WebSite & Organization JSON-LD */}
         <script
           type="application/ld+json"
@@ -131,13 +118,6 @@ export default function RootLayout({
       </head>
       <body className="bg-slate-50 dark:bg-[#090d16] text-slate-900 dark:text-slate-100 antialiased selection:bg-brand-500/15 selection:text-brand-700 dark:selection:text-brand-300">
         <AppShell>{children}</AppShell>
-        {/* Google AdSense Script */}
-        <Script
-          async
-          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsensePublisherId}`}
-          crossOrigin="anonymous"
-          strategy="afterInteractive"
-        />
 
         {/* Adsterra Social Bar */}
         <Script

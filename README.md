@@ -127,8 +127,6 @@ npm start
 2. Import the project in [Vercel Dashboard](https://vercel.com/new).
 3. Under **Project Settings -> Environment Variables**, configure:
    - **`GEMINI_API_KEY`**: Your Google Gemini API Key.
-   - *(Optional for Production AdSense)*:
-     - **`NEXT_PUBLIC_ADSENSE_PUBLISHER_ID`**: `ca-pub-XXXXXXXXXXXXXXXX`
    - *(Optional for Distributed Serverless Rate Limiting)*:
      - **`UPSTASH_REDIS_REST_URL`**: Your Upstash Redis REST URL.
      - **`UPSTASH_REDIS_REST_TOKEN`**: Your Upstash Redis REST Token.
