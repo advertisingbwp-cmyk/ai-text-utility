@@ -138,6 +138,12 @@ export default function RootLayout({
           crossOrigin="anonymous"
           strategy="afterInteractive"
         />
+
+        {/* Adsterra Social Bar */}
+        <Script
+          src="https://pl31247527.profitableratecpmnetwork.com/bb/2d/0c/bb2d0c583cc5168221edaaa19801920a.js"
+          strategy="lazyOnload"
+        />
       </body>
     </html>
   );

@@ -29,7 +29,7 @@ export const AdsterraBanner300x250: React.FC<{ className?: string }> = ({ classN
       'params' : {}
     };
   </script>
-  <script src="https://bibleearthquake.com/dc60669d213c871b2e2024882d61f041/invoke.js"></script>
+  <script src="https://www.highrevenueformat.com/dc60669d213c871b2e2024882d61f041/invoke.js"></script>
 </body>
 </html>`;
 

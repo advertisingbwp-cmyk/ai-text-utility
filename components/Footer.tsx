@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Shield, Zap, Sparkles } from "lucide-react";
 import { CATEGORIES } from "@/data/toolsRegistry";
 import { BrandLogo } from "@/components/BrandLogo";
+import { AdsterraSmartLink } from "@/components/ads";
 
 export const Footer: React.FC = () => {
   return (
@@ -89,6 +90,9 @@ export const Footer: React.FC = () => {
                 <Link href="/sitemap.xml" className="hover:text-slate-900 dark:hover:text-white transition-colors">
                   XML Sitemap
                 </Link>
+              </li>
+              <li>
+                <AdsterraSmartLink variant="link" label="Featured Deals & Partners" />
               </li>
             </ul>
           </div>

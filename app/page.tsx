@@ -8,6 +8,7 @@ import { getToolSeoBlueprint, TOP_10_P0_TOOLS } from "@/data/seoBlueprint";
 import { ToolCard } from "@/components/ToolCard";
 import { EmptyState } from "@/components/EmptyState";
 import { TerminalHero } from "@/components/TerminalHero";
+import { AdsterraResponsiveBanner, AdsterraNativeBanner, AdsterraSmartLink } from "@/components/ads";
 import { getFavorites, getRecentTools } from "@/lib/storage";
 import { getCategoryTheme } from "@/lib/toolThemes";
 
@@ -82,6 +83,9 @@ export default function HomePage() {
               <Star size={14} className={onlyFavorites ? "fill-amber-500 text-amber-500" : "text-amber-500"} /><span>Favorites ({favoritesList.length})</span>
             </button>
             {CATEGORIES.map((cat) => <button key={cat.name} type="button" onClick={() => { setSelectedCategory(cat.name); setOnlyFavorites(false); }} className={`flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold whitespace-nowrap cursor-pointer ${selectedCategory === cat.name && !onlyFavorites ? "bg-slate-900 text-white dark:bg-brand-600 dark:text-white shadow-xs" : "bg-white dark:bg-slate-900/60 text-slate-600 dark:text-slate-400 border border-slate-200/90 dark:border-slate-800"}`}><span className="text-sm leading-none">{getCategoryTheme(cat.name).emoji}</span><span>{cat.name}</span></button>)}
+            <div className="flex items-center shrink-0">
+              <AdsterraSmartLink variant="badge" label="Featured Deals" />
+            </div>
           </div>
         </div>
       </section>
@@ -130,12 +134,18 @@ export default function HomePage() {
         <div className="flex flex-wrap gap-3 text-sm"><Link href="/about" className="inline-flex items-center gap-1 font-semibold text-brand-700 dark:text-brand-400">About the project <ArrowRight size={14} /></Link><Link href="/privacy" className="inline-flex items-center gap-1 font-semibold text-brand-700 dark:text-brand-400">Privacy Policy <ArrowRight size={14} /></Link><Link href="/contact" className="inline-flex items-center gap-1 font-semibold text-brand-700 dark:text-brand-400">Contact support <ArrowRight size={14} /></Link></div>
       </section>
 
+      {/* Sponsored Adsterra Responsive Banner */}
+      <AdsterraResponsiveBanner />
+
       <section aria-labelledby="popular-tools-heading" className="pt-8 border-t border-slate-200 dark:border-slate-800 space-y-4">
         <div><h2 id="popular-tools-heading" className="text-base sm:text-lg font-bold text-slate-900 dark:text-white tracking-tight">Popular Free Developer &amp; Text Tools</h2><p className="text-xs text-slate-500 dark:text-slate-400">Fast, privacy-focused browser utilities with client-side execution</p></div>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
           {TOP_10_P0_TOOLS.map((slug) => { const blueprint = getToolSeoBlueprint(slug); const tool = getToolBySlug(slug); if (!blueprint || !tool) return null; return <Link key={slug} href={`/tools/${slug}`} className="group p-3 rounded-xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 hover:border-brand-500/50 transition-all flex flex-col justify-between space-y-1"><span className="text-xs font-semibold text-slate-900 dark:text-slate-100">{blueprint.h1}</span><span className="text-[11px] text-slate-500 dark:text-slate-400">{blueprint.primaryKeyword}</span><span className="text-[11px] text-brand-600 dark:text-brand-400 font-medium inline-flex items-center gap-1">Open tool <ArrowRight size={12} /></span></Link>; })}
         </div>
       </section>
+
+      {/* Sponsored Adsterra Native Banner */}
+      <AdsterraNativeBanner />
     </div>
   );
 }
