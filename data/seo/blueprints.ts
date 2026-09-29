@@ -391,6 +391,41 @@ export const SEO_BLUEPRINT_MAP: Record<string, ToolSeoBlueprint> = {
       "word-counter",
     ],
   },
+  "csv-to-json": {
+    slug: "csv-to-json",
+    title: "CSV to JSON Converter – Convert CSV to JSON Online Free",
+    metaDescription:
+      "Convert CSV to JSON online instantly. Transform spreadsheet rows into structured JSON objects for APIs, development, databases and data workflows.",
+    h1: "CSV to JSON Converter",
+    aboveTheFoldIntro:
+      "Convert CSV data into structured JSON instantly. Paste spreadsheet-style rows and generate clean JSON objects for APIs, web apps, databases and development workflows.",
+    primaryKeyword: "csv to json",
+    secondaryKeywords: [
+      "csv to json",
+      "csv to json converter",
+      "convert csv to json",
+      "csv to json online",
+      "csv converter",
+      "csv file to json",
+      "spreadsheet to json",
+      "excel csv to json",
+      "csv rows to json",
+      "convert csv file to json",
+      "online csv to json converter",
+      "csv json converter",
+      "csv data to json",
+      "csv to json array",
+      "tabular data to json",
+    ],
+    popularAnchor: "CSV to JSON Converter",
+    clusterSlugs: [
+      "json-to-csv",
+      "json-formatter",
+      "query-string-parser",
+      "base64",
+      "html-minifier",
+    ],
+  },
 };
 
 import { getToolBySlug } from "../tools/index.ts";

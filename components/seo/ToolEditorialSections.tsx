@@ -1621,3 +1621,402 @@ Bob,31`}
     </div>
   );
 };
+
+// ==========================================
+// 13. CSV TO JSON EDITORIAL
+// ==========================================
+export const CsvToJsonEditorial: React.FC = () => {
+  return (
+    <div className="space-y-12 pt-6 border-t border-slate-200 dark:border-slate-800">
+      {/* 1. What is CSV to JSON Conversion & Real Example */}
+      <section aria-labelledby="csv-to-json-overview-heading" className="space-y-4">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl bg-brand-50 dark:bg-brand-950/50 border border-brand-200 dark:border-brand-800/60 flex items-center justify-center text-brand-600 dark:text-brand-400 shrink-0">
+            <FileSpreadsheet size={18} />
+          </div>
+          <div>
+            <h2
+              id="csv-to-json-overview-heading"
+              className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white tracking-tight"
+            >
+              What is CSV to JSON Conversion &amp; How Does It Work?
+            </h2>
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              Transform flat tabular spreadsheets and delimited text into structured, typed JSON arrays and objects
+            </p>
+          </div>
+        </div>
+
+        <div className="p-6 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-4 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+          <p>
+            <strong className="text-slate-900 dark:text-white font-semibold">CSV</strong> (Comma-Separated Values) and <strong className="text-slate-900 dark:text-white font-semibold">JSON</strong> (JavaScript Object Notation) represent two universal standards for exchanging data. While CSV is designed for tabular grids in software like Microsoft Excel and Google Sheets, modern web applications, REST APIs, and NoSQL databases require structured JSON objects with typed keys and values.
+          </p>
+          <p>
+            Our <strong className="text-slate-900 dark:text-white font-semibold">CSV to JSON Converter</strong> parses delimited text line-by-line using an RFC 4180-compliant state machine. It maps each column to its corresponding header property and automatically detects numbers, booleans, and nulls to output clean, standards-compliant JSON.
+          </p>
+
+          {/* Side-by-side Visual Code Example */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-1">
+            <div className="p-4 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-slate-50/70 dark:bg-slate-950/40 space-y-2">
+              <span className="text-xs font-bold text-brand-600 dark:text-brand-400 uppercase tracking-wider">
+                Source CSV Input (Delimited Grid)
+              </span>
+              <pre className="p-3 rounded-lg bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 text-[11px] font-mono text-slate-800 dark:text-slate-200 overflow-x-auto">
+{`name,age
+Alice,28
+Bob,31`}
+              </pre>
+            </div>
+
+            <div className="p-4 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-slate-50/70 dark:bg-slate-950/40 space-y-2">
+              <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">
+                Resulting JSON Output (Typed Object Array)
+              </span>
+              <pre className="p-3 rounded-lg bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 text-[11px] font-mono text-slate-800 dark:text-slate-200 overflow-x-auto">
+{`[
+  {
+    "name": "Alice",
+    "age": 28
+  },
+  {
+    "name": "Bob",
+    "age": 31
+  }
+]`}
+              </pre>
+            </div>
+          </div>
+          <p className="text-[11px] text-slate-500 dark:text-slate-400 italic">
+            * Note: With the default &quot;Parse Numbers &amp; Booleans&quot; setting enabled, numeric strings like <code className="font-mono text-[11px]">&quot;28&quot;</code> and <code className="font-mono text-[11px]">&quot;31&quot;</code> are automatically coerced into JavaScript numbers. Disabling this option preserves them as literal strings.
+          </p>
+        </div>
+      </section>
+
+      {/* 2. Step-by-Step Converter Workflow */}
+      <section aria-labelledby="csv-to-json-workflow-heading" className="space-y-4">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl bg-purple-50 dark:bg-purple-950/50 border border-purple-200 dark:border-purple-800/60 flex items-center justify-center text-purple-600 dark:text-purple-400 shrink-0">
+            <Table size={18} />
+          </div>
+          <div>
+            <h2
+              id="csv-to-json-workflow-heading"
+              className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white tracking-tight"
+            >
+              How to Convert CSV to JSON Step-by-Step
+            </h2>
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              Instant browser-based transformation with customizable parsing controls
+            </p>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
+          <div className="p-4 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-1.5">
+            <span className="text-xs font-bold text-brand-600 dark:text-brand-400 uppercase tracking-wider flex items-center gap-1.5">
+              <span className="w-5 h-5 rounded-full bg-brand-500/10 flex items-center justify-center text-[11px]">1</span>
+              Paste CSV or TSV
+            </span>
+            <p className="text-xs text-slate-600 dark:text-slate-400">
+              Paste your raw delimited text into the editor, or click &apos;Load Sample&apos; to test with example data.
+            </p>
+          </div>
+
+          <div className="p-4 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-1.5">
+            <span className="text-xs font-bold text-brand-600 dark:text-brand-400 uppercase tracking-wider flex items-center gap-1.5">
+              <span className="w-5 h-5 rounded-full bg-brand-500/10 flex items-center justify-center text-[11px]">2</span>
+              Select Delimiter
+            </span>
+            <p className="text-xs text-slate-600 dark:text-slate-400">
+              Choose Comma (,), Semicolon (;), Tab (\\t), or Pipe (|) to match your input text or spreadsheet format.
+            </p>
+          </div>
+
+          <div className="p-4 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-1.5">
+            <span className="text-xs font-bold text-brand-600 dark:text-brand-400 uppercase tracking-wider flex items-center gap-1.5">
+              <span className="w-5 h-5 rounded-full bg-brand-500/10 flex items-center justify-center text-[11px]">3</span>
+              Configure Headers &amp; Types
+            </span>
+            <p className="text-xs text-slate-600 dark:text-slate-400">
+              Toggle &apos;First Row as Headers&apos; and &apos;Parse Numbers &amp; Booleans&apos; according to your desired JSON structure.
+            </p>
+          </div>
+
+          <div className="p-4 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-1.5">
+            <span className="text-xs font-bold text-brand-600 dark:text-brand-400 uppercase tracking-wider flex items-center gap-1.5">
+              <span className="w-5 h-5 rounded-full bg-brand-500/10 flex items-center justify-center text-[11px]">4</span>
+              Copy or Download
+            </span>
+            <p className="text-xs text-slate-600 dark:text-slate-400">
+              Copy the formatted JSON directly to your clipboard or download it as a local <code className="font-mono text-[11px]">.json</code> file.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* 3. Headers, Custom Delimiters & Type Coercion */}
+      <section aria-labelledby="csv-headers-types-heading" className="space-y-4">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-800/60 flex items-center justify-center text-emerald-600 dark:text-emerald-400 shrink-0">
+            <Layers size={18} />
+          </div>
+          <div>
+            <h2
+              id="csv-headers-types-heading"
+              className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white tracking-tight"
+            >
+              Header Configuration, Custom Delimiters &amp; Type Coercion
+            </h2>
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              Precision control over object keys, delimiter dialects, and numeric type handling
+            </p>
+          </div>
+        </div>
+
+        <div className="p-6 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-4 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="p-4 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-slate-50/70 dark:bg-slate-950/40 space-y-2">
+              <h3 className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">
+                1. Header Rows &amp; Key Naming
+              </h3>
+              <p className="text-xs text-slate-600 dark:text-slate-400">
+                When <strong>First Row as Headers</strong> is enabled, the first line defines object property keys. If a header column is empty, the parser automatically assigns fallback identifiers (<code className="font-mono text-[11px]">col_1</code>, <code className="font-mono text-[11px]">col_2</code>). If header names are duplicated, subsequent columns overwrite earlier keys. Disabling this option generates a 2D array of rows (<code className="font-mono text-[11px]">[[&quot;Alice&quot;, 28], ...]</code>).
+              </p>
+            </div>
+
+            <div className="p-4 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-slate-50/70 dark:bg-slate-950/40 space-y-2">
+              <h3 className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">
+                2. Delimiter Flexibility
+              </h3>
+              <p className="text-xs text-slate-600 dark:text-slate-400">
+                Supports Comma (<code className="font-mono text-[11px]">,</code>), Semicolon (<code className="font-mono text-[11px]">;</code>), Tab (<code className="font-mono text-[11px]">\t</code>), and Pipe (<code className="font-mono text-[11px]">|</code>). Semicolons are essential for European Excel spreadsheets where commas serve as decimal separators. Tab delimiters let you paste copied cells directly from Google Sheets or Excel without exporting first.
+              </p>
+            </div>
+
+            <div className="p-4 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-slate-50/70 dark:bg-slate-950/40 space-y-2">
+              <h3 className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">
+                3. Type Coercion &amp; Leading Zeros
+              </h3>
+              <p className="text-xs text-slate-600 dark:text-slate-400">
+                When enabled, strings like <code className="font-mono text-[11px]">&quot;true&quot;</code>, <code className="font-mono text-[11px]">&quot;false&quot;</code>, and <code className="font-mono text-[11px]">&quot;null&quot;</code> convert to native types, and numeric strings convert to numbers. Crucially, values with leading zeros (e.g., postal codes <code className="font-mono text-[11px]">&quot;01234&quot;</code> or identifiers <code className="font-mono text-[11px]">&quot;007&quot;</code>) remain strings to prevent loss of leading zeros.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 4. RFC 4180 Escaping & Quoting Mechanics */}
+      <section aria-labelledby="csv-rfc-escaping-heading" className="space-y-4">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl bg-amber-50 dark:bg-amber-950/50 border border-amber-200 dark:border-amber-800/60 flex items-center justify-center text-amber-600 dark:text-amber-400 shrink-0">
+            <Code2 size={18} />
+          </div>
+          <div>
+            <h2
+              id="csv-rfc-escaping-heading"
+              className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white tracking-tight"
+            >
+              RFC 4180 Escaping Standards &amp; Edge Cases
+            </h2>
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              Robust state-machine parsing for complex spreadsheet exports with commas, quotes, and newlines
+            </p>
+          </div>
+        </div>
+
+        <div className="p-6 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-4 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+          <p>
+            Real-world CSV files frequently contain punctuation, line breaks, or special characters inside cell contents. Our parser strictly implements the RFC 4180 standard to guarantee zero data loss:
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-1">
+            <div className="p-4 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-slate-50/70 dark:bg-slate-950/40 space-y-1.5">
+              <span className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider flex items-center gap-1.5">
+                <span className="text-brand-600">●</span> Embedded Delimiters
+              </span>
+              <p className="text-xs text-slate-600 dark:text-slate-400">
+                Cells containing commas or selected delimiters (such as <code className="font-mono text-[11px]">&quot;San Francisco, CA&quot;</code>) are wrapped in double quotes. The parser recognizes quote boundaries and does not split them into separate fields.
+              </p>
+            </div>
+
+            <div className="p-4 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-slate-50/70 dark:bg-slate-950/40 space-y-1.5">
+              <span className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider flex items-center gap-1.5">
+                <span className="text-emerald-600">●</span> Escaped Quotation Marks
+              </span>
+              <p className="text-xs text-slate-600 dark:text-slate-400">
+                Literal quotation marks inside cells are represented per RFC 4180 by two consecutive double quotes: <code className="font-mono text-[11px]">&quot;15&quot;&quot; Laptop&quot;</code> correctly converts into JSON property <code className="font-mono text-[11px]">&quot;15\&quot; Laptop&quot;</code>.
+              </p>
+            </div>
+
+            <div className="p-4 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-slate-50/70 dark:bg-slate-950/40 space-y-1.5">
+              <span className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider flex items-center gap-1.5">
+                <span className="text-purple-600">●</span> Multi-line Cell Strings
+              </span>
+              <p className="text-xs text-slate-600 dark:text-slate-400">
+                When a spreadsheet cell contains internal newlines (<code className="font-mono text-[11px]">\n</code> or <code className="font-mono text-[11px]">\r\n</code>) enclosed in quotes, the parser preserves the entire string as a single record rather than breaking rows prematurely.
+              </p>
+            </div>
+
+            <div className="p-4 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-slate-50/70 dark:bg-slate-950/40 space-y-1.5">
+              <span className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider flex items-center gap-1.5">
+                <span className="text-cyan-600">●</span> Blank Cells &amp; Empty Values
+              </span>
+              <p className="text-xs text-slate-600 dark:text-slate-400">
+                Empty cells between delimiters are parsed as empty strings (<code className="font-mono text-[11px]">&quot;&quot;</code>), ensuring consistent object key alignment across all rows in the resulting JSON array.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 5. Spreadsheets to API & Developer Workflows */}
+      <section aria-labelledby="spreadsheets-to-api-heading" className="space-y-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-3">
+            <h3 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              📊 Spreadsheets to Developer Pipelines
+            </h3>
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              Exporting or copying tabular data from desktop and web spreadsheets is the fastest way to bridge non-technical teams and engineering workflows:
+            </p>
+            <ul className="space-y-1.5 text-xs list-disc list-inside text-slate-600 dark:text-slate-400">
+              <li><strong className="text-slate-800 dark:text-slate-200">Microsoft Excel:</strong> Save as CSV or select and copy rows directly using Tab delimiter mode.</li>
+              <li><strong className="text-slate-800 dark:text-slate-200">Google Sheets:</strong> Download as CSV (<code className="font-mono text-[11px]">.csv</code>) or copy cell ranges directly to clipboard.</li>
+              <li><strong className="text-slate-800 dark:text-slate-200">Regional Locales:</strong> Semicolon delimiter support handles files generated on European and South American operating systems.</li>
+            </ul>
+          </div>
+
+          <div className="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-3">
+            <h3 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              🚀 API Payloads &amp; Database Seeding
+            </h3>
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              Transforming flat CSV lists into structured JSON arrays accelerates software engineering tasks:
+            </p>
+            <ul className="space-y-1.5 text-xs list-disc list-inside text-slate-600 dark:text-slate-400">
+              <li>Generate mock JSON payloads for REST and GraphQL endpoints during frontend prototyping.</li>
+              <li>Quickly build JSON test fixtures and seeding scripts for unit tests in Jest, Vitest, or Mocha.</li>
+              <li>Import tabular data into modern document databases like MongoDB or PostgreSQL <code className="font-mono text-[11px]">JSONB</code> columns.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      {/* 6. Formatting First & Bi-Directional Conversion */}
+      <section aria-labelledby="csv-formatting-and-roundtrip-heading" className="space-y-4">
+        <div className="p-6 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-4 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+          <h3 id="csv-formatting-and-roundtrip-heading" className="text-base font-semibold text-slate-900 dark:text-white flex items-center gap-2">
+            JSON Formatting &amp; Bi-Directional Conversion
+          </h3>
+          <p>
+            Once your CSV data has been converted into JSON, you can inspect, beautify, and validate its syntax using our{" "}
+            <Link
+              href="/tools/json-formatter"
+              className="text-brand-600 dark:text-brand-400 font-semibold underline underline-offset-2 hover:text-brand-700 dark:hover:text-brand-300"
+            >
+              JSON Formatter &amp; Validator
+            </Link>. It provides customizable indentation (2 spaces, 4 spaces, or minified tabs) and real-time syntax checking.
+          </p>
+          <p>
+            If you need to perform the reverse conversion and turn JSON arrays back into spreadsheet-compatible CSV grids with customized delimiters, use our dedicated{" "}
+            <Link
+              href="/tools/json-to-csv"
+              className="text-brand-600 dark:text-brand-400 font-semibold underline underline-offset-2 hover:text-brand-700 dark:hover:text-brand-300"
+            >
+              JSON to CSV Converter
+            </Link>.
+          </p>
+          <div className="p-3.5 rounded-xl bg-emerald-50/70 dark:bg-emerald-950/30 border border-emerald-200/80 dark:border-emerald-800/80 text-xs text-emerald-800 dark:text-emerald-300 flex items-center gap-2">
+            <ShieldCheck size={16} className="shrink-0 text-emerald-600 dark:text-emerald-400" />
+            <span>
+              <strong>100% Client-Side Privacy:</strong> All CSV parsing and JSON serialization run strictly within your local browser memory. No data is ever transmitted to remote servers.
+            </span>
+          </div>
+        </div>
+      </section>
+
+      {/* 7. Contextual Internal Linking */}
+      <section aria-labelledby="csv-tools-cluster-heading" className="space-y-4">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl bg-blue-50 dark:bg-blue-950/50 border border-blue-200 dark:border-blue-800/60 flex items-center justify-center text-blue-600 dark:text-blue-400 shrink-0">
+            <Layers size={18} />
+          </div>
+          <div>
+            <h2
+              id="csv-tools-cluster-heading"
+              className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white tracking-tight"
+            >
+              Complementary Developer &amp; Data Utilities
+            </h2>
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              Essential utilities for transforming, formatting, and inspecting structured data
+            </p>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-2.5">
+            <div className="flex items-center justify-between">
+              <Link
+                href="/tools/json-to-csv"
+                className="text-sm font-bold text-slate-900 dark:text-white hover:text-brand-600 dark:hover:text-brand-400 transition-colors inline-flex items-center gap-1.5"
+              >
+                JSON to CSV <ArrowRight size={14} />
+              </Link>
+              <span className="text-[11px] font-mono text-brand-600 dark:text-brand-400">Reverse</span>
+            </div>
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              Convert JSON arrays back into tabular CSV spreadsheets with customizable delimiters and automatic key union headers.
+            </p>
+          </div>
+
+          <div className="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-2.5">
+            <div className="flex items-center justify-between">
+              <Link
+                href="/tools/json-formatter"
+                className="text-sm font-bold text-slate-900 dark:text-white hover:text-brand-600 dark:hover:text-brand-400 transition-colors inline-flex items-center gap-1.5"
+              >
+                JSON Formatter <ArrowRight size={14} />
+              </Link>
+              <span className="text-[11px] font-mono text-emerald-600 dark:text-emerald-400">Format</span>
+            </div>
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              Beautify, validate, and minify raw JSON payloads with customizable indentation and syntax error highlighting.
+            </p>
+          </div>
+
+          <div className="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-2.5">
+            <div className="flex items-center justify-between">
+              <Link
+                href="/tools/query-string-parser"
+                className="text-sm font-bold text-slate-900 dark:text-white hover:text-brand-600 dark:hover:text-brand-400 transition-colors inline-flex items-center gap-1.5"
+              >
+                Query String Parser <ArrowRight size={14} />
+              </Link>
+              <span className="text-[11px] font-mono text-purple-600 dark:text-purple-400">Inspector</span>
+            </div>
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              Parse URL query parameters into formatted JSON key-value objects or reconstruct query strings from data.
+            </p>
+          </div>
+
+          <div className="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-2.5">
+            <div className="flex items-center justify-between">
+              <Link
+                href="/tools/base64"
+                className="text-sm font-bold text-slate-900 dark:text-white hover:text-brand-600 dark:hover:text-brand-400 transition-colors inline-flex items-center gap-1.5"
+              >
+                Base64 Encoder <ArrowRight size={14} />
+              </Link>
+              <span className="text-[11px] font-mono text-amber-600 dark:text-amber-400">Encoding</span>
+            </div>
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              Encode structured JSON strings to Base64 or decode Base64 strings to inspect embedded API tokens and payloads.
+            </p>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+};
+

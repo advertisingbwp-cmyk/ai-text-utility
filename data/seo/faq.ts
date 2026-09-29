@@ -1192,32 +1192,55 @@ export const TOOL_SPECIFIC_CONTENT: Record<
 
   "csv-to-json": {
     howToSteps: [
-      "Paste your CSV or TSV data into the editor.",
-      "Specify whether the first row contains column headers.",
-      "Choose your desired output structure (Array of Objects or 2D Array).",
-      "Copy the formatted JSON or download as a `.json` file.",
+      "Paste or type your CSV or TSV text into the Source Input field (or click 'Load Sample').",
+      "Select your delimiter: Comma (`,`), Semicolon (`;`), Tab (`\\t`), or Pipe (`|`).",
+      "Toggle 'First Row as Headers' depending on whether your data includes a header row.",
+      "Toggle 'Parse Numbers & Booleans' if you want numeric strings and booleans converted into native JSON types.",
+      "Review the live generated JSON output and click 'Copy' to copy to clipboard or 'Download' to save as a file.",
     ],
     features: [
-      "Auto-detects delimiters including comma, semicolon, tab (TSV), and pipe",
-      "Intelligent type parsing: converts numeric and boolean strings to native JSON types",
-      "Full RFC 4180 quote and multi-line cell escaping support",
-      "100% In-browser conversion with zero file size limits",
+      "Converts delimited CSV and TSV spreadsheet rows into structured JSON arrays of objects",
+      "Configurable delimiters: Comma (`,`), Semicolon (`;`), Tab (`\\t`), and Pipe (`|`)",
+      "Full RFC 4180 parsing: safely handles double-quoted fields, escaped internal quotes (`\"\"`), and embedded newlines",
+      "Smart type conversion: parses numbers, booleans, and nulls while safely preserving leading zeros on codes and IDs",
+      "Header fallback: automatically names empty or missing header columns (e.g. `col_1`, `col_2`)",
+      "100% Client-side execution in your browser memory with zero network uploads for complete privacy",
     ],
     faqs: [
       {
-        question: "Does this tool automatically detect CSV delimiters?",
+        question: "What is a CSV to JSON converter?",
         answer:
-          "Yes. The parser examines your text and automatically detects standard commas, semicolons, tabs (TSV), and pipes.",
+          "A CSV to JSON converter is a data transformation utility that parses two-dimensional tabular data (rows and columns separated by delimiters like commas, semicolons, tabs, or pipes) into structured JSON arrays and objects. This makes spreadsheet tables, database exports, and log files ready for consumption in JavaScript applications, REST APIs, and NoSQL databases.",
       },
       {
-        question: "Are numbers and booleans converted into real JSON types?",
+        question: "How are CSV headers converted into JSON keys?",
         answer:
-          "Yes. The parser detects integers, floating-point numbers, and `true`/`false` values, casting them into native JSON data types rather than plain strings.",
+          "When the 'First Row as Headers' option is enabled (default), the parser uses values from the first row as object keys for every subsequent row. If a header is blank or missing, the converter automatically assigns a fallback key (e.g. `col_1`, `col_2`). If duplicate headers exist in the CSV, later columns will overwrite earlier values for that key.",
       },
       {
-        question: "Is my spreadsheet data kept private?",
+        question: "Are CSV numbers converted into JSON numbers?",
         answer:
-          "Yes. All CSV parsing and JSON generation occurs entirely inside your local browser memory. No data is uploaded to any remote server.",
+          "Yes, when 'Parse Numbers & Booleans' is enabled (default), numeric values (like `28` or `-15.5`) are converted into native JSON numbers, and `'true'`/`'false'`/`'null'` strings are converted into their respective JSON primitives. Crucially, numeric strings with leading zeros (such as postal codes `'01234'` or ID codes `'007'`) are preserved as strings to prevent loss of leading zeros. If you disable type parsing, all values remain raw strings.",
+      },
+      {
+        question: "Can quoted CSV fields contain commas?",
+        answer:
+          "Yes. The parser strictly adheres to RFC 4180 standards. Any field wrapped in double quotes can safely contain delimiter characters (like commas or semicolons) and line breaks without splitting the row. Internal double quotes that are escaped by doubling them (`\"\"`) are correctly restored as a single quotation mark (`\"`).",
+      },
+      {
+        question: "Can I convert Excel CSV files into JSON?",
+        answer:
+          "Yes. You can copy rows from CSV files exported by Microsoft Excel, Google Sheets, or Apple Numbers and paste them directly into the tool. For files exported from European locales where Excel uses semicolons as list separators, simply select Semicolon (`;`) as your delimiter.",
+      },
+      {
+        question: "What is the difference between CSV and JSON?",
+        answer:
+          "CSV is a flat, two-dimensional tabular format where every record shares the same column layout, making it ideal for spreadsheets, accounting, and bulk relational exports. JSON is a flexible, hierarchical data format that supports nested objects, arrays, and explicit data types, making it the industry standard for web services and APIs. To convert JSON back to CSV, use our [JSON to CSV Converter](/tools/json-to-csv).",
+      },
+      {
+        question: "Is my CSV uploaded to a server?",
+        answer:
+          "No. All parsing and JSON generation runs entirely on the client side in your web browser memory. Your proprietary spreadsheets, customer records, and internal metrics never leave your computer and are never logged or stored on any server.",
       },
     ],
   },

@@ -17,6 +17,7 @@ import {
   LoremIpsumEditorial,
   SlugGeneratorEditorial,
   JsonToCsvEditorial,
+  CsvToJsonEditorial,
 } from "@/components/seo/ToolEditorialSections";
 import {
   Check,
@@ -665,6 +666,7 @@ const EDITORIAL_MAP: Record<string, React.FC> = {
   "lorem-ipsum": LoremIpsumEditorial,
   "slug-generator": SlugGeneratorEditorial,
   "json-to-csv": JsonToCsvEditorial,
+  "csv-to-json": CsvToJsonEditorial,
 };
 
 export const ToolSeoContent: React.FC<ToolSeoContentProps> = ({ tool }) => {
