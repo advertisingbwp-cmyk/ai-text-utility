@@ -55,9 +55,9 @@ export default function PrivacyPage() {
           <div className="w-8 h-8 rounded-lg bg-blue-500/10 flex items-center justify-center text-blue-600 dark:text-blue-400">
             <Server size={16} />
           </div>
-          <h2 className="text-sm font-semibold text-slate-900 dark:text-white">Zero-Logging AI</h2>
+          <h2 className="text-sm font-semibold text-slate-900 dark:text-white">Secure AI Processing</h2>
           <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-            AI text transformations are encrypted in transit, processed ephemerally, and never stored.
+            AI text requests are encrypted in transit via HTTPS and handled via Google Gemini API.
           </p>
         </div>
 
@@ -91,12 +91,12 @@ export default function PrivacyPage() {
           <p>
             When you deliberately use our AI-powered features (such as Grammar Fixer, AI Summarizer, or Paraphraser),
             your input text is securely transmitted via HTTPS to our serverless backend endpoint (<code>/api/ai</code>), which
-            proxies your request to our enterprise AI model provider (Google Gemini via Google AI Studio).
+            proxies your request to the upstream AI provider (Google Gemini API).
           </p>
           <ul className="list-disc list-inside space-y-1.5 text-slate-500 dark:text-slate-400 pl-2">
-            <li>Your input text is processed ephemerally to generate your requested rewrite.</li>
-            <li>We do NOT log, store, or retain your raw text or output on our servers.</li>
-            <li>Under enterprise terms, user prompts are not used to train public foundation models.</li>
+            <li>AI requests are transmitted over TLS-encrypted HTTPS connections.</li>
+            <li>Our application backend does not store or persist your raw text inputs or generated outputs in any database.</li>
+            <li>For paid Gemini API usage, Google states that prompts and responses are not used to improve its products by default; limited retention may still occur for service operation and abuse monitoring.</li>
           </ul>
         </section>
 

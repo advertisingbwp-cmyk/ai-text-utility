@@ -1,7 +1,7 @@
 {
     "name":  "ai-smart-text-utility",
     "version":  "1.0.0",
-    "description": "AI-Powered Smart Text Utility with Google Gemini & fast browser text tools",
+    "description": "Modern privacy-first browser text utilities, developer tools, and AI writing assistants",
     "scripts":  {
                     "dev":  "next dev",
                     "build":  "next build",
@@ -15,7 +15,7 @@
                      "word-counter",
                      "grammar-checker"
                  ],
-    "author":  "",
+    "author":  "AI Text Utility Team",
     "license":  "MIT",
     "devDependencies":  {
                             "@types/node":  "^26.4.1",

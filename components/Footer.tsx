@@ -104,7 +104,7 @@ export const Footer: React.FC = () => {
             © {new Date().getFullYear()} AI Text Utility. All rights reserved.
           </div>
           <div className="text-slate-500 text-center sm:text-right">
-            Browser utilities execute 100% in your local memory. AI requests are ephemeral & encrypted.
+            Standard utilities execute locally in your browser memory. AI requests are processed securely in transit.
           </div>
         </div>
       </div>

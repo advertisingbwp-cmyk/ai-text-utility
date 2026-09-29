@@ -56,7 +56,7 @@ export const metadata: Metadata = {
     siteName: "AI Text Utility",
     title: "AI Text Utility - Fast, Private Browser-Based Text Tools",
     description:
-      "43+ instant browser-based utilities for text formatting, transformation, cleanup, and AI rewriting. 100% private.",
+      "Privacy-first browser text tools with local client execution and optional AI writing assistance.",
     images: [
       {
         url: "/og-image.png",
