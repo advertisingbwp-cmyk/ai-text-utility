@@ -16,6 +16,8 @@ import {
   ArrowRight,
   Globe,
   Sparkles,
+  Table,
+  FileSpreadsheet,
 } from "lucide-react";
 
 // ==========================================
@@ -1222,6 +1224,396 @@ export const SlugGeneratorEditorial: React.FC = () => {
             </div>
             <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
               Measure character lengths and word counts to ensure your article titles and URLs remain within optimal search snippet thresholds.
+            </p>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+};
+
+// ==========================================
+// 12. JSON TO CSV EDITORIAL
+// ==========================================
+export const JsonToCsvEditorial: React.FC = () => {
+  return (
+    <div className="space-y-12 pt-6 border-t border-slate-200 dark:border-slate-800">
+      {/* 1. What is JSON to CSV Conversion & Real Example */}
+      <section aria-labelledby="json-to-csv-overview-heading" className="space-y-4">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl bg-brand-50 dark:bg-brand-950/50 border border-brand-200 dark:border-brand-800/60 flex items-center justify-center text-brand-600 dark:text-brand-400 shrink-0">
+            <FileSpreadsheet size={18} />
+          </div>
+          <div>
+            <h2
+              id="json-to-csv-overview-heading"
+              className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white tracking-tight"
+            >
+              What is JSON to CSV Conversion &amp; How Does It Work?
+            </h2>
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              Transforming hierarchical key-value objects into clean, spreadsheet-ready tabular data
+            </p>
+          </div>
+        </div>
+
+        <div className="p-6 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-4 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+          <p>
+            <strong className="text-slate-900 dark:text-white font-semibold">JSON</strong> (JavaScript Object Notation) and <strong className="text-slate-900 dark:text-white font-semibold">CSV</strong> (Comma-Separated Values) represent two fundamentally different data models. JSON is designed for web applications and APIs, organizing data as nested hierarchies, objects, and typed key-value pairs. Conversely, CSV is designed for tabular analysis, organizing data into flat two-dimensional grids composed of column headers and delimited rows.
+          </p>
+          <p>
+            Our <strong className="text-slate-900 dark:text-white font-semibold">JSON to CSV Converter</strong> parses structured JSON records, extracts unique keys across all items to construct a unified header row, and formats each record into an RFC 4180-compliant row.
+          </p>
+
+          {/* Side-by-side Visual Code Example */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-1">
+            <div className="p-4 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-slate-50/70 dark:bg-slate-950/40 space-y-2">
+              <span className="text-xs font-bold text-brand-600 dark:text-brand-400 uppercase tracking-wider">
+                Source JSON Input (Array of Objects)
+              </span>
+              <pre className="p-3 rounded-lg bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 text-[11px] font-mono text-slate-800 dark:text-slate-200 overflow-x-auto">
+{`[
+  {"name": "Alice", "age": 28},
+  {"name": "Bob", "age": 31}
+]`}
+              </pre>
+            </div>
+
+            <div className="p-4 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-slate-50/70 dark:bg-slate-950/40 space-y-2">
+              <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">
+                Resulting CSV Output (Tabular Grid)
+              </span>
+              <pre className="p-3 rounded-lg bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 text-[11px] font-mono text-slate-800 dark:text-slate-200 overflow-x-auto">
+{`name,age
+Alice,28
+Bob,31`}
+              </pre>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 2. Step-by-Step Converter Workflow */}
+      <section aria-labelledby="json-to-csv-workflow-heading" className="space-y-4">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl bg-purple-50 dark:bg-purple-950/50 border border-purple-200 dark:border-purple-800/60 flex items-center justify-center text-purple-600 dark:text-purple-400 shrink-0">
+            <Table size={18} />
+          </div>
+          <div>
+            <h2
+              id="json-to-csv-workflow-heading"
+              className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white tracking-tight"
+            >
+              How to Convert JSON to CSV Step-by-Step
+            </h2>
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              Straightforward browser-based workflow with instant live updates
+            </p>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
+          <div className="p-4 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-1.5">
+            <span className="text-xs font-bold text-brand-600 dark:text-brand-400 uppercase tracking-wider flex items-center gap-1.5">
+              <span className="w-5 h-5 rounded-full bg-brand-500/10 flex items-center justify-center text-[11px]">1</span>
+              Paste JSON
+            </span>
+            <p className="text-xs text-slate-600 dark:text-slate-400">
+              Paste your JSON array or single object into the Source Input editor, or click &apos;Load Sample&apos;.
+            </p>
+          </div>
+
+          <div className="p-4 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-1.5">
+            <span className="text-xs font-bold text-brand-600 dark:text-brand-400 uppercase tracking-wider flex items-center gap-1.5">
+              <span className="w-5 h-5 rounded-full bg-brand-500/10 flex items-center justify-center text-[11px]">2</span>
+              Configure Delimiter
+            </span>
+            <p className="text-xs text-slate-600 dark:text-slate-400">
+              Select Comma (,), Semicolon (;), Tab (\\t), or Pipe (|) to match your target spreadsheet software.
+            </p>
+          </div>
+
+          <div className="p-4 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-1.5">
+            <span className="text-xs font-bold text-brand-600 dark:text-brand-400 uppercase tracking-wider flex items-center gap-1.5">
+              <span className="w-5 h-5 rounded-full bg-brand-500/10 flex items-center justify-center text-[11px]">3</span>
+              Live Generation
+            </span>
+            <p className="text-xs text-slate-600 dark:text-slate-400">
+              The converter parses syntax and updates the tabular CSV instantly with automatic error feedback.
+            </p>
+          </div>
+
+          <div className="p-4 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-1.5">
+            <span className="text-xs font-bold text-brand-600 dark:text-brand-400 uppercase tracking-wider flex items-center gap-1.5">
+              <span className="w-5 h-5 rounded-full bg-brand-500/10 flex items-center justify-center text-[11px]">4</span>
+              Copy or Download
+            </span>
+            <p className="text-xs text-slate-600 dark:text-slate-400">
+              Copy the CSV text directly with one click, or click the download button to save as a local file.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* 3. Input Shapes, Missing Keys & Nested Data Mechanics */}
+      <section aria-labelledby="json-structure-heading" className="space-y-4">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-800/60 flex items-center justify-center text-emerald-600 dark:text-emerald-400 shrink-0">
+            <Layers size={18} />
+          </div>
+          <div>
+            <h2
+              id="json-structure-heading"
+              className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white tracking-tight"
+            >
+              JSON Arrays vs. Objects &amp; Nested Data Handling
+            </h2>
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              Understanding input schemas, missing fields, and object serialization
+            </p>
+          </div>
+        </div>
+
+        <div className="p-6 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-4 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="p-4 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-slate-50/70 dark:bg-slate-950/40 space-y-2">
+              <h3 className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">
+                1. Arrays vs. Single Objects
+              </h3>
+              <p className="text-xs text-slate-600 dark:text-slate-400">
+                The standard structure is an array of objects (<code className="font-mono text-[11px]">[&#123;...&#125;, &#123;...&#125;]</code>). If you provide a single JSON object (<code className="font-mono text-[11px]">&#123;&quot;id&quot;: 1&#125;</code>), the tool automatically wraps it into a single-row array. Non-object arrays (like <code className="font-mono text-[11px]">[1, 2, 3]</code>) will prompt a structure validation error.
+              </p>
+            </div>
+
+            <div className="p-4 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-slate-50/70 dark:bg-slate-950/40 space-y-2">
+              <h3 className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">
+                2. Missing Keys &amp; Sparse Records
+              </h3>
+              <p className="text-xs text-slate-600 dark:text-slate-400">
+                In real-world API data, records often have optional fields. The converter builds a union of all unique keys across every object in the array. When an individual record lacks a specific key, it outputs an empty cell (<code className="font-mono text-[11px]">&quot;&quot;</code>), preserving row alignment.
+              </p>
+            </div>
+
+            <div className="p-4 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-slate-50/70 dark:bg-slate-950/40 space-y-2">
+              <h3 className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">
+                3. Nested Objects &amp; Arrays
+              </h3>
+              <p className="text-xs text-slate-600 dark:text-slate-400">
+                Because CSV is strictly two-dimensional, nested objects (e.g. <code className="font-mono text-[11px]">&#123;&quot;geo&quot;: &#123;&quot;lat&quot;: 47.6&#125;&#125;</code>) and arrays are serialized as JSON strings within their cell. This avoids uncontrolled column explosions while preserving complete data fidelity.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 4. CSV Escaping Rules (RFC 4180) */}
+      <section aria-labelledby="csv-escaping-heading" className="space-y-4">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl bg-amber-50 dark:bg-amber-950/50 border border-amber-200 dark:border-amber-800/60 flex items-center justify-center text-amber-600 dark:text-amber-400 shrink-0">
+            <Code2 size={18} />
+          </div>
+          <div>
+            <h2
+              id="csv-escaping-heading"
+              className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white tracking-tight"
+            >
+              CSV Escaping Standards (RFC 4180 Compliance)
+            </h2>
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              How commas, double quotes, and line breaks are safely preserved in tabular exports
+            </p>
+          </div>
+        </div>
+
+        <div className="p-6 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-4 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+          <p>
+            Naive string concatenation often breaks CSV spreadsheets when data contains punctuation. Our converter enforces RFC 4180 standards for bulletproof parsing:
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-1">
+            <div className="p-4 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-slate-50/70 dark:bg-slate-950/40 space-y-1.5">
+              <span className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider flex items-center gap-1.5">
+                <span className="text-brand-600">●</span> Delimiters &amp; Commas
+              </span>
+              <p className="text-xs text-slate-600 dark:text-slate-400">
+                Any value containing the chosen delimiter (e.g. <code className="font-mono text-[11px]">&quot;Seattle, WA&quot;</code>) is enclosed in quotes: <code className="font-mono text-[11px]">&quot;&quot;Seattle, WA&quot;&quot;</code>.
+              </p>
+            </div>
+
+            <div className="p-4 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-slate-50/70 dark:bg-slate-950/40 space-y-1.5">
+              <span className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider flex items-center gap-1.5">
+                <span className="text-emerald-600">●</span> Quotation Marks
+              </span>
+              <p className="text-xs text-slate-600 dark:text-slate-400">
+                Internal double quotes (e.g. <code className="font-mono text-[11px]">Leader &quot;Pro&quot;</code>) are escaped by doubling them (<code className="font-mono text-[11px]">&quot;&quot;</code>) and wrapping the field in quotes: <code className="font-mono text-[11px]">&quot;&quot;Leader &quot;&quot;Pro&quot;&quot;&quot;&quot;</code>.
+              </p>
+            </div>
+
+            <div className="p-4 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-slate-50/70 dark:bg-slate-950/40 space-y-1.5">
+              <span className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider flex items-center gap-1.5">
+                <span className="text-purple-600">●</span> Multi-line Strings
+              </span>
+              <p className="text-xs text-slate-600 dark:text-slate-400">
+                Values with newline characters (<code className="font-mono text-[11px]">\\n</code> or <code className="font-mono text-[11px]">\\r</code>) are wrapped in quotes, allowing multi-line cell entries in Excel and Google Sheets.
+              </p>
+            </div>
+
+            <div className="p-4 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-slate-50/70 dark:bg-slate-950/40 space-y-1.5">
+              <span className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider flex items-center gap-1.5">
+                <span className="text-cyan-600">●</span> Null &amp; Undefined Values
+              </span>
+              <p className="text-xs text-slate-600 dark:text-slate-400">
+                Missing or <code className="font-mono text-[11px]">null</code> values render as empty strings (<code className="font-mono text-[11px]">&quot;&quot;</code>), ensuring delimiter column alignment remains strictly preserved.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 5. Spreadsheets Workflows: Excel, Google Sheets & API Pipelines */}
+      <section aria-labelledby="spreadsheets-workflow-heading" className="space-y-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-3">
+            <h3 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              📊 Microsoft Excel &amp; Google Sheets
+            </h3>
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              Exported CSV files can be opened directly or imported into major spreadsheet software:
+            </p>
+            <ul className="space-y-1.5 text-xs list-disc list-inside text-slate-600 dark:text-slate-400">
+              <li><strong className="text-slate-800 dark:text-slate-200">Microsoft Excel:</strong> Use File → Open, or import via Data → From Text/CSV. For European Excel locales, select the Semicolon (<code className="font-mono text-[11px]">&apos;;&apos;</code>) delimiter option.</li>
+              <li><strong className="text-slate-800 dark:text-slate-200">Google Sheets:</strong> Navigate to File → Import → Upload to load the generated CSV into any existing or new sheet.</li>
+              <li><strong className="text-slate-800 dark:text-slate-200">Database Tools:</strong> Cleanly imports into PostgreSQL, MySQL, and SQLite via native COPY or CSV import wizards.</li>
+            </ul>
+          </div>
+
+          <div className="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-3">
+            <h3 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              🚀 API Responses to Analysis Workflows
+            </h3>
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              Modern REST and GraphQL APIs return JSON responses that business stakeholders often cannot inspect directly. Converting API payloads to CSV empowers developers to:
+            </p>
+            <ul className="space-y-1.5 text-xs list-disc list-inside text-slate-600 dark:text-slate-400">
+              <li>Share user, order, or telemetry logs with product and finance teams.</li>
+              <li>Build quick pivot tables, charts, and summary reports in spreadsheets.</li>
+              <li>Inspect and clean backend data before conducting bulk SQL migrations.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      {/* 6. Formatting First & Bi-Directional Conversion */}
+      <section aria-labelledby="formatting-and-roundtrip-heading" className="space-y-4">
+        <div className="p-6 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-4 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+          <h3 id="formatting-and-roundtrip-heading" className="text-base font-semibold text-slate-900 dark:text-white flex items-center gap-2">
+            JSON Formatting &amp; Bi-Directional Conversion
+          </h3>
+          <p>
+            If your input JSON is minified into a single unreadable line or triggers a syntax error, we recommend pasting it into our{" "}
+            <Link
+              href="/tools/json-formatter"
+              className="text-brand-600 dark:text-brand-400 font-semibold underline underline-offset-2 hover:text-brand-700 dark:hover:text-brand-300"
+            >
+              JSON Formatter &amp; Validator
+            </Link>{" "}
+            first. Beautifying the payload makes it easy to confirm brackets, locate syntax errors, and inspect record schemas.
+          </p>
+          <p>
+            Conversely, if you have an existing spreadsheet or CSV file and need to convert it into structured JSON objects or an array of arrays for web development, use our dedicated{" "}
+            <Link
+              href="/tools/csv-to-json"
+              className="text-brand-600 dark:text-brand-400 font-semibold underline underline-offset-2 hover:text-brand-700 dark:hover:text-brand-300"
+            >
+              CSV to JSON Converter
+            </Link>.
+          </p>
+          <div className="p-3.5 rounded-xl bg-emerald-50/70 dark:bg-emerald-950/30 border border-emerald-200/80 dark:border-emerald-800/80 text-xs text-emerald-800 dark:text-emerald-300 flex items-center gap-2">
+            <ShieldCheck size={16} className="shrink-0 text-emerald-600 dark:text-emerald-400" />
+            <span>
+              <strong>100% Client-Side Privacy:</strong> All parsing and CSV formatting run strictly within your local browser memory. No text or files are ever sent to our servers.
+            </span>
+          </div>
+        </div>
+      </section>
+
+      {/* 7. Contextual Internal Linking */}
+      <section aria-labelledby="json-tools-cluster-heading" className="space-y-4">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl bg-blue-50 dark:bg-blue-950/50 border border-blue-200 dark:border-blue-800/60 flex items-center justify-center text-blue-600 dark:text-blue-400 shrink-0">
+            <Layers size={18} />
+          </div>
+          <div>
+            <h2
+              id="json-tools-cluster-heading"
+              className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white tracking-tight"
+            >
+              Complementary Developer &amp; Data Utilities
+            </h2>
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              Essential tools for parsing, formatting, and inspecting structured data
+            </p>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-2.5">
+            <div className="flex items-center justify-between">
+              <Link
+                href="/tools/csv-to-json"
+                className="text-sm font-bold text-slate-900 dark:text-white hover:text-brand-600 dark:hover:text-brand-400 transition-colors inline-flex items-center gap-1.5"
+              >
+                CSV to JSON <ArrowRight size={14} />
+              </Link>
+              <span className="text-[11px] font-mono text-brand-600 dark:text-brand-400">Reverse</span>
+            </div>
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              Convert CSV and TSV spreadsheets back into structured JSON objects with automated number and boolean parsing.
+            </p>
+          </div>
+
+          <div className="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-2.5">
+            <div className="flex items-center justify-between">
+              <Link
+                href="/tools/json-formatter"
+                className="text-sm font-bold text-slate-900 dark:text-white hover:text-brand-600 dark:hover:text-brand-400 transition-colors inline-flex items-center gap-1.5"
+              >
+                JSON Formatter <ArrowRight size={14} />
+              </Link>
+              <span className="text-[11px] font-mono text-emerald-600 dark:text-emerald-400">Format</span>
+            </div>
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              Beautify, validate, and minify raw JSON payloads with customizable indentation and syntax error highlighting.
+            </p>
+          </div>
+
+          <div className="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-2.5">
+            <div className="flex items-center justify-between">
+              <Link
+                href="/tools/query-string-parser"
+                className="text-sm font-bold text-slate-900 dark:text-white hover:text-brand-600 dark:hover:text-brand-400 transition-colors inline-flex items-center gap-1.5"
+              >
+                Query String Parser <ArrowRight size={14} />
+              </Link>
+              <span className="text-[11px] font-mono text-purple-600 dark:text-purple-400">Inspector</span>
+            </div>
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              Parse URL query parameters into formatted JSON key-value objects or reconstruct query strings from data.
+            </p>
+          </div>
+
+          <div className="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-2.5">
+            <div className="flex items-center justify-between">
+              <Link
+                href="/tools/base64"
+                className="text-sm font-bold text-slate-900 dark:text-white hover:text-brand-600 dark:hover:text-brand-400 transition-colors inline-flex items-center gap-1.5"
+              >
+                Base64 Encoder <ArrowRight size={14} />
+              </Link>
+              <span className="text-[11px] font-mono text-amber-600 dark:text-amber-400">Encoding</span>
+            </div>
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              Encode structured JSON strings to Base64 or decode Base64 strings to inspect embedded API tokens and payloads.
             </p>
           </div>
         </div>

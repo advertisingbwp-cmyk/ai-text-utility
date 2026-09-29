@@ -16,6 +16,7 @@ import {
   JwtDecoderEditorial,
   LoremIpsumEditorial,
   SlugGeneratorEditorial,
+  JsonToCsvEditorial,
 } from "@/components/seo/ToolEditorialSections";
 import {
   Check,
@@ -663,6 +664,7 @@ const EDITORIAL_MAP: Record<string, React.FC> = {
   "jwt-decoder": JwtDecoderEditorial,
   "lorem-ipsum": LoremIpsumEditorial,
   "slug-generator": SlugGeneratorEditorial,
+  "json-to-csv": JsonToCsvEditorial,
 };
 
 export const ToolSeoContent: React.FC<ToolSeoContentProps> = ({ tool }) => {

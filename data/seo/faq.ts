@@ -1138,32 +1138,54 @@ export const TOOL_SPECIFIC_CONTENT: Record<
 
   "json-to-csv": {
     howToSteps: [
-      "Paste a JSON array of objects into the editor.",
-      "The converter automatically extracts unique keys to build column headers.",
-      "Select your preferred delimiter (comma `,` or semicolon `;`).",
-      "Copy the tabular CSV or download it as a `.csv` file for Excel or Google Sheets.",
+      "Paste or type your JSON array of objects into the Source Input field (or click 'Load Sample').",
+      "Choose your preferred delimiter: Comma (`,`), Semicolon (`;`), Tab (`\\t`), or Pipe (`|`).",
+      "Optionally toggle 'Quote All Fields' if your target spreadsheet or database requires strict quotes on every cell.",
+      "Review the live generated CSV output and click 'Copy' to copy to clipboard or 'Download' to save as a file.",
     ],
     features: [
-      "Flattens JSON arrays of objects into structured tabular rows and columns",
-      "RFC 4180 compliant escaping for fields containing commas, quotes, and newlines",
-      "Configurable column delimiters (comma or semicolon)",
-      "Direct one-click export to `.csv` file",
+      "Converts JSON arrays of objects and single objects into clean, RFC 4180-compliant CSV",
+      "Automatically extracts the union of all unique keys across records to build complete column headers",
+      "RFC 4180 escaping: automatically quotes cells containing delimiters, newlines, or quotes, escaping internal quotes as `\"\"`",
+      "Configurable delimiters (Comma, Semicolon, Tab, Pipe) and optional 'Quote All Fields' mode",
+      "Preserves nested objects and arrays as serialized JSON strings within individual table cells",
+      "100% Client-side execution in browser memory with zero network uploads for complete privacy",
     ],
     faqs: [
       {
-        question: "What JSON structure is required for CSV conversion?",
+        question: "What is a JSON to CSV converter?",
         answer:
-          "The input should be a JSON array of objects (e.g. `[{\"name\": \"Alice\", \"role\": \"Admin\"}, {\"name\": \"Bob\", \"role\": \"User\"}]`). Each object corresponds to one row in the CSV spreadsheet.",
+          "A JSON to CSV converter is a data transformation utility that translates hierarchical, key-value JSON records into flat, two-dimensional rows and columns separated by delimiters (like commas). This makes structured API responses, database dumps, and application state easy to import into spreadsheets, tabular databases, and data analysis software.",
       },
       {
-        question: "How does the converter handle commas and quotation marks in values?",
+        question: "Can I convert a JSON array to CSV?",
         answer:
-          "Following RFC 4180 standards, any field that contains commas, quotes, or line breaks is automatically wrapped in double quotes, and internal quotes are escaped by doubling them (`\"\"`).",
+          "Yes. An array of objects (e.g. `[{\"name\": \"Alice\", \"age\": 28}, {\"name\": \"Bob\", \"age\": 31}]`) is the ideal structure for CSV conversion. Each object becomes a row, and the object keys become column headers. Single JSON objects are also supported and automatically wrapped into a single data row. Note that arrays of raw primitives (like `[1, 2, 3]`) are not tabular records and cannot be converted into multi-column CSV.",
       },
       {
-        question: "Can nested objects and arrays be converted?",
+        question: "Can CSV represent nested JSON data?",
         answer:
-          "Nested objects and arrays are serialized into valid JSON strings within their respective cell so that all structured data is preserved in your spreadsheet.",
+          "CSV is fundamentally a flat two-dimensional format, so it cannot natively represent multi-level hierarchies without flattening trade-offs. In this converter, nested objects and nested arrays are safely serialized as JSON strings within their respective table cell (e.g. `\"{\"city\":\"Seattle\"}\"`). This preserves the complete structured data without generating unpredictable, sprawling column names.",
+      },
+      {
+        question: "How are commas and quotes handled in CSV?",
+        answer:
+          "Following the standard RFC 4180 specification, any field value containing commas, line breaks (`\\n`), or double quotes (`\"`) is automatically wrapped in double quotes. Any quotation mark inside the value is escaped by doubling it (`\"\"`). This ensures spreadsheet software like Excel and Google Sheets parses multi-line or punctuated fields without corrupting column alignments.",
+      },
+      {
+        question: "Can I open the converted CSV in Microsoft Excel and Google Sheets?",
+        answer:
+          "Yes. The output is standard CSV that can be opened or imported directly into Microsoft Excel, Google Sheets, LibreOffice Calc, or Apple Numbers. For European editions of Excel where semicolons are the standard list separator, simply select the Semicolon (`;`) delimiter option before exporting.",
+      },
+      {
+        question: "What is the difference between JSON and CSV?",
+        answer:
+          "JSON (JavaScript Object Notation) is a flexible, nested data interchange format that supports deep hierarchies, typed primitives, arrays, and objects, making it the standard for web APIs and application state. CSV (Comma-Separated Values) is a compact, flat tabular format designed for row-and-column representations, making it optimal for spreadsheets, reporting, and bulk data imports. To convert tabular data back to JSON, explore our [CSV to JSON Converter](/tools/csv-to-json).",
+      },
+      {
+        question: "Is my JSON data uploaded to an external server?",
+        answer:
+          "No. The conversion executes 100% locally inside your web browser using native JavaScript `JSON.parse` and client-side formatting logic. Your proprietary payloads, customer records, and API responses never leave your computer and are never logged or stored on our servers.",
       },
     ],
   },
