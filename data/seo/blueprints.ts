@@ -284,6 +284,42 @@ export const SEO_BLUEPRINT_MAP: Record<string, ToolSeoBlueprint> = {
       "character-frequency",
     ],
   },
+  "fancy-fonts": {
+    slug: "fancy-fonts",
+    title: "Fancy Font Generator – Cool Text & Stylish Fonts Copy Paste",
+    metaDescription:
+      "Generate fancy fonts and stylish text instantly. Create cool copy-and-paste fonts for Instagram, TikTok, Discord, gaming profiles, bios and social posts.",
+    h1: "Fancy Font Generator",
+    aboveTheFoldIntro:
+      "Generate stylish Unicode text and fancy fonts instantly. Type your text once and copy cool font styles for Instagram bios, TikTok captions, Discord, gaming profiles and social media.",
+    primaryKeyword: "fancy font generator",
+    secondaryKeywords: [
+      "fancy font generator",
+      "fancy text generator",
+      "cool fonts",
+      "stylish text generator",
+      "font generator copy paste",
+      "instagram font generator",
+      "instagram fonts",
+      "tiktok fonts",
+      "discord fonts",
+      "cool text generator",
+      "cursive text generator",
+      "gothic text generator",
+      "aesthetic fonts",
+      "unicode font generator",
+      "fancy letters",
+      "stylish fonts copy paste",
+    ],
+    popularAnchor: "Fancy Font Generator",
+    clusterSlugs: [
+      "case-converter",
+      "lorem-ipsum",
+      "word-counter",
+      "reverse-text",
+      "remove-emojis",
+    ],
+  },
 };
 
 import { getToolBySlug } from "../tools/index.ts";

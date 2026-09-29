@@ -72,47 +72,6 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     };
   }
 
-  if (tool.slug === "fancy-fonts") {
-    const fancyTitle = "Fancy Font Generator — Cool Fancy Text (𝒞𝑜𝓅𝓎 𝒶𝓃𝒹 𝒫𝒶𝓈𝓉𝑒) | AI Text Utility";
-    const fancyDescription =
-      "Generate 57+ stylish fancy fonts and cool text to copy and paste into Instagram bios, TikTok captions, Discord, Twitter/X, and gaming profiles. Free, instant, and 100% private.";
-
-    return {
-      title: fancyTitle,
-      description: fancyDescription,
-      keywords: [
-        ...tool.keywords,
-        "fancy text generator",
-        "font generator copy paste",
-        "cool fonts",
-        "stylish text",
-        "instagram fonts",
-        "discord fonts",
-        "cursive text",
-        "gothic text",
-        "unicode fonts",
-        "bold text",
-        "online text tool",
-        "free text tools",
-      ],
-      alternates: {
-        canonical: canonicalUrl,
-      },
-      openGraph: {
-        title: fancyTitle,
-        description: fancyDescription,
-        url: canonicalUrl,
-        type: "website",
-        siteName: "AI Text Utility",
-      },
-      twitter: {
-        card: "summary_large_image",
-        title: fancyTitle,
-        description: fancyDescription,
-      },
-    };
-  }
-
   return {
     title: `${tool.name} - Free Online Text Utility`,
     description: `${tool.description} Fast, secure, and private browser-based utility.`,
@@ -158,11 +117,7 @@ export default async function ToolPage({ params }: PageProps) {
   const webAppSchema = {
     "@context": "https://schema.org",
     "@type": "WebApplication",
-    name: blueprint
-      ? blueprint.h1
-      : tool.slug === "fancy-fonts"
-      ? "Fancy Font Generator & Cool Fancy Text Maker"
-      : tool.name,
+    name: blueprint ? blueprint.h1 : tool.name,
     url: toolUrl,
     description: blueprint ? blueprint.metaDescription : tool.description,
     applicationCategory: "UtilitiesApplication",
