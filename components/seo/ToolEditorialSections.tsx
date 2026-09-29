@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import {
   BarChart2,
   Code2,
@@ -12,6 +13,9 @@ import {
   BookOpen,
   AlertTriangle,
   Layers,
+  ArrowRight,
+  Globe,
+  Sparkles,
 } from "lucide-react";
 
 // ==========================================
@@ -856,6 +860,369 @@ export const LoremIpsumEditorial: React.FC = () => {
                 While ideal for initial wireframes and design systems, placeholder copy should always be replaced with authentic user copy during content strategy and accessibility auditing to verify real-world container expansion, wrapping, and screen-reader usability.
               </p>
             </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+};
+
+// ==========================================
+// 11. SLUG GENERATOR EDITORIAL
+// ==========================================
+export const SlugGeneratorEditorial: React.FC = () => {
+  return (
+    <div className="space-y-12 pt-6 border-t border-slate-200 dark:border-slate-800">
+      {/* 1. What is a URL Slug & What is a Slug Generator */}
+      <section aria-labelledby="slug-overview-heading" className="space-y-4">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl bg-brand-50 dark:bg-brand-950/50 border border-brand-200 dark:border-brand-800/60 flex items-center justify-center text-brand-600 dark:text-brand-400 shrink-0">
+            <Link2 size={18} />
+          </div>
+          <div>
+            <h2
+              id="slug-overview-heading"
+              className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white tracking-tight"
+            >
+              What is a URL Slug &amp; How Does a Slug Generator Work?
+            </h2>
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              Understanding readable permalinks, character sanitization, and clean URL structure
+            </p>
+          </div>
+        </div>
+
+        <div className="p-6 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-4 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+          <p>
+            A <strong className="text-slate-900 dark:text-white font-semibold">URL slug</strong> is the human-readable, identifying portion at the end of a web address that specifies a particular page or post. For instance, in the URL <code className="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 font-mono text-xs text-brand-600 dark:text-brand-400">https://example.com/blog/how-to-improve-website-seo</code>, the slug is <code className="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 font-mono text-xs">how-to-improve-website-seo</code>. Slugs provide visitors and search engine crawlers with an immediate, clear preview of the topic before the page even loads.
+          </p>
+          <p>
+            A <strong className="text-slate-900 dark:text-white font-semibold">slug generator</strong> automates the transition from editorial headlines to web-ready permalinks. Human titles naturally contain spaces, capital letters, punctuation marks, and special symbols that are either illegal in URLs or cause messy percent-encoded sequences (such as <code className="font-mono text-xs">%20</code> for spaces). The generator sanitizes, normalizes, and converts arbitrary text into a standardized, kebab-case string instantly.
+          </p>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 pt-2">
+            <div className="p-4 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-slate-50/70 dark:bg-slate-950/40 space-y-1.5">
+              <span className="text-xs font-bold text-brand-600 dark:text-brand-400 uppercase tracking-wider flex items-center gap-1.5">
+                <span className="w-5 h-5 rounded-full bg-brand-500/10 flex items-center justify-center text-[11px]">1</span>
+                Input Title
+              </span>
+              <p className="text-xs text-slate-600 dark:text-slate-400">
+                Paste or type your article title, headline, or product name into the editor.
+              </p>
+            </div>
+            <div className="p-4 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-slate-50/70 dark:bg-slate-950/40 space-y-1.5">
+              <span className="text-xs font-bold text-brand-600 dark:text-brand-400 uppercase tracking-wider flex items-center gap-1.5">
+                <span className="w-5 h-5 rounded-full bg-brand-500/10 flex items-center justify-center text-[11px]">2</span>
+                Choose Separator
+              </span>
+              <p className="text-xs text-slate-600 dark:text-slate-400">
+                Select Hyphen (standard for SEO), Underscore, or Dot as your delimiter.
+              </p>
+            </div>
+            <div className="p-4 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-slate-50/70 dark:bg-slate-950/40 space-y-1.5">
+              <span className="text-xs font-bold text-brand-600 dark:text-brand-400 uppercase tracking-wider flex items-center gap-1.5">
+                <span className="w-5 h-5 rounded-full bg-brand-500/10 flex items-center justify-center text-[11px]">3</span>
+                Case Preference
+              </span>
+              <p className="text-xs text-slate-600 dark:text-slate-400">
+                Keep &apos;Lowercase Output&apos; checked to avoid server casing mismatches.
+              </p>
+            </div>
+            <div className="p-4 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-slate-50/70 dark:bg-slate-950/40 space-y-1.5">
+              <span className="text-xs font-bold text-brand-600 dark:text-brand-400 uppercase tracking-wider flex items-center gap-1.5">
+                <span className="w-5 h-5 rounded-full bg-brand-500/10 flex items-center justify-center text-[11px]">4</span>
+                Copy Permalink
+              </span>
+              <p className="text-xs text-slate-600 dark:text-slate-400">
+                Copy the generated slug with one click and paste it into your CMS.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 2. What Makes a Good SEO-Friendly Slug & Hyphens vs Underscores */}
+      <section aria-labelledby="slug-best-practices-heading" className="space-y-4">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-800/60 flex items-center justify-center text-emerald-600 dark:text-emerald-400 shrink-0">
+            <Globe size={18} />
+          </div>
+          <div>
+            <h2
+              id="slug-best-practices-heading"
+              className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white tracking-tight"
+            >
+              What Makes a Good SEO-Friendly Slug?
+            </h2>
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              Pragmatic principles for clean, descriptive, and durable URL structures
+            </p>
+          </div>
+        </div>
+
+        <div className="p-6 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-4 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+          <p>
+            An SEO-friendly slug prioritizes user readability and architectural durability. Search engines evaluate URLs as structural signals that complement page content, though keywords in a URL do not guarantee high rankings. Key best practices include:
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-1">
+            <div className="p-4 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-slate-50/70 dark:bg-slate-950/40 space-y-2">
+              <span className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider flex items-center gap-1.5">
+                <span className="text-emerald-500">✓</span> Recommended Best Practices
+              </span>
+              <ul className="space-y-1.5 text-xs list-disc list-inside text-slate-600 dark:text-slate-400">
+                <li><strong className="text-slate-800 dark:text-slate-200">Concise &amp; Focused:</strong> 3 to 5 key descriptive words that convey the core topic.</li>
+                <li><strong className="text-slate-800 dark:text-slate-200">Consistent Lowercase:</strong> Ensures cross-platform compatibility across Linux/Unix servers.</li>
+                <li><strong className="text-slate-800 dark:text-slate-200">Hyphen-Separated:</strong> Uses hyphens (<code className="font-mono text-[11px]">-</code>) for clean lexical segmentation.</li>
+                <li><strong className="text-slate-800 dark:text-slate-200">Natural Keywords:</strong> Accurately reflects the page topic without forced repetition.</li>
+              </ul>
+            </div>
+
+            <div className="p-4 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-slate-50/70 dark:bg-slate-950/40 space-y-2">
+              <span className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider flex items-center gap-1.5">
+                <span className="text-amber-500">⚡</span> Hyphens vs. Underscores
+              </span>
+              <p className="text-xs text-slate-600 dark:text-slate-400">
+                Search engine indexing systems have historically recognized hyphens as distinct word separators. In contrast, underscores (<code className="font-mono text-[11px]">_</code>) can be treated as word connectors, meaning <code className="font-mono text-[11px]">best_slug_maker</code> may be parsed as a single compound token. Using hyphens ensures clear semantic separation and better visual legibility in browser address bars.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 3. Real Transformation Mechanics & Example Table */}
+      <section aria-labelledby="slug-mechanics-heading" className="space-y-4">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl bg-purple-50 dark:bg-purple-950/50 border border-purple-200 dark:border-purple-800/60 flex items-center justify-center text-purple-600 dark:text-purple-400 shrink-0">
+            <Sparkles size={18} />
+          </div>
+          <div>
+            <h2
+              id="slug-mechanics-heading"
+              className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white tracking-tight"
+            >
+              Removing Accents, Symbols &amp; Special Characters
+            </h2>
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              How our generator accurately normalizes complex input strings in real time
+            </p>
+          </div>
+        </div>
+
+        <div className="p-6 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-4 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+          <p>
+            When raw text is entered, the engine executes multi-stage normalization strictly in client-side memory:
+          </p>
+
+          <ol className="space-y-2 text-xs list-decimal list-inside text-slate-600 dark:text-slate-400">
+            <li><strong className="text-slate-800 dark:text-slate-200">Diacritic Normalization:</strong> Strips accent marks using Unicode decomposition (<code className="font-mono text-[11px]">café</code> becomes <code className="font-mono text-[11px]">cafe</code>, <code className="font-mono text-[11px]">über</code> becomes <code className="font-mono text-[11px]">uber</code>).</li>
+            <li><strong className="text-slate-800 dark:text-slate-200">Symbol Word Replacement:</strong> Replaces common informational symbols with readable English equivalents (<code className="font-mono text-[11px]">&amp;</code> → <code className="font-mono text-[11px]">and</code>, <code className="font-mono text-[11px]">@</code> → <code className="font-mono text-[11px]">at</code>, <code className="font-mono text-[11px]">%</code> → <code className="font-mono text-[11px]">percent</code>).</li>
+            <li><strong className="text-slate-800 dark:text-slate-200">Punctuation Stripping:</strong> Removes unsafe punctuation characters (<code className="font-mono text-[11px]">! ? # $ * ( ) : ; &apos; &quot;</code>) that cause routing or syntax bugs.</li>
+            <li><strong className="text-slate-800 dark:text-slate-200">Whitespace &amp; Delimiter Collapsing:</strong> Replaces spaces, tabs, and consecutive separators with a single clean hyphen, trimming any leading or trailing hyphens.</li>
+          </ol>
+
+          {/* Examples Table */}
+          <div className="overflow-x-auto pt-2">
+            <table className="w-full text-left border-collapse">
+              <thead>
+                <tr className="border-b border-slate-200 dark:border-slate-800 text-xs font-semibold text-slate-900 dark:text-white">
+                  <th className="py-2.5 px-3">Input Title / Headline</th>
+                  <th className="py-2.5 px-3">Generated Slug</th>
+                  <th className="py-2.5 px-3">Transformations Applied</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-100 dark:divide-slate-800/60 text-xs">
+                <tr>
+                  <td className="py-2.5 px-3 font-mono text-slate-700 dark:text-slate-300">Best Free JSON Tools 2026</td>
+                  <td className="py-2.5 px-3 font-mono text-brand-600 dark:text-brand-400">best-free-json-tools-2026</td>
+                  <td className="py-2.5 px-3 text-slate-500 dark:text-slate-400">Lowercased, spaces to hyphens</td>
+                </tr>
+                <tr>
+                  <td className="py-2.5 px-3 font-mono text-slate-700 dark:text-slate-300">Hello World!</td>
+                  <td className="py-2.5 px-3 font-mono text-brand-600 dark:text-brand-400">hello-world</td>
+                  <td className="py-2.5 px-3 text-slate-500 dark:text-slate-400">Stripped exclamation, lowercased</td>
+                </tr>
+                <tr>
+                  <td className="py-2.5 px-3 font-mono text-slate-700 dark:text-slate-300">Café &amp; Restaurant Guide @ 50% Off</td>
+                  <td className="py-2.5 px-3 font-mono text-brand-600 dark:text-brand-400">cafe-and-restaurant-guide-at-50-percent-off</td>
+                  <td className="py-2.5 px-3 text-slate-500 dark:text-slate-400">Accent stripped, &amp; @ % to words</td>
+                </tr>
+                <tr>
+                  <td className="py-2.5 px-3 font-mono text-slate-700 dark:text-slate-300">What is Next.js? (Beginner&apos;s Guide)</td>
+                  <td className="py-2.5 px-3 font-mono text-brand-600 dark:text-brand-400">what-is-nextjs-beginners-guide</td>
+                  <td className="py-2.5 px-3 text-slate-500 dark:text-slate-400">Stripped ?, parentheses, apostrophe, dot</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      {/* 4. CMS Compatibility & Common Slug Mistakes */}
+      <section aria-labelledby="cms-and-mistakes-heading" className="space-y-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {/* CMS Compatibility */}
+          <div className="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-3">
+            <h3 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              🌐 CMS &amp; Platform Compatibility
+            </h3>
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              Clean kebab-case slugs integrate smoothly into any modern content management system or web development framework:
+            </p>
+            <ul className="space-y-1.5 text-xs list-disc list-inside text-slate-600 dark:text-slate-400">
+              <li><strong className="text-slate-800 dark:text-slate-200">WordPress:</strong> Perfect for post and page permalinks under Settings → Permalinks.</li>
+              <li><strong className="text-slate-800 dark:text-slate-200">Shopify:</strong> Ideal for collection handles and product URL paths.</li>
+              <li><strong className="text-slate-800 dark:text-slate-200">Next.js / Nuxt:</strong> Fits standard dynamic file-system routes like <code className="font-mono text-[11px]">app/blog/[slug]/page.tsx</code>.</li>
+              <li><strong className="text-slate-800 dark:text-slate-200">Technical Docs:</strong> Great for markdown anchor links and Hugo/Docusaurus documentation routes.</li>
+            </ul>
+          </div>
+
+          {/* Common Mistakes to Avoid */}
+          <div className="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-3">
+            <h3 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              ⚠️ Common Slug Mistakes to Avoid
+            </h3>
+            <ul className="space-y-2 text-xs text-slate-600 dark:text-slate-400">
+              <li><strong className="text-rose-600 dark:text-rose-400 font-semibold">Excessively Long Slugs:</strong> Slugs with 15+ words get truncated in search snippets and look cluttered on mobile devices.</li>
+              <li><strong className="text-rose-600 dark:text-rose-400 font-semibold">Keyword Stuffing:</strong> Repeating the same term (e.g. <code className="font-mono text-[11px]">best-shoes-cheap-shoes-buy-shoes</code>) triggers spam perceptions and damages click confidence.</li>
+              <li><strong className="text-rose-600 dark:text-rose-400 font-semibold">Random Machine IDs:</strong> Non-descriptive paths like <code className="font-mono text-[11px]">/post/847291</code> fail to communicate context to users and crawlers.</li>
+              <li><strong className="text-rose-600 dark:text-rose-400 font-semibold">Unnecessary Stop Words:</strong> Leaving words like &quot;in the&quot;, &quot;of a&quot; unnecessarily inflates length when they add no clarity.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      {/* 5. URL Slug vs URL Encoding & Contextual Tools */}
+      <section aria-labelledby="slug-vs-encoding-heading" className="space-y-4">
+        <div className="p-6 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-4 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+          <h3 id="slug-vs-encoding-heading" className="text-base font-semibold text-slate-900 dark:text-white flex items-center gap-2">
+            URL Slug vs. URL Encoding: What&apos;s the Difference?
+          </h3>
+          <p>
+            It is common to confuse <strong className="text-slate-900 dark:text-white font-semibold">slug generation</strong> with <strong className="text-slate-900 dark:text-white font-semibold">URL encoding</strong> (percent-encoding), but they serve distinct engineering functions:
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-1">
+            <div className="p-4 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-slate-50/70 dark:bg-slate-950/40 space-y-1.5">
+              <span className="text-xs font-bold text-brand-600 dark:text-brand-400 uppercase tracking-wider">
+                URL Slug Generation
+              </span>
+              <p className="text-xs text-slate-600 dark:text-slate-400">
+                Permanently rewrites, lowercases, and simplifies text into a clean human-readable path. Unsafe symbols are removed or expanded into words for permanent permalink structures.
+              </p>
+            </div>
+
+            <div className="p-4 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-slate-50/70 dark:bg-slate-950/40 space-y-1.5">
+              <span className="text-xs font-bold text-cyan-600 dark:text-cyan-400 uppercase tracking-wider">
+                URL Percent Encoding
+              </span>
+              <p className="text-xs text-slate-600 dark:text-slate-400">
+                Temporarily preserves arbitrary characters by translating them into hexadecimal escape codes (such as space to <code className="font-mono text-[11px]">%20</code>) so they can pass safely across query parameters. For percent-encoding, use our{" "}
+                <Link
+                  href="/tools/url-encoder"
+                  className="text-brand-600 dark:text-brand-400 font-semibold underline underline-offset-2 hover:text-brand-700 dark:hover:text-brand-300"
+                >
+                  URL Encoder / Decoder
+                </Link>.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 6. Contextual Internal Linking Grid */}
+      <section aria-labelledby="slug-related-tools-heading" className="space-y-4">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl bg-blue-50 dark:bg-blue-950/50 border border-blue-200 dark:border-blue-800/60 flex items-center justify-center text-blue-600 dark:text-blue-400 shrink-0">
+            <Layers size={18} />
+          </div>
+          <div>
+            <h2
+              id="slug-related-tools-heading"
+              className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white tracking-tight"
+            >
+              Related Text &amp; URL Utilities
+            </h2>
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              Complementary tools to prepare, sanitize, and measure text before publishing
+            </p>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-2.5">
+            <div className="flex items-center justify-between">
+              <Link
+                href="/tools/url-encoder"
+                className="text-sm font-bold text-slate-900 dark:text-white hover:text-brand-600 dark:hover:text-brand-400 transition-colors inline-flex items-center gap-1.5"
+              >
+                URL Encoder / Decoder <ArrowRight size={14} />
+              </Link>
+              <span className="text-[11px] font-mono text-cyan-600 dark:text-cyan-400">Encoding</span>
+            </div>
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              Convert special characters and query strings into percent-encoded formats for safe web transmissions and API parameters.
+            </p>
+          </div>
+
+          <div className="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-2.5">
+            <div className="flex items-center justify-between">
+              <Link
+                href="/tools/case-converter"
+                className="text-sm font-bold text-slate-900 dark:text-white hover:text-brand-600 dark:hover:text-brand-400 transition-colors inline-flex items-center gap-1.5"
+              >
+                Case Converter <ArrowRight size={14} />
+              </Link>
+              <span className="text-[11px] font-mono text-brand-600 dark:text-brand-400">Transform</span>
+            </div>
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              Convert strings between camelCase, snake_case, PascalCase, Title Case, and uppercase for code identifiers or editorial titles.
+            </p>
+          </div>
+
+          <div className="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-2.5">
+            <div className="flex items-center justify-between">
+              <Link
+                href="/tools/remove-accents"
+                className="text-sm font-bold text-slate-900 dark:text-white hover:text-brand-600 dark:hover:text-brand-400 transition-colors inline-flex items-center gap-1.5"
+              >
+                Remove Accents <ArrowRight size={14} />
+              </Link>
+              <span className="text-[11px] font-mono text-emerald-600 dark:text-emerald-400">Sanitize</span>
+            </div>
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              Strip diacritics and foreign accent marks from international text while preserving base Latin letters.
+            </p>
+          </div>
+
+          <div className="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-2.5">
+            <div className="flex items-center justify-between">
+              <Link
+                href="/tools/remove-special-chars"
+                className="text-sm font-bold text-slate-900 dark:text-white hover:text-brand-600 dark:hover:text-brand-400 transition-colors inline-flex items-center gap-1.5"
+              >
+                Remove Special Characters <ArrowRight size={14} />
+              </Link>
+              <span className="text-[11px] font-mono text-amber-600 dark:text-amber-400">Cleanup</span>
+            </div>
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              Clean messy strings by removing symbols, punctuation, or non-alphanumeric noise from copy and dataset entries.
+            </p>
+          </div>
+
+          <div className="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-2.5">
+            <div className="flex items-center justify-between">
+              <Link
+                href="/tools/word-counter"
+                className="text-sm font-bold text-slate-900 dark:text-white hover:text-brand-600 dark:hover:text-brand-400 transition-colors inline-flex items-center gap-1.5"
+              >
+                Word Counter <ArrowRight size={14} />
+              </Link>
+              <span className="text-[11px] font-mono text-purple-600 dark:text-purple-400">Metrics</span>
+            </div>
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              Measure character lengths and word counts to ensure your article titles and URLs remain within optimal search snippet thresholds.
+            </p>
           </div>
         </div>
       </section>

@@ -320,6 +320,42 @@ export const SEO_BLUEPRINT_MAP: Record<string, ToolSeoBlueprint> = {
       "remove-emojis",
     ],
   },
+  "slug-generator": {
+    slug: "slug-generator",
+    title: "Slug Generator – Free URL Slug & SEO Friendly Slug Maker",
+    metaDescription:
+      "Convert text into clean, SEO-friendly URL slugs instantly. Create lowercase, hyphen-separated slugs for blog posts, pages and website URLs for free.",
+    h1: "Free Slug Generator",
+    aboveTheFoldIntro:
+      "Convert titles, headings or any text into clean SEO-friendly URL slugs instantly. Generate lowercase, hyphen-separated slugs that are ready to use in websites, blogs and CMS platforms.",
+    primaryKeyword: "slug generator",
+    secondaryKeywords: [
+      "slug generator",
+      "url slug generator",
+      "seo slug generator",
+      "slug maker",
+      "url slug maker",
+      "seo friendly url generator",
+      "convert text to slug",
+      "text to slug",
+      "permalink generator",
+      "url slug converter",
+      "website slug generator",
+      "blog slug generator",
+      "clean url generator",
+      "seo friendly slug",
+      "lowercase slug generator",
+      "hyphen url generator",
+    ],
+    popularAnchor: "Free Slug Generator",
+    clusterSlugs: [
+      "url-encoder",
+      "case-converter",
+      "remove-accents",
+      "remove-special-chars",
+      "word-counter",
+    ],
+  },
 };
 
 import { getToolBySlug } from "../tools/index.ts";

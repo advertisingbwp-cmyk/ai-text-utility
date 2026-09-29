@@ -764,32 +764,53 @@ export const TOOL_SPECIFIC_CONTENT: Record<
 
   "slug-generator": {
     howToSteps: [
-      "Type or paste your blog title, product name, or headline into the input.",
-      "Select your separator preference (hyphen `-` or underscore `_`).",
-      "Toggle options such as lowercase conversion and diacritic accent removal.",
-      "Copy the clean, SEO-optimized URL slug.",
+      "Type or paste your article title, page heading, or headline into the input field.",
+      "Choose your preferred separator: Hyphen (`-`), Underscore (`_`), or Dot (`.`). Hyphen is recommended for standard web URLs.",
+      "Toggle the 'Lowercase Output' option to ensure consistent, case-safe permalinks.",
+      "Copy the clean, SEO-friendly URL slug to your clipboard with one click.",
     ],
     features: [
-      "Automatic diacritic and accent normalization (e.g. `café` → `cafe`)",
-      "Strips unsafe characters, punctuation, and symbols that violate URL standards",
-      "Configurable delimiters (hyphens or underscores)",
-      "Strict SEO-friendly kebab-case formatting",
+      "Automatic diacritic and accent normalization via Unicode decomposition (e.g. `café` → `cafe`)",
+      "Converts common symbols to readable text (`&` → `and`, `@` → `at`, `%` → `percent`)",
+      "Strips unsafe punctuation, symbols, and whitespace that violate URL conventions",
+      "Configurable delimiters (Hyphen, Underscore, Dot) with automatic consecutive delimiter collapsing",
+      "100% Client-side execution in your browser memory for total data privacy",
     ],
     faqs: [
       {
         question: "What is a URL slug?",
         answer:
-          "A URL slug is the human-readable part of a web address that identifies a particular page (e.g. in `https://example.com/posts/best-text-tools`, `best-text-tools` is the slug). Clean slugs improve user experience and search engine rankings.",
+          "A URL slug is the human-readable part of a web address that identifies a specific page or post. For example, in the URL `https://example.com/blog/how-to-improve-website-seo`, `how-to-improve-website-seo` is the slug. Slugs give users and search engine crawlers an immediate indication of what content to expect on the page.",
       },
       {
-        question: "Why does the slug generator remove accents and symbols?",
+        question: "How do I create an SEO-friendly slug?",
         answer:
-          "Symbols like `?`, `&`, `=`, and accented characters can cause URL routing errors or convert into messy percent-encoded sequences (like `%20` or `%C3%A9`). Normalizing them produces clean, universally compatible links.",
+          "An effective slug should be concise, descriptive, lowercase, and hyphen-separated. Focus on key descriptive terms that reflect the page topic, remove unnecessary punctuation or special symbols, and avoid excessive stop words. While descriptive slugs improve user clarity and click-through confidence, keywords in URLs do not guarantee search ranking improvements.",
       },
       {
-        question: "Should I use hyphens or underscores for URL slugs?",
+        question: "Should URL slugs use hyphens or underscores?",
         answer:
-          "Google and major search engines strongly recommend hyphens (`-`) rather than underscores (`_`) because search indexers interpret hyphens as word separators while treating underscores as word joiners.",
+          "Hyphens (`-`) are standard and strongly recommended for web URLs. Search engines historically treat hyphens as distinct word separators (indexing `slug-generator` as two words: `slug` and `generator`). Conversely, underscores (`_`) may be treated as joiners (indexing `slug_generator` as a single compound token). Hyphens also offer superior visual legibility in browser address bars and hyperlinks.",
+      },
+      {
+        question: "Should URL slugs always be lowercase?",
+        answer:
+          "Yes. While domain names are case-insensitive, URL paths are case-sensitive on Linux and Unix web servers. Having mixed case like `/Page-Slug` and `/page-slug` can cause broken links, 404 errors, or split link equity across duplicate URLs. Enforcing lowercase slugs ensures consistency across all web browsers and CMS platforms.",
+      },
+      {
+        question: "Can I use spaces in a URL slug?",
+        answer:
+          "No. Spaces are invalid characters in standard URL paths according to RFC 3986. If you leave spaces in a URL, browsers and servers encode them as `%20` or `+`, producing unreadable links like `/my%20new%20post`. A slug generator replaces spaces with clean hyphens for optimal readability.",
+      },
+      {
+        question: "Does a URL slug affect SEO rankings?",
+        answer:
+          "URL slugs contribute to user experience, clarity in search snippets, and social sharing trust. Having clean, descriptive terms in a slug helps visitors understand page relevance before clicking. However, a well-formed slug alone will not guarantee high search rankings; overall content quality, technical performance, and user satisfaction are far more important ranking signals.",
+      },
+      {
+        question: "What is the difference between a slug and URL encoding?",
+        answer:
+          "A slug transforms human titles into simplified, permanent URL paths by lowercasing text, replacing spaces with hyphens, and stripping invalid punctuation. In contrast, URL encoding (percent-encoding) temporarily converts special characters (like spaces to `%20` or `&` to `%26`) so they can be safely passed through query strings without altering the underlying data. If you need query string encoding, explore our [URL Encoder / Decoder](/tools/url-encoder).",
       },
     ],
   },
