@@ -26,13 +26,16 @@ export const AppShell: React.FC<{ children: React.ReactNode }> = ({ children }) 
   }, []);
 
   return (
-    <div className="relative min-h-screen bg-slate-50 dark:bg-[#090d16] text-slate-900 dark:text-slate-100 flex flex-col transition-colors selection:bg-brand-500/20 selection:text-brand-700 dark:selection:text-brand-300 overflow-x-clip">
-      {/* Background Aurora Depth & Engineering Grid */}
+    <div className="relative min-h-screen bg-gradient-to-b from-white via-slate-50/80 to-slate-100/60 dark:from-[#090d16] dark:via-[#0c1222] dark:to-[#060810] text-slate-900 dark:text-slate-100 flex flex-col transition-colors selection:bg-brand-500/20 selection:text-brand-700 dark:selection:text-brand-300 overflow-x-clip">
+      {/* 2026 Lovable & Linear Style Laser Horizon Highlight */}
+      <div className="aurora-laser-line" aria-hidden="true" />
+
+      {/* Atmospheric 3D Aurora Spatial Backdrop System */}
       <div className="aurora-canvas" aria-hidden="true">
-        <div className="aurora-glow-1" />
-        <div className="aurora-glow-2" />
-        <div className="aurora-glow-3" />
-        <div className="aurora-glow-4" />
+        <div className="aurora-horizon-beam" />
+        <div className="aurora-ribbon-left" />
+        <div className="aurora-ribbon-right" />
+        <div className="aurora-center-orb" />
       </div>
       <div className="aurora-grid" aria-hidden="true" />
 
