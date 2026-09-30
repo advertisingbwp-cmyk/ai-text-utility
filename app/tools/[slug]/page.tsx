@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import { TOOLS_REGISTRY, getToolBySlug } from "@/data/toolsRegistry";
 import { getToolEducationalContent } from "@/data/toolFaqs";
 import { getToolSeoBlueprint } from "@/data/seoBlueprint";
@@ -106,6 +106,11 @@ export default async function ToolPage({ params }: PageProps) {
 
   if (!tool) {
     notFound();
+  }
+
+  // Canonical redirect for legacy / alternate aliases
+  if (slug !== tool.slug) {
+    permanentRedirect(`/tools/${tool.slug}`);
   }
 
   const baseUrl =
