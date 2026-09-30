@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { Search, ArrowRight, ShieldCheck, Zap, Lock, Sparkles, Check, RefreshCw } from "lucide-react";
+import { TOOLS_REGISTRY } from "@/data/toolsRegistry";
 
 interface DemoPreset {
   id: string;
@@ -22,7 +23,7 @@ const PRESETS: DemoPreset[] = [
     metrics: [
       { label: "Excess Spaces", value: "-14" },
       { label: "Tabs Preserved", value: "1" },
-      { label: "Execution", value: "<0.1ms" },
+      { label: "Processing", value: "In-Browser" },
     ],
   },
   {
@@ -54,6 +55,7 @@ const PRESETS: DemoPreset[] = [
 export const TerminalHero: React.FC = () => {
   const [activePreset, setActivePreset] = useState<DemoPreset>(PRESETS[0]);
   const [copied, setCopied] = useState(false);
+  const totalTools = TOOLS_REGISTRY.length;
 
   const handleCopy = () => {
     navigator.clipboard.writeText(activePreset.output);
@@ -76,7 +78,7 @@ export const TerminalHero: React.FC = () => {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
               <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
             </span>
-            <span>Modern Aurora Utility Suite · 46+ Tools</span>
+            <span>Modern Aurora Utility Suite · {totalTools} Tools</span>
           </div>
 
           {/* Primary H1 */}
@@ -90,8 +92,7 @@ export const TerminalHero: React.FC = () => {
 
           {/* Value Proposition */}
           <p className="text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed max-w-xl">
-            Format, inspect, convert, and clean text instantly with browser-native execution.
-            Professional client-side utilities engineered for developers, writers, and technical workflows.
+            Fast, reliable text utilities for developers, writers, and technical workflows. Most standard utilities run locally in your browser, while AI tools use secure server-side requests.
           </p>
 
           {/* CTA Buttons */}
@@ -103,7 +104,7 @@ export const TerminalHero: React.FC = () => {
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-5 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white dark:bg-brand-600 dark:hover:bg-brand-500 font-semibold text-xs sm:text-sm shadow-md hover:shadow-lg transition-all duration-180 active:scale-[0.98] cursor-pointer"
             >
               <Search size={15} aria-hidden="true" />
-              <span>Search 46+ Tools</span>
+              <span>Search {totalTools} Tools</span>
               <kbd className="ml-1 text-[11px] font-mono px-1.5 py-0.5 rounded bg-white/20 dark:bg-black/20 text-white/90">
                 ⌘K
               </kbd>
@@ -125,8 +126,8 @@ export const TerminalHero: React.FC = () => {
                 <ShieldCheck size={16} aria-hidden="true" />
               </div>
               <div>
-                <div className="text-xs font-bold text-slate-900 dark:text-white">Local In-Browser</div>
-                <div className="text-[11px] text-slate-500 dark:text-slate-400 hidden sm:block">Private memory execution</div>
+                <div className="text-xs font-bold text-slate-900 dark:text-white">Standard Tools Local</div>
+                <div className="text-[11px] text-slate-500 dark:text-slate-400 hidden sm:block">In-browser processing</div>
               </div>
             </div>
 
@@ -135,8 +136,8 @@ export const TerminalHero: React.FC = () => {
                 <Zap size={16} aria-hidden="true" />
               </div>
               <div>
-                <div className="text-xs font-bold text-slate-900 dark:text-white">Instant Output</div>
-                <div className="text-[11px] text-slate-500 dark:text-slate-400 hidden sm:block">Microsecond compute</div>
+                <div className="text-xs font-bold text-slate-900 dark:text-white">Fast Local Processing</div>
+                <div className="text-[11px] text-slate-500 dark:text-slate-400 hidden sm:block">Standard deterministic tools</div>
               </div>
             </div>
 
@@ -145,8 +146,8 @@ export const TerminalHero: React.FC = () => {
                 <Lock size={16} aria-hidden="true" />
               </div>
               <div>
-                <div className="text-xs font-bold text-slate-900 dark:text-white">Private by Design</div>
-                <div className="text-[11px] text-slate-500 dark:text-slate-400 hidden sm:block">No server storage</div>
+                <div className="text-xs font-bold text-slate-900 dark:text-white">Privacy Distinctions</div>
+                <div className="text-[11px] text-slate-500 dark:text-slate-400 hidden sm:block">AI server calls explicit</div>
               </div>
             </div>
           </div>
