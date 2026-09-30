@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { CommandPalette } from "@/components/CommandPalette";
+import { CursorGlow } from "@/components/CursorGlow";
 
 export const AppShell: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [paletteOpen, setPaletteOpen] = useState(false);
@@ -26,18 +27,21 @@ export const AppShell: React.FC<{ children: React.ReactNode }> = ({ children }) 
   }, []);
 
   return (
-    <div className="relative min-h-screen bg-gradient-to-b from-white via-slate-50/80 to-slate-100/60 dark:from-[#090d16] dark:via-[#0c1222] dark:to-[#060810] text-slate-900 dark:text-slate-100 flex flex-col transition-colors selection:bg-brand-500/20 selection:text-brand-700 dark:selection:text-brand-300 overflow-x-clip">
-      {/* 2026 Lovable & Linear Style Laser Horizon Highlight */}
-      <div className="aurora-laser-line" aria-hidden="true" />
-
-      {/* Atmospheric 3D Aurora Spatial Backdrop System */}
-      <div className="aurora-canvas" aria-hidden="true">
-        <div className="aurora-horizon-beam" />
-        <div className="aurora-ribbon-left" />
-        <div className="aurora-ribbon-right" />
-        <div className="aurora-center-orb" />
+    <div className="relative min-h-screen text-slate-900 dark:text-slate-100 flex flex-col transition-colors selection:bg-brand-500/20 selection:text-brand-700 dark:selection:text-brand-300 overflow-x-clip">
+      {/* Modern Liquid Glass Aurora Spatial Backdrop System */}
+      <div className="aurora-canvas pointer-events-none select-none" aria-hidden="true">
+        <div className="aurora-ambient-glows" />
+        <div className="liquid-wave-left" />
+        <div className="liquid-wave-center-right" />
+        <div className="liquid-wave-bottom-right" />
+        <div className="liquid-wave-far-right" />
+        <div className="liquid-glass-sphere-1" />
+        <div className="liquid-glass-sphere-2" />
+        <div className="search-ambient-glow" />
       </div>
-      <div className="aurora-grid" aria-hidden="true" />
+
+      {/* Desktop Subtle Cursor-Following Radial Glow */}
+      <CursorGlow />
 
       {/* Main App Content Stack */}
       <div className="relative z-10 flex flex-col flex-1">

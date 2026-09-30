@@ -39,131 +39,355 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Atmospheric Aurora Backdrop System (Lovable & Linear 3D Spatial Theme) */
+/* Atmospheric Aurora Backdrop System (Modern Liquid Glass Aurora Theme) */
 .aurora-canvas {
   position: fixed;
   inset: 0;
   pointer-events: none;
   z-index: 0;
   overflow: hidden;
+  background: linear-gradient(135deg, #F8FBFF 0%, #EEF6FF 40%, #F5F9FF 75%, #FAF5FF 100%);
 }
 
-/* Luminous Top Horizon Beam (Floods the viewport with radiant 3D light) */
-.aurora-horizon-beam {
+.dark .aurora-canvas {
+  background: linear-gradient(135deg, #090d16 0%, #0d1322 40%, #0a0e1a 75%, #100b18 100%);
+}
+
+/* Ambient Radial Glow Cloud */
+.aurora-ambient-glows {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 14% 32%, rgba(168, 240, 244, 0.50), transparent 42%),
+    radial-gradient(circle at 28% 46%, rgba(127, 196, 255, 0.42), transparent 45%),
+    radial-gradient(circle at 72% 28%, rgba(169, 216, 255, 0.38), transparent 40%),
+    radial-gradient(circle at 86% 24%, rgba(184, 165, 255, 0.32), transparent 42%),
+    radial-gradient(circle at 95% 42%, rgba(242, 180, 232, 0.28), transparent 36%),
+    radial-gradient(circle at 50% 68%, rgba(168, 240, 244, 0.22), transparent 45%);
+  filter: blur(48px);
+}
+
+.dark .aurora-ambient-glows {
+  background:
+    radial-gradient(circle at 14% 32%, rgba(14, 165, 233, 0.25), transparent 42%),
+    radial-gradient(circle at 72% 28%, rgba(99, 102, 241, 0.25), transparent 40%),
+    radial-gradient(circle at 95% 42%, rgba(236, 72, 153, 0.20), transparent 36%);
+  filter: blur(60px);
+}
+
+/* Wave 1: Top-Left Cyan/Sky Liquid Glass Swell */
+.liquid-wave-left {
   position: absolute;
   top: -100px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 110vw;
-  height: 540px;
-  background: radial-gradient(
-    ellipse 75% 60% at 50% 25%,
-    rgba(99, 102, 241, 0.45) 0%,
-    rgba(56, 189, 248, 0.38) 32%,
-    rgba(236, 72, 153, 0.26) 58%,
-    transparent 80%
-  );
-  filter: blur(65px);
-}
-
-.dark .aurora-horizon-beam {
-  background: radial-gradient(
-    ellipse 75% 60% at 50% 25%,
-    rgba(99, 102, 241, 0.32) 0%,
-    rgba(56, 189, 248, 0.24) 32%,
-    rgba(236, 72, 153, 0.18) 58%,
-    transparent 80%
-  );
-  filter: blur(75px);
-}
-
-/* Sweeping Cyan-Blue Left Ribbon */
-.aurora-ribbon-left {
-  position: absolute;
-  top: -12%;
-  left: -14%;
-  width: 60vw;
-  height: 72vh;
-  border-radius: 9999px;
-  background: radial-gradient(
-    ellipse at 40% 40%,
-    rgba(6, 182, 212, 0.48) 0%,
-    rgba(59, 130, 246, 0.38) 42%,
-    transparent 72%
-  );
-  filter: blur(80px);
-  transform: rotate(-15deg);
-}
-
-/* Sweeping Violet-Fuchsia Right Ribbon */
-.aurora-ribbon-right {
-  position: absolute;
-  top: -8%;
-  right: -12%;
-  width: 58vw;
-  height: 70vh;
-  border-radius: 9999px;
-  background: radial-gradient(
-    ellipse at 60% 40%,
-    rgba(168, 85, 247, 0.45) 0%,
-    rgba(244, 63, 94, 0.35) 45%,
-    transparent 72%
-  );
-  filter: blur(80px);
-  transform: rotate(15deg);
-}
-
-/* Ambient Center Light Orb (Behind Preview and Search) */
-.aurora-center-orb {
-  position: absolute;
-  top: 160px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 52vw;
-  height: 420px;
-  border-radius: 9999px;
-  background: radial-gradient(
-    circle,
-    rgba(129, 140, 248, 0.30) 0%,
-    rgba(56, 189, 248, 0.22) 45%,
-    transparent 72%
-  );
-  filter: blur(85px);
-}
-
-/* 2026 Laser Horizon Highlight Line */
-.aurora-laser-line {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
+  left: -80px;
+  width: 680px;
+  height: 600px;
+  border-radius: 46% 54% 58% 42% / 44% 56% 44% 56%;
   background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(56, 189, 248, 0.85) 20%,
-    rgba(139, 92, 246, 0.95) 50%,
-    rgba(244, 63, 94, 0.85) 80%,
+    135deg,
+    rgba(255, 255, 255, 0.82) 0%,
+    rgba(168, 240, 244, 0.48) 32%,
+    rgba(127, 196, 255, 0.32) 68%,
     transparent 100%
   );
-  box-shadow: 0 0 16px rgba(139, 92, 246, 0.6);
-  z-index: 20;
+  border: 1.5px solid rgba(255, 255, 255, 0.85);
+  box-shadow: 
+    0 24px 60px rgba(14, 165, 233, 0.12),
+    inset 0 3px 20px rgba(255, 255, 255, 0.95);
+  filter: blur(1px);
+  transform: rotate(-8deg);
 }
 
-/* Modern 3D Spatial Grid (Crisp Dots with Curved Mask) */
-.aurora-grid {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-  background-image: radial-gradient(rgba(99, 102, 241, 0.22) 1.5px, transparent 1.5px);
-  background-size: 28px 28px;
-  mask-image: radial-gradient(ellipse 90% 65% at 50% 20%, #000 65%, transparent 100%);
-  -webkit-mask-image: radial-gradient(ellipse 90% 65% at 50% 20%, #000 65%, transparent 100%);
+.dark .liquid-wave-left {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(14, 165, 233, 0.18) 32%, transparent 100%);
+  border: 1.5px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
 }
 
-.dark .aurora-grid {
-  background-image: radial-gradient(rgba(148, 163, 184, 0.14) 1.25px, transparent 1.25px);
+/* Wave 2: Center-Right Preview Card Halo Glass Pod */
+.liquid-wave-center-right {
+  position: absolute;
+  top: -40px;
+  right: 2%;
+  width: 780px;
+  height: 560px;
+  border-radius: 52% 48% 44% 56% / 48% 52% 48% 52%;
+  background: linear-gradient(
+    140deg,
+    rgba(255, 255, 255, 0.75) 0%,
+    rgba(169, 216, 255, 0.38) 28%,
+    rgba(184, 165, 255, 0.25) 65%,
+    rgba(242, 180, 232, 0.18) 100%
+  );
+  border: 2px solid rgba(255, 255, 255, 0.9);
+  box-shadow: 
+    0 30px 80px rgba(58, 111, 220, 0.14),
+    0 8px 30px rgba(106, 76, 255, 0.08),
+    inset 0 4px 30px rgba(255, 255, 255, 0.95);
+  filter: blur(0.5px);
+  transform: rotate(6deg);
+}
+
+.dark .liquid-wave-center-right {
+  background: linear-gradient(140deg, rgba(255, 255, 255, 0.06) 0%, rgba(99, 102, 241, 0.16) 40%, rgba(236, 72, 153, 0.10) 100%);
+  border: 2px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+}
+
+/* Wave 3: Bottom-Right Violet/Lavender Liquid Crest */
+.liquid-wave-bottom-right {
+  position: absolute;
+  top: 380px;
+  right: -60px;
+  width: 660px;
+  height: 500px;
+  border-radius: 56% 44% 52% 48% / 48% 52% 48% 52%;
+  background: linear-gradient(
+    130deg,
+    rgba(255, 255, 255, 0.7) 0%,
+    rgba(184, 165, 255, 0.36) 35%,
+    rgba(154, 124, 255, 0.22) 70%,
+    transparent 100%
+  );
+  border: 1.5px solid rgba(255, 255, 255, 0.85);
+  box-shadow: 
+    0 24px 60px rgba(139, 92, 246, 0.12),
+    inset 0 3px 24px rgba(255, 255, 255, 0.9);
+  filter: blur(1px);
+  transform: rotate(-10deg);
+}
+
+.dark .liquid-wave-bottom-right {
+  background: linear-gradient(130deg, rgba(255, 255, 255, 0.05) 0%, rgba(139, 92, 246, 0.16) 40%, transparent 100%);
+  border: 1.5px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
+}
+
+/* Wave 4: Far-Right Soft Pink Highlight */
+.liquid-wave-far-right {
+  position: absolute;
+  top: 60px;
+  right: -80px;
+  width: 320px;
+  height: 580px;
+  border-radius: 9999px;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(242, 180, 232, 0.35) 0%,
+    rgba(184, 165, 255, 0.20) 45%,
+    transparent 75%
+  );
+  filter: blur(45px);
+  animation: pulse-ambient 22s ease-in-out infinite alternate;
+}
+
+.dark .liquid-wave-far-right {
+  background: radial-gradient(ellipse at center, rgba(236, 72, 153, 0.18) 0%, transparent 70%);
+  filter: blur(55px);
+}
+
+/* 3D Floating Translucent Glass Spheres (Matching Reference) */
+.liquid-glass-sphere-1 {
+  position: absolute;
+  top: 520px;
+  left: 42%;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 35% 30%,
+    rgba(255, 255, 255, 0.95) 0%,
+    rgba(168, 240, 244, 0.55) 25%,
+    rgba(127, 196, 255, 0.40) 60%,
+    rgba(184, 165, 255, 0.25) 90%
+  );
+  border: 1.5px solid rgba(255, 255, 255, 0.9);
+  box-shadow: 
+    0 16px 36px rgba(56, 189, 248, 0.22),
+    inset 0 4px 16px rgba(255, 255, 255, 0.95);
+  animation: float-sphere-1 18s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+.liquid-glass-sphere-2 {
+  position: absolute;
+  top: 140px;
+  right: 28%;
+  width: 74px;
+  height: 74px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 35% 30%,
+    rgba(255, 255, 255, 0.9) 0%,
+    rgba(184, 165, 255, 0.45) 35%,
+    rgba(168, 240, 244, 0.35) 75%
+  );
+  border: 1.5px solid rgba(255, 255, 255, 0.85);
+  box-shadow: 
+    0 12px 28px rgba(139, 92, 246, 0.18),
+    inset 0 2px 10px rgba(255, 255, 255, 0.9);
+  animation: float-sphere-2 24s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+.dark .liquid-glass-sphere-1,
+.dark .liquid-glass-sphere-2 {
+  opacity: 0.45;
+}
+
+/* Search Bar Ambient Glow */
+.search-ambient-glow {
+  position: absolute;
+  top: 480px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 620px;
+  height: 180px;
+  border-radius: 9999px;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(169, 216, 255, 0.40) 0%,
+    rgba(184, 165, 255, 0.28) 42%,
+    transparent 70%
+  );
+  filter: blur(48px);
+  animation: pulse-ambient 20s ease-in-out infinite alternate;
+}
+
+.dark .search-ambient-glow {
+  background: radial-gradient(ellipse at center, rgba(99, 102, 241, 0.22) 0%, transparent 70%);
+  filter: blur(55px);
+}
+
+/* Animation Assignments (18s - 26s ultra-subtle GPU floating) */
+.liquid-wave-left {
+  animation: float-wave-left 22s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+.liquid-wave-center-right {
+  animation: float-wave-center 26s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+.liquid-wave-bottom-right {
+  animation: float-wave-bottom 24s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+.aurora-ambient-glows {
+  animation: pulse-ambient 24s ease-in-out infinite alternate;
+}
+
+/* Keyframe Definitions */
+@keyframes float-wave-left {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(-8deg) scale(1);
+  }
+  50% {
+    transform: translate3d(14px, -16px, 0) rotate(-6.5deg) scale(1.02);
+  }
+  100% {
+    transform: translate3d(-10px, 12px, 0) rotate(-9.5deg) scale(0.99);
+  }
+}
+
+@keyframes float-wave-center {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(6deg) scale(1);
+  }
+  50% {
+    transform: translate3d(-16px, 14px, 0) rotate(7.5deg) scale(1.025);
+  }
+  100% {
+    transform: translate3d(12px, -12px, 0) rotate(5deg) scale(0.985);
+  }
+}
+
+@keyframes float-wave-bottom {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(-10deg) scale(1);
+  }
+  50% {
+    transform: translate3d(15px, 12px, 0) rotate(-8.5deg) scale(1.02);
+  }
+  100% {
+    transform: translate3d(-12px, -14px, 0) rotate(-11.5deg) scale(0.99);
+  }
+}
+
+@keyframes float-sphere-1 {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(-18px, -24px, 0) scale(1.06);
+  }
+  100% {
+    transform: translate3d(14px, 16px, 0) scale(0.96);
+  }
+}
+
+@keyframes float-sphere-2 {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(16px, -18px, 0) scale(1.05);
+  }
+  100% {
+    transform: translate3d(-12px, 14px, 0) scale(0.95);
+  }
+}
+
+@keyframes pulse-ambient {
+  0% {
+    opacity: 0.85;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.04);
+  }
+  100% {
+    opacity: 0.88;
+    transform: scale(0.98);
+  }
+}
+
+/* Reduced Motion Safety */
+@media (prefers-reduced-motion: reduce) {
+  .liquid-wave-left,
+  .liquid-wave-center-right,
+  .liquid-wave-bottom-right,
+  .liquid-wave-far-right,
+  .liquid-glass-sphere-1,
+  .liquid-glass-sphere-2,
+  .search-ambient-glow,
+  .aurora-ambient-glows {
+    animation: none !important;
+    transform: none !important;
+  }
+}
+
+/* Mobile responsive scaling */
+@media (max-width: 768px) {
+  .liquid-wave-left {
+    width: 360px;
+    height: 340px;
+    top: -50px;
+    left: -50px;
+  }
+  .liquid-wave-center-right {
+    width: 380px;
+    height: 320px;
+    right: -40px;
+  }
+  .liquid-wave-bottom-right,
+  .liquid-glass-sphere-1,
+  .liquid-glass-sphere-2 {
+    display: none;
+  }
 }
 
 /* Modern Card Micro-interactions */
@@ -335,16 +559,16 @@ body {
 /* 3D Floating Hero Showcase Card */
 .hero-card-3d {
   box-shadow:
-    0 24px 60px -12px rgba(15, 23, 42, 0.14),
-    0 12px 24px -6px rgba(15, 23, 42, 0.08),
+    0 30px 80px rgba(58, 111, 220, 0.14),
+    0 8px 30px rgba(106, 76, 255, 0.08),
     inset 0 1px 1px rgba(255, 255, 255, 1),
     inset 0 -1px 2px rgba(0, 0, 0, 0.03);
 }
 
 .dark .hero-card-3d {
   box-shadow:
-    0 24px 60px -12px rgba(0, 0, 0, 0.55),
-    0 12px 24px -6px rgba(0, 0, 0, 0.4),
+    0 30px 80px rgba(0, 0, 0, 0.55),
+    0 8px 30px rgba(0, 0, 0, 0.4),
     inset 0 1px 1px rgba(255, 255, 255, 0.1);
 }
 
