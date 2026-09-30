@@ -24,6 +24,7 @@ import {
   UnixTimestampEditorial,
   FancyFontsEditorial,
   AiFriendlyEditorial,
+  RemoveSpecialCharsEditorial,
 } from "@/components/seo/ToolEditorialSections";
 import {
   Check,
@@ -87,6 +88,7 @@ const EDITORIAL_MAP: Record<string, React.FC> = {
   "hash-generator": HashGeneratorEditorial,
   "unix-timestamp": UnixTimestampEditorial,
   "ai-friendly": AiFriendlyEditorial,
+  "remove-special-chars": RemoveSpecialCharsEditorial,
 };
 
 export const ToolSeoContent: React.FC<ToolSeoContentProps> = ({ tool }) => {

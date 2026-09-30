@@ -595,6 +595,39 @@ export const SEO_BLUEPRINT_MAP: Record<string, ToolSeoBlueprint> = {
       "ai-summarize",
     ],
   },
+  "remove-special-chars": {
+    slug: "remove-special-chars",
+    title: "Remove Special Characters from Text Online – Free Tool",
+    metaDescription:
+      "Remove special characters, symbols and unwanted punctuation from text online. Keep letters, numbers, spaces or selected characters with this free browser-based tool.",
+    h1: "Remove Special Characters from Text",
+    aboveTheFoldIntro:
+      "Remove unwanted symbols and special characters from text while keeping letters, numbers, spaces, punctuation or custom characters based on your selected cleanup mode.",
+    primaryKeyword: "remove special characters",
+    secondaryKeywords: [
+      "remove special characters online",
+      "remove special characters from text",
+      "special character remover",
+      "remove symbols from text",
+      "remove punctuation from text",
+      "remove non alphanumeric characters",
+      "alphanumeric text cleaner",
+      "strip special characters",
+      "clean special characters from text",
+      "remove unwanted characters",
+      "remove symbols online",
+      "text special character remover",
+      "remove non alphanumeric characters online",
+    ],
+    popularAnchor: "Remove Special Characters",
+    clusterSlugs: [
+      "remove-extra-spaces",
+      "remove-emojis",
+      "remove-accents",
+      "slug-generator",
+      "regex-tester",
+    ],
+  },
 };
 
 

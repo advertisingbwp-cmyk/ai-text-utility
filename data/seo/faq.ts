@@ -1602,37 +1602,52 @@ export const TOOL_SPECIFIC_CONTENT: Record<
 
   "remove-special-chars": {
     howToSteps: [
-      "Paste text containing symbols, punctuation, or unwanted characters into the box.",
-      "Select what characters to keep: Letters, Numbers, and optionally Spaces or Punctuation.",
-      "The tool filters out all unwanted non-alphanumeric characters in real time.",
-      "Copy the sanitized alphanumeric text.",
+      "Paste or type your text containing symbols, punctuation, or unwanted characters into the input area.",
+      "Select your preferred filter mode: Alphanumeric Only, Keep Standard Punctuation, or Custom Allowed List.",
+      "If using Custom mode, enter any symbols you wish to retain into the Allowed Characters field.",
+      "Copy the cleaned, filtered text to your clipboard with one click.",
     ],
     features: [
-      "Strips symbols, non-printable characters, and punctuation with custom exception rules",
-      "Preserves letters (including accented characters) and numbers",
-      "Configurable options to keep whitespace and basic punctuation",
-      "Safe client-side sanitization preventing SQL or command injection bugs",
+      "Three filtering modes: Alphanumeric Only, Keep Standard Punctuation, and Custom Allowed List",
+      "Full Unicode support preserving accented Latin and international alphabets via Unicode property classes",
+      "Automatic whitespace and newline preservation with redundant space collapsing",
+      "Client-side browser processing with zero server transmission for complete privacy",
     ],
     faqs: [
       {
-        question: "Which characters are considered special characters?",
+        question: "How do I remove special characters from text?",
         answer:
-          "Special characters include punctuation marks, mathematical symbols, currency symbols, and control codes (e.g. `@`, `#`, `$`, `%`, `^`, `&`, `*`, `~`). Alphanumeric letters and numbers are preserved.",
+          "Paste or type your text into the input area, select your desired filter mode (Alphanumeric Only, Keep Standard Punctuation, or Custom Allowed List), and optionally specify custom symbols to preserve. The tool removes unwanted characters instantly, and you can copy the cleaned text directly to your clipboard.",
       },
       {
-        question: "Can I keep spaces and hyphens while removing other symbols?",
+        question: "What counts as a special character?",
         answer:
-          "Yes. You can toggle checkboxes to preserve spaces, hyphens, and basic punctuation marks so that your sentences remain readable.",
+          "Special characters encompass symbols outside standard alphanumeric letters and digits. These include typographical symbols (@, #, %, ^, &, *, ~), currency signs ($, €, £), mathematical operators (+, =, <, >), and emojis. Punctuation marks (. , ! ? ' \" - : ; ( )) can either be removed or preserved depending on whether you choose Alphanumeric Only or Keep Standard Punctuation.",
       },
       {
-        question: "Is this tool useful for preparing database inputs or filenames?",
+        question: "Can I keep spaces while removing symbols?",
         answer:
-          "Yes. Sanitizing filenames and database keys by removing special characters prevents path traversal bugs, syntax errors, and injection vulnerabilities.",
+          "Yes. The tool automatically preserves spaces, line breaks, and paragraph returns so your text layout remains intact. Multiple consecutive spaces created by stripped symbols are also automatically collapsed into a single clean space.",
       },
       {
-        question: "How do I strip or generate aesthetic Unicode symbols and combining marks?",
+        question: "Can I keep punctuation but remove other symbols?",
         answer:
-          "This tool strips out unwanted special symbols, punctuation, and combining marks from messy text. Conversely, if you want to generate decorative Unicode text, symbols, or aesthetic lettering, check out our [Fancy Font Generator](/tools/fancy-fonts).",
+          "Yes. Selecting the Keep Standard Punctuation mode retains periods, commas, exclamation points, question marks, apostrophes, quotation marks, hyphens, colons, semicolons, and parentheses (. , ! ? ' \" - : ; ( )), while stripping non-punctuation symbols like currency signs, math operators, hash tags, and emojis.",
+      },
+      {
+        question: "Does the tool support accented and non-English letters?",
+        answer:
+          "Yes. The tool uses Unicode property classes (\\p{L} for letters and \\p{N} for numbers) with the Unicode flag enabled. This ensures accented Latin characters (é, ñ, ü, ç) as well as non-Latin alphabets (such as Arabic, Cyrillic, Greek, Hebrew, and Devanagari) are properly recognized as letters and preserved.",
+      },
+      {
+        question: "Can I choose which special characters to keep?",
+        answer:
+          "Yes. Select the Custom Allowed List mode from the dropdown and type your allowed characters into the input box. For instance, entering @. preserves email formatting, or entering -_/ preserves file paths and SKU numbers while stripping all other symbols.",
+      },
+      {
+        question: "Is removing special characters the same as sanitizing user input?",
+        answer:
+          "No. Removing special characters is a text cleanup and formatting utility, not a security boundary. Removing symbols is not a substitute for context-aware input validation, escaping, or security sanitization in web applications, such as parameterized database queries or HTML entity encoding.",
       },
     ],
   },

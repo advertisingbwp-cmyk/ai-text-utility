@@ -30,6 +30,7 @@ import {
   Smile,
   MessageSquare,
   Lightbulb,
+  Sliders,
 } from "lucide-react";
 
 // ==========================================
@@ -4984,6 +4985,509 @@ export const AiFriendlyEditorial: React.FC = () => {
             </div>
             <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
               Condense lengthy documents, articles, and meeting notes into prioritized bullet points and core takeaways.
+            </p>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+};
+
+// ==========================================
+// 19. REMOVE SPECIAL CHARACTERS EDITORIAL
+// ==========================================
+export const RemoveSpecialCharsEditorial: React.FC = () => {
+  return (
+    <div className="space-y-12 pt-6 border-t border-slate-200 dark:border-slate-800">
+      {/* 1. What Does a Special Character Remover Do? */}
+      <section aria-labelledby="special-chars-guide-heading" className="space-y-4">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl bg-brand-50 dark:bg-brand-950/50 border border-brand-200 dark:border-brand-800/60 flex items-center justify-center text-brand-600 dark:text-brand-400 shrink-0">
+            <Sparkles size={18} />
+          </div>
+          <div>
+            <h2
+              id="special-chars-guide-heading"
+              className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white tracking-tight"
+            >
+              Online Special Character Remover: Clean Symbols &amp; Punctuation Instantly
+            </h2>
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              Fast, browser-based text filtering for developers, writers, data analysts, and content teams
+            </p>
+          </div>
+        </div>
+
+        <div className="p-6 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-4 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+          <p>
+            When importing raw data, copying text from PDF documents, or preparing text for database queries and URL slugs, strings frequently contain unwanted symbols, stray punctuation, currency signs, and non-printable control characters. Manually deleting these characters is tedious, error-prone, and impractical for large datasets.
+          </p>
+          <p>
+            The <strong>Remove Special Characters</strong> tool provides instant, client-side text filtering. By leveraging modern Unicode regular expressions (specifically the Unicode letter property <code className="text-brand-600 dark:text-brand-400 bg-slate-100 dark:bg-slate-800 px-1 py-0.5 rounded font-mono text-[11px]">\p&#123;L&#125;</code> and number property <code className="text-brand-600 dark:text-brand-400 bg-slate-100 dark:bg-slate-800 px-1 py-0.5 rounded font-mono text-[11px]">\p&#123;N&#125;</code>), the tool accurately distinguishes between valid multilingual letters, numbers, and intrusive non-alphanumeric noise.
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
+            <div className="p-3.5 rounded-xl border border-slate-200/80 dark:border-slate-800 bg-slate-50 dark:bg-slate-950/60 space-y-1">
+              <span className="font-semibold text-slate-900 dark:text-white text-xs block">Alphanumeric Filter</span>
+              <p className="text-[11px] text-slate-500 dark:text-slate-400">
+                Strips all symbols, currency signs, and punctuation while preserving letters and numbers.
+              </p>
+            </div>
+            <div className="p-3.5 rounded-xl border border-slate-200/80 dark:border-slate-800 bg-slate-50 dark:bg-slate-950/60 space-y-1">
+              <span className="font-semibold text-slate-900 dark:text-white text-xs block">Keep Punctuation</span>
+              <p className="text-[11px] text-slate-500 dark:text-slate-400">
+                Retains standard sentence punctuation (. , ! ? &apos; &quot; - : ; ( )) while stripping decorative symbols.
+              </p>
+            </div>
+            <div className="p-3.5 rounded-xl border border-slate-200/80 dark:border-slate-800 bg-slate-50 dark:bg-slate-950/60 space-y-1">
+              <span className="font-semibold text-slate-900 dark:text-white text-xs block">Custom Allowed List</span>
+              <p className="text-[11px] text-slate-500 dark:text-slate-400">
+                Specify exact symbols to preserve alongside alphanumeric text (e.g., @ and . for email addresses).
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 2. Before & After Transformation Examples */}
+      <section aria-labelledby="examples-heading" className="space-y-4">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl bg-indigo-50 dark:bg-indigo-950/50 border border-indigo-200 dark:border-indigo-800/60 flex items-center justify-center text-indigo-600 dark:text-indigo-400 shrink-0">
+            <BookOpen size={18} />
+          </div>
+          <div>
+            <h2
+              id="examples-heading"
+              className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white tracking-tight"
+            >
+              Before &amp; After Transformation Examples
+            </h2>
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              See how different filtering modes handle messy inputs, symbols, and formatting
+            </p>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {/* Example 1 */}
+          <div className="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle flex flex-col justify-between space-y-3">
+            <div className="space-y-2">
+              <span className="inline-block text-[11px] font-semibold text-brand-600 dark:text-brand-400 uppercase tracking-wider">
+                Mode: Alphanumeric Only
+              </span>
+              <div className="space-y-1">
+                <span className="text-[11px] text-slate-400 uppercase font-mono">Original Input:</span>
+                <div className="p-2.5 rounded-lg bg-slate-100 dark:bg-slate-800/80 font-mono text-xs text-rose-600 dark:text-rose-400 break-all">
+                  Hello, World! @#2026 $$$
+                </div>
+              </div>
+              <div className="space-y-1">
+                <span className="text-[11px] text-slate-400 uppercase font-mono">Cleaned Output:</span>
+                <div className="p-2.5 rounded-lg bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200/60 dark:border-emerald-800/60 font-mono text-xs text-emerald-700 dark:text-emerald-300 break-all">
+                  Hello World 2026
+                </div>
+              </div>
+            </div>
+            <p className="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed pt-2 border-t border-slate-100 dark:border-slate-800">
+              Punctuation (<code>,</code>, <code>!</code>), hashtags (<code>#</code>), mentions (<code>@</code>), and currency signs (<code>$</code>) are stripped. Spacing between words is preserved.
+            </p>
+          </div>
+
+          {/* Example 2 */}
+          <div className="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle flex flex-col justify-between space-y-3">
+            <div className="space-y-2">
+              <span className="inline-block text-[11px] font-semibold text-indigo-600 dark:text-indigo-400 uppercase tracking-wider">
+                Mode: Keep Punctuation
+              </span>
+              <div className="space-y-1">
+                <span className="text-[11px] text-slate-400 uppercase font-mono">Original Input:</span>
+                <div className="p-2.5 rounded-lg bg-slate-100 dark:bg-slate-800/80 font-mono text-xs text-rose-600 dark:text-rose-400 break-all">
+                  Order #984: Total is $45.50 (paid)!
+                </div>
+              </div>
+              <div className="space-y-1">
+                <span className="text-[11px] text-slate-400 uppercase font-mono">Cleaned Output:</span>
+                <div className="p-2.5 rounded-lg bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200/60 dark:border-emerald-800/60 font-mono text-xs text-emerald-700 dark:text-emerald-300 break-all">
+                  Order 984: Total is 45.50 (paid)!
+                </div>
+              </div>
+            </div>
+            <p className="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed pt-2 border-t border-slate-100 dark:border-slate-800">
+              Grammatical punctuation (<code>:</code>, <code>.</code>, <code>()</code>, <code>!</code>) remains intact for natural reading, while non-punctuation symbols (<code>#</code>, <code>$</code>) are removed.
+            </p>
+          </div>
+
+          {/* Example 3 */}
+          <div className="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle flex flex-col justify-between space-y-3">
+            <div className="space-y-2">
+              <span className="inline-block text-[11px] font-semibold text-amber-600 dark:text-amber-400 uppercase tracking-wider">
+                Mode: Custom Allowed List (@.-_)
+              </span>
+              <div className="space-y-1">
+                <span className="text-[11px] text-slate-400 uppercase font-mono">Original Input:</span>
+                <div className="p-2.5 rounded-lg bg-slate-100 dark:bg-slate-800/80 font-mono text-xs text-rose-600 dark:text-rose-400 break-all">
+                  user_name+tag@company.corp:8080!
+                </div>
+              </div>
+              <div className="space-y-1">
+                <span className="text-[11px] text-slate-400 uppercase font-mono">Cleaned Output:</span>
+                <div className="p-2.5 rounded-lg bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200/60 dark:border-emerald-800/60 font-mono text-xs text-emerald-700 dark:text-emerald-300 break-all">
+                  user_name tag@company.corp8080
+                </div>
+              </div>
+            </div>
+            <p className="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed pt-2 border-t border-slate-100 dark:border-slate-800">
+              Only specified characters (<code>@</code>, <code>.</code>, <code>-</code>, <code>_</code>) are spared alongside letters and digits. Other symbols like <code>+</code>, <code>:</code>, and <code>!</code> are stripped.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* 3. Deep Dive into the Three Filter Modes */}
+      <section aria-labelledby="filter-modes-heading" className="space-y-4">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl bg-purple-50 dark:bg-purple-950/50 border border-purple-200 dark:border-purple-800/60 flex items-center justify-center text-purple-600 dark:text-purple-400 shrink-0">
+            <Sliders size={18} />
+          </div>
+          <div>
+            <h2
+              id="filter-modes-heading"
+              className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white tracking-tight"
+            >
+              The Three Filtering Modes Explained
+            </h2>
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              Choose the exact level of filtering required for your specific workflow
+            </p>
+          </div>
+        </div>
+
+        <div className="space-y-4 text-xs sm:text-sm text-slate-600 dark:text-slate-300">
+          <div className="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-2.5">
+            <h3 className="font-semibold text-slate-900 dark:text-white flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-brand-500" />
+              1. Alphanumeric Only (A-Z, 0-9, and Spaces)
+            </h3>
+            <p className="leading-relaxed">
+              This is the strictest filtering mode. Under the hood, it constructs the pattern <code className="text-brand-600 dark:text-brand-400 bg-slate-100 dark:bg-slate-800 px-1 py-0.5 rounded font-mono text-[11px]">/[^\p&#123;L&#125;\p&#123;N&#125; \r\n\t]/gu</code>. Any character that is not a Unicode letter or a Unicode number is permanently removed. This is the optimal mode when generating alphanumeric serials, cleaning input tokens for natural language processing, or stripping all punctuation marks from raw prose.
+            </p>
+          </div>
+
+          <div className="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-2.5">
+            <h3 className="font-semibold text-slate-900 dark:text-white flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-indigo-500" />
+              2. Keep Standard Punctuation
+            </h3>
+            <p className="leading-relaxed">
+              In writing and editorial workflows, you often want to strip bizarre non-printable symbols, math operators (<code className="text-[11px] font-mono">+ = &lt; &gt; ^ ~</code>), and currency signs (<code className="text-[11px] font-mono">$ € £ ¥</code>) without destroying sentence structure. The <strong>Keep Standard Punctuation</strong> mode preserves exactly these characters:
+            </p>
+            <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-950/60 border border-slate-200/80 dark:border-slate-800/80 font-mono text-xs text-slate-800 dark:text-slate-200 flex flex-wrap gap-2">
+              <span className="px-2 py-0.5 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">. Period</span>
+              <span className="px-2 py-0.5 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">, Comma</span>
+              <span className="px-2 py-0.5 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">! Exclamation</span>
+              <span className="px-2 py-0.5 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">? Question</span>
+              <span className="px-2 py-0.5 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">&apos; Single Quote</span>
+              <span className="px-2 py-0.5 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">&quot; Double Quote</span>
+              <span className="px-2 py-0.5 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">- Hyphen</span>
+              <span className="px-2 py-0.5 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">: Colon</span>
+              <span className="px-2 py-0.5 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">; Semicolon</span>
+              <span className="px-2 py-0.5 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">( ) Parentheses</span>
+            </div>
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              Everything outside this whitelist—including hashtags, asterisks, brackets, and emojis—is safely removed.
+            </p>
+          </div>
+
+          <div className="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-2.5">
+            <h3 className="font-semibold text-slate-900 dark:text-white flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-amber-500" />
+              3. Custom Allowed List
+            </h3>
+            <p className="leading-relaxed">
+              When processing technical identifiers, system paths, or specialized data formats, you may require specific symbols that neither alphanumeric-only nor punctuation-only modes accommodate. Switching to <strong>Custom Allowed List</strong> exposes a dedicated text field where you can input the exact characters to spare.
+            </p>
+            <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+              Every character you type into the custom field is automatically escaped against regex injection vulnerabilities before being added to the allow-pattern. For example, entering <code className="font-mono text-brand-600 dark:text-brand-400">@._-</code> allows you to sanitize messy email lists or user accounts while discarding all other symbols.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* 4. Unicode & Multilingual Support */}
+      <section aria-labelledby="unicode-support-heading" className="space-y-4">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-800/60 flex items-center justify-center text-emerald-600 dark:text-emerald-400 shrink-0">
+            <Globe size={18} />
+          </div>
+          <div>
+            <h2
+              id="unicode-support-heading"
+              className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white tracking-tight"
+            >
+              Native Unicode &amp; Multilingual Character Support
+            </h2>
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              Preserves international alphabets, accented vowels, and global numeric scripts
+            </p>
+          </div>
+        </div>
+
+        <div className="p-6 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-4 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+          <p>
+            Many naive character removers rely on basic ASCII ranges such as <code className="font-mono text-rose-600 dark:text-rose-400">[a-zA-Z0-9]</code>. That legacy approach unintentionally destroys international text—stripping accented French and Spanish vowels (<code className="font-mono">é, è, ê, ñ, ü, ç</code>), German umlauts (<code className="font-mono">ä, ö, ü, ß</code>), Nordic letters (<code className="font-mono">ø, å, æ</code>), and entire non-Latin scripts like Arabic, Cyrillic, Greek, Hebrew, Hindi, and East Asian ideograms.
+          </p>
+          <p>
+            Our tool uses modern JavaScript ECMAScript Unicode Property Escapes (<code className="font-mono text-brand-600 dark:text-brand-400">\p&#123;L&#125;</code> for General Category &quot;Letter&quot; and <code className="font-mono text-brand-600 dark:text-brand-400">\p&#123;N&#125;</code> for &quot;Number&quot;) evaluated with the <code className="font-mono text-brand-600 dark:text-brand-400">u</code> flag.
+          </p>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+            <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-950/60 border border-slate-200/80 dark:border-slate-800/80 space-y-1">
+              <span className="font-semibold text-slate-900 dark:text-white text-xs block">Accented &amp; Latin Extended</span>
+              <p className="text-[11px] text-slate-500 dark:text-slate-400 font-mono">
+                &quot;Crème brûlée &amp; jalapeño!&quot; → &quot;Crème brûlée jalapeño&quot;
+              </p>
+            </div>
+            <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-950/60 border border-slate-200/80 dark:border-slate-800/80 space-y-1">
+              <span className="font-semibold text-slate-900 dark:text-white text-xs block">Non-Latin Global Scripts</span>
+              <p className="text-[11px] text-slate-500 dark:text-slate-400 font-mono">
+                &quot;مرحبا! Привет #123&quot; → &quot;مرحبا Привет 123&quot;
+              </p>
+            </div>
+          </div>
+
+          <p className="text-xs text-slate-500 dark:text-slate-400 pt-1">
+            If your goal is specifically to strip diacritics and convert accented characters into plain unaccented ASCII (e.g., turning <code>é</code> into <code>e</code>), use our specialized <Link href="/tools/remove-accents" className="text-brand-600 dark:text-brand-400 font-semibold underline underline-offset-2 hover:text-brand-700 dark:hover:text-brand-300">Remove Accents &amp; Diacritics Tool</Link>.
+          </p>
+        </div>
+      </section>
+
+      {/* 5. Spaces & Line Breaks Handling */}
+      <section aria-labelledby="whitespace-heading" className="space-y-4">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl bg-amber-50 dark:bg-amber-950/50 border border-amber-200 dark:border-amber-800/60 flex items-center justify-center text-amber-600 dark:text-amber-400 shrink-0">
+            <Layers size={18} />
+          </div>
+          <div>
+            <h2
+              id="whitespace-heading"
+              className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white tracking-tight"
+            >
+              Whitespace, Space Collapsing &amp; Line Break Preservation
+            </h2>
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              Clean symbol removal without corrupting your document&apos;s spacing or paragraph formatting
+            </p>
+          </div>
+        </div>
+
+        <div className="p-6 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-4 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+          <p>
+            A common flaw in simple find-and-replace scripts is that removing symbols leaves behind awkward double or triple spaces (for instance, turning <code>first  #  second</code> into <code>first    second</code>).
+          </p>
+          <p>
+            This tool handles whitespace intelligently by default:
+          </p>
+          <ul className="space-y-2 list-disc list-inside text-slate-700 dark:text-slate-300">
+            <li>
+              <strong>Preserves Paragraphs &amp; Line Breaks:</strong> Carriage returns (<code className="font-mono text-xs">\r</code>) and newlines (<code className="font-mono text-xs">\n</code>) are maintained so multi-line text and lists do not collapse into a single giant line.
+            </li>
+            <li>
+              <strong>Preserves Word Separation:</strong> Standard spaces and tabs are kept so distinct words do not accidentally merge together.
+            </li>
+            <li>
+              <strong>Collapses Multiple Spaces:</strong> Consecutive spaces created when intermediate symbols are removed are collapsed into a single space per word boundary, keeping the final output clean and readable.
+            </li>
+          </ul>
+          <p className="text-xs text-slate-500 dark:text-slate-400 pt-1">
+            Need dedicated whitespace control, line indentation trimming, or trailing space cleanup? Check out our companion tool: <Link href="/tools/remove-extra-spaces" className="text-brand-600 dark:text-brand-400 font-semibold underline underline-offset-2 hover:text-brand-700 dark:hover:text-brand-300">Remove Extra Spaces</Link>.
+          </p>
+        </div>
+      </section>
+
+      {/* 6. Real-World Practical Workflows */}
+      <section aria-labelledby="workflows-heading" className="space-y-4">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl bg-teal-50 dark:bg-teal-950/50 border border-teal-200 dark:border-teal-800/60 flex items-center justify-center text-teal-600 dark:text-teal-400 shrink-0">
+            <Wrench size={18} />
+          </div>
+          <div>
+            <h2
+              id="workflows-heading"
+              className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white tracking-tight"
+            >
+              Practical Real-World Use Cases
+            </h2>
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              Where removing special characters saves time and prevents data corruption
+            </p>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs sm:text-sm text-slate-600 dark:text-slate-300">
+          <div className="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-2">
+            <h3 className="font-semibold text-slate-900 dark:text-white flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-teal-500" />
+              1. Spreadsheet &amp; CSV Data Normalization
+            </h3>
+            <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+              Clean raw customer records, inventory spreadsheets, and tab-delimited exports containing rogue currency symbols, unescaped quotes, or math signs that break database imports.
+            </p>
+          </div>
+
+          <div className="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-2">
+            <h3 className="font-semibold text-slate-900 dark:text-white flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-teal-500" />
+              2. Clean OCR &amp; PDF Text Extractions
+            </h3>
+            <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+              Optical character recognition (OCR) and scanned document copypastas often produce stray glyphs, broken ligatures, and phantom symbols. Quickly strip them while retaining legitimate wording.
+            </p>
+          </div>
+
+          <div className="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-2">
+            <h3 className="font-semibold text-slate-900 dark:text-white flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-teal-500" />
+              3. SKU, Identifier &amp; Username Formatting
+            </h3>
+            <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+              Enforce alphanumeric formatting on user handles, system product SKUs, and order identifiers by stripping symbols or permitting only hyphens and underscores using the custom filter.
+            </p>
+          </div>
+
+          <div className="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-2">
+            <h3 className="font-semibold text-slate-900 dark:text-white flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-teal-500" />
+              4. NLP &amp; Search Index Preprocessing
+            </h3>
+            <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+              Prepare text corpora for bag-of-words analysis, keyword frequency indexing, and machine learning pipelines that require standardized alphanumeric vocabulary.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* 7. Security Disclaimer: Text Cleanup vs. Security Sanitization */}
+      <section aria-labelledby="security-disclaimer-heading" className="space-y-4">
+        <div className="p-6 rounded-2xl border border-amber-200 dark:border-amber-900/50 bg-amber-50/50 dark:bg-amber-950/20 shadow-subtle space-y-3">
+          <div className="flex items-center gap-2.5 text-amber-800 dark:text-amber-300">
+            <AlertTriangle size={20} className="shrink-0" />
+            <h2 id="security-disclaimer-heading" className="text-base font-bold">
+              Technical Note: Text Cleanup vs. Application Security Sanitization
+            </h2>
+          </div>
+          <p className="text-xs sm:text-sm text-amber-900/90 dark:text-amber-200/90 leading-relaxed font-medium">
+            Removing symbols is not a substitute for context-aware input validation, escaping, or security sanitization in web applications.
+          </p>
+          <div className="text-xs text-slate-600 dark:text-slate-400 space-y-2 leading-relaxed">
+            <p>
+              While stripping non-alphanumeric characters is helpful for formatting and cosmetic hygiene, developers must not rely on client-side character stripping as a primary security control:
+            </p>
+            <ul className="list-disc list-inside space-y-1 pl-1">
+              <li>
+                <strong>SQL Injection Prevention:</strong> Requires parameterized queries and prepared statements at the database driver layer, not regex filtering.
+              </li>
+              <li>
+                <strong>Cross-Site Scripting (XSS) Prevention:</strong> Requires contextual HTML entity escaping, Content Security Policy (CSP) headers, or trusted sanitizers like DOMPurify.
+              </li>
+              <li>
+                <strong>Server-Side Validation:</strong> Client-side tools can be bypassed entirely; all backend APIs must independently enforce strict validation schemas (e.g. Zod, Joi).
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      {/* 8. Comparison Matrix & Related Text Utilities */}
+      <section aria-labelledby="related-tools-heading" className="space-y-4">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-300 shrink-0">
+            <Layers size={18} />
+          </div>
+          <div>
+            <h2
+              id="related-tools-heading"
+              className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white tracking-tight"
+            >
+              Complementary Text Cleanup &amp; Formatting Tools
+            </h2>
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              Target specific characters, accents, whitespace, and pattern requirements
+            </p>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-2">
+            <div className="flex items-center justify-between">
+              <Link
+                href="/tools/remove-extra-spaces"
+                className="text-sm font-bold text-slate-900 dark:text-white hover:text-brand-600 dark:hover:text-brand-400 transition-colors inline-flex items-center gap-1.5"
+              >
+                Remove Extra Spaces <ArrowRight size={14} />
+              </Link>
+              <span className="text-[11px] font-mono text-brand-600 dark:text-brand-400">Whitespace</span>
+            </div>
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              Collapse multiple spaces, trim leading/trailing whitespace, and remove blank lines without touching symbols or punctuation.
+            </p>
+          </div>
+
+          <div className="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-2">
+            <div className="flex items-center justify-between">
+              <Link
+                href="/tools/remove-emojis"
+                className="text-sm font-bold text-slate-900 dark:text-white hover:text-brand-600 dark:hover:text-brand-400 transition-colors inline-flex items-center gap-1.5"
+              >
+                Remove Emojis <ArrowRight size={14} />
+              </Link>
+              <span className="text-[11px] font-mono text-pink-600 dark:text-pink-400">Pictographs</span>
+            </div>
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              Strip emojis, emoticons, and pictographic symbols from social bios and text while preserving all standard symbols and punctuation.
+            </p>
+          </div>
+
+          <div className="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-2">
+            <div className="flex items-center justify-between">
+              <Link
+                href="/tools/remove-accents"
+                className="text-sm font-bold text-slate-900 dark:text-white hover:text-brand-600 dark:hover:text-brand-400 transition-colors inline-flex items-center gap-1.5"
+              >
+                Remove Accents <ArrowRight size={14} />
+              </Link>
+              <span className="text-[11px] font-mono text-emerald-600 dark:text-emerald-400">Diacritics</span>
+            </div>
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              Normalize accented letters (é, ñ, ü) into plain ASCII equivalents (e, n, u) using Unicode NFD decomposition.
+            </p>
+          </div>
+
+          <div className="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-2">
+            <div className="flex items-center justify-between">
+              <Link
+                href="/tools/slug-generator"
+                className="text-sm font-bold text-slate-900 dark:text-white hover:text-brand-600 dark:hover:text-brand-400 transition-colors inline-flex items-center gap-1.5"
+              >
+                Slug Generator <ArrowRight size={14} />
+              </Link>
+              <span className="text-[11px] font-mono text-purple-600 dark:text-purple-400">URLs</span>
+            </div>
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              Convert titles and headlines into clean, lowercase, URL-friendly kebab-case slugs with custom separator options.
+            </p>
+          </div>
+
+          <div className="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-2">
+            <div className="flex items-center justify-between">
+              <Link
+                href="/tools/regex-tester"
+                className="text-sm font-bold text-slate-900 dark:text-white hover:text-brand-600 dark:hover:text-brand-400 transition-colors inline-flex items-center gap-1.5"
+              >
+                Regex Tester <ArrowRight size={14} />
+              </Link>
+              <span className="text-[11px] font-mono text-indigo-600 dark:text-indigo-400">Advanced</span>
+            </div>
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              Test complex regular expressions, highlight capture groups, and validate custom replacement logic with live matching.
             </p>
           </div>
         </div>
