@@ -84,9 +84,9 @@ const RecentToolCard: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
           </div>
 
           <div className="flex items-center gap-1.5">
-            <span className="inline-flex items-center gap-1 text-[10px] font-mono font-semibold px-2 py-0.5 rounded-full bg-slate-900/5 dark:bg-white/10 text-slate-600 dark:text-slate-300">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 motion-safe:animate-pulse" />
-              Recent
+            <span className="inline-flex items-center gap-1 text-[10px] font-medium px-2 py-0.5 rounded-full bg-slate-900/5 dark:bg-white/10 text-slate-600 dark:text-slate-400">
+              <Clock size={11} className="text-slate-400 dark:text-slate-500" aria-hidden="true" />
+              <span>Recent</span>
             </span>
             <div className="relative z-20">
               <FavoriteStar toolId={tool.id} toolName={tool.name} size={15} className="p-1" />

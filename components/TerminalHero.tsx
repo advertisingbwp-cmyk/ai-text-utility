@@ -42,8 +42,8 @@ const PRESETS: DemoPreset[] = [
     id: "json-beautify",
     name: "JSON Formatter",
     toolName: "JSON Formatter & Validator",
-    input: '{"service":"ai-text-utility","status":"live","tools":43,"local":true}',
-    output: '{\n  "service": "ai-text-utility",\n  "status": "live",\n  "tools": 43,\n  "local": true\n}',
+    input: `{"service":"ai-text-utility","status":"live","tools":${TOOLS_REGISTRY.length},"local":true}`,
+    output: `{\n  "service": "ai-text-utility",\n  "status": "live",\n  "tools": ${TOOLS_REGISTRY.length},\n  "local": true\n}`,
     metrics: [
       { label: "Syntax", value: "Valid" },
       { label: "Keys", value: "4" },

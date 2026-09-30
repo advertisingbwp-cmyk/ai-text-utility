@@ -65,7 +65,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
             <Search className="mr-3 h-5 w-5 shrink-0 text-brand-600 dark:text-brand-400" />
             <Command.Input
               autoFocus
-              placeholder="Search all 43 utilities by name, category, or task..."
+              placeholder={`Search all ${TOOLS_REGISTRY.length} utilities by name, category, or task...`}
               className="w-full bg-transparent text-sm sm:text-base text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 outline-none"
             />
             <button
