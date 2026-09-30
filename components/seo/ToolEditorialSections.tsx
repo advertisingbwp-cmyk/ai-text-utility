@@ -5131,7 +5131,7 @@ export const RemoveSpecialCharsEditorial: React.FC = () => {
               <div className="space-y-1">
                 <span className="text-[11px] text-slate-400 uppercase font-mono">Cleaned Output:</span>
                 <div className="p-2.5 rounded-lg bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200/60 dark:border-emerald-800/60 font-mono text-xs text-emerald-700 dark:text-emerald-300 break-all">
-                  user_name tag@company.corp8080
+                  user_nametag@company.corp8080
                 </div>
               </div>
             </div>

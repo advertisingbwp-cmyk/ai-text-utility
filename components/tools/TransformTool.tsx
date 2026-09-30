@@ -568,7 +568,7 @@ export const TransformTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
                 className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1 text-slate-800 dark:text-slate-200 focus:outline-none focus:border-brand-500 shadow-2xs"
               >
                 <option value="alphanumeric-only">Alphanumeric Only (A-Z, 0-9, spaces)</option>
-                <option value="keep-punctuation">Keep Standard Punctuation (. , ! ? - _)</option>
+                <option value="keep-punctuation">Keep Standard Punctuation (. , ! ? &apos; &quot; - : ; ( ))</option>
                 <option value="custom">Custom Allowed List</option>
               </select>
             </div>
