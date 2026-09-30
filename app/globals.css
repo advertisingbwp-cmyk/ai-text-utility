@@ -10,10 +10,10 @@
   --surface-muted: rgba(241, 245, 249, 0.7);
   --border-subtle: rgba(226, 232, 240, 0.85);
   --border-strong: rgba(203, 213, 225, 0.9);
-  --aurora-1: rgba(59, 130, 246, 0.18);
-  --aurora-2: rgba(139, 92, 246, 0.15);
-  --aurora-3: rgba(6, 182, 212, 0.14);
-  --aurora-4: rgba(244, 114, 182, 0.10);
+  --aurora-1: rgba(14, 165, 233, 0.28);
+  --aurora-2: rgba(139, 92, 246, 0.24);
+  --aurora-3: rgba(59, 130, 246, 0.20);
+  --aurora-4: rgba(244, 63, 94, 0.18);
 }
 
 .dark {
@@ -50,46 +50,46 @@ body {
 
 .aurora-glow-1 {
   position: absolute;
-  top: -10%;
-  left: 15%;
-  width: 55vw;
-  height: 55vh;
+  top: -15%;
+  left: -5%;
+  width: 50vw;
+  height: 60vh;
   border-radius: 9999px;
-  background: radial-gradient(circle, var(--aurora-1) 0%, transparent 70%);
-  filter: blur(70px);
+  background: radial-gradient(circle, var(--aurora-1) 0%, transparent 68%);
+  filter: blur(80px);
 }
 
 .aurora-glow-2 {
   position: absolute;
-  top: 5%;
-  right: -5%;
-  width: 50vw;
-  height: 50vh;
+  top: 2%;
+  right: 15%;
+  width: 48vw;
+  height: 52vh;
   border-radius: 9999px;
   background: radial-gradient(circle, var(--aurora-2) 0%, transparent 65%);
-  filter: blur(65px);
+  filter: blur(75px);
 }
 
 .aurora-glow-3 {
   position: absolute;
-  top: 35%;
-  left: -5%;
-  width: 45vw;
+  top: 20%;
+  left: 10%;
+  width: 42vw;
   height: 45vh;
   border-radius: 9999px;
   background: radial-gradient(circle, var(--aurora-3) 0%, transparent 65%);
-  filter: blur(60px);
+  filter: blur(70px);
 }
 
 .aurora-glow-4 {
   position: absolute;
-  top: 15%;
-  right: 20%;
-  width: 38vw;
-  height: 38vh;
+  top: 5%;
+  right: -8%;
+  width: 46vw;
+  height: 58vh;
   border-radius: 9999px;
   background: radial-gradient(circle, var(--aurora-4) 0%, transparent 65%);
-  filter: blur(60px);
+  filter: blur(75px);
 }
 
 /* Faint engineering grid pattern */
@@ -98,10 +98,10 @@ body {
   inset: 0;
   pointer-events: none;
   z-index: 0;
-  background-image: radial-gradient(rgba(100, 116, 139, 0.12) 1px, transparent 1px);
+  background-image: radial-gradient(rgba(100, 116, 139, 0.14) 1.25px, transparent 1.25px);
   background-size: 24px 24px;
-  mask-image: radial-gradient(ellipse 80% 50% at 50% 15%, #000 60%, transparent 100%);
-  -webkit-mask-image: radial-gradient(ellipse 80% 50% at 50% 15%, #000 60%, transparent 100%);
+  mask-image: radial-gradient(ellipse 85% 55% at 50% 18%, #000 65%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 85% 55% at 50% 18%, #000 65%, transparent 100%);
 }
 
 .dark .aurora-grid {

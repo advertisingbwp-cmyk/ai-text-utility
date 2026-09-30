@@ -98,7 +98,7 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({
         </div>
         {showSubtitle && (
           <span className="text-xs font-medium text-slate-500 dark:text-slate-400 leading-none mt-0.5">
-            Fast, Private &amp; Client-Side
+            Modern Browser Text Utilities
           </span>
         )}
       </div>

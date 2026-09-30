@@ -67,37 +67,61 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCommandPalette }) => {
           <BrandLogo size="md" showSubtitle={true} />
         </Link>
 
-        {/* Centered Command Launcher Search Trigger */}
-        <div className="hidden sm:flex flex-1 max-w-sm mx-auto justify-center">
+        {/* Desktop Primary Navigation Links (Figma Composition) */}
+        <nav aria-label="Main Navigation" className="hidden lg:flex items-center gap-1 xl:gap-1.5">
+          <Link
+            href="/#tools-section"
+            className="px-3 py-1.5 rounded-full text-xs font-semibold text-slate-900 dark:text-white bg-slate-100 dark:bg-slate-800/80 hover:bg-slate-200/80 dark:hover:bg-slate-700/60 transition-colors"
+          >
+            All Tools
+          </Link>
+          <button
+            type="button"
+            onClick={handleFavoritesClick}
+            className="px-3 py-1.5 rounded-full text-xs font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100/70 dark:hover:bg-slate-800/50 transition-colors cursor-pointer"
+          >
+            Favorites
+          </button>
+          <Link
+            href="/#tools-section"
+            className="px-3 py-1.5 rounded-full text-xs font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100/70 dark:hover:bg-slate-800/50 transition-colors"
+          >
+            Categories
+          </Link>
+          <Link
+            href="/#category-ai-magic"
+            className="px-3 py-1.5 rounded-full text-xs font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100/70 dark:hover:bg-slate-800/50 transition-colors"
+          >
+            AI Magic
+          </Link>
+          <Link
+            href="/about"
+            className="px-3 py-1.5 rounded-full text-xs font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100/70 dark:hover:bg-slate-800/50 transition-colors"
+          >
+            About
+          </Link>
+        </nav>
+
+        {/* Right Actions: Compact Search, Theme, Avatar */}
+        <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
+          {/* Desktop Compact Search Launcher */}
           <button
             type="button"
             onClick={onOpenCommandPalette}
             aria-label="Search tools (Press Ctrl+K)"
-            className="w-full flex items-center justify-between gap-3 px-3.5 py-2 rounded-xl border border-slate-200/90 dark:border-slate-800/90 bg-white/80 dark:bg-slate-900/60 hover:bg-white dark:hover:bg-slate-900 hover:border-brand-500/40 dark:hover:border-brand-500/40 text-xs text-slate-500 dark:text-slate-400 transition-all duration-180 shadow-subtle hover:shadow-card group cursor-pointer active:scale-[0.985]"
+            className="hidden sm:flex items-center justify-between gap-2.5 px-3 py-1.5 rounded-full border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/60 hover:bg-white dark:hover:bg-slate-900 hover:border-brand-500/40 dark:hover:border-brand-500/40 text-xs text-slate-500 dark:text-slate-400 transition-all shadow-2xs hover:shadow-xs group cursor-pointer"
           >
-            <div className="flex items-center gap-2.5">
-              <div className="w-5 h-5 rounded-md bg-brand-50 dark:bg-brand-950/60 flex items-center justify-center text-brand-600 dark:text-brand-400 transition-colors group-hover:bg-brand-500 group-hover:text-white">
-                <Search
-                  size={13}
-                  className="transition-transform group-hover:scale-110"
-                  aria-hidden="true"
-                />
-              </div>
-              <span className="font-medium text-slate-600 dark:text-slate-300 group-hover:text-slate-900 dark:group-hover:text-white transition-colors">
+            <div className="flex items-center gap-1.5">
+              <Search size={13} className="text-slate-400 dark:text-slate-500 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors" />
+              <span className="font-normal text-slate-500 dark:text-slate-400 group-hover:text-slate-800 dark:group-hover:text-slate-200">
                 Search tools...
               </span>
             </div>
-            <kbd
-              aria-label="Command K shortcut"
-              className="inline-flex items-center gap-1 text-[11px] font-mono px-2 py-0.5 rounded-md border border-slate-200 dark:border-slate-700/80 bg-slate-100/80 dark:bg-slate-800 text-slate-600 dark:text-slate-300 shadow-2xs group-hover:border-brand-300 dark:group-hover:border-brand-700 transition-colors"
-            >
-              <span className="text-xs font-semibold" aria-hidden="true">⌘</span>K
+            <kbd className="inline-flex items-center gap-0.5 text-[10px] font-mono px-1.5 py-0.5 rounded-md border border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 font-semibold shadow-2xs">
+              ⌘K
             </kbd>
           </button>
-        </div>
 
-        {/* Right Actions */}
-        <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
           {/* Mobile Search Button (44px touch target) */}
           <button
             type="button"
@@ -113,18 +137,18 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCommandPalette }) => {
             type="button"
             onClick={handleFavoritesClick}
             aria-label={`View ${favCount} favorite tools`}
-            className="relative p-2.5 rounded-xl text-slate-600 hover:text-amber-500 dark:text-slate-300 dark:hover:text-amber-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all min-w-[44px] min-h-[44px] flex items-center justify-center cursor-pointer active:scale-[0.97] group"
+            className="relative p-2 rounded-xl text-slate-600 hover:text-amber-500 dark:text-slate-300 dark:hover:text-amber-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all min-w-[40px] min-h-[40px] flex items-center justify-center cursor-pointer active:scale-[0.97] group"
             title={favCount > 0 ? `View ${favCount} favorite tools` : "View favorites"}
           >
             <Star
-              size={18}
+              size={17}
               className={`transition-all duration-200 group-hover:scale-110 ${
                 favCount > 0 ? "fill-amber-400 text-amber-400" : ""
               }`}
               aria-hidden="true"
             />
             {favCount > 0 && (
-              <span className="absolute top-1.5 right-1.5 px-1 min-w-[16px] h-[16px] rounded-full bg-amber-500 text-[10px] font-black text-slate-950 flex items-center justify-center leading-none shadow-2xs animate-in zoom-in-50 duration-150">
+              <span className="absolute top-1 right-1 px-1 min-w-[15px] h-[15px] rounded-full bg-amber-500 text-[9px] font-black text-slate-950 flex items-center justify-center leading-none shadow-2xs animate-in zoom-in-50 duration-150">
                 {favCount}
               </span>
             )}
@@ -132,6 +156,15 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCommandPalette }) => {
 
           {/* Theme Switcher */}
           <ThemeToggle />
+
+          {/* User / Profile Avatar Circle (from Figma) */}
+          <div
+            className="w-8 h-8 rounded-full bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-950 font-bold text-xs flex items-center justify-center shadow-xs select-none ml-0.5 shrink-0"
+            aria-hidden="true"
+            title="AI Text Utility User"
+          >
+            A
+          </div>
         </div>
       </div>
     </header>

@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
-import { Star, Clock, LayoutGrid, ArrowRight, Type, Code2, ShieldCheck } from "lucide-react";
+import { Star, Clock, LayoutGrid, ArrowRight, Type, Code2, ShieldCheck, Search } from "lucide-react";
 import { TOOLS_REGISTRY, CATEGORIES, ToolCategory, ToolDefinition, getToolBySlug } from "@/data/toolsRegistry";
 import { getToolSeoBlueprint, TOP_10_P0_TOOLS } from "@/data/seoBlueprint";
 import { ToolCard } from "@/components/ToolCard";
@@ -68,29 +68,23 @@ const RecentToolCard: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
 
   return (
     <div
-      className={`group relative flex flex-col justify-between rounded-2xl border bg-gradient-to-br ${recentTheme.cardBg} ${recentTheme.border} p-4 sm:p-5 shadow-xs hover:shadow-md transition-all duration-200 hover:-translate-y-1 active:scale-[0.99]`}
+      className={`group relative flex flex-col justify-between rounded-2xl border bg-gradient-to-br ${recentTheme.cardBg} ${recentTheme.border} p-4 sm:p-4.5 shadow-xs hover:shadow-md transition-all duration-200 hover:-translate-y-1 active:scale-[0.99]`}
     >
       <div>
-        <div className="flex items-center justify-between gap-2 mb-3">
+        <div className="flex items-center justify-between gap-2 mb-2.5">
           <div
-            className={`w-11 h-11 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center transition-all duration-200 group-hover:scale-105 shrink-0 border ${theme.bg} ${theme.border} shadow-2xs`}
+            className={`w-11 h-11 rounded-xl flex items-center justify-center transition-all duration-200 group-hover:scale-105 shrink-0 border ${theme.bg} ${theme.border} shadow-2xs`}
             aria-hidden="true"
           >
             <DynamicIcon
               name={tool.icon}
-              size={21}
+              size={20}
               className={`${theme.text} transition-transform duration-200 group-hover:rotate-3`}
             />
           </div>
 
-          <div className="flex items-center gap-1.5">
-            <span className="inline-flex items-center gap-1 text-[10px] font-medium px-2 py-0.5 rounded-full bg-slate-900/5 dark:bg-white/10 text-slate-600 dark:text-slate-400">
-              <Clock size={11} className="text-slate-400 dark:text-slate-500" aria-hidden="true" />
-              <span>Recent</span>
-            </span>
-            <div className="relative z-20">
-              <FavoriteStar toolId={tool.id} toolName={tool.name} size={15} className="p-1" />
-            </div>
+          <div className="relative z-20">
+            <FavoriteStar toolId={tool.id} toolName={tool.name} size={15} className="p-1" />
           </div>
         </div>
 
@@ -102,12 +96,12 @@ const RecentToolCard: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
             {tool.name}
           </Link>
         </h3>
-        <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed line-clamp-2">
+        <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed line-clamp-2">
           {tool.description}
         </p>
       </div>
 
-      <div className="mt-4 pt-3 border-t border-slate-200/60 dark:border-slate-800/60 flex items-center justify-between text-xs">
+      <div className="mt-3.5 pt-2.5 border-t border-slate-200/60 dark:border-slate-800/60 flex items-center justify-between text-xs">
         <span className={`text-[10px] sm:text-[11px] font-semibold px-2.5 py-0.5 rounded-md border ${recentTheme.badge}`}>
           {tool.category}
         </span>
@@ -167,114 +161,121 @@ export default function HomePage() {
     return matchesCat && matchesFav;
   }), [selectedCategory, onlyFavorites, favoritesList]);
 
-  const recentTools = useMemo(() => recentList.map((id) => TOOLS_REGISTRY.find((t) => t.id === id)).filter((t): t is ToolDefinition => Boolean(t)).slice(0, 4), [recentList]);
+  const recentTools = useMemo(() => recentList.map((id) => TOOLS_REGISTRY.find((t) => t.id === id)).filter((t): t is ToolDefinition => Boolean(t)).slice(0, 3), [recentList]);
 
   return (
-    <div className="w-full max-w-7xl mx-auto space-y-8 sm:space-y-12 pb-16">
+    <div className="w-full max-w-7xl mx-auto space-y-6 sm:space-y-8 pb-16">
       <TerminalHero />
 
-      <section className="max-w-4xl mx-auto rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-gradient-to-b from-white/95 via-white/80 to-slate-50/70 dark:from-slate-900/60 dark:to-slate-900/40 p-6 sm:p-8 space-y-3.5 shadow-xs" aria-labelledby="intro-heading">
-        <h2 id="intro-heading" className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white tracking-tight">Free online text tools for everyday work</h2>
-        <p className="text-sm leading-relaxed text-slate-600 dark:text-slate-400">
-          AI Text Utility is a collection of browser-based tools for writers, students, developers, and office workflows. Use the tools to count words and characters, clean lists, change text case, format JSON, test regular expressions, encode data, generate identifiers, work with dates, or prepare text for publishing. Most utilities process your input locally in the browser, so routine text transformations do not need a server upload.
-        </p>
-        <p className="text-sm leading-relaxed text-slate-600 dark:text-slate-400">
-          Each tool page includes practical instructions, feature details, common questions, limitations, and links to related utilities. AI Magic tools are optional and clearly separated from the browser-only tools because they require a server request to an AI provider.
-        </p>
-      </section>
-
-      <section id="tools-section" className="w-full min-w-0 space-y-4 scroll-mt-24">
-        <div className="flex items-center justify-between gap-3 border-b border-slate-200/80 dark:border-slate-800/80 pb-3 min-w-0">
-          <div className="flex items-center gap-2 overflow-x-auto pb-1.5 scrollbar-none min-w-0 flex-1">
-            <button
-              type="button"
-              onClick={() => { setSelectedCategory("ALL"); setOnlyFavorites(false); }}
-              className={`inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold transition-all whitespace-nowrap cursor-pointer ${
-                selectedCategory === "ALL" && !onlyFavorites
-                  ? "bg-slate-900 text-white dark:bg-brand-600 dark:text-white shadow-xs"
-                  : "bg-white/85 dark:bg-slate-900/70 text-slate-700 dark:text-slate-300 border border-slate-200/90 dark:border-slate-800/80 hover:bg-white hover:border-slate-300 dark:hover:bg-slate-800/60 shadow-2xs hover:shadow-xs"
-              }`}
-            >
-              <LayoutGrid size={14} />
-              <span>All Tools</span>
-              <span className={`text-[10px] px-1.5 py-0.5 rounded-full ${
-                selectedCategory === "ALL" && !onlyFavorites
-                  ? "bg-white/20 text-white"
-                  : "bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400"
-              }`}>
-                {TOOLS_REGISTRY.length}
-              </span>
-            </button>
-
-            <button
-              type="button"
-              onClick={() => { setOnlyFavorites((prev) => !prev); if (!onlyFavorites) setSelectedCategory("ALL"); }}
-              className={`inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold border transition-all whitespace-nowrap cursor-pointer ${
-                onlyFavorites
-                  ? "bg-amber-500/15 text-amber-700 dark:text-amber-300 border-amber-500/40 shadow-xs"
-                  : "bg-white/85 dark:bg-slate-900/70 text-slate-700 dark:text-slate-300 border-slate-200/90 dark:border-slate-800/80 hover:bg-white hover:border-slate-300 dark:hover:bg-slate-800/60 shadow-2xs hover:shadow-xs"
-              }`}
-            >
-              <Star size={14} className={onlyFavorites ? "fill-amber-500 text-amber-500" : "text-amber-500"} />
-              <span>Favorites</span>
-              <span className={`text-[10px] px-1.5 py-0.5 rounded-full ${
-                onlyFavorites
-                  ? "bg-amber-500/20 text-amber-700 dark:text-amber-200"
-                  : "bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400"
-              }`}>
-                {favoritesList.length}
-              </span>
-            </button>
-
-            {CATEGORIES.map((cat) => {
-              const isSelected = selectedCategory === cat.name && !onlyFavorites;
-              const count = TOOLS_REGISTRY.filter((t) => t.category === cat.name).length;
-              const catTheme = getCategoryTheme(cat.name);
-              return (
-                <button
-                  key={cat.name}
-                  type="button"
-                  onClick={() => { setSelectedCategory(cat.name); setOnlyFavorites(false); }}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap cursor-pointer transition-all ${
-                    isSelected
-                      ? "bg-slate-900 text-white dark:bg-brand-600 dark:text-white shadow-xs"
-                      : "bg-white/85 dark:bg-slate-900/70 text-slate-700 dark:text-slate-300 border border-slate-200/90 dark:border-slate-800/80 hover:bg-white hover:border-slate-300 dark:hover:bg-slate-800/60 shadow-2xs hover:shadow-xs"
-                  }`}
-                >
-                  <DynamicIcon
-                    name={cat.icon}
-                    size={14}
-                    className={isSelected ? "text-white" : catTheme.text}
-                  />
-                  <span>{cat.name}</span>
-                  <span className={`text-[10px] px-1.5 py-0.5 rounded-full ${
-                    isSelected
-                      ? "bg-white/20 text-white"
-                      : "bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400"
-                  }`}>
-                    {count}
-                  </span>
-                </button>
-              );
-            })}
-
-            <div className="flex items-center pl-2 ml-1 border-l border-slate-200/80 dark:border-slate-800/80 shrink-0">
-              <AdsterraSmartLink variant="badge" label="Featured Deals" />
+      {/* Prominent Floating Search Bar (Figma Hierarchy) */}
+      <div className="w-full max-w-2xl mx-auto -mt-2 sm:-mt-4">
+        <button
+          type="button"
+          onClick={() => window.dispatchEvent(new CustomEvent("open-command-palette"))}
+          aria-label="Search tools, categories or features"
+          className="w-full flex items-center justify-between gap-3 px-4 sm:px-5 py-3 sm:py-3.5 rounded-2xl sm:rounded-full border border-slate-200/90 dark:border-slate-800 bg-white/95 dark:bg-slate-900/90 shadow-md hover:shadow-lg hover:border-brand-500/40 transition-all cursor-pointer group text-left backdrop-blur-md active:scale-[0.99]"
+        >
+          <div className="flex items-center gap-3">
+            <Search size={18} className="text-slate-400 group-hover:text-brand-600 transition-colors shrink-0" />
+            <span className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 font-normal group-hover:text-slate-800 dark:group-hover:text-slate-200">
+              Search tools, categories or features...
+            </span>
+          </div>
+          <div className="flex items-center gap-2 shrink-0">
+            <kbd className="hidden sm:inline-flex items-center gap-0.5 text-[11px] font-mono px-2 py-1 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 font-semibold shadow-2xs">
+              ⌘K
+            </kbd>
+            <div className="w-8 h-8 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white flex items-center justify-center shadow-xs group-hover:scale-105 transition-transform">
+              <ArrowRight size={14} />
             </div>
+          </div>
+        </button>
+      </div>
+
+      {/* Category Filter Rail (Figma Pill Styling) */}
+      <section id="tools-section" className="w-full min-w-0 scroll-mt-24">
+        <div className="flex items-center justify-start sm:justify-center overflow-x-auto pb-2 scrollbar-none gap-2 sm:gap-2.5">
+          <button
+            type="button"
+            onClick={() => { setSelectedCategory("ALL"); setOnlyFavorites(false); }}
+            className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold transition-all whitespace-nowrap cursor-pointer ${
+              selectedCategory === "ALL" && !onlyFavorites
+                ? "bg-slate-900 text-white dark:bg-brand-600 shadow-md"
+                : "bg-white/90 dark:bg-slate-900/70 text-slate-700 dark:text-slate-300 border border-slate-200/90 dark:border-slate-800 hover:bg-white hover:border-slate-300 shadow-2xs"
+            }`}
+          >
+            <LayoutGrid size={14} />
+            <span>All Tools ({TOOLS_REGISTRY.length})</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => { setOnlyFavorites((prev) => !prev); if (!onlyFavorites) setSelectedCategory("ALL"); }}
+            className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold border transition-all whitespace-nowrap cursor-pointer ${
+              onlyFavorites
+                ? "bg-amber-500/15 text-amber-700 dark:text-amber-300 border-amber-500/40 shadow-xs"
+                : "bg-white/90 dark:bg-slate-900/70 text-slate-700 dark:text-slate-300 border-slate-200/90 dark:border-slate-800 hover:bg-white hover:border-slate-300 shadow-2xs"
+            }`}
+          >
+            <Star size={14} className={onlyFavorites ? "fill-amber-500 text-amber-500" : "text-amber-500"} />
+            <span>Favorites ({favoritesList.length})</span>
+          </button>
+
+          {CATEGORIES.map((cat) => {
+            const isSelected = selectedCategory === cat.name && !onlyFavorites;
+            const catTheme = getCategoryTheme(cat.name);
+            return (
+              <button
+                key={cat.name}
+                type="button"
+                onClick={() => { setSelectedCategory(cat.name); setOnlyFavorites(false); }}
+                className={`flex items-center gap-2 px-3.5 py-2 rounded-full text-xs font-semibold whitespace-nowrap cursor-pointer transition-all border ${
+                  isSelected
+                    ? "bg-slate-900 text-white dark:bg-brand-600 shadow-md border-transparent"
+                    : "bg-white/90 dark:bg-slate-900/70 text-slate-700 dark:text-slate-300 border-slate-200/90 dark:border-slate-800 hover:bg-white hover:border-slate-300 shadow-2xs"
+                }`}
+              >
+                <DynamicIcon
+                  name={cat.icon}
+                  size={14}
+                  className={isSelected ? "text-white" : catTheme.text}
+                />
+                <span>{cat.name}</span>
+              </button>
+            );
+          })}
+
+          <div className="shrink-0 pl-1">
+            <AdsterraSmartLink variant="badge" label="Featured Deals" />
           </div>
         </div>
       </section>
 
       {selectedCategory === "ALL" && !onlyFavorites && recentTools.length > 0 && (
-        <section id="recent" aria-labelledby="recent-heading" className="space-y-4">
-          <div className="flex items-center justify-between">
-            <h2 id="recent-heading" className="flex items-center gap-2 text-base sm:text-lg font-bold text-slate-900 dark:text-slate-100 tracking-tight">
-              <Clock size={17} className="text-brand-600 dark:text-brand-400" />
-              <span>Recently Used Utilities</span>
-            </h2>
-            <span className="text-xs text-slate-500 dark:text-slate-400 font-medium">Quick Access Dock</span>
+        <section id="recent" aria-labelledby="recent-heading" className="space-y-3.5">
+          <div className="flex items-center justify-between pb-1">
+            <div className="flex items-center gap-2.5">
+              <div className="w-8 h-8 rounded-full bg-blue-500/10 text-brand-600 dark:text-brand-400 flex items-center justify-center border border-blue-500/20">
+                <Clock size={16} />
+              </div>
+              <div>
+                <h2 id="recent-heading" className="text-base sm:text-lg font-bold text-slate-900 dark:text-slate-100 tracking-tight">
+                  Recently Used
+                </h2>
+                <p className="text-xs text-slate-500 dark:text-slate-400">
+                  Your recently accessed tools for quick access
+                </p>
+              </div>
+            </div>
+            <a
+              href="#tools-section"
+              className="text-xs font-semibold text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+            >
+              <span>View all</span>
+              <ArrowRight size={13} />
+            </a>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5 sm:gap-4">
             {recentTools.map((tool) => (
               <RecentToolCard key={`recent-${tool.id}`} tool={tool} />
             ))}
@@ -290,7 +291,7 @@ export default function HomePage() {
           onAction={() => { setSelectedCategory("ALL"); setOnlyFavorites(false); }}
         />
       ) : selectedCategory === "ALL" && !onlyFavorites ? (
-        <div className="space-y-12">
+        <div className="space-y-10 sm:space-y-12">
           {CATEGORIES.map((cat) => {
             const toolsInCat = TOOLS_REGISTRY.filter((t) => t.category === cat.name);
             const isAI = cat.name === ("AI Magic" as ToolCategory);
@@ -299,34 +300,44 @@ export default function HomePage() {
               <section
                 key={cat.name}
                 id={`category-${cat.name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}
-                className="space-y-4 scroll-mt-20"
+                className="space-y-3.5 scroll-mt-20"
               >
-                <div className="flex items-center justify-between border-b border-slate-200/80 dark:border-slate-800/80 pb-3.5">
-                  <div className="flex items-center gap-3.5">
-                    <div className={`w-10 h-10 sm:w-11 sm:h-11 rounded-2xl flex items-center justify-center border shadow-xs ${catTheme.bg} ${catTheme.border}`}>
-                      <DynamicIcon name={cat.icon} size={20} className={catTheme.text} />
+                <div className="flex items-center justify-between border-b border-slate-200/80 dark:border-slate-800/80 pb-3">
+                  <div className="flex items-center gap-3">
+                    <div className={`w-9 h-9 rounded-xl flex items-center justify-center border shadow-xs ${catTheme.bg} ${catTheme.border}`}>
+                      <DynamicIcon name={cat.icon} size={18} className={catTheme.text} />
                     </div>
                     <div>
-                      <div className="flex items-center gap-2.5 flex-wrap">
-                        <h2 className="text-base sm:text-xl font-bold text-slate-900 dark:text-slate-100 tracking-tight">
-                          {cat.name}
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <h2 className="text-base sm:text-lg font-bold text-slate-900 dark:text-slate-100 tracking-tight">
+                          {cat.name} Tools
                         </h2>
                         {isAI && (
-                          <span className="text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-brand-500/10 text-brand-600 dark:text-brand-300 border border-brand-500/20">
+                          <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-brand-500/10 text-brand-600 dark:text-brand-300 border border-brand-500/20">
                             AI Powered
                           </span>
                         )}
                       </div>
-                      <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-0.5">
+                      <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
                         {cat.description}
                       </p>
                     </div>
                   </div>
-                  <span className="px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200/70 dark:border-slate-700/70 shrink-0">
-                    {toolsInCat.length} utilities
-                  </span>
+                  <div className="flex items-center gap-2.5 shrink-0">
+                    <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 border border-blue-200/70 dark:border-blue-800/70">
+                      {toolsInCat.length} tools
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => setSelectedCategory(cat.name)}
+                      className="text-xs font-semibold text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1 cursor-pointer"
+                    >
+                      <span>View all</span>
+                      <ArrowRight size={12} />
+                    </button>
+                  </div>
                 </div>
-                <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-5">
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-3.5">
                   {toolsInCat.map((tool) => (
                     <ToolCard key={tool.id} tool={tool} />
                   ))}
@@ -339,7 +350,7 @@ export default function HomePage() {
         <section className="space-y-4">
           <div className="flex items-center justify-between border-b border-slate-200/80 dark:border-slate-800/80 pb-3.5">
             <div>
-              <h2 className="text-base sm:text-xl font-bold text-slate-900 dark:text-slate-100 tracking-tight">
+              <h2 className="text-base sm:text-lg font-bold text-slate-900 dark:text-slate-100 tracking-tight">
                 {onlyFavorites ? "Your Favorited Utilities" : `${selectedCategory} Utilities`}
               </h2>
               <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-0.5">
@@ -357,13 +368,24 @@ export default function HomePage() {
               </button>
             )}
           </div>
-          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-5">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-3.5">
             {filteredTools.map((tool) => (
               <ToolCard key={tool.id} tool={tool} />
             ))}
           </div>
         </section>
       )}
+
+      {/* Factual Information & Guidance Card (Moved down to preserve first viewport) */}
+      <section className="max-w-4xl mx-auto rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-gradient-to-b from-white/95 via-white/80 to-slate-50/70 dark:from-slate-900/60 dark:to-slate-900/40 p-6 sm:p-8 space-y-3.5 shadow-xs" aria-labelledby="intro-heading">
+        <h2 id="intro-heading" className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white tracking-tight">Free online text tools for everyday work</h2>
+        <p className="text-sm leading-relaxed text-slate-600 dark:text-slate-400">
+          AI Text Utility is a collection of browser-based tools for writers, students, developers, and office workflows. Use the tools to count words and characters, clean lists, change text case, format JSON, test regular expressions, encode data, generate identifiers, work with dates, or prepare text for publishing. Most utilities process your input locally in the browser, so routine text transformations do not need a server upload.
+        </p>
+        <p className="text-sm leading-relaxed text-slate-600 dark:text-slate-400">
+          Each tool page includes practical instructions, feature details, common questions, limitations, and links to related utilities. AI Magic tools are optional and clearly separated from the browser-only tools because they require a server request to an AI provider.
+        </p>
+      </section>
 
       <section aria-labelledby="how-it-works-heading" className="max-w-4xl mx-auto pt-8 border-t border-slate-200/80 dark:border-slate-800/80 space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2">
