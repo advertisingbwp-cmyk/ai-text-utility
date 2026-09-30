@@ -528,6 +528,39 @@ export const SEO_BLUEPRINT_MAP: Record<string, ToolSeoBlueprint> = {
       "jwt-decoder",
     ],
   },
+  "unix-timestamp": {
+    slug: "unix-timestamp",
+    title: "Unix Timestamp Converter – Epoch Time to Date Online",
+    metaDescription:
+      "Convert Unix timestamps to readable dates and dates back to epoch time instantly. Supports common timestamp formats directly in your browser.",
+    h1: "Unix Timestamp Converter",
+    aboveTheFoldIntro:
+      "Convert Unix epoch timestamps into readable dates and turn dates back into Unix time instantly. Useful for APIs, logs, databases and developer workflows.",
+    primaryKeyword: "unix timestamp converter",
+    secondaryKeywords: [
+      "epoch converter",
+      "timestamp converter",
+      "unix time converter",
+      "epoch time converter",
+      "unix timestamp to date",
+      "timestamp to date",
+      "epoch to date",
+      "date to unix timestamp",
+      "date to epoch",
+      "unix timestamp online",
+      "epoch timestamp converter",
+      "convert timestamp",
+      "unix time to date",
+      "timestamp calculator",
+    ],
+    popularAnchor: "Unix Timestamp Converter",
+    clusterSlugs: [
+      "date-difference",
+      "jwt-decoder",
+      "json-formatter",
+      "query-string-parser",
+    ],
+  },
 };
 
 

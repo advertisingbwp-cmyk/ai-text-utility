@@ -1642,32 +1642,54 @@ export const TOOL_SPECIFIC_CONTENT: Record<
   // ==========================================
   "unix-timestamp": {
     howToSteps: [
-      "Enter a Unix epoch timestamp (seconds or milliseconds) or pick a calendar date.",
-      "The tool converts bidirectionally in real time as you type.",
-      "Review the comprehensive date breakdown: UTC time, Local time, ISO 8601 string, and relative time (e.g. '2 hours ago').",
-      "Click to copy any individual formatted timestamp or human date string.",
+      "Enter a numeric Unix timestamp (e.g. 1773000000) or type a human date string (e.g. 2026-09-30T12:00:00Z).",
+      "Select your unit preference (Auto-Detect, Seconds, or Milliseconds) and your preferred display timezone.",
+      "Review the real-time breakdown displaying UTC, ISO 8601, local time, and relative duration.",
+      "Click any dedicated copy button to copy epoch seconds, milliseconds, or the formatted ISO 8601 date to your clipboard.",
+      "Click 'Insert Current Time (Now)' to fetch the live Unix timestamp for this exact second.",
     ],
     features: [
-      "Bidirectional conversion: Timestamp to Human Date and Date to Unix Timestamp",
-      "Automatic detection of 10-digit seconds versus 13-digit milliseconds",
-      "Comprehensive breakdown across UTC, Local, ISO 8601, and RFC 2822 formats",
-      "Relative time calculations ('x minutes ago' or 'in x days')",
+      "Bidirectional conversion: automatically converts Unix timestamps to dates and readable dates to Unix epoch time",
+      "Intelligent auto-detection distinguishing 10-digit seconds from 13-digit milliseconds",
+      "Multi-format output breakdown across ISO 8601, UTC (GMT), browser local time, and selected world timezones",
+      "Support for historical pre-1970 negative timestamps across Gregorian calendar limits (Years 0001 to 9999)",
+      "Client-side processing: date parsing executes locally in browser memory without sending data to any conversion API",
     ],
     faqs: [
       {
-        question: "What is a Unix timestamp?",
+        question: "What is a Unix timestamp and what is the Unix epoch?",
         answer:
-          "A Unix timestamp (epoch time) is the total number of seconds elapsed since 00:00:00 UTC on January 1, 1970, excluding leap seconds. It provides an unambiguous, timezone-independent standard for recording time in databases and APIs.",
+          "A Unix timestamp (also known as epoch time or POSIX time) is the total number of seconds elapsed since 00:00:00 UTC on Thursday, January 1, 1970 (the Unix epoch), excluding leap seconds. It provides an unambiguous, universal integer representation of an exact point in time regardless of geographical location or daylight saving adjustments.",
       },
       {
-        question: "How does the tool distinguish between seconds and milliseconds?",
+        question: "Is Unix time measured in seconds or milliseconds?",
         answer:
-          "Timestamps with 10 digits (e.g. `1773000000`) are automatically processed as seconds, while 13-digit timestamps (e.g. `1773000000000`) or values exceeding 30 billion are processed as milliseconds. You can also manually override the unit.",
+          "Standard Unix timestamps in operating systems, databases, and APIs (such as JWT tokens or POSIX systems) are measured in whole seconds (commonly 10 digits for current dates). However, high-precision programming runtimes like JavaScript and Java record epoch timestamps in milliseconds (13 digits). This converter automatically detects whether a numeric input represents seconds or milliseconds based on digit count and magnitude, while also offering manual unit overrides.",
       },
       {
-        question: "Will this tool encounter the Year 2038 problem?",
+        question: "How do I convert a Unix timestamp to a human-readable date?",
         answer:
-          "No. The Year 2038 problem affects legacy 32-bit signed integers. This tool and modern JavaScript use 64-bit IEEE 754 floating point numbers (safe up to 9 quadrillion milliseconds), converting dates thousands of years into the future without error.",
+          "Simply paste or type your numeric timestamp into the input field. The converter parses the number in real time and displays the corresponding UTC time, ISO 8601 string, browser local time, and relative duration (such as '2 hours ago' or 'in 3 days'). You can also use the timezone selector to inspect the exact local time in London, New York, Tokyo, or Karachi.",
+      },
+      {
+        question: "How do I convert a calendar date back to a Unix timestamp?",
+        answer:
+          "Type or paste any standard date string into the input box—such as an ISO 8601 string (`2026-09-30T12:00:00Z`), a standard date (`2026-09-30`), or a date-time format. The converter automatically switches to date-to-timestamp mode and outputs the equivalent epoch value in both seconds and milliseconds with one-click copy buttons.",
+      },
+      {
+        question: "Does a Unix timestamp include timezone information?",
+        answer:
+          "No. A Unix timestamp is an absolute scalar quantity that measures elapsed time from a fixed reference point (1970-01-01T00:00:00 UTC). It has no concept of timezones, offsets, or daylight saving rules. Timezones are applied purely at the display layer when formatting the timestamp into a human-readable calendar date.",
+      },
+      {
+        question: "Can this tool convert negative or pre-1970 Unix timestamps?",
+        answer:
+          "Yes. Timestamps representing dates before January 1, 1970 are represented as negative numbers (for example, `-315619200` corresponds to January 1, 1960 UTC). This tool supports negative values across the Gregorian calendar range back to Year 0001.",
+      },
+      {
+        question: "Is my timestamp or date input transmitted to any server?",
+        answer:
+          "No. All timestamp and date calculations are executed entirely on the client side using your browser's native JavaScript `Date` and `Intl.DateTimeFormat` APIs. Your timestamps, dates, and query parameters remain in local browser memory and are never submitted to our application servers or any backend conversion API.",
       },
     ],
   },

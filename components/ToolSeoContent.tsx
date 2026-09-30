@@ -21,6 +21,7 @@ import {
   MarkdownToHtmlEditorial,
   HtmlMinifierEditorial,
   HashGeneratorEditorial,
+  UnixTimestampEditorial,
 } from "@/components/seo/ToolEditorialSections";
 import {
   Check,
@@ -673,6 +674,7 @@ const EDITORIAL_MAP: Record<string, React.FC> = {
   "markdown-to-html": MarkdownToHtmlEditorial,
   "html-minifier": HtmlMinifierEditorial,
   "hash-generator": HashGeneratorEditorial,
+  "unix-timestamp": UnixTimestampEditorial,
 };
 
 export const ToolSeoContent: React.FC<ToolSeoContentProps> = ({ tool }) => {

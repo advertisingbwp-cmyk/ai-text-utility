@@ -21,6 +21,8 @@ import {
   FileCode,
   Minimize2,
   Hash,
+  Clock,
+  CalendarDays,
 } from "lucide-react";
 
 // ==========================================
@@ -3444,6 +3446,473 @@ export const HashGeneratorEditorial: React.FC = () => {
     </div>
   );
 };
+
+// ==========================================
+// 18. UNIX TIMESTAMP EDITORIAL
+// ==========================================
+export const UnixTimestampEditorial: React.FC = () => {
+  return (
+    <div className="space-y-12 pt-6 border-t border-slate-200 dark:border-slate-800">
+      {/* Section 1: What is a Unix Timestamp? */}
+      <section aria-labelledby="what-is-unix-timestamp-heading" className="space-y-4">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl bg-brand-50 dark:bg-brand-950/50 border border-brand-200 dark:border-brand-800/60 flex items-center justify-center text-brand-600 dark:text-brand-400 shrink-0">
+            <Clock size={18} />
+          </div>
+          <div>
+            <h2
+              id="what-is-unix-timestamp-heading"
+              className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white tracking-tight"
+            >
+              What is a Unix Timestamp &amp; the Unix Epoch?
+            </h2>
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              Understanding POSIX time, elapsed seconds from 1970, and universal date serialization
+            </p>
+          </div>
+        </div>
+
+        <div className="p-6 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-4 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+          <p>
+            A <strong>Unix timestamp</strong> (also referred to as <strong>epoch time</strong> or <strong>POSIX time</strong>) is a compact numerical representation of time that tracks the exact number of seconds that have elapsed since the <strong>Unix epoch</strong>:
+          </p>
+          <div className="p-3.5 rounded-xl border border-slate-200/80 dark:border-slate-800 bg-slate-50/80 dark:bg-slate-950/40 font-mono text-xs text-brand-600 dark:text-brand-400 text-center font-bold">
+            1970-01-01T00:00:00Z (Midnight UTC, January 1, 1970)
+          </div>
+          <p>
+            Because the Unix timestamp is an absolute integer counter that excludes leap seconds, it provides an unambiguous, universal format for storing temporal data across operating systems, distributed databases, message queues, and REST APIs without relying on localized calendar strings.
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5 pt-1">
+            <div className="p-4 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-slate-50/70 dark:bg-slate-950/40 space-y-1.5">
+              <span className="font-semibold text-slate-900 dark:text-white text-xs flex items-center gap-1.5">
+                <ShieldCheck size={14} className="text-emerald-500" /> Timezone-Independent Standard
+              </span>
+              <p className="text-xs text-slate-600 dark:text-slate-400">
+                A Unix timestamp is identical in Tokyo, London, and New York for any given moment. Timezone offsets and daylight saving adjustments are applied purely during human display formatting.
+              </p>
+            </div>
+
+            <div className="p-4 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-slate-50/70 dark:bg-slate-950/40 space-y-1.5">
+              <span className="font-semibold text-slate-900 dark:text-white text-xs flex items-center gap-1.5">
+                <ShieldCheck size={14} className="text-emerald-500" /> Efficient Arithmetic &amp; Sorting
+              </span>
+              <p className="text-xs text-slate-600 dark:text-slate-400">
+                Because timestamps are plain integers, computing elapsed duration or sorting chronological records requires simple numeric comparison rather than complex calendar parsing.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Section 2: Seconds vs. Milliseconds */}
+      <section aria-labelledby="seconds-vs-ms-heading" className="space-y-4">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl bg-purple-50 dark:bg-purple-950/50 border border-purple-200 dark:border-purple-800/60 flex items-center justify-center text-purple-600 dark:text-purple-400 shrink-0">
+            <Layers size={18} />
+          </div>
+          <div>
+            <h2
+              id="seconds-vs-ms-heading"
+              className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white tracking-tight"
+            >
+              Seconds vs. Milliseconds: How to Tell Them Apart
+            </h2>
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              Understanding 10-digit POSIX timestamps vs. 13-digit JavaScript and Java epoch timestamps
+            </p>
+          </div>
+        </div>
+
+        <div className="p-6 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-4 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+          <p>
+            One of the most frequent developer bugs in web engineering stems from confusing <strong>epoch seconds</strong> with <strong>epoch milliseconds</strong>. Different programming ecosystems adopt different native units:
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="p-4 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-slate-50/70 dark:bg-slate-950/40 space-y-2">
+              <div className="flex items-center justify-between">
+                <span className="font-bold text-slate-900 dark:text-white text-xs uppercase tracking-wider">
+                  Epoch Seconds (10 Digits)
+                </span>
+                <span className="text-[11px] font-mono text-brand-600 dark:text-brand-400 bg-brand-50 dark:bg-brand-950/60 px-2 py-0.5 rounded border border-brand-200 dark:border-brand-800">
+                  Standard Unix / APIs
+                </span>
+              </div>
+              <p className="text-xs text-slate-600 dark:text-slate-400">
+                Operating systems (Linux, macOS), relational databases (PostgreSQL, MySQL), and API specifications (such as JWT tokens) measure time in whole seconds. In the current era, epoch seconds are typically <strong>10 digits</strong> long (e.g. <code className="font-mono text-[11px]">1773000000</code>).
+              </p>
+            </div>
+
+            <div className="p-4 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-slate-50/70 dark:bg-slate-950/40 space-y-2">
+              <div className="flex items-center justify-between">
+                <span className="font-bold text-slate-900 dark:text-white text-xs uppercase tracking-wider">
+                  Epoch Milliseconds (13 Digits)
+                </span>
+                <span className="text-[11px] font-mono text-purple-600 dark:text-purple-400 bg-purple-50 dark:bg-purple-950/60 px-2 py-0.5 rounded border border-purple-200 dark:border-purple-800">
+                  JavaScript / Java
+                </span>
+              </div>
+              <p className="text-xs text-slate-600 dark:text-slate-400">
+                JavaScript (<code className="font-mono text-[11px]">Date.now()</code>) and Java (<code className="font-mono text-[11px]">System.currentTimeMillis()</code>) measure time in milliseconds. In the current era, epoch milliseconds are typically <strong>13 digits</strong> long (e.g. <code className="font-mono text-[11px]">1773000000000</code>).
+              </p>
+            </div>
+          </div>
+
+          <div className="p-4 rounded-xl border border-slate-200/80 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-950/30 space-y-1.5 text-xs text-slate-600 dark:text-slate-400">
+            <span className="font-semibold text-slate-900 dark:text-white">How This Converter Auto-Detects Units:</span>
+            <p>
+              When set to <em>Auto-Detect</em>, the converter inspects the input: if the numeric value has 12 or more digits, or exceeds 30 billion, it automatically evaluates the input as milliseconds; otherwise, it treats it as seconds. You can also explicitly lock the unit selector to <strong>Seconds</strong> or <strong>Milliseconds</strong> to avoid ambiguity.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Section 3: Step-by-Step Conversion Guide */}
+      <section aria-labelledby="conversion-workflow-heading" className="space-y-4">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl bg-blue-50 dark:bg-blue-950/50 border border-blue-200 dark:border-blue-800/60 flex items-center justify-center text-blue-600 dark:text-blue-400 shrink-0">
+            <CalendarDays size={18} />
+          </div>
+          <div>
+            <h2
+              id="conversion-workflow-heading"
+              className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white tracking-tight"
+            >
+              How to Convert Unix Timestamps &amp; Human Dates
+            </h2>
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              Bidirectional workflows for converting timestamps to calendar dates and dates back to epoch time
+            </p>
+          </div>
+        </div>
+
+        <div className="p-6 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-6 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+          <div className="space-y-3">
+            <h3 className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider flex items-center gap-1.5">
+              Workflow A: Convert Unix Timestamp to Human Date
+            </h3>
+            <ol className="list-decimal list-inside space-y-2 pl-1">
+              <li>
+                <strong className="text-slate-900 dark:text-white">Paste Epoch Value:</strong> Enter your numeric timestamp (such as <code className="font-mono text-[11px]">1773000000</code>) into the input box.
+              </li>
+              <li>
+                <strong className="text-slate-900 dark:text-white">Select Unit &amp; Display Timezone:</strong> Choose Auto-Detect or explicitly select seconds/milliseconds. Select your target timezone (Local, UTC, New York, London, Tokyo, or Karachi).
+              </li>
+              <li>
+                <strong className="text-slate-900 dark:text-white">Review Live Results:</strong> Inspect the reactive results card displaying the exact UTC date, ISO 8601 string, browser local time, and relative duration (e.g. <em>&quot;in 2 days&quot;</em>).
+              </li>
+              <li>
+                <strong className="text-slate-900 dark:text-white">Copy Output:</strong> Click the dedicated copy button next to the ISO 8601 date, seconds, or milliseconds to paste the value into your code or database.
+              </li>
+            </ol>
+          </div>
+
+          <div className="pt-2 border-t border-slate-200/80 dark:border-slate-800 space-y-3">
+            <h3 className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider flex items-center gap-1.5">
+              Workflow B: Convert Human Calendar Date to Unix Timestamp
+            </h3>
+            <ol className="list-decimal list-inside space-y-2 pl-1">
+              <li>
+                <strong className="text-slate-900 dark:text-white">Type a Date String:</strong> Paste or type any standard date string into the input box—such as an ISO 8601 format (<code className="font-mono text-[11px]">2026-09-30T12:00:00Z</code>) or calendar format (<code className="font-mono text-[11px]">2026-09-30</code>).
+              </li>
+              <li>
+                <strong className="text-slate-900 dark:text-white">Automatic Mode Detection:</strong> The tool automatically detects non-numeric input and evaluates the date string into epoch time.
+              </li>
+              <li>
+                <strong className="text-slate-900 dark:text-white">Read Epoch Values:</strong> View the calculated Epoch Seconds (10 digits) and Epoch Milliseconds (13 digits) in the result cards below.
+              </li>
+              <li>
+                <strong className="text-slate-900 dark:text-white">Insert Current Time:</strong> Need the timestamp for right now? Click <strong>Insert Current Time (Now)</strong> to immediately populate the current second or millisecond.
+              </li>
+            </ol>
+          </div>
+        </div>
+      </section>
+
+      {/* Section 4: UTC vs Local Time & Timezone Handling */}
+      <section aria-labelledby="timezones-heading" className="space-y-4">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-800/60 flex items-center justify-center text-emerald-600 dark:text-emerald-400 shrink-0">
+            <Globe size={18} />
+          </div>
+          <div>
+            <h2
+              id="timezones-heading"
+              className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white tracking-tight"
+            >
+              UTC vs. Local Time &amp; Timezone Handling Explained
+            </h2>
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              Why Unix timestamps never store timezones, and how timezone formatting works
+            </p>
+          </div>
+        </div>
+
+        <div className="p-6 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-4 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+          <p>
+            A common misconception in software engineering is that a Unix timestamp contains timezone data. In reality, <strong>a Unix timestamp is completely timezone-agnostic</strong>:
+          </p>
+          <ul className="list-disc list-inside space-y-1.5 pl-1 text-xs text-slate-600 dark:text-slate-400">
+            <li>It represents an absolute physical point on the global timeline, measured strictly from 00:00:00 UTC on January 1, 1970.</li>
+            <li>No country code, UTC offset (e.g. <code className="font-mono text-[11px]">+05:00</code>), or daylight saving flag is encoded into the numeric timestamp.</li>
+            <li>When converting a timestamp into a human-readable date, the application formatting the value determines the timezone offset.</li>
+          </ul>
+
+          <div className="p-4 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-slate-50/70 dark:bg-slate-950/40 space-y-2">
+            <span className="font-bold text-slate-900 dark:text-white text-xs uppercase tracking-wider">
+              Output Formats Provided by This Tool
+            </span>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1 text-xs">
+              <div>
+                <span className="font-semibold text-slate-800 dark:text-slate-200">UTC / GMT (toUTCString):</span>
+                <p className="text-slate-500 dark:text-slate-400">Shows the universal time at the prime meridian without daylight saving shifts.</p>
+              </div>
+              <div>
+                <span className="font-semibold text-slate-800 dark:text-slate-200">ISO 8601 (toISOString):</span>
+                <p className="text-slate-500 dark:text-slate-400">Standardized <code className="font-mono text-[11px]">YYYY-MM-DDTHH:mm:ss.sssZ</code> format for databases and REST APIs.</p>
+              </div>
+              <div>
+                <span className="font-semibold text-slate-800 dark:text-slate-200">Browser Local Time:</span>
+                <p className="text-slate-500 dark:text-slate-400">Formats the date according to your operating system&apos;s current geographical timezone.</p>
+              </div>
+              <div>
+                <span className="font-semibold text-slate-800 dark:text-slate-200">Selected World Timezone:</span>
+                <p className="text-slate-500 dark:text-slate-400">Uses <code className="font-mono text-[11px]">Intl.DateTimeFormat</code> to render full local date and time in major global business hubs.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Section 5: API, Database & JWT Use Cases */}
+      <section aria-labelledby="use-cases-heading" className="space-y-4">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl bg-indigo-50 dark:bg-indigo-950/50 border border-indigo-200 dark:border-indigo-800/60 flex items-center justify-center text-indigo-600 dark:text-indigo-400 shrink-0">
+            <BookOpen size={18} />
+          </div>
+          <div>
+            <h2
+              id="use-cases-heading"
+              className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white tracking-tight"
+            >
+              Everyday Developer Use Cases: APIs, Databases &amp; JWTs
+            </h2>
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              Where and why Unix timestamps are used across modern backend and cloud architectures
+            </p>
+          </div>
+        </div>
+
+        <div className="p-6 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-4 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="p-4 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-slate-50/70 dark:bg-slate-950/40 space-y-1.5">
+              <h3 className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">
+                1. REST &amp; GraphQL API Payloads
+              </h3>
+              <p className="text-xs text-slate-600 dark:text-slate-400">
+                APIs commonly transmit epoch seconds or milliseconds to prevent timezone conversion discrepancies between client and server. If you work with JSON structures, format and validate your payloads with our <Link href="/tools/json-formatter" className="text-brand-600 dark:text-brand-400 underline font-semibold">JSON Formatter</Link>.
+              </p>
+            </div>
+
+            <div className="p-4 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-slate-50/70 dark:bg-slate-950/40 space-y-1.5">
+              <h3 className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">
+                2. JWT Token Expiration Claims
+              </h3>
+              <p className="text-xs text-slate-600 dark:text-slate-400">
+                JSON Web Tokens (RFC 7519) represent time claims such as <code className="font-mono text-[11px]">exp</code> (expiration time), <code className="font-mono text-[11px]">iat</code> (issued at), and <code className="font-mono text-[11px]">nbf</code> (not before) as epoch seconds. Inspect and decode token expiration claims with our <Link href="/tools/jwt-decoder" className="text-brand-600 dark:text-brand-400 underline font-semibold">JWT Decoder</Link>.
+              </p>
+            </div>
+
+            <div className="p-4 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-slate-50/70 dark:bg-slate-950/40 space-y-1.5">
+              <h3 className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">
+                3. Database Audit &amp; Event Logs
+              </h3>
+              <p className="text-xs text-slate-600 dark:text-slate-400">
+                High-throughput databases (MongoDB, DynamoDB, PostgreSQL) index <code className="font-mono text-[11px]">created_at</code> and <code className="font-mono text-[11px]">updated_at</code> epoch integers for efficient B-tree range queries and TTL expiration policies.
+              </p>
+            </div>
+
+            <div className="p-4 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-slate-50/70 dark:bg-slate-950/40 space-y-1.5">
+              <h3 className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">
+                4. Interval &amp; Duration Calculation
+              </h3>
+              <p className="text-xs text-slate-600 dark:text-slate-400">
+                To calculate the exact number of days, weeks, months, or hours between two calendar dates without timezone drift, use our companion <Link href="/tools/date-difference" className="text-brand-600 dark:text-brand-400 underline font-semibold">Date Difference Calculator</Link>.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Section 6: Year 2038 Issue & Negative Timestamps */}
+      <section aria-labelledby="y2038-heading" className="space-y-4">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl bg-amber-50 dark:bg-amber-950/50 border border-amber-200 dark:border-amber-800/60 flex items-center justify-center text-amber-600 dark:text-amber-400 shrink-0">
+            <AlertTriangle size={18} />
+          </div>
+          <div>
+            <h2
+              id="y2038-heading"
+              className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white tracking-tight"
+            >
+              The Year 2038 Problem (Y2038) &amp; Negative Timestamps
+            </h2>
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              Signed 32-bit integer limits, modern 64-bit safety, and historical dates before 1970
+            </p>
+          </div>
+        </div>
+
+        <div className="p-6 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-4 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="p-4 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-slate-50/70 dark:bg-slate-950/40 space-y-2">
+              <h3 className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">
+                The Year 2038 Issue Explained
+              </h3>
+              <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                The <strong>Year 2038 problem (Y2038)</strong> applies to legacy 32-bit signed integers in C and older operating systems. The maximum positive value of a signed 32-bit integer is <code className="font-mono text-[11px]">2,147,483,647</code>, which corresponds to <strong>03:14:07 UTC on Tuesday, January 19, 2038</strong>. At that moment, 32-bit systems overflow to a negative number (<code className="font-mono text-[11px]">-2,147,483,648</code>), wrapping back to 1901.
+              </p>
+              <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                Modern 64-bit operating systems, databases, and JavaScript runtimes avoid this issue entirely by utilizing 64-bit integers and IEEE 754 double-precision numbers, extending safe epoch calculations to hundreds of billions of years.
+              </p>
+            </div>
+
+            <div className="p-4 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-slate-50/70 dark:bg-slate-950/40 space-y-2">
+              <h3 className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">
+                Negative Timestamps (Pre-1970 Dates)
+              </h3>
+              <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                Because Unix time counts elapsed seconds from January 1, 1970, calendar dates prior to 1970 are represented by <strong>negative integers</strong>:
+              </p>
+              <ul className="list-disc list-inside space-y-1 text-xs text-slate-600 dark:text-slate-400 pl-1">
+                <li><code className="font-mono text-[11px]">-315619200</code> = January 1, 1960 UTC</li>
+                <li><code className="font-mono text-[11px]">-1418298000000</code> = January 1, 1925 UTC (in ms)</li>
+              </ul>
+              <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                This converter fully supports negative timestamps across practical Gregorian calendar limits back to Year 0001 (<code className="font-mono text-[11px]">-62,167,219,200,000</code> ms).
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Section 7: Client-Side Execution & Privacy */}
+      <section aria-labelledby="privacy-heading" className="space-y-4">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-800/60 flex items-center justify-center text-emerald-600 dark:text-emerald-400 shrink-0">
+            <ShieldCheck size={18} />
+          </div>
+          <div>
+            <h2
+              id="privacy-heading"
+              className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white tracking-tight"
+            >
+              Client-Side Execution &amp; Complete Privacy
+            </h2>
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              Local date parsing and epoch arithmetic directly in your browser memory
+            </p>
+          </div>
+        </div>
+
+        <div className="p-6 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-3 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+          <p>
+            When inspecting internal timestamps, database IDs, or user event records, keeping your data confidential is critical. This converter processes all conversions locally in your browser session:
+          </p>
+          <ul className="list-disc list-inside space-y-1.5 text-xs text-slate-600 dark:text-slate-400 pl-1">
+            <li><strong>No Backend Transmission:</strong> Your entered timestamp numbers, date strings, and selected timezones are processed in local JavaScript memory and are never transmitted to our application servers or any external date conversion API.</li>
+            <li><strong>Standard Native APIs:</strong> Built using the browser&apos;s native <code className="font-mono text-[11px]">Date</code> and <code className="font-mono text-[11px]">Intl.DateTimeFormat</code> engines for zero latency and predictable cross-platform behavior.</li>
+            <li><strong>Instant Reactivity:</strong> Calculations update in real time as you type, allowing rapid debugging of epoch values during development.</li>
+          </ul>
+        </div>
+      </section>
+
+      {/* Section 8: Related Tools Navigation Grid */}
+      <section aria-labelledby="related-tools-heading" className="space-y-4">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center text-slate-700 dark:text-slate-300 shrink-0">
+            <Layers size={18} />
+          </div>
+          <div>
+            <h2
+              id="related-tools-heading"
+              className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white tracking-tight"
+            >
+              Related Date, Time &amp; Developer Utilities
+            </h2>
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              Explore interconnected utilities for date duration, token inspection, and structured data
+            </p>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-2.5">
+            <div className="flex items-center justify-between">
+              <Link
+                href="/tools/date-difference"
+                className="text-sm font-bold text-slate-900 dark:text-white hover:text-brand-600 dark:hover:text-brand-400 transition-colors inline-flex items-center gap-1.5"
+              >
+                Date Difference <ArrowRight size={14} />
+              </Link>
+              <span className="text-[11px] font-mono text-brand-600 dark:text-brand-400">Duration</span>
+            </div>
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              Calculate exact intervals, days, weeks, months, and hours between any two calendar dates.
+            </p>
+          </div>
+
+          <div className="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-2.5">
+            <div className="flex items-center justify-between">
+              <Link
+                href="/tools/jwt-decoder"
+                className="text-sm font-bold text-slate-900 dark:text-white hover:text-brand-600 dark:hover:text-brand-400 transition-colors inline-flex items-center gap-1.5"
+              >
+                JWT Decoder <ArrowRight size={14} />
+              </Link>
+              <span className="text-[11px] font-mono text-purple-600 dark:text-purple-400">Tokens</span>
+            </div>
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              Decode and inspect JSON Web Token headers, payload claims, and expiration timestamps locally.
+            </p>
+          </div>
+
+          <div className="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-2.5">
+            <div className="flex items-center justify-between">
+              <Link
+                href="/tools/json-formatter"
+                className="text-sm font-bold text-slate-900 dark:text-white hover:text-brand-600 dark:hover:text-brand-400 transition-colors inline-flex items-center gap-1.5"
+              >
+                JSON Formatter <ArrowRight size={14} />
+              </Link>
+              <span className="text-[11px] font-mono text-emerald-600 dark:text-emerald-400">Format</span>
+            </div>
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              Format, validate, and inspect API responses containing numeric timestamps and date strings.
+            </p>
+          </div>
+
+          <div className="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-2.5">
+            <div className="flex items-center justify-between">
+              <Link
+                href="/tools/query-string-parser"
+                className="text-sm font-bold text-slate-900 dark:text-white hover:text-brand-600 dark:hover:text-brand-400 transition-colors inline-flex items-center gap-1.5"
+              >
+                Query String Parser <ArrowRight size={14} />
+              </Link>
+              <span className="text-[11px] font-mono text-amber-600 dark:text-amber-400">Params</span>
+            </div>
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              Parse and inspect URL query parameters containing epoch timestamps or date filters.
+            </p>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+};
+
 
 
 
