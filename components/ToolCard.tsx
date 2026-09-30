@@ -12,11 +12,11 @@ export const ToolCard: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
   const theme = getToolTheme(tool.id, tool.category);
 
   return (
-    <div className="group relative flex flex-col justify-between rounded-2xl border border-slate-200/85 dark:border-slate-800/80 bg-gradient-to-b from-white via-white to-slate-50/60 dark:from-slate-900/80 dark:via-slate-900/60 dark:to-slate-950/80 hover:bg-white dark:hover:bg-slate-900 p-3.5 sm:p-4 shadow-xs hover:shadow-md hover:border-slate-300/90 dark:hover:border-slate-700/80 transition-all duration-200 hover:-translate-y-1 active:scale-[0.99]">
+    <div className="card-3d group relative flex flex-col justify-between rounded-2xl p-3.5 sm:p-4 active:scale-[0.99]">
       <div>
         <div className="flex items-center justify-between gap-2 mb-2 sm:mb-2.5">
           <div
-            className={`w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center transition-all duration-200 group-hover:scale-105 shrink-0 border ${theme.bg} ${theme.border} shadow-2xs`}
+            className={`w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center transition-all duration-200 group-hover:scale-110 shrink-0 border ${theme.bg} ${theme.border} icon-3d`}
             aria-hidden="true"
           >
             <DynamicIcon
@@ -45,11 +45,11 @@ export const ToolCard: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
       </div>
 
       <div className="mt-3 pt-2.5 border-t border-slate-100 dark:border-slate-800/60 flex items-center justify-between text-xs">
-        <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-md border truncate max-w-[65%] ${theme.badgeBg} ${theme.badgeText} ${theme.badgeBorder}`}>
+        <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-md border truncate max-w-[65%] ${theme.badgeBg} ${theme.badgeText} ${theme.badgeBorder} shadow-2xs`}>
           {tool.category}
         </span>
         <span
-          className="relative z-10 w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-slate-100/80 dark:bg-slate-800/80 text-slate-500 dark:text-slate-400 group-hover:text-brand-600 dark:group-hover:text-brand-300 group-hover:bg-brand-50 dark:group-hover:bg-brand-950/60 flex items-center justify-center transition-all shrink-0 shadow-2xs"
+          className="relative z-10 w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-slate-100/90 dark:bg-slate-800/90 text-slate-500 dark:text-slate-400 group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:to-indigo-600 group-hover:text-white group-hover:shadow-[0_4px_10px_rgba(37,99,235,0.35)] flex items-center justify-center transition-all shrink-0 shadow-2xs"
           aria-hidden="true"
         >
           <ArrowRight size={12} className="transition-transform duration-200 group-hover:translate-x-0.5" />

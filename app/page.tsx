@@ -68,12 +68,12 @@ const RecentToolCard: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
 
   return (
     <div
-      className={`group relative flex flex-col justify-between rounded-2xl border bg-gradient-to-br ${recentTheme.cardBg} ${recentTheme.border} p-4 sm:p-4.5 shadow-xs hover:shadow-md transition-all duration-200 hover:-translate-y-1 active:scale-[0.99]`}
+      className={`card-3d group relative flex flex-col justify-between rounded-2xl bg-gradient-to-br ${recentTheme.cardBg} ${recentTheme.border} p-4 sm:p-4.5 active:scale-[0.99]`}
     >
       <div>
         <div className="flex items-center justify-between gap-2 mb-2.5">
           <div
-            className={`w-11 h-11 rounded-xl flex items-center justify-center transition-all duration-200 group-hover:scale-105 shrink-0 border ${theme.bg} ${theme.border} shadow-2xs`}
+            className={`w-11 h-11 rounded-xl flex items-center justify-center transition-all duration-200 group-hover:scale-110 shrink-0 border ${theme.bg} ${theme.border} icon-3d`}
             aria-hidden="true"
           >
             <DynamicIcon
@@ -96,17 +96,17 @@ const RecentToolCard: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
             {tool.name}
           </Link>
         </h3>
-        <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed line-clamp-2">
+        <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed line-clamp-2">
           {tool.description}
         </p>
       </div>
 
       <div className="mt-3.5 pt-2.5 border-t border-slate-200/60 dark:border-slate-800/60 flex items-center justify-between text-xs">
-        <span className={`text-[10px] sm:text-[11px] font-semibold px-2.5 py-0.5 rounded-md border ${recentTheme.badge}`}>
+        <span className={`text-[10px] sm:text-[11px] font-semibold px-2.5 py-0.5 rounded-md border ${recentTheme.badge} shadow-2xs`}>
           {tool.category}
         </span>
         <span
-          className="relative z-10 w-7 h-7 rounded-full bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 group-hover:text-brand-600 dark:group-hover:text-brand-300 group-hover:bg-brand-50 dark:group-hover:bg-brand-950/60 flex items-center justify-center transition-all shadow-2xs border border-slate-200/70 dark:border-slate-700/60 shrink-0"
+          className="relative z-10 w-7 h-7 rounded-full bg-slate-100/90 dark:bg-slate-800/90 text-slate-500 dark:text-slate-400 group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:to-indigo-600 group-hover:text-white group-hover:shadow-[0_4px_10px_rgba(37,99,235,0.35)] flex items-center justify-center transition-all shadow-2xs shrink-0"
           aria-hidden="true"
         >
           <ArrowRight size={13} className="transition-transform duration-200 group-hover:translate-x-0.5" />
@@ -167,16 +167,17 @@ export default function HomePage() {
     <div className="w-full max-w-7xl mx-auto space-y-6 sm:space-y-8 pb-16">
       <TerminalHero />
 
-      {/* Prominent Floating Search Bar (Figma Hierarchy) */}
-      <div className="w-full max-w-2xl mx-auto -mt-2 sm:-mt-4">
+      {/* Prominent Floating Search Bar (3D Spatial Capsule) */}
+      <div className="relative group w-full max-w-2xl mx-auto -mt-2 sm:-mt-4">
+        <div className="absolute -inset-1.5 bg-gradient-to-r from-blue-500/25 via-indigo-500/20 to-fuchsia-500/25 rounded-full blur-md opacity-70 group-hover:opacity-100 transition duration-300 -z-10" />
         <button
           type="button"
           onClick={() => window.dispatchEvent(new CustomEvent("open-command-palette"))}
           aria-label="Search tools, categories or features"
-          className="w-full flex items-center justify-between gap-3 px-4 sm:px-5 py-3 sm:py-3.5 rounded-2xl sm:rounded-full border border-slate-200/90 dark:border-slate-800 bg-white/95 dark:bg-slate-900/90 shadow-md hover:shadow-lg hover:border-brand-500/40 transition-all cursor-pointer group text-left backdrop-blur-md active:scale-[0.99]"
+          className="w-full flex items-center justify-between gap-3 px-4 sm:px-5 py-3 sm:py-3.5 rounded-full border border-white/90 dark:border-slate-800 bg-white/95 dark:bg-slate-900/90 shadow-[0_12px_32px_-6px_rgba(37,99,235,0.12),inset_0_1px_0_rgba(255,255,255,1)] hover:shadow-[0_16px_40px_-6px_rgba(37,99,235,0.2)] hover:border-brand-500/50 transition-all cursor-pointer group text-left backdrop-blur-md active:scale-[0.99]"
         >
           <div className="flex items-center gap-3">
-            <Search size={18} className="text-slate-400 group-hover:text-brand-600 transition-colors shrink-0" />
+            <Search size={18} className="text-brand-600 dark:text-brand-400 group-hover:scale-110 transition-transform shrink-0" />
             <span className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 font-normal group-hover:text-slate-800 dark:group-hover:text-slate-200">
               Search tools, categories or features...
             </span>
@@ -185,23 +186,23 @@ export default function HomePage() {
             <kbd className="hidden sm:inline-flex items-center gap-0.5 text-[11px] font-mono px-2 py-1 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 font-semibold shadow-2xs">
               ⌘K
             </kbd>
-            <div className="w-8 h-8 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white flex items-center justify-center shadow-xs group-hover:scale-105 transition-transform">
+            <div className="w-8 h-8 rounded-full bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 text-white flex items-center justify-center shadow-3d-button group-hover:scale-105 active:scale-95 transition-all">
               <ArrowRight size={14} />
             </div>
           </div>
         </button>
       </div>
 
-      {/* Category Filter Rail (Figma Pill Styling) */}
+      {/* Category Filter Rail (3D Tactile Pills) */}
       <section id="tools-section" className="w-full min-w-0 scroll-mt-24">
         <div className="flex items-center justify-start sm:justify-center overflow-x-auto pb-2 scrollbar-none gap-2 sm:gap-2.5">
           <button
             type="button"
             onClick={() => { setSelectedCategory("ALL"); setOnlyFavorites(false); }}
-            className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold transition-all whitespace-nowrap cursor-pointer ${
+            className={`pill-3d inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold whitespace-nowrap cursor-pointer ${
               selectedCategory === "ALL" && !onlyFavorites
-                ? "bg-slate-900 text-white dark:bg-brand-600 shadow-md"
-                : "bg-white/90 dark:bg-slate-900/70 text-slate-700 dark:text-slate-300 border border-slate-200/90 dark:border-slate-800 hover:bg-white hover:border-slate-300 shadow-2xs"
+                ? "bg-slate-900 text-white dark:bg-brand-600 shadow-[0_4px_14px_rgba(15,23,42,0.25),inset_0_1px_0_rgba(255,255,255,0.2)] border-transparent"
+                : "bg-white/90 dark:bg-slate-900/70 text-slate-700 dark:text-slate-300 border border-slate-200/90 dark:border-slate-800 hover:bg-white hover:border-slate-300"
             }`}
           >
             <LayoutGrid size={14} />
@@ -211,10 +212,10 @@ export default function HomePage() {
           <button
             type="button"
             onClick={() => { setOnlyFavorites((prev) => !prev); if (!onlyFavorites) setSelectedCategory("ALL"); }}
-            className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold border transition-all whitespace-nowrap cursor-pointer ${
+            className={`pill-3d inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold border whitespace-nowrap cursor-pointer ${
               onlyFavorites
                 ? "bg-amber-500/15 text-amber-700 dark:text-amber-300 border-amber-500/40 shadow-xs"
-                : "bg-white/90 dark:bg-slate-900/70 text-slate-700 dark:text-slate-300 border-slate-200/90 dark:border-slate-800 hover:bg-white hover:border-slate-300 shadow-2xs"
+                : "bg-white/90 dark:bg-slate-900/70 text-slate-700 dark:text-slate-300 border-slate-200/90 dark:border-slate-800 hover:bg-white hover:border-slate-300"
             }`}
           >
             <Star size={14} className={onlyFavorites ? "fill-amber-500 text-amber-500" : "text-amber-500"} />
@@ -229,10 +230,10 @@ export default function HomePage() {
                 key={cat.name}
                 type="button"
                 onClick={() => { setSelectedCategory(cat.name); setOnlyFavorites(false); }}
-                className={`flex items-center gap-2 px-3.5 py-2 rounded-full text-xs font-semibold whitespace-nowrap cursor-pointer transition-all border ${
+                className={`pill-3d flex items-center gap-2 px-3.5 py-2 rounded-full text-xs font-semibold whitespace-nowrap cursor-pointer border ${
                   isSelected
-                    ? "bg-slate-900 text-white dark:bg-brand-600 shadow-md border-transparent"
-                    : "bg-white/90 dark:bg-slate-900/70 text-slate-700 dark:text-slate-300 border-slate-200/90 dark:border-slate-800 hover:bg-white hover:border-slate-300 shadow-2xs"
+                    ? "bg-slate-900 text-white dark:bg-brand-600 shadow-[0_4px_14px_rgba(15,23,42,0.25),inset_0_1px_0_rgba(255,255,255,0.2)] border-transparent"
+                    : "bg-white/90 dark:bg-slate-900/70 text-slate-700 dark:text-slate-300 border-slate-200/90 dark:border-slate-800 hover:bg-white hover:border-slate-300"
                 }`}
               >
                 <DynamicIcon
