@@ -12,15 +12,18 @@ export const ToolCard: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
   const theme = getToolTheme(tool.id, tool.category);
 
   return (
-    <div className="group relative flex flex-col justify-between rounded-xl sm:rounded-2xl border border-slate-200/90 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/60 p-3.5 sm:p-5 pb-3.5 sm:pb-5 shadow-card hover:shadow-cardHover hover:border-slate-300 dark:hover:border-slate-700 transition-all duration-200 hover:-translate-y-0.5">
+    <div className="group relative flex flex-col justify-between rounded-xl sm:rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/60 hover:bg-white dark:hover:bg-slate-900/90 p-3.5 sm:p-5 pb-3.5 sm:pb-5 shadow-xs hover:shadow-glass hover:border-slate-300 dark:hover:border-slate-700/80 transition-all duration-200 hover:-translate-y-0.5 active:scale-[0.99]">
       <div>
         <div className="flex items-center justify-between gap-2 mb-2 sm:mb-2.5">
           <div
-            className={`w-9 h-9 sm:w-11 sm:h-11 rounded-lg sm:rounded-xl flex items-center justify-center transition-all duration-200 group-hover:scale-110 shrink-0 shadow-2xs border ${theme.bg} ${theme.border}`}
+            className={`w-9 h-9 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl flex items-center justify-center transition-all duration-200 group-hover:scale-105 shrink-0 border ${theme.bg} ${theme.border}`}
+            aria-hidden="true"
           >
-            <span className="text-[19px] sm:text-[22px] leading-none select-none transition-transform group-hover:rotate-6" role="img" aria-hidden="true">
-              {theme.emoji}
-            </span>
+            <DynamicIcon
+              name={tool.icon}
+              size={18}
+              className={`${theme.text} transition-transform duration-200 group-hover:rotate-3`}
+            />
           </div>
 
           <div className="relative z-20 flex items-center">
@@ -36,18 +39,18 @@ export const ToolCard: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
             {tool.name}
           </Link>
         </h3>
-        <p className="text-[11px] sm:text-xs text-slate-600 dark:text-slate-300 leading-relaxed line-clamp-2">
+        <p className="text-[11px] sm:text-xs text-slate-600 dark:text-slate-400 leading-relaxed line-clamp-2">
           {tool.description}
         </p>
       </div>
 
-      <div className="mt-3.5 sm:mt-4 pt-2.5 sm:pt-3 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between text-xs">
-        <span className="font-medium text-slate-600 dark:text-slate-300 truncate max-w-[55%]">
+      <div className="mt-3.5 sm:mt-4 pt-2.5 sm:pt-3 border-t border-slate-100/90 dark:border-slate-800/60 flex items-center justify-between text-xs">
+        <span className="font-medium text-slate-500 dark:text-slate-400 truncate max-w-[55%] text-[11px]">
           {tool.category}
         </span>
-        <span className="relative z-10 inline-flex items-center gap-0.5 sm:gap-1 text-slate-600 group-hover:text-brand-600 dark:text-slate-300 dark:group-hover:text-brand-400 font-medium transition-colors shrink-0">
+        <span className="relative z-10 inline-flex items-center gap-1 text-[11px] font-semibold text-slate-500 group-hover:text-brand-600 dark:text-slate-400 dark:group-hover:text-brand-400 transition-colors shrink-0">
           <span>Open</span>
-          <ArrowRight size={12} className="transition-transform group-hover:translate-x-0.5 sm:w-3.5 sm:h-3.5" aria-hidden="true" />
+          <ArrowRight size={12} className="transition-transform duration-200 group-hover:translate-x-0.5" aria-hidden="true" />
         </span>
       </div>
     </div>
