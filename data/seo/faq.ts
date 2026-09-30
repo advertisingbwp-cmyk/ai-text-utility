@@ -169,26 +169,26 @@ export const CATEGORY_DEFAULT_CONTENT: Record<
   "AI Magic": {
     howToSteps: [
       "Paste your rough draft, bullet points, or message into the text area.",
-      "Click the 'Run AI Tool' button to submit your request.",
-      "Our serverless AI engine (Google Gemini) refines your text in seconds.",
-      "Review the high-quality rewrite, copy to clipboard, or retry with updated instructions.",
+      "Click the 'Process with AI' button to submit your request.",
+      "The AI engine refines and processes your text in seconds.",
+      "Review the transformed output, copy to clipboard, or regenerate with fresh input.",
     ],
     features: [
-      "State-of-the-art Google Gemini AI intelligence",
-      "Strict zero-logging policy: user text is never saved or used for training",
-      "No client-side API keys: requests are securely proxied server-side via HTTPS",
-      "Fast responses with strict rate limiting abuse protection",
+      "AI-powered rewriting and text transformation",
+      "Server-side request routing with secure API credential management",
+      "No client-side API keys required: requests are securely handled via server endpoints",
+      "Built-in rate limiting and abuse protection for reliable availability",
     ],
     faqs: [
       {
-        question: "Is my text used to train AI models?",
+        question: "How are AI requests processed?",
         answer:
-          "No. Our serverless endpoint connects via enterprise API agreements where prompt data is ephemeral, never logged to disks, and never used for model training.",
+          "Your text is transmitted via encrypted HTTPS through server-side application endpoints to the configured AI provider. API credentials remain securely on the server and are never exposed to client browsers.",
       },
       {
         question: "What is the maximum text limit for AI tools?",
         answer:
-          "Each AI request allows up to 10,000 characters (approximately 1,500 - 2,000 words), making it ideal for emails, essays, code explanations, and articles.",
+          "Each AI request allows up to 10,000 characters (approximately 1,500 - 2,000 words), making it ideal for messages, emails, articles, and long-form paragraphs.",
       },
     ],
   },
@@ -1795,32 +1795,53 @@ export const TOOL_SPECIFIC_CONTENT: Record<
 
   "ai-friendly": {
     howToSteps: [
-      "Paste text that feels too rigid, cold, or transactional into the editor.",
-      "Click 'Run AI Tool' to soften the tone.",
-      "The AI infuses warmth, empathy, and positive conversational phrasing.",
-      "Copy the friendly message for Slack, customer support replies, or team communications.",
+      "Paste your message, email draft, or feedback into the Input Draft editor (or click 'Load Sample').",
+      "Click 'Process with AI' to analyze and soften the tone of your text.",
+      "Inspect the rewritten text in the AI Generated Result box, comparing tone warmth and clarity.",
+      "Copy the polished message to your clipboard with one click, or click 'Regenerate with AI' to explore an alternative phrasing.",
     ],
     features: [
-      "Softens harsh or abrupt phrasing with approachable, empathetic wording",
-      "Perfect for customer support, team collaboration, community updates, and onboarding",
-      "Powered by Google Gemini via high-performance serverless endpoints",
-      "Complete data privacy: zero prompt caching, zero storage, and zero model training",
+      "Transforms stiff, blunt, or harsh sentences into polite, warm, and approachable text",
+      "Preserves core instructions, deadlines, and key factual details while adjusting tone",
+      "One-click copy and text download for rapid email and team messaging workflows",
+      "Encrypted HTTPS transmission through server-side endpoints with zero local database persistence of submitted text",
+      "Generous 10,000 character input limit supporting full email threads and detailed feedback",
     ],
     faqs: [
       {
-        question: "How does the AI make text friendly without sounding unprofessional?",
+        question: "What does the AI Friendly Text Rewriter do?",
         answer:
-          "It replaces curt directives and rigid jargon with conversational framing, polite transitions, and empathetic tone while keeping the core action items and message clear.",
+          "The AI Friendly Text Rewriter softens cold, blunt, or overly formal drafts by reframing them with warm, polite, and approachable phrasing. It is designed to preserve your core message and action items while making your interpersonal tone constructive and conversational.",
       },
       {
-        question: "Is my text private when using this AI tool?",
+        question: "Can it make a blunt message sound more polite?",
         answer:
-          "Yes. All text is transmitted via encrypted HTTPS to our serverless proxy. Requests are ephemeral, never written to persistent disks, and never used to train future AI models.",
+          "Yes. It replaces curt commands, passive-aggressive phrasing, and transactional directives with courteous phrasing, respectful context framing, and empathetic language, making difficult requests or feedback much easier to receive.",
       },
       {
-        question: "Can I use this for customer support tickets?",
+        question: "Will it change the meaning of my message?",
         answer:
-          "Yes. It is particularly effective for transforming blunt technical explanations or policy notices into helpful, customer-centric responses.",
+          "The tool is designed to preserve the original intent while changing tone, but AI-generated rewrites should still be reviewed before use. Because subtle contextual nuances can vary, you should always verify that dates, figures, and key instructions remain intact before sending.",
+      },
+      {
+        question: "What is the difference between friendly and professional tone?",
+        answer:
+          "Our [AI Friendly Text Rewriter](/tools/ai-friendly) creates an approachable, warm, and conversational tone ideal for day-to-day team chats, community announcements, and empathetic customer replies. In contrast, our [Professional Tone Rewriter](/tools/ai-professional) produces formal, concise, and structured prose suited for executive summaries, official proposals, and formal client communications.",
+      },
+      {
+        question: "Can I use it for emails and customer messages?",
+        answer:
+          "Yes. It is especially well-suited for customer service replies, workplace emails, project status updates, reminder notes, and onboarding messages where maintaining positive rapport and clear communication is essential.",
+      },
+      {
+        question: "Is AI Friendly the same as a paraphrasing tool?",
+        answer:
+          "No. A general paraphraser like our [AI Paraphraser](/tools/ai-paraphrase) primarily rewrites sentence structures and introduces synonyms to avoid repetition. The AI Friendly Rewriter specifically targets interpersonal tone, emotional temperature, and politeness without unnecessarily reorganizing the entire passage.",
+      },
+      {
+        question: "Is my text processed by an AI server?",
+        answer:
+          "Yes. Your text is transmitted over an encrypted HTTPS connection through the application's server-side AI endpoint to the configured AI provider for processing. API credentials remain server-side. The application code does not intentionally store submitted text in its own database.",
       },
     ],
   },

@@ -26,6 +26,10 @@ import {
   Smartphone,
   Accessibility,
   Wrench,
+  HeartHandshake,
+  Smile,
+  MessageSquare,
+  Lightbulb,
 } from "lucide-react";
 
 // ==========================================
@@ -4496,6 +4500,490 @@ export const FancyFontsEditorial: React.FC = () => {
             </div>
             <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
               Generate placeholder dummy paragraphs and sentences to test typography hierarchy, UI card layouts, and aesthetic font rendering across mockups.
+            </p>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+};
+
+// ==========================================
+// 19. AI FRIENDLY EDITORIAL
+// ==========================================
+export const AiFriendlyEditorial: React.FC = () => {
+  return (
+    <div className="space-y-12 pt-6 border-t border-slate-200 dark:border-slate-800">
+      {/* Section 1: What is an AI Friendly Text Rewriter? */}
+      <section aria-labelledby="what-is-ai-friendly-heading" className="space-y-4">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl bg-brand-50 dark:bg-brand-950/50 border border-brand-200 dark:border-brand-800/60 flex items-center justify-center text-brand-600 dark:text-brand-400 shrink-0">
+            <HeartHandshake size={18} />
+          </div>
+          <div>
+            <h2
+              id="what-is-ai-friendly-heading"
+              className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white tracking-tight"
+            >
+              What is an AI Friendly Text Rewriter &amp; How Does It Work?
+            </h2>
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              Reframing stiff, blunt, or cold phrasing into warm, empathetic, and approachable communication
+            </p>
+          </div>
+        </div>
+
+        <div className="p-6 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-4 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+          <p>
+            Written communication lacks the vocal inflections, facial expressions, and body language that naturally convey goodwill in person. In fast-paced digital workplaces, brief emails, Slack messages, and customer replies can easily come across as blunt, transactional, or dismissive—even when no offense was intended.
+          </p>
+          <p>
+            An <strong className="text-slate-900 dark:text-white font-semibold">AI Friendly Text Rewriter</strong> is an intelligent tone-reframing assistant designed to soften abrasive edges, introduce polite context, and warm up cold drafts. Rather than replacing your ideas or fabricating new content, the tool focuses on interpersonal tone—reframing directives as respectful inquiries while keeping your underlying instructions, deadlines, and key requirements clear.
+          </p>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 pt-2">
+            <div className="p-4 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-slate-50/70 dark:bg-slate-950/40 space-y-1.5">
+              <span className="text-xs font-bold text-brand-600 dark:text-brand-400 uppercase tracking-wider flex items-center gap-1.5">
+                Courteous Framing
+              </span>
+              <p className="text-xs text-slate-600 dark:text-slate-400">
+                Softens harsh imperative commands into collaborative, polite requests that encourage willing cooperation.
+              </p>
+            </div>
+
+            <div className="p-4 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-slate-50/70 dark:bg-slate-950/40 space-y-1.5">
+              <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider flex items-center gap-1.5">
+                Empathetic Warmth
+              </span>
+              <p className="text-xs text-slate-600 dark:text-slate-400">
+                Acknowledges the recipient&apos;s effort, time, and perspective to build long-term trust and positive rapport.
+              </p>
+            </div>
+
+            <div className="p-4 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-slate-50/70 dark:bg-slate-950/40 space-y-1.5">
+              <span className="text-xs font-bold text-purple-600 dark:text-purple-400 uppercase tracking-wider flex items-center gap-1.5">
+                Actionable Clarity
+              </span>
+              <p className="text-xs text-slate-600 dark:text-slate-400">
+                Maintains explicit instructions, dates, numbers, and core deliverables without creating ambiguity.
+              </p>
+            </div>
+
+            <div className="p-4 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-slate-50/70 dark:bg-slate-950/40 space-y-1.5">
+              <span className="text-xs font-bold text-amber-600 dark:text-amber-400 uppercase tracking-wider flex items-center gap-1.5">
+                Defensiveness Reduction
+              </span>
+              <p className="text-xs text-slate-600 dark:text-slate-400">
+                Frames corrections and missing deliverables objectively so team members and clients do not feel attacked.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Section 2: Before & After Example */}
+      <section aria-labelledby="before-after-heading" className="space-y-4">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl bg-blue-50 dark:bg-blue-950/50 border border-blue-200 dark:border-blue-800/60 flex items-center justify-center text-blue-600 dark:text-blue-400 shrink-0">
+            <MessageSquare size={18} />
+          </div>
+          <div>
+            <h2
+              id="before-after-heading"
+              className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white tracking-tight"
+            >
+              Before &amp; After: Real-World Tone Reframing Example
+            </h2>
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              Examining how empathetic word choice transforms a blunt workplace message
+            </p>
+          </div>
+        </div>
+
+        <div className="p-6 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-5 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+          <p>
+            Consider a typical scenario where a teammate or vendor has submitted an incomplete project document. The initial rushed draft communicates the fact, but the blunt tone risks damaging the working relationship:
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="p-4 rounded-xl border border-rose-200/70 dark:border-rose-900/50 bg-rose-50/50 dark:bg-rose-950/20 space-y-2">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-bold text-rose-700 dark:text-rose-400 uppercase tracking-wider">
+                  Before: Direct / Blunt Draft
+                </span>
+                <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-rose-100 dark:bg-rose-900/40 text-rose-700 dark:text-rose-300">
+                  Curt &amp; Demanding
+                </span>
+              </div>
+              <p className="font-mono text-xs text-slate-800 dark:text-slate-200 p-3 rounded-lg bg-white/80 dark:bg-slate-900/80 border border-rose-200/60 dark:border-rose-800/40">
+                &quot;The proposal you submitted is incomplete. Send the updated figures immediately.&quot;
+              </p>
+              <ul className="space-y-1 text-xs text-rose-800 dark:text-rose-300 list-disc list-inside">
+                <li>Accusatory framing (&quot;incomplete&quot;) immediately triggers defensiveness.</li>
+                <li>Demanding imperative command (&quot;Send ... immediately&quot;) feels disrespectful.</li>
+                <li>Zero acknowledgment of prior work or shared project context.</li>
+              </ul>
+            </div>
+
+            <div className="p-4 rounded-xl border border-emerald-200/70 dark:border-emerald-900/50 bg-emerald-50/50 dark:bg-emerald-950/20 space-y-2">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-bold text-emerald-700 dark:text-emerald-400 uppercase tracking-wider">
+                  After: Representative Friendly Rewrite
+                </span>
+                <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300">
+                  Warm &amp; Approachable
+                </span>
+              </div>
+              <p className="font-mono text-xs text-slate-800 dark:text-slate-200 p-3 rounded-lg bg-white/80 dark:bg-slate-900/80 border border-emerald-200/60 dark:border-emerald-800/40">
+                &quot;Thanks for putting the proposal together! It looks like a few figures are still missing. Could you please send over the updated numbers when you have a moment so we can finalize the review?&quot;
+              </p>
+              <ul className="space-y-1 text-xs text-emerald-800 dark:text-emerald-300 list-disc list-inside">
+                <li>Opens with genuine appreciation (&quot;Thanks for putting the proposal together!&quot;).</li>
+                <li>States the issue objectively without personal blame (&quot;a few figures are still missing&quot;).</li>
+                <li>Converts the demand into a courteous inquiry with shared purpose (&quot;so we can finalize&quot;).</li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-950/60 border border-slate-200/80 dark:border-slate-800/80 text-xs text-slate-500 dark:text-slate-400">
+            <strong className="text-slate-700 dark:text-slate-300">Note:</strong> This is a representative illustration of conversational tone adjustment. Exact AI rewrites vary dynamically depending on input length, context, and model temperature.
+          </div>
+        </div>
+      </section>
+
+      {/* Section 3: When to Use a Friendlier Tone */}
+      <section aria-labelledby="when-to-use-heading" className="space-y-4">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl bg-purple-50 dark:bg-purple-950/50 border border-purple-200 dark:border-purple-800/60 flex items-center justify-center text-purple-600 dark:text-purple-400 shrink-0">
+            <Smile size={18} />
+          </div>
+          <div>
+            <h2
+              id="when-to-use-heading"
+              className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white tracking-tight"
+            >
+              When to Choose a Warm &amp; Friendly Tone
+            </h2>
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              High-impact communication situations where approachable phrasing produces superior results
+            </p>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-2">
+            <h3 className="text-sm font-bold text-slate-900 dark:text-white">Workplace Emails &amp; Slack Chats</h3>
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              Quick messages to coworkers often lack warmth. Reframing drafts prevents casual inquiries from being misread as stress, annoyance, or passive-aggressive demands.
+            </p>
+          </div>
+
+          <div className="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-2">
+            <h3 className="text-sm font-bold text-slate-900 dark:text-white">Customer Support &amp; Client Success</h3>
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              When explaining technical bugs, billing issues, or policy boundaries, empathetic phrasing helps de-escalate customer frustration and demonstrates dedicated care.
+            </p>
+          </div>
+
+          <div className="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-2">
+            <h3 className="text-sm font-bold text-slate-900 dark:text-white">Peer Feedback &amp; Code Reviews</h3>
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              Suggesting design revisions or engineering corrections with warmth ensures colleagues focus on code quality and constructive improvements rather than feeling criticized.
+            </p>
+          </div>
+
+          <div className="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-2">
+            <h3 className="text-sm font-bold text-slate-900 dark:text-white">Follow-Up Reminders &amp; Nudges</h3>
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              Following up on delayed deliverables, unpaid invoices, or unread emails requires diplomatic patience. A friendly reminder achieves action without burning professional goodwill.
+            </p>
+          </div>
+
+          <div className="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-2">
+            <h3 className="text-sm font-bold text-slate-900 dark:text-white">New Hire Onboarding &amp; Welcoming</h3>
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              Welcoming new employees, freelancers, or community members with approachable, warm instructions reduces first-week anxiety and establishes an inclusive culture.
+            </p>
+          </div>
+
+          <div className="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-2">
+            <h3 className="text-sm font-bold text-slate-900 dark:text-white">Declining Requests &amp; Boundary Setting</h3>
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              Saying &quot;no&quot; to meeting invitations, out-of-scope tasks, or unrealistic deadlines with warmth maintains healthy professional boundaries without appearing uncooperative.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Section 4: Comparing Tone & AI Utilities */}
+      <section aria-labelledby="tone-comparison-heading" className="space-y-4">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl bg-amber-50 dark:bg-amber-950/50 border border-amber-200 dark:border-amber-800/60 flex items-center justify-center text-amber-600 dark:text-amber-400 shrink-0">
+            <Layers size={18} />
+          </div>
+          <div>
+            <h2
+              id="tone-comparison-heading"
+              className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white tracking-tight"
+            >
+              Friendly Tone vs. Other AI Writing Utilities
+            </h2>
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              Understanding how friendly rewriting differs from professional tone, grammar fixing, and paraphrasing
+            </p>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-3">
+            <div className="flex items-center justify-between">
+              <h3 className="text-sm font-bold text-slate-900 dark:text-white">Friendly vs. Professional</h3>
+              <span className="text-[11px] font-mono text-brand-600 dark:text-brand-400">Tone Shift</span>
+            </div>
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              <strong className="text-slate-800 dark:text-slate-200">Friendly</strong> creates an approachable, warm, and conversational atmosphere for daily team collaboration. In contrast, our <Link href="/tools/ai-professional" className="text-brand-600 dark:text-brand-400 hover:underline font-semibold">Professional Tone Rewriter</Link> delivers formal, concise, executive-level language suited for corporate proposals, board reports, and official vendor correspondence.
+            </p>
+          </div>
+
+          <div className="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-3">
+            <div className="flex items-center justify-between">
+              <h3 className="text-sm font-bold text-slate-900 dark:text-white">Friendly vs. Grammar</h3>
+              <span className="text-[11px] font-mono text-emerald-600 dark:text-emerald-400">Correction</span>
+            </div>
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              Our <Link href="/tools/ai-grammar" className="text-brand-600 dark:text-brand-400 hover:underline font-semibold">AI Grammar &amp; Proofreader</Link> focuses strictly on orthographic rules—correcting typos, punctuation, and grammatical mistakes while leaving the author&apos;s existing tone untouched. The friendly tool intentionally modifies social framing and word choice to elevate warmth.
+            </p>
+          </div>
+
+          <div className="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-3">
+            <div className="flex items-center justify-between">
+              <h3 className="text-sm font-bold text-slate-900 dark:text-white">Friendly vs. Paraphrase</h3>
+              <span className="text-[11px] font-mono text-purple-600 dark:text-purple-400">Structure</span>
+            </div>
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              Our <Link href="/tools/ai-paraphrase" className="text-brand-600 dark:text-brand-400 hover:underline font-semibold">AI Paraphraser</Link> restructures sentences and substitutes vocabulary to eliminate repetitive phrasing or simplify complex syntax. The friendly rewriter specifically manages emotional temperature, politeness markers, and relationship warmth.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Section 5: Practical Tone Tips */}
+      <section aria-labelledby="tone-tips-heading" className="space-y-4">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-800/60 flex items-center justify-center text-emerald-600 dark:text-emerald-400 shrink-0">
+            <Lightbulb size={18} />
+          </div>
+          <div>
+            <h2
+              id="tone-tips-heading"
+              className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white tracking-tight"
+            >
+              Practical Guidelines for Warm &amp; Effective Messages
+            </h2>
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              Actionable communication principles to pair with AI-powered tone rewriting
+            </p>
+          </div>
+        </div>
+
+        <div className="p-6 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-4 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="space-y-1.5">
+              <h3 className="font-semibold text-slate-900 dark:text-white flex items-center gap-2">
+                <span className="w-5 h-5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-xs font-bold">1</span>
+                Replace Commands with Courteous Inquiries
+              </h3>
+              <p className="text-xs text-slate-600 dark:text-slate-400 pl-7">
+                Transform direct imperatives (&quot;Do this by noon&quot;) into collaborative requests (&quot;Would you be able to check this by noon?&quot;). People naturally respond better when invited to assist rather than commanded.
+              </p>
+            </div>
+
+            <div className="space-y-1.5">
+              <h3 className="font-semibold text-slate-900 dark:text-white flex items-center gap-2">
+                <span className="w-5 h-5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-xs font-bold">2</span>
+                Acknowledge Effort &amp; Prior Context
+              </h3>
+              <p className="text-xs text-slate-600 dark:text-slate-400 pl-7">
+                Before delivering corrections or requesting revisions, spend one brief sentence validating the recipient&apos;s previous work. Acknowledgment establishes goodwill before addressing remaining gaps.
+              </p>
+            </div>
+
+            <div className="space-y-1.5">
+              <h3 className="font-semibold text-slate-900 dark:text-white flex items-center gap-2">
+                <span className="w-5 h-5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-xs font-bold">3</span>
+                Soften Harsh Absolutes
+              </h3>
+              <p className="text-xs text-slate-600 dark:text-slate-400 pl-7">
+                Words like &quot;failed&quot;, &quot;wrong&quot;, or &quot;unacceptable&quot; immediately trigger defensiveness. Replace them with forward-looking constructive language like &quot;let&apos;s adjust this section&quot; or &quot;here is what we need to align on.&quot;
+              </p>
+            </div>
+
+            <div className="space-y-1.5">
+              <h3 className="font-semibold text-slate-900 dark:text-white flex items-center gap-2">
+                <span className="w-5 h-5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-xs font-bold">4</span>
+                Keep Deadlines and Action Items Crystal Clear
+              </h3>
+              <p className="text-xs text-slate-600 dark:text-slate-400 pl-7">
+                Politeness should never obscure expectations. Ensure who is responsible for each deliverable and the specific target date remain prominently visible in your message.
+              </p>
+            </div>
+
+            <div className="space-y-1.5">
+              <h3 className="font-semibold text-slate-900 dark:text-white flex items-center gap-2">
+                <span className="w-5 h-5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-xs font-bold">5</span>
+                Avoid Excessive Apologizing
+              </h3>
+              <p className="text-xs text-slate-600 dark:text-slate-400 pl-7">
+                Repeatedly writing &quot;Sorry to bother you&quot; or &quot;Apologies if this is a silly question&quot; weakens your professional presence. Substitute apologies with gratitude, such as &quot;Thank you for your time on this.&quot;
+              </p>
+            </div>
+
+            <div className="space-y-1.5">
+              <h3 className="font-semibold text-slate-900 dark:text-white flex items-center gap-2">
+                <span className="w-5 h-5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-xs font-bold">6</span>
+                Maintain Professional Boundaries Respectfully
+              </h3>
+              <p className="text-xs text-slate-600 dark:text-slate-400 pl-7">
+                Being friendly does not require overcommitting or conceding to unreasonable deadlines. You can decline requests with polite empathy while holding firm on project scope and capacity.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Section 6: AI Limitations & Review Checklist */}
+      <section aria-labelledby="ai-limitations-heading" className="space-y-4">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl bg-rose-50 dark:bg-rose-950/50 border border-rose-200 dark:border-rose-800/60 flex items-center justify-center text-rose-600 dark:text-rose-400 shrink-0">
+            <AlertTriangle size={18} />
+          </div>
+          <div>
+            <h2
+              id="ai-limitations-heading"
+              className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white tracking-tight"
+            >
+              AI Limitations &amp; Human Review Best Practices
+            </h2>
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              Why human judgment remains essential for sensitive and high-stakes communications
+            </p>
+          </div>
+        </div>
+
+        <div className="p-6 rounded-2xl border border-amber-200/80 dark:border-amber-900/50 bg-amber-50/60 dark:bg-amber-950/30 text-amber-900 dark:text-amber-200 space-y-3 text-xs sm:text-sm leading-relaxed">
+          <p>
+            While AI tone rewriting provides a rapid, helpful starting point for difficult messages, automated tools cannot perceive interpersonal history or workplace politics. Keep these essential considerations in mind:
+          </p>
+
+          <ul className="space-y-2 list-disc list-inside text-amber-800 dark:text-amber-300">
+            <li>
+              <strong>Review Before Sending:</strong> Always inspect the generated text to verify that dates, numerical figures, and specific commitments were not inadvertently altered.
+            </li>
+            <li>
+              <strong>Context &amp; Relationship Dynamics:</strong> AI does not know your relationship with the recipient. A rewrite that feels friendly to one colleague might feel overly casual or disingenuous to a senior client.
+            </li>
+            <li>
+              <strong>Sarcasm &amp; Cultural Nuance:</strong> Subtle wit, irony, and regional idioms can be misinterpreted by language models. If your message contains sensitive humor, check the output carefully.
+            </li>
+            <li>
+              <strong>Legal &amp; HR Communications:</strong> Formal HR warnings, contractual obligations, and legal notices should never be reframed using automated conversational tools.
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      {/* Section 7: Complementary AI Writing Toolkit */}
+      <section aria-labelledby="ai-toolkit-heading" className="space-y-4">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl bg-blue-50 dark:bg-blue-950/50 border border-blue-200 dark:border-blue-800/60 flex items-center justify-center text-blue-600 dark:text-blue-400 shrink-0">
+            <Sparkles size={18} />
+          </div>
+          <div>
+            <h2
+              id="ai-toolkit-heading"
+              className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white tracking-tight"
+            >
+              Complementary AI Writing &amp; Text Utilities
+            </h2>
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              Explore our full suite of productivity tools for email drafting, proofreading, and text transformation
+            </p>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-2.5">
+            <div className="flex items-center justify-between">
+              <Link
+                href="/tools/ai-professional"
+                className="text-sm font-bold text-slate-900 dark:text-white hover:text-brand-600 dark:hover:text-brand-400 transition-colors inline-flex items-center gap-1.5"
+              >
+                Professional Tone Rewriter <ArrowRight size={14} />
+              </Link>
+              <span className="text-[11px] font-mono text-brand-600 dark:text-brand-400">Tone</span>
+            </div>
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              Rewrite casual messages into authoritative, polished, executive business prose for official correspondence.
+            </p>
+          </div>
+
+          <div className="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-2.5">
+            <div className="flex items-center justify-between">
+              <Link
+                href="/tools/ai-grammar"
+                className="text-sm font-bold text-slate-900 dark:text-white hover:text-brand-600 dark:hover:text-brand-400 transition-colors inline-flex items-center gap-1.5"
+              >
+                AI Grammar &amp; Proofreader <ArrowRight size={14} />
+              </Link>
+              <span className="text-[11px] font-mono text-emerald-600 dark:text-emerald-400">Accuracy</span>
+            </div>
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              Correct typos, grammatical flaws, and punctuation errors while strictly preserving your authentic voice.
+            </p>
+          </div>
+
+          <div className="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-2.5">
+            <div className="flex items-center justify-between">
+              <Link
+                href="/tools/ai-paraphrase"
+                className="text-sm font-bold text-slate-900 dark:text-white hover:text-brand-600 dark:hover:text-brand-400 transition-colors inline-flex items-center gap-1.5"
+              >
+                AI Paraphraser <ArrowRight size={14} />
+              </Link>
+              <span className="text-[11px] font-mono text-purple-600 dark:text-purple-400">Rewrite</span>
+            </div>
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              Rephrase sentences with fresh vocabulary and engaging sentence structures while maintaining exact meaning.
+            </p>
+          </div>
+
+          <div className="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-2.5">
+            <div className="flex items-center justify-between">
+              <Link
+                href="/tools/ai-expand"
+                className="text-sm font-bold text-slate-900 dark:text-white hover:text-brand-600 dark:hover:text-brand-400 transition-colors inline-flex items-center gap-1.5"
+              >
+                AI Content Expander <ArrowRight size={14} />
+              </Link>
+              <span className="text-[11px] font-mono text-amber-600 dark:text-amber-400">Elaborate</span>
+            </div>
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              Flesh out short bullet points or brief concepts with relevant detail, helpful context, and logical flow.
+            </p>
+          </div>
+
+          <div className="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-2.5">
+            <div className="flex items-center justify-between">
+              <Link
+                href="/tools/ai-summarize"
+                className="text-sm font-bold text-slate-900 dark:text-white hover:text-brand-600 dark:hover:text-brand-400 transition-colors inline-flex items-center gap-1.5"
+              >
+                AI Summarizer <ArrowRight size={14} />
+              </Link>
+              <span className="text-[11px] font-mono text-cyan-600 dark:text-cyan-400">Condense</span>
+            </div>
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              Condense lengthy documents, articles, and meeting notes into prioritized bullet points and core takeaways.
             </p>
           </div>
         </div>

@@ -23,6 +23,7 @@ import {
   HashGeneratorEditorial,
   UnixTimestampEditorial,
   FancyFontsEditorial,
+  AiFriendlyEditorial,
 } from "@/components/seo/ToolEditorialSections";
 import {
   Check,
@@ -85,6 +86,7 @@ const EDITORIAL_MAP: Record<string, React.FC> = {
   "html-minifier": HtmlMinifierEditorial,
   "hash-generator": HashGeneratorEditorial,
   "unix-timestamp": UnixTimestampEditorial,
+  "ai-friendly": AiFriendlyEditorial,
 };
 
 export const ToolSeoContent: React.FC<ToolSeoContentProps> = ({ tool }) => {
@@ -173,7 +175,7 @@ export const ToolSeoContent: React.FC<ToolSeoContentProps> = ({ tool }) => {
               <span className="w-2 h-2 rounded-full bg-emerald-500 shrink-0" />
               <span>
                 {isAI
-                  ? "AI requests are encrypted via HTTPS and never saved or used for model training."
+                  ? "AI requests are transmitted via encrypted HTTPS through server-side endpoints to the configured AI provider. This application does not store submitted text in its database."
                   : "All processing runs 100% locally in your browser memory. Your text never leaves your device."}
               </span>
             </div>

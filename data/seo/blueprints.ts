@@ -561,6 +561,40 @@ export const SEO_BLUEPRINT_MAP: Record<string, ToolSeoBlueprint> = {
       "query-string-parser",
     ],
   },
+  "ai-friendly": {
+    slug: "ai-friendly",
+    title: "AI Friendly Text Rewriter – Make Messages Warm & Polite",
+    metaDescription:
+      "Rewrite blunt or stiff text into a warmer, friendlier and more approachable tone with AI. Make emails, messages and replies sound polite and natural.",
+    h1: "AI Friendly Text Rewriter",
+    aboveTheFoldIntro:
+      "Turn blunt, formal or stiff messages into warmer, friendlier and more approachable text with AI while keeping the original intent clear.",
+    primaryKeyword: "ai friendly",
+    secondaryKeywords: [
+      "ai friendly text",
+      "friendly text rewriter",
+      "friendly tone rewriter",
+      "make text sound friendly",
+      "make message more polite",
+      "polite text rewriter",
+      "warm tone rewriter",
+      "friendly message generator",
+      "rewrite text friendly",
+      "make email sound friendly",
+      "ai tone rewriter",
+      "empathetic text rewriter",
+      "conversational tone rewriter",
+      "professional but friendly tone",
+    ],
+    popularAnchor: "AI Friendly Rewriter",
+    clusterSlugs: [
+      "ai-professional",
+      "ai-grammar",
+      "ai-paraphrase",
+      "ai-expand",
+      "ai-summarize",
+    ],
+  },
 };
 
 
