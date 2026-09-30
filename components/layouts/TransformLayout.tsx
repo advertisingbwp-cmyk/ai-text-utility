@@ -102,6 +102,8 @@ export const TransformLayout: React.FC<WorkspaceProps> = ({
           </div>
 
           <textarea
+            id="source-text-input"
+            name="sourceTextInput"
             value={input}
             onChange={(e) => onInputChange(e.target.value)}
             placeholder={inputPlaceholder}
@@ -164,6 +166,8 @@ export const TransformLayout: React.FC<WorkspaceProps> = ({
           </div>
 
           <textarea
+            id="transformed-result-output"
+            name="transformedResultOutput"
             readOnly
             value={output}
             placeholder={outputPlaceholder}

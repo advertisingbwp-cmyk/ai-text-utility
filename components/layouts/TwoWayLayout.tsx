@@ -95,6 +95,8 @@ export const TwoWayLayout: React.FC<WorkspaceProps> = ({
           </div>
 
           <textarea
+            id="two-way-source-input"
+            name="sourceInput"
             value={input}
             onChange={(e) => onInputChange(e.target.value)}
             placeholder={inputPlaceholder}
@@ -147,6 +149,8 @@ export const TwoWayLayout: React.FC<WorkspaceProps> = ({
           </div>
 
           <textarea
+            id="two-way-converted-output"
+            name="convertedOutput"
             readOnly
             value={output}
             placeholder={outputPlaceholder}

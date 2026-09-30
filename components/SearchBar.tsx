@@ -33,6 +33,8 @@ export const SearchBar: React.FC<SearchBarProps> = ({
       </div>
 
       <input
+        id="search-tools-input"
+        name="searchQuery"
         type="text"
         value={value}
         onChange={(e) => onChange(e.target.value)}

@@ -80,6 +80,8 @@ export const SplitPreviewLayout: React.FC<WorkspaceProps> = ({
           </div>
 
           <textarea
+            id="split-preview-input"
+            name="markdownInput"
             value={input}
             onChange={(e) => onInputChange(e.target.value)}
             placeholder={inputPlaceholder}
@@ -152,6 +154,8 @@ export const SplitPreviewLayout: React.FC<WorkspaceProps> = ({
               )
             ) : (
               <textarea
+                id="split-preview-output"
+                name="htmlOutput"
                 readOnly
                 value={output}
                 aria-label="Raw HTML output"

@@ -165,6 +165,8 @@ export const JsonTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
             <div className="flex items-center gap-2">
               <span className="text-slate-700 dark:text-slate-300 font-medium">Indentation:</span>
               <select
+                id="json-indentation"
+                name="jsonIndentation"
                 value={jsonIndent}
                 onChange={(e) =>
                   setJsonIndent(
@@ -179,8 +181,10 @@ export const JsonTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
               </select>
             </div>
 
-            <label className="flex items-center gap-2 cursor-pointer text-slate-700 dark:text-slate-300">
+            <label htmlFor="json-sort-keys" className="flex items-center gap-2 cursor-pointer text-slate-700 dark:text-slate-300">
               <input
+                id="json-sort-keys"
+                name="jsonSortKeys"
                 type="checkbox"
                 checked={jsonSortKeys}
                 onChange={(e) => setJsonSortKeys(e.target.checked)}
@@ -195,8 +199,10 @@ export const JsonTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
         return (
           <div className="flex flex-wrap items-center gap-4 text-xs">
             <div className="flex items-center gap-2">
-              <span className="text-slate-700 dark:text-slate-300 font-medium">Delimiter:</span>
+              <label htmlFor="json-to-csv-delimiter" className="text-slate-700 dark:text-slate-300 font-medium">Delimiter:</label>
               <select
+                id="json-to-csv-delimiter"
+                name="jsonToCsvDelimiter"
                 value={jsonToCsvDelim}
                 onChange={(e) => setJsonToCsvDelim(e.target.value)}
                 className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1 text-slate-800 dark:text-slate-200 focus:outline-none focus:border-brand-500 shadow-2xs"
@@ -208,8 +214,10 @@ export const JsonTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
               </select>
             </div>
 
-            <label className="flex items-center gap-2 cursor-pointer text-slate-700 dark:text-slate-300">
+            <label htmlFor="json-to-csv-quote-all" className="flex items-center gap-2 cursor-pointer text-slate-700 dark:text-slate-300">
               <input
+                id="json-to-csv-quote-all"
+                name="jsonToCsvQuoteAll"
                 type="checkbox"
                 checked={jsonToCsvQuoteAll}
                 onChange={(e) => setJsonToCsvQuoteAll(e.target.checked)}
@@ -224,8 +232,10 @@ export const JsonTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
         return (
           <div className="flex flex-wrap items-center gap-4 text-xs">
             <div className="flex items-center gap-2">
-              <span className="text-slate-700 dark:text-slate-300 font-medium">Delimiter:</span>
+              <label htmlFor="csv-to-json-delimiter" className="text-slate-700 dark:text-slate-300 font-medium">Delimiter:</label>
               <select
+                id="csv-to-json-delimiter"
+                name="csvToJsonDelimiter"
                 value={csvToJsonDelim}
                 onChange={(e) => setCsvToJsonDelim(e.target.value)}
                 className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1 text-slate-800 dark:text-slate-200 focus:outline-none focus:border-brand-500 shadow-2xs"
@@ -237,8 +247,10 @@ export const JsonTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
               </select>
             </div>
 
-            <label className="flex items-center gap-2 cursor-pointer text-slate-700 dark:text-slate-300">
+            <label htmlFor="csv-to-json-headers" className="flex items-center gap-2 cursor-pointer text-slate-700 dark:text-slate-300">
               <input
+                id="csv-to-json-headers"
+                name="csvToJsonHeaders"
                 type="checkbox"
                 checked={csvToJsonHeaders}
                 onChange={(e) => setCsvToJsonHeaders(e.target.checked)}
@@ -247,8 +259,10 @@ export const JsonTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
               <span>First Row as Headers</span>
             </label>
 
-            <label className="flex items-center gap-2 cursor-pointer text-slate-700 dark:text-slate-300">
+            <label htmlFor="csv-to-json-parse-types" className="flex items-center gap-2 cursor-pointer text-slate-700 dark:text-slate-300">
               <input
+                id="csv-to-json-parse-types"
+                name="csvToJsonParseTypes"
                 type="checkbox"
                 checked={csvToJsonParseTypes}
                 onChange={(e) => setCsvToJsonParseTypes(e.target.checked)}
@@ -294,8 +308,10 @@ export const JsonTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
         return (
           <div className="flex flex-wrap items-center justify-between gap-4 text-xs w-full">
             <div className="flex flex-wrap items-center gap-4">
-              <label className="flex items-center gap-2 cursor-pointer text-slate-700 dark:text-slate-300">
+              <label htmlFor="html-minify-comments" className="flex items-center gap-2 cursor-pointer text-slate-700 dark:text-slate-300">
                 <input
+                  id="html-minify-comments"
+                  name="htmlMinifyComments"
                   type="checkbox"
                   checked={htmlMinifyComments}
                   onChange={(e) => setHtmlMinifyComments(e.target.checked)}
@@ -304,8 +320,10 @@ export const JsonTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
                 <span>Strip Comments</span>
               </label>
 
-              <label className="flex items-center gap-2 cursor-pointer text-slate-700 dark:text-slate-300">
+              <label htmlFor="html-minify-whitespace" className="flex items-center gap-2 cursor-pointer text-slate-700 dark:text-slate-300">
                 <input
+                  id="html-minify-whitespace"
+                  name="htmlMinifyWhitespace"
                   type="checkbox"
                   checked={htmlMinifyWs}
                   onChange={(e) => setHtmlMinifyWs(e.target.checked)}
