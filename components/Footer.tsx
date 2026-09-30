@@ -3,7 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import { Shield, Zap, Sparkles } from "lucide-react";
-import { CATEGORIES } from "@/data/toolsRegistry";
+import { TOOLS_REGISTRY, CATEGORIES } from "@/data/toolsRegistry";
 import { BrandLogo } from "@/components/BrandLogo";
 
 export const Footer: React.FC = () => {
@@ -17,20 +17,20 @@ export const Footer: React.FC = () => {
               <BrandLogo size="md" />
             </Link>
             <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
-              A high-performance suite of 43+ browser-based tools for formatting, converting, analyzing, and cleaning text. Built for developers, writers, students, and professionals who demand speed, privacy, and precision.
+              A high-performance suite of {TOOLS_REGISTRY.length} tools for formatting, converting, analyzing, and cleaning text. Built for developers, writers, students, and professionals who demand speed, privacy, and precision.
             </p>
             <div className="flex flex-wrap items-center gap-4 text-xs text-slate-500 dark:text-slate-400 pt-1">
               <span className="inline-flex items-center gap-1.5">
                 <Shield size={14} className="text-emerald-500" />
-                Local Client-Side Processing
+                Standard Tools Run Client-Side
               </span>
               <span className="inline-flex items-center gap-1.5">
                 <Zap size={14} className="text-amber-500" />
-                Zero Latency
+                Fast Local Processing
               </span>
               <span className="inline-flex items-center gap-1.5">
                 <Sparkles size={14} className="text-brand-500" />
-                AI Enhanced (Encrypted)
+                Secure AI Server Requests
               </span>
             </div>
           </div>
@@ -110,7 +110,7 @@ export const Footer: React.FC = () => {
             © {new Date().getFullYear()} AI Text Utility. All rights reserved.
           </div>
           <div className="text-slate-500 text-center sm:text-right">
-            Standard utilities execute locally in your browser memory. AI requests are processed securely in transit.
+            Most standard utilities run locally in your browser; AI tools use secure server-side requests to the configured AI provider.
           </div>
         </div>
       </div>

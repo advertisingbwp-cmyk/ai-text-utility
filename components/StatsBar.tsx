@@ -37,7 +37,7 @@ export const StatsBar: React.FC<StatsBarProps> = ({
   }, []);
 
   return (
-    <div className="flex flex-wrap items-center justify-between gap-3 px-4 py-2.5 rounded-xl border border-slate-200/90 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/60 shadow-2xs backdrop-blur-xs text-xs">
+    <div className="flex flex-wrap items-center justify-between gap-3 px-4 py-2.5 rounded-xl border border-slate-200/90 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/60 shadow-2xs text-xs">
       <div className="flex items-center gap-4 sm:gap-6 flex-wrap">
         <div className="inline-flex items-center gap-2">
           <div className="w-5 h-5 rounded-md bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 border border-blue-200/60 dark:border-blue-800/60 flex items-center justify-center shrink-0">
