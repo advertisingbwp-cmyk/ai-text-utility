@@ -39,17 +39,17 @@ export const ToolCard: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
             {tool.name}
           </Link>
         </h3>
-        <p className="text-[11px] sm:text-xs text-slate-600 dark:text-slate-400 leading-relaxed line-clamp-2">
+        <p className="text-[11px] sm:text-xs text-[#5F6F89] dark:text-slate-400 leading-relaxed line-clamp-2">
           {tool.description}
         </p>
       </div>
 
-      <div className="mt-3 pt-2.5 border-t border-slate-100 dark:border-slate-800/60 flex items-center justify-between text-xs">
-        <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-md border truncate max-w-[65%] ${theme.badgeBg} ${theme.badgeText} ${theme.badgeBorder} shadow-2xs`}>
+      <div className="mt-3 pt-2.5 border-t border-[rgba(100,120,160,0.12)] dark:border-slate-800/60 flex items-center justify-between text-xs">
+        <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-md border truncate max-w-[65%] ${theme.badgeBg} ${theme.badgeText} ${theme.badgeBorder} shadow-2xs backdrop-blur-xs`}>
           {tool.category}
         </span>
         <span
-          className="relative z-10 w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-slate-100/90 dark:bg-slate-800/90 text-slate-500 dark:text-slate-400 group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:to-indigo-600 group-hover:text-white group-hover:shadow-[0_4px_10px_rgba(37,99,235,0.35)] flex items-center justify-center transition-all shrink-0 shadow-2xs"
+          className="relative z-10 w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-white/70 dark:bg-slate-800/70 border border-white/80 dark:border-slate-700/60 text-slate-500 dark:text-slate-400 group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:to-indigo-600 group-hover:text-white group-hover:border-transparent group-hover:shadow-[0_4px_10px_rgba(37,99,235,0.30)] flex items-center justify-center transition-all shrink-0 shadow-2xs"
           aria-hidden="true"
         >
           <ArrowRight size={12} className="transition-transform duration-200 group-hover:translate-x-0.5" />

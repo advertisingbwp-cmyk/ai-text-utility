@@ -19,45 +19,45 @@ function getRecentCardTheme(category: ToolCategory) {
   switch (category) {
     case "AI Magic":
       return {
-        cardBg: "from-violet-50/90 via-fuchsia-50/30 to-white dark:from-violet-950/40 dark:via-fuchsia-950/20 dark:to-slate-900/80",
-        border: "border-violet-200/90 dark:border-violet-800/60 hover:border-violet-400/80",
-        badge: "bg-violet-100/80 dark:bg-violet-950/80 text-violet-700 dark:text-violet-300 border-violet-200/80 dark:border-violet-800/60",
+        cardBg: "from-violet-500/10 via-fuchsia-500/5 to-white/70 dark:from-violet-950/30 dark:to-slate-900/50",
+        border: "border-white/70 dark:border-violet-800/40 hover:border-violet-400/60",
+        badge: "bg-violet-500/10 text-violet-700 dark:text-violet-300 border-violet-400/25",
       };
     case "Transform":
       return {
-        cardBg: "from-purple-50/90 via-indigo-50/30 to-white dark:from-purple-950/40 dark:via-indigo-950/20 dark:to-slate-900/80",
-        border: "border-purple-200/90 dark:border-purple-800/60 hover:border-purple-400/80",
-        badge: "bg-purple-100/80 dark:bg-purple-950/80 text-purple-700 dark:text-purple-300 border-purple-200/80 dark:border-purple-800/60",
+        cardBg: "from-purple-500/10 via-indigo-500/5 to-white/70 dark:from-purple-950/30 dark:to-slate-900/50",
+        border: "border-white/70 dark:border-purple-800/40 hover:border-purple-400/60",
+        badge: "bg-purple-500/10 text-purple-700 dark:text-purple-300 border-purple-400/25",
       };
     case "Text":
       return {
-        cardBg: "from-blue-50/90 via-cyan-50/30 to-white dark:from-blue-950/40 dark:via-cyan-950/20 dark:to-slate-900/80",
-        border: "border-blue-200/90 dark:border-blue-800/60 hover:border-blue-400/80",
-        badge: "bg-blue-100/80 dark:bg-blue-950/80 text-blue-700 dark:text-blue-300 border-blue-200/80 dark:border-blue-800/60",
+        cardBg: "from-cyan-500/10 via-blue-500/5 to-white/70 dark:from-blue-950/30 dark:to-slate-900/50",
+        border: "border-white/70 dark:border-blue-800/40 hover:border-blue-400/60",
+        badge: "bg-cyan-500/10 text-cyan-700 dark:text-cyan-300 border-cyan-400/25",
       };
     case "Format":
       return {
-        cardBg: "from-emerald-50/90 via-teal-50/30 to-white dark:from-emerald-950/40 dark:via-teal-950/20 dark:to-slate-900/80",
-        border: "border-emerald-200/90 dark:border-emerald-800/60 hover:border-emerald-400/80",
-        badge: "bg-emerald-100/80 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-300 border-emerald-200/80 dark:border-emerald-800/60",
+        cardBg: "from-emerald-500/10 via-teal-500/5 to-white/70 dark:from-emerald-950/30 dark:to-slate-900/50",
+        border: "border-white/70 dark:border-emerald-800/40 hover:border-emerald-400/60",
+        badge: "bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border-emerald-400/25",
       };
     case "Cleanup":
       return {
-        cardBg: "from-amber-50/90 via-orange-50/30 to-white dark:from-amber-950/40 dark:via-orange-950/20 dark:to-slate-900/80",
-        border: "border-amber-200/90 dark:border-amber-800/60 hover:border-amber-400/80",
-        badge: "bg-amber-100/80 dark:bg-amber-950/80 text-amber-700 dark:text-amber-300 border-amber-200/80 dark:border-amber-800/60",
+        cardBg: "from-amber-500/10 via-orange-500/5 to-white/70 dark:from-amber-950/30 dark:to-slate-900/50",
+        border: "border-white/70 dark:border-amber-800/40 hover:border-amber-400/60",
+        badge: "bg-amber-500/10 text-amber-700 dark:text-amber-300 border-amber-400/25",
       };
     case "Date & Time":
       return {
-        cardBg: "from-sky-50/90 via-blue-50/30 to-white dark:from-sky-950/40 dark:via-blue-950/20 dark:to-slate-900/80",
-        border: "border-sky-200/90 dark:border-sky-800/60 hover:border-sky-400/80",
-        badge: "bg-sky-100/80 dark:bg-sky-950/80 text-sky-700 dark:text-sky-300 border-sky-200/80 dark:border-sky-800/60",
+        cardBg: "from-sky-500/10 via-blue-500/5 to-white/70 dark:from-sky-950/30 dark:to-slate-900/50",
+        border: "border-white/70 dark:border-sky-800/40 hover:border-sky-400/60",
+        badge: "bg-sky-500/10 text-sky-700 dark:text-sky-300 border-sky-400/25",
       };
     default:
       return {
-        cardBg: "from-slate-50/90 via-white to-white dark:from-slate-900/60 dark:to-slate-900/80",
-        border: "border-slate-200/90 dark:border-slate-800/60 hover:border-brand-400/80",
-        badge: "bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700",
+        cardBg: "from-white/80 via-white/60 to-white/70 dark:from-slate-900/60 dark:to-slate-900/80",
+        border: "border-white/70 dark:border-slate-800/60 hover:border-brand-400/80",
+        badge: "bg-blue-500/10 text-slate-700 dark:text-slate-300 border-blue-500/20",
       };
   }
 }
@@ -96,17 +96,17 @@ const RecentToolCard: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
             {tool.name}
           </Link>
         </h3>
-        <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed line-clamp-2">
+        <p className="text-xs text-[#5F6F89] dark:text-slate-400 leading-relaxed line-clamp-2">
           {tool.description}
         </p>
       </div>
 
-      <div className="mt-3.5 pt-2.5 border-t border-slate-200/60 dark:border-slate-800/60 flex items-center justify-between text-xs">
-        <span className={`text-[10px] sm:text-[11px] font-semibold px-2.5 py-0.5 rounded-md border ${recentTheme.badge} shadow-2xs`}>
+      <div className="mt-3.5 pt-2.5 border-t border-[rgba(100,120,160,0.12)] dark:border-slate-800/60 flex items-center justify-between text-xs">
+        <span className={`text-[10px] sm:text-[11px] font-semibold px-2.5 py-0.5 rounded-md border ${recentTheme.badge} shadow-2xs backdrop-blur-xs`}>
           {tool.category}
         </span>
         <span
-          className="relative z-10 w-7 h-7 rounded-full bg-slate-100/90 dark:bg-slate-800/90 text-slate-500 dark:text-slate-400 group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:to-indigo-600 group-hover:text-white group-hover:shadow-[0_4px_10px_rgba(37,99,235,0.35)] flex items-center justify-center transition-all shadow-2xs shrink-0"
+          className="relative z-10 w-7 h-7 rounded-full bg-white/70 dark:bg-slate-800/70 border border-white/80 dark:border-slate-700/60 text-slate-500 dark:text-slate-400 group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:to-indigo-600 group-hover:text-white group-hover:border-transparent group-hover:shadow-[0_4px_10px_rgba(37,99,235,0.30)] flex items-center justify-center transition-all shadow-2xs shrink-0"
           aria-hidden="true"
         >
           <ArrowRight size={13} className="transition-transform duration-200 group-hover:translate-x-0.5" />
@@ -169,12 +169,14 @@ export default function HomePage() {
 
       {/* Prominent Floating Search Bar (3D Spatial Capsule) */}
       <div className="relative group w-full max-w-2xl mx-auto -mt-2 sm:-mt-4">
-        <div className="absolute -inset-1.5 bg-gradient-to-r from-blue-500/25 via-indigo-500/20 to-fuchsia-500/25 rounded-full blur-md opacity-70 group-hover:opacity-100 transition duration-300 -z-10" />
+        {/* Subtle Outer Ambient Glows: Soft Blue & Violet Accent */}
+        <div className="absolute -inset-1.5 bg-gradient-to-r from-blue-500/20 via-sky-400/15 to-purple-500/25 rounded-full blur-md opacity-60 group-hover:opacity-90 transition duration-300 -z-10" />
+        
         <button
           type="button"
           onClick={() => window.dispatchEvent(new CustomEvent("open-command-palette"))}
           aria-label="Search tools, categories or features"
-          className="w-full flex items-center justify-between gap-3 px-4 sm:px-5 py-3 sm:py-3.5 rounded-full border border-white/90 dark:border-slate-800 bg-white/95 dark:bg-slate-900/90 shadow-[0_12px_32px_-6px_rgba(37,99,235,0.12),inset_0_1px_0_rgba(255,255,255,1)] hover:shadow-[0_16px_40px_-6px_rgba(37,99,235,0.2)] hover:border-brand-500/50 transition-all cursor-pointer group text-left backdrop-blur-md active:scale-[0.99]"
+          className="search-glass-bar w-full flex items-center justify-between gap-3 px-4 sm:px-5 py-3 sm:py-3.5 rounded-full cursor-pointer group text-left active:scale-[0.99]"
         >
           <div className="flex items-center gap-3">
             <Search size={18} className="text-brand-600 dark:text-brand-400 group-hover:scale-110 transition-transform shrink-0" />
@@ -183,17 +185,21 @@ export default function HomePage() {
             </span>
           </div>
           <div className="flex items-center gap-2 shrink-0">
-            <kbd className="hidden sm:inline-flex items-center gap-0.5 text-[11px] font-mono px-2 py-1 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 font-semibold shadow-2xs">
+            <kbd className="hidden sm:inline-flex items-center gap-0.5 text-[11px] font-mono px-2 py-1 rounded-lg border border-slate-200/80 dark:border-slate-700/80 bg-white/70 dark:bg-slate-800/70 text-slate-500 dark:text-slate-400 font-semibold shadow-2xs">
               ⌘K
             </kbd>
-            <div className="w-8 h-8 rounded-full bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 text-white flex items-center justify-center shadow-3d-button group-hover:scale-105 active:scale-95 transition-all">
-              <ArrowRight size={14} />
+            <div className="relative">
+              {/* Extremely subtle purple glow near the arrow button */}
+              <div className="absolute -inset-1 bg-purple-500/30 rounded-full blur-xs opacity-70 group-hover:opacity-100 transition-opacity" />
+              <div className="relative w-8 h-8 rounded-full bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 text-white flex items-center justify-center shadow-3d-button group-hover:scale-105 active:scale-95 transition-all">
+                <ArrowRight size={14} />
+              </div>
             </div>
           </div>
         </button>
       </div>
 
-      {/* Category Filter Rail (3D Tactile Pills) */}
+      {/* Category Filter Rail (Light Glass Pills) */}
       <section id="tools-section" className="w-full min-w-0 scroll-mt-24">
         <div className="flex items-center justify-start sm:justify-center overflow-x-auto pb-2 scrollbar-none gap-2 sm:gap-2.5">
           <button
@@ -201,8 +207,8 @@ export default function HomePage() {
             onClick={() => { setSelectedCategory("ALL"); setOnlyFavorites(false); }}
             className={`pill-3d inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold whitespace-nowrap cursor-pointer ${
               selectedCategory === "ALL" && !onlyFavorites
-                ? "bg-slate-900 text-white dark:bg-brand-600 shadow-[0_4px_14px_rgba(15,23,42,0.25),inset_0_1px_0_rgba(255,255,255,0.2)] border-transparent"
-                : "bg-white/90 dark:bg-slate-900/70 text-slate-700 dark:text-slate-300 border border-slate-200/90 dark:border-slate-800 hover:bg-white hover:border-slate-300"
+                ? "pill-glass-active"
+                : "pill-glass-inactive"
             }`}
           >
             <LayoutGrid size={14} />
@@ -212,10 +218,10 @@ export default function HomePage() {
           <button
             type="button"
             onClick={() => { setOnlyFavorites((prev) => !prev); if (!onlyFavorites) setSelectedCategory("ALL"); }}
-            className={`pill-3d inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold border whitespace-nowrap cursor-pointer ${
+            className={`pill-3d inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold whitespace-nowrap cursor-pointer ${
               onlyFavorites
-                ? "bg-amber-500/15 text-amber-700 dark:text-amber-300 border-amber-500/40 shadow-xs"
-                : "bg-white/90 dark:bg-slate-900/70 text-slate-700 dark:text-slate-300 border-slate-200/90 dark:border-slate-800 hover:bg-white hover:border-slate-300"
+                ? "bg-amber-500/15 text-amber-700 dark:text-amber-300 border border-amber-500/40 shadow-xs backdrop-blur-md"
+                : "pill-glass-inactive"
             }`}
           >
             <Star size={14} className={onlyFavorites ? "fill-amber-500 text-amber-500" : "text-amber-500"} />
@@ -230,10 +236,10 @@ export default function HomePage() {
                 key={cat.name}
                 type="button"
                 onClick={() => { setSelectedCategory(cat.name); setOnlyFavorites(false); }}
-                className={`pill-3d flex items-center gap-2 px-3.5 py-2 rounded-full text-xs font-semibold whitespace-nowrap cursor-pointer border ${
+                className={`pill-3d flex items-center gap-2 px-3.5 py-2 rounded-full text-xs font-semibold whitespace-nowrap cursor-pointer ${
                   isSelected
-                    ? "bg-slate-900 text-white dark:bg-brand-600 shadow-[0_4px_14px_rgba(15,23,42,0.25),inset_0_1px_0_rgba(255,255,255,0.2)] border-transparent"
-                    : "bg-white/90 dark:bg-slate-900/70 text-slate-700 dark:text-slate-300 border-slate-200/90 dark:border-slate-800 hover:bg-white hover:border-slate-300"
+                    ? "pill-glass-active"
+                    : "pill-glass-inactive"
                 }`}
               >
                 <DynamicIcon
@@ -256,21 +262,21 @@ export default function HomePage() {
         <section id="recent" aria-labelledby="recent-heading" className="space-y-3.5">
           <div className="flex items-center justify-between pb-1">
             <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-full bg-blue-500/10 text-brand-600 dark:text-brand-400 flex items-center justify-center border border-blue-500/20">
+              <div className="w-8 h-8 rounded-full bg-blue-500/10 text-brand-600 dark:text-brand-400 flex items-center justify-center border border-blue-500/20 backdrop-blur-sm shadow-2xs">
                 <Clock size={16} />
               </div>
               <div>
                 <h2 id="recent-heading" className="text-base sm:text-lg font-bold text-slate-900 dark:text-slate-100 tracking-tight">
                   Recently Used
                 </h2>
-                <p className="text-xs text-slate-500 dark:text-slate-400">
+                <p className="text-xs text-[#5F6F89] dark:text-slate-400">
                   Your recently accessed tools for quick access
                 </p>
               </div>
             </div>
             <a
               href="#tools-section"
-              className="text-xs font-semibold text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1"
+              className="text-xs font-semibold text-brand-600 dark:text-brand-400 hover:text-brand-700 dark:hover:text-brand-300 hover:underline inline-flex items-center gap-1 transition-colors"
             >
               <span>View all</span>
               <ArrowRight size={13} />
@@ -303,9 +309,9 @@ export default function HomePage() {
                 id={`category-${cat.name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}
                 className="space-y-3.5 scroll-mt-20"
               >
-                <div className="flex items-center justify-between border-b border-slate-200/80 dark:border-slate-800/80 pb-3">
+                <div className="flex items-center justify-between border-b border-[rgba(100,120,160,0.12)] dark:border-slate-800/80 pb-3">
                   <div className="flex items-center gap-3">
-                    <div className={`w-9 h-9 rounded-xl flex items-center justify-center border shadow-xs ${catTheme.bg} ${catTheme.border}`}>
+                    <div className={`w-9 h-9 rounded-xl flex items-center justify-center border shadow-xs ${catTheme.bg} ${catTheme.border} icon-3d`}>
                       <DynamicIcon name={cat.icon} size={18} className={catTheme.text} />
                     </div>
                     <div>
@@ -314,24 +320,24 @@ export default function HomePage() {
                           {cat.name} Tools
                         </h2>
                         {isAI && (
-                          <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-brand-500/10 text-brand-600 dark:text-brand-300 border border-brand-500/20">
+                          <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-brand-500/10 text-brand-600 dark:text-brand-300 border border-brand-500/20 backdrop-blur-xs">
                             AI Powered
                           </span>
                         )}
                       </div>
-                      <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                      <p className="text-xs text-[#5F6F89] dark:text-slate-400 mt-0.5">
                         {cat.description}
                       </p>
                     </div>
                   </div>
                   <div className="flex items-center gap-2.5 shrink-0">
-                    <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 border border-blue-200/70 dark:border-blue-800/70">
+                    <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-500/10 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 border border-blue-500/20 dark:border-blue-800/70 backdrop-blur-xs">
                       {toolsInCat.length} tools
                     </span>
                     <button
                       type="button"
                       onClick={() => setSelectedCategory(cat.name)}
-                      className="text-xs font-semibold text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1 cursor-pointer"
+                      className="text-xs font-semibold text-brand-600 dark:text-brand-400 hover:text-brand-700 dark:hover:text-brand-300 hover:underline inline-flex items-center gap-1 cursor-pointer transition-colors"
                     >
                       <span>View all</span>
                       <ArrowRight size={12} />
@@ -349,12 +355,12 @@ export default function HomePage() {
         </div>
       ) : (
         <section className="space-y-4">
-          <div className="flex items-center justify-between border-b border-slate-200/80 dark:border-slate-800/80 pb-3.5">
+          <div className="flex items-center justify-between border-b border-[rgba(100,120,160,0.12)] dark:border-slate-800/80 pb-3.5">
             <div>
               <h2 className="text-base sm:text-lg font-bold text-slate-900 dark:text-slate-100 tracking-tight">
                 {onlyFavorites ? "Your Favorited Utilities" : `${selectedCategory} Utilities`}
               </h2>
-              <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-0.5">
+              <p className="text-xs sm:text-sm text-[#5F6F89] dark:text-slate-400 mt-0.5">
                 {onlyFavorites ? `${filteredTools.length} saved tools` : `${filteredTools.length} tools found`}
               </p>
             </div>
@@ -378,52 +384,52 @@ export default function HomePage() {
       )}
 
       {/* Factual Information & Guidance Card (Moved down to preserve first viewport) */}
-      <section className="max-w-4xl mx-auto rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-gradient-to-b from-white/95 via-white/80 to-slate-50/70 dark:from-slate-900/60 dark:to-slate-900/40 p-6 sm:p-8 space-y-3.5 shadow-xs" aria-labelledby="intro-heading">
+      <section className="max-w-4xl mx-auto rounded-2xl border border-white/70 dark:border-slate-800/80 bg-white/65 dark:bg-slate-900/60 backdrop-blur-md p-6 sm:p-8 space-y-3.5 shadow-xs" aria-labelledby="intro-heading">
         <h2 id="intro-heading" className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white tracking-tight">Free online text tools for everyday work</h2>
-        <p className="text-sm leading-relaxed text-slate-600 dark:text-slate-400">
+        <p className="text-sm leading-relaxed text-[#5F6F89] dark:text-slate-400">
           AI Text Utility is a collection of browser-based tools for writers, students, developers, and office workflows. Use the tools to count words and characters, clean lists, change text case, format JSON, test regular expressions, encode data, generate identifiers, work with dates, or prepare text for publishing. Most utilities process your input locally in the browser, so routine text transformations do not need a server upload.
         </p>
-        <p className="text-sm leading-relaxed text-slate-600 dark:text-slate-400">
+        <p className="text-sm leading-relaxed text-[#5F6F89] dark:text-slate-400">
           Each tool page includes practical instructions, feature details, common questions, limitations, and links to related utilities. AI Magic tools are optional and clearly separated from the browser-only tools because they require a server request to an AI provider.
         </p>
       </section>
 
-      <section aria-labelledby="how-it-works-heading" className="max-w-4xl mx-auto pt-8 border-t border-slate-200/80 dark:border-slate-800/80 space-y-6">
+      <section aria-labelledby="how-it-works-heading" className="max-w-4xl mx-auto pt-8 border-t border-[rgba(100,120,160,0.12)] dark:border-slate-800/80 space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2">
           <div>
             <h2 id="how-it-works-heading" className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white tracking-tight">
               How to choose the right tool
             </h2>
-            <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
+            <p className="text-xs sm:text-sm text-[#5F6F89] dark:text-slate-400 mt-1">
               Select the fastest workflow suited to your task and privacy needs
             </p>
           </div>
         </div>
         <div className="grid md:grid-cols-3 gap-4">
-          <div className="p-5 rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-gradient-to-b from-white via-white to-slate-50/60 dark:from-slate-900/60 dark:to-slate-900/40 space-y-3 shadow-xs hover:shadow-md transition-all">
-            <div className="w-9 h-9 rounded-xl bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center border border-blue-500/20 shadow-2xs">
+          <div className="p-5 rounded-2xl border border-white/70 dark:border-slate-800/80 bg-white/65 dark:bg-slate-900/60 backdrop-blur-md space-y-3 shadow-xs hover:shadow-md transition-all">
+            <div className="w-9 h-9 rounded-xl bg-blue-500/12 text-blue-600 dark:text-blue-400 flex items-center justify-center border border-blue-400/30 icon-3d shadow-2xs">
               <Type size={17} />
             </div>
             <h3 className="font-bold text-slate-900 dark:text-white text-sm">For writing</h3>
-            <p className="text-xs leading-relaxed text-slate-600 dark:text-slate-400">
+            <p className="text-xs leading-relaxed text-[#5F6F89] dark:text-slate-400">
               Use Word Counter for length checks, Case Converter for capitalization, Cleanup tools for messy text, and the AI writing tools when you want an assisted rewrite.
             </p>
           </div>
-          <div className="p-5 rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-gradient-to-b from-white via-white to-slate-50/60 dark:from-slate-900/60 dark:to-slate-900/40 space-y-3 shadow-xs hover:shadow-md transition-all">
-            <div className="w-9 h-9 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center border border-emerald-500/20 shadow-2xs">
+          <div className="p-5 rounded-2xl border border-white/70 dark:border-slate-800/80 bg-white/65 dark:bg-slate-900/60 backdrop-blur-md space-y-3 shadow-xs hover:shadow-md transition-all">
+            <div className="w-9 h-9 rounded-xl bg-emerald-500/12 text-emerald-600 dark:text-emerald-400 flex items-center justify-center border border-emerald-400/30 icon-3d shadow-2xs">
               <Code2 size={17} />
             </div>
             <h3 className="font-bold text-slate-900 dark:text-white text-sm">For developers</h3>
-            <p className="text-xs leading-relaxed text-slate-600 dark:text-slate-400">
+            <p className="text-xs leading-relaxed text-[#5F6F89] dark:text-slate-400">
               Use JSON Formatter, Regex Tester, Base64, UUID, JWT, URL encoding, hashing, and date utilities for quick checks during development.
             </p>
           </div>
-          <div className="p-5 rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-gradient-to-b from-white via-white to-slate-50/60 dark:from-slate-900/60 dark:to-slate-900/40 space-y-3 shadow-xs hover:shadow-md transition-all">
-            <div className="w-9 h-9 rounded-xl bg-purple-500/10 text-purple-600 dark:text-purple-400 flex items-center justify-center border border-purple-500/20 shadow-2xs">
+          <div className="p-5 rounded-2xl border border-white/70 dark:border-slate-800/80 bg-white/65 dark:bg-slate-900/60 backdrop-blur-md space-y-3 shadow-xs hover:shadow-md transition-all">
+            <div className="w-9 h-9 rounded-xl bg-purple-500/12 text-purple-600 dark:text-purple-400 flex items-center justify-center border border-purple-400/30 icon-3d shadow-2xs">
               <ShieldCheck size={17} />
             </div>
             <h3 className="font-bold text-slate-900 dark:text-white text-sm">For privacy</h3>
-            <p className="text-xs leading-relaxed text-slate-600 dark:text-slate-400">
+            <p className="text-xs leading-relaxed text-[#5F6F89] dark:text-slate-400">
               For ordinary transformations, processing stays in your browser. For AI tools, read the Privacy Policy before submitting text because those requests necessarily leave the browser.
             </p>
           </div>
@@ -444,12 +450,12 @@ export default function HomePage() {
       {/* Sponsored Adsterra Responsive Banner */}
       <AdsterraResponsiveBanner />
 
-      <section aria-labelledby="popular-tools-heading" className="pt-8 border-t border-slate-200/80 dark:border-slate-800/80 space-y-4">
+      <section aria-labelledby="popular-tools-heading" className="pt-8 border-t border-[rgba(100,120,160,0.12)] dark:border-slate-800/80 space-y-4">
         <div>
           <h2 id="popular-tools-heading" className="text-base sm:text-lg font-bold text-slate-900 dark:text-white tracking-tight">
             Popular Free Developer &amp; Text Tools
           </h2>
-          <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+          <p className="text-xs text-[#5F6F89] dark:text-slate-400 mt-0.5">
             Fast, privacy-focused browser utilities with client-side execution
           </p>
         </div>
@@ -462,13 +468,13 @@ export default function HomePage() {
               <Link
                 key={slug}
                 href={`/tools/${slug}`}
-                className="group p-3.5 rounded-2xl border border-slate-200/85 dark:border-slate-800/80 bg-gradient-to-b from-white via-white to-slate-50/60 dark:from-slate-900/60 dark:to-slate-900/40 hover:bg-white dark:hover:bg-slate-900/90 hover:border-slate-300/90 dark:hover:border-slate-700/80 transition-all duration-200 flex flex-col justify-between space-y-2 shadow-xs hover:shadow-md hover:-translate-y-0.5"
+                className="group p-3.5 rounded-2xl border border-white/70 dark:border-slate-800/80 bg-white/65 dark:bg-slate-900/60 backdrop-blur-md hover:bg-white/90 dark:hover:bg-slate-900/90 hover:border-white/90 dark:hover:border-slate-700/80 transition-all duration-200 flex flex-col justify-between space-y-2 shadow-xs hover:shadow-md hover:-translate-y-0.5"
               >
                 <div>
                   <span className="text-xs font-bold text-slate-900 dark:text-slate-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors line-clamp-1">
                     {blueprint.h1}
                   </span>
-                  <span className="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-1 mt-0.5 block">
+                  <span className="text-[11px] text-[#5F6F89] dark:text-slate-400 line-clamp-1 mt-0.5 block">
                     {blueprint.primaryKeyword}
                   </span>
                 </div>

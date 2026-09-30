@@ -85,33 +85,33 @@ export const TerminalHero: React.FC = () => {
 
           {/* Compact 3-item Trust Row (3D Tactile Layout) */}
           <div className="w-full pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 text-left">
-            <div className="flex-1 p-2.5 rounded-2xl bg-white/80 dark:bg-slate-900/80 border border-slate-200/70 dark:border-slate-800 shadow-[0_4px_12px_rgba(15,23,42,0.03),inset_0_1px_0_rgba(255,255,255,1)] hover:-translate-y-1 hover:shadow-[0_8px_20px_rgba(37,99,235,0.08)] transition-all flex items-center gap-2.5">
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-500/20 to-blue-500/5 text-blue-600 dark:text-blue-400 flex items-center justify-center shrink-0 border border-blue-500/25 icon-3d">
+            <div className="flex-1 p-2.5 rounded-2xl bg-white/65 dark:bg-slate-900/65 backdrop-blur-md border border-white/70 dark:border-slate-800 shadow-[0_4px_16px_rgba(55,95,180,0.06),inset_0_1px_0_rgba(255,255,255,0.9)] hover:-translate-y-1 hover:shadow-[0_12px_24px_rgba(37,99,235,0.10)] transition-all flex items-center gap-2.5">
+              <div className="w-9 h-9 rounded-xl bg-blue-500/12 text-blue-600 dark:text-blue-400 flex items-center justify-center shrink-0 border border-blue-400/30 icon-3d">
                 <ShieldCheck size={18} aria-hidden="true" />
               </div>
               <div>
                 <div className="text-xs font-bold text-slate-900 dark:text-white">Private &amp; Secure</div>
-                <div className="text-[11px] text-slate-500 dark:text-slate-400">Most tools run in your browser</div>
+                <div className="text-[11px] text-[#5F6F89] dark:text-slate-400">Most tools run in your browser</div>
               </div>
             </div>
 
-            <div className="flex-1 p-2.5 rounded-2xl bg-white/80 dark:bg-slate-900/80 border border-slate-200/70 dark:border-slate-800 shadow-[0_4px_12px_rgba(15,23,42,0.03),inset_0_1px_0_rgba(255,255,255,1)] hover:-translate-y-1 hover:shadow-[0_8px_20px_rgba(147,51,234,0.08)] transition-all flex items-center gap-2.5">
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-purple-500/20 to-purple-500/5 text-purple-600 dark:text-purple-400 flex items-center justify-center shrink-0 border border-purple-500/25 icon-3d">
+            <div className="flex-1 p-2.5 rounded-2xl bg-white/65 dark:bg-slate-900/65 backdrop-blur-md border border-white/70 dark:border-slate-800 shadow-[0_4px_16px_rgba(55,95,180,0.06),inset_0_1px_0_rgba(255,255,255,0.9)] hover:-translate-y-1 hover:shadow-[0_12px_24px_rgba(147,51,234,0.10)] transition-all flex items-center gap-2.5">
+              <div className="w-9 h-9 rounded-xl bg-purple-500/12 text-purple-600 dark:text-purple-400 flex items-center justify-center shrink-0 border border-purple-400/30 icon-3d">
                 <Zap size={18} aria-hidden="true" />
               </div>
               <div>
                 <div className="text-xs font-bold text-slate-900 dark:text-white">Fast Processing</div>
-                <div className="text-[11px] text-slate-500 dark:text-slate-400">Instant results as you work</div>
+                <div className="text-[11px] text-[#5F6F89] dark:text-slate-400">Instant results as you work</div>
               </div>
             </div>
 
-            <div className="flex-1 p-2.5 rounded-2xl bg-white/80 dark:bg-slate-900/80 border border-slate-200/70 dark:border-slate-800 shadow-[0_4px_12px_rgba(15,23,42,0.03),inset_0_1px_0_rgba(255,255,255,1)] hover:-translate-y-1 hover:shadow-[0_8px_20px_rgba(14,165,233,0.08)] transition-all flex items-center gap-2.5">
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-sky-500/20 to-sky-500/5 text-sky-600 dark:text-sky-400 flex items-center justify-center shrink-0 border border-sky-500/25 icon-3d">
+            <div className="flex-1 p-2.5 rounded-2xl bg-white/65 dark:bg-slate-900/65 backdrop-blur-md border border-white/70 dark:border-slate-800 shadow-[0_4px_16px_rgba(55,95,180,0.06),inset_0_1px_0_rgba(255,255,255,0.9)] hover:-translate-y-1 hover:shadow-[0_12px_24px_rgba(14,165,233,0.10)] transition-all flex items-center gap-2.5">
+              <div className="w-9 h-9 rounded-xl bg-sky-500/12 text-sky-600 dark:text-sky-400 flex items-center justify-center shrink-0 border border-sky-400/30 icon-3d">
                 <Sparkles size={18} aria-hidden="true" />
               </div>
               <div>
                 <div className="text-xs font-bold text-slate-900 dark:text-white">AI Powered</div>
-                <div className="text-[11px] text-slate-500 dark:text-slate-400">Advanced tools with AI</div>
+                <div className="text-[11px] text-[#5F6F89] dark:text-slate-400">Advanced tools with AI</div>
               </div>
             </div>
           </div>
@@ -123,9 +123,9 @@ export const TerminalHero: React.FC = () => {
             {/* Ambient 3D Aurora Backlight */}
             <div className="absolute -inset-2 bg-gradient-to-tr from-cyan-400/35 via-indigo-500/25 to-pink-500/35 rounded-[32px] blur-xl opacity-75 group-hover:opacity-100 transition duration-500 -z-10" />
 
-            <div className="relative rounded-2xl sm:rounded-3xl border border-white/90 dark:border-slate-800/90 bg-white/95 dark:bg-slate-900/90 hero-card-3d overflow-hidden transition-all backdrop-blur-md">
+            <div className="relative rounded-2xl sm:rounded-3xl border border-white/80 dark:border-slate-800/90 bg-white/80 dark:bg-slate-900/80 hero-card-3d overflow-hidden transition-all backdrop-blur-xl">
               {/* Top Bar / App Card Chrome */}
-              <div className="h-11 bg-slate-50/90 dark:bg-slate-950/80 border-b border-slate-200/80 dark:border-slate-800/80 px-4 flex items-center justify-between gap-3 select-none">
+              <div className="h-11 bg-white/60 dark:bg-slate-950/80 border-b border-[rgba(100,120,160,0.12)] dark:border-slate-800/80 px-4 flex items-center justify-between gap-3 select-none backdrop-blur-md">
                 <div className="flex items-center gap-2 shrink-0">
                   <span className="w-2.5 h-2.5 rounded-full bg-rose-500/90 shadow-[inset_0_1px_1px_rgba(255,255,255,0.8)] inline-block" />
                   <span className="w-2.5 h-2.5 rounded-full bg-amber-500/90 shadow-[inset_0_1px_1px_rgba(255,255,255,0.8)] inline-block" />
@@ -141,7 +141,7 @@ export const TerminalHero: React.FC = () => {
                       onClick={() => setActivePreset(preset)}
                       className={`px-2.5 py-1 rounded-lg text-xs transition-all cursor-pointer whitespace-nowrap flex items-center gap-1.5 ${
                         activePreset.id === preset.id
-                          ? "bg-white dark:bg-slate-800 text-slate-900 dark:text-white shadow-[0_2px_6px_rgba(0,0,0,0.06),inset_0_1px_0_rgba(255,255,255,1)] font-bold border border-slate-200/80 dark:border-slate-700/80 scale-[1.02]"
+                          ? "bg-white/90 dark:bg-slate-800 text-slate-900 dark:text-white shadow-[0_2px_6px_rgba(0,0,0,0.06),inset_0_1px_0_rgba(255,255,255,1)] font-bold border border-white/80 dark:border-slate-700/80 scale-[1.02]"
                           : "text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 font-medium"
                       }`}
                     >
@@ -152,7 +152,7 @@ export const TerminalHero: React.FC = () => {
                 </div>
 
                 {/* Status Badge */}
-                <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border border-emerald-500/20 text-[11px] font-medium shrink-0 shadow-[inset_0_1px_0_rgba(255,255,255,0.6)]">
+                <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border border-emerald-500/20 text-[11px] font-medium shrink-0 shadow-[inset_0_1px_0_rgba(255,255,255,0.6)] backdrop-blur-xs">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 motion-safe:animate-pulse" />
                   <span>Live Preview</span>
                 </div>

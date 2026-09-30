@@ -51,10 +51,8 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCommandPalette }) => {
 
   return (
     <header
-      className={`sticky top-0 z-40 w-full transition-all duration-200 ${
-        scrolled
-          ? "border-b border-slate-200/90 dark:border-slate-800 bg-white/90 dark:bg-slate-950/90 backdrop-blur-md shadow-navScrolled"
-          : "border-b border-slate-200/60 dark:border-slate-800/60 bg-white/75 dark:bg-slate-950/75 backdrop-blur-sm"
+      className={`sticky top-0 z-40 w-full transition-all duration-200 navbar-glass ${
+        scrolled ? "shadow-navScrolled backdrop-blur-xl" : ""
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-3 sm:gap-6">
@@ -71,32 +69,32 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCommandPalette }) => {
         <nav aria-label="Main Navigation" className="hidden lg:flex items-center gap-1 xl:gap-1.5">
           <Link
             href="/#tools-section"
-            className="px-3 py-1.5 rounded-full text-xs font-semibold text-slate-900 dark:text-white bg-slate-100 dark:bg-slate-800/80 hover:bg-slate-200/80 dark:hover:bg-slate-700/60 transition-colors"
+            className="px-3 py-1.5 rounded-full text-xs font-semibold text-slate-900 dark:text-white bg-white/70 dark:bg-slate-800/80 hover:bg-white/90 dark:hover:bg-slate-700/60 border border-white/60 dark:border-slate-700/50 shadow-2xs backdrop-blur-sm transition-colors"
           >
             All Tools
           </Link>
           <button
             type="button"
             onClick={handleFavoritesClick}
-            className="px-3 py-1.5 rounded-full text-xs font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100/70 dark:hover:bg-slate-800/50 transition-colors cursor-pointer"
+            className="px-3 py-1.5 rounded-full text-xs font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-white/60 dark:hover:bg-slate-800/50 transition-colors cursor-pointer"
           >
             Favorites
           </button>
           <Link
             href="/#tools-section"
-            className="px-3 py-1.5 rounded-full text-xs font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100/70 dark:hover:bg-slate-800/50 transition-colors"
+            className="px-3 py-1.5 rounded-full text-xs font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-white/60 dark:hover:bg-slate-800/50 transition-colors"
           >
             Categories
           </Link>
           <Link
             href="/#category-ai-magic"
-            className="px-3 py-1.5 rounded-full text-xs font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100/70 dark:hover:bg-slate-800/50 transition-colors"
+            className="px-3 py-1.5 rounded-full text-xs font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-white/60 dark:hover:bg-slate-800/50 transition-colors"
           >
             AI Magic
           </Link>
           <Link
             href="/about"
-            className="px-3 py-1.5 rounded-full text-xs font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100/70 dark:hover:bg-slate-800/50 transition-colors"
+            className="px-3 py-1.5 rounded-full text-xs font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-white/60 dark:hover:bg-slate-800/50 transition-colors"
           >
             About
           </Link>
@@ -109,7 +107,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCommandPalette }) => {
             type="button"
             onClick={onOpenCommandPalette}
             aria-label="Search tools (Press Ctrl+K)"
-            className="hidden sm:flex items-center justify-between gap-2.5 px-3 py-1.5 rounded-full border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/60 hover:bg-white dark:hover:bg-slate-900 hover:border-brand-500/40 dark:hover:border-brand-500/40 text-xs text-slate-500 dark:text-slate-400 transition-all shadow-2xs hover:shadow-xs group cursor-pointer"
+            className="hidden sm:flex items-center justify-between gap-2.5 px-3 py-1.5 rounded-full border border-white/70 dark:border-slate-800 bg-white/60 dark:bg-slate-900/50 hover:bg-white/90 dark:hover:bg-slate-900 hover:border-brand-500/40 dark:hover:border-brand-500/40 text-xs text-slate-500 dark:text-slate-400 transition-all shadow-2xs hover:shadow-xs group cursor-pointer backdrop-blur-sm"
           >
             <div className="flex items-center gap-1.5">
               <Search size={13} className="text-slate-400 dark:text-slate-500 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors" />
@@ -117,7 +115,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCommandPalette }) => {
                 Search tools...
               </span>
             </div>
-            <kbd className="inline-flex items-center gap-0.5 text-[10px] font-mono px-1.5 py-0.5 rounded-md border border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 font-semibold shadow-2xs">
+            <kbd className="inline-flex items-center gap-0.5 text-[10px] font-mono px-1.5 py-0.5 rounded-md border border-slate-200/80 dark:border-slate-700 bg-white/80 dark:bg-slate-800 text-slate-500 dark:text-slate-400 font-semibold shadow-2xs">
               ⌘K
             </kbd>
           </button>
