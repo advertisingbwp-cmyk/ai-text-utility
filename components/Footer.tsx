@@ -82,14 +82,24 @@ export const Footer: React.FC = () => {
                 </Link>
               </li>
               <li>
-                <Link href="/robots.txt" className="hover:text-slate-900 dark:hover:text-white transition-colors">
+                <a
+                  href="/robots.txt"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-slate-900 dark:hover:text-white transition-colors"
+                >
                   Robots Directive
-                </Link>
+                </a>
               </li>
               <li>
-                <Link href="/sitemap.xml" className="hover:text-slate-900 dark:hover:text-white transition-colors">
+                <a
+                  href="/sitemap.xml"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-slate-900 dark:hover:text-white transition-colors"
+                >
                   XML Sitemap
-                </Link>
+                </a>
               </li>
               <li>
                 <AdsterraSmartLink variant="link" label="Featured Deals & Partners" />

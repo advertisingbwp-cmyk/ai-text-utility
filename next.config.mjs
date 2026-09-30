@@ -6,16 +6,16 @@
  * and verified upstream domains for Adsterra ad delivery and AI API endpoints.
  */
 const cspHeader = `
-  default-src 'self';
-  script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.profitableratecpmnetwork.com https://*.highrevenueformat.com https://vercel.live;
-  style-src 'self' 'unsafe-inline';
+  default-src 'self' https: data: blob:;
+  script-src 'self' 'unsafe-inline' 'unsafe-eval' https:;
+  style-src 'self' 'unsafe-inline' https:;
   img-src 'self' data: blob: https:;
-  font-src 'self' data:;
-  frame-src 'self' data: blob: https://*.profitableratecpmnetwork.com https://*.highrevenueformat.com;
-  connect-src 'self' https://*.profitableratecpmnetwork.com https://*.highrevenueformat.com https://generativelanguage.googleapis.com https://api.openai.com https://*.upstash.io;
+  font-src 'self' data: https:;
+  frame-src 'self' data: blob: https:;
+  connect-src 'self' https:;
   object-src 'none';
   base-uri 'self';
-  form-action 'self';
+  form-action 'self' https:;
 `.replace(/\s{2,}/g, " ").trim();
 
 const securityHeaders = [
