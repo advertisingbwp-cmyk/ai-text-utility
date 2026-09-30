@@ -76,7 +76,7 @@ export const TerminalHero: React.FC = () => {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
               <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
             </span>
-            <span>Modern Aurora Utility Suite · 43+ Tools</span>
+            <span>Modern Aurora Utility Suite · 46+ Tools</span>
           </div>
 
           {/* Primary H1 */}
@@ -90,8 +90,8 @@ export const TerminalHero: React.FC = () => {
 
           {/* Value Proposition */}
           <p className="text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed max-w-xl">
-            Format, inspect, convert, and clean text instantly with zero latency and zero server transmission.
-            Professional client-side utilities engineered for developers, writers, and technical teams.
+            Format, inspect, convert, and clean text instantly with browser-native execution.
+            Professional client-side utilities engineered for developers, writers, and technical workflows.
           </p>
 
           {/* CTA Buttons */}
@@ -103,7 +103,7 @@ export const TerminalHero: React.FC = () => {
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-5 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white dark:bg-brand-600 dark:hover:bg-brand-500 font-semibold text-xs sm:text-sm shadow-md hover:shadow-lg transition-all duration-180 active:scale-[0.98] cursor-pointer"
             >
               <Search size={15} aria-hidden="true" />
-              <span>Search 43+ Tools</span>
+              <span>Search 46+ Tools</span>
               <kbd className="ml-1 text-[11px] font-mono px-1.5 py-0.5 rounded bg-white/20 dark:bg-black/20 text-white/90">
                 ⌘K
               </kbd>
@@ -125,8 +125,8 @@ export const TerminalHero: React.FC = () => {
                 <ShieldCheck size={16} aria-hidden="true" />
               </div>
               <div>
-                <div className="text-xs font-bold text-slate-900 dark:text-white">100% Client-Side</div>
-                <div className="text-[11px] text-slate-500 dark:text-slate-400 hidden sm:block">Zero data retention</div>
+                <div className="text-xs font-bold text-slate-900 dark:text-white">Local In-Browser</div>
+                <div className="text-[11px] text-slate-500 dark:text-slate-400 hidden sm:block">Private memory execution</div>
               </div>
             </div>
 
@@ -135,8 +135,8 @@ export const TerminalHero: React.FC = () => {
                 <Zap size={16} aria-hidden="true" />
               </div>
               <div>
-                <div className="text-xs font-bold text-slate-900 dark:text-white">&lt;1ms Latency</div>
-                <div className="text-[11px] text-slate-500 dark:text-slate-400 hidden sm:block">No server lag</div>
+                <div className="text-xs font-bold text-slate-900 dark:text-white">Instant Output</div>
+                <div className="text-[11px] text-slate-500 dark:text-slate-400 hidden sm:block">Microsecond compute</div>
               </div>
             </div>
 
@@ -146,7 +146,7 @@ export const TerminalHero: React.FC = () => {
               </div>
               <div>
                 <div className="text-xs font-bold text-slate-900 dark:text-white">Private by Design</div>
-                <div className="text-[11px] text-slate-500 dark:text-slate-400 hidden sm:block">In-memory sandbox</div>
+                <div className="text-[11px] text-slate-500 dark:text-slate-400 hidden sm:block">No server storage</div>
               </div>
             </div>
           </div>

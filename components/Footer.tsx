@@ -17,7 +17,7 @@ export const Footer: React.FC = () => {
               <BrandLogo size="md" />
             </Link>
             <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
-              A high-performance suite of 43+ browser-based tools for formatting, converting, analyzing, and cleaning text. Built for developers, writers, students, and professionals who demand speed, privacy, and precision.
+              A high-performance suite of 46+ browser-based tools for formatting, converting, analyzing, and cleaning text. Built for developers, writers, students, and professionals who demand speed, privacy, and precision.
             </p>
             <div className="flex flex-wrap items-center gap-4 text-xs text-slate-500 dark:text-slate-400 pt-1">
               <span className="inline-flex items-center gap-1.5">
@@ -26,7 +26,7 @@ export const Footer: React.FC = () => {
               </span>
               <span className="inline-flex items-center gap-1.5">
                 <Zap size={14} className="text-amber-500" />
-                Zero Latency
+                Instant Browser Processing
               </span>
               <span className="inline-flex items-center gap-1.5">
                 <Sparkles size={14} className="text-brand-500" />
