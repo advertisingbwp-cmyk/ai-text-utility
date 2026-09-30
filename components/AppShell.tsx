@@ -16,17 +16,33 @@ export const AppShell: React.FC<{ children: React.ReactNode }> = ({ children }) 
       }
     };
 
+    const handleOpenEvent = () => setPaletteOpen(true);
     window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
+    window.addEventListener("open-command-palette", handleOpenEvent);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("open-command-palette", handleOpenEvent);
+    };
   }, []);
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-[#090d16] text-slate-900 dark:text-slate-100 flex flex-col transition-colors">
-      <Navbar onOpenCommandPalette={() => setPaletteOpen(true)} />
-      <main className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-3 pb-10 sm:pt-5 sm:pb-12">
-        {children}
-      </main>
-      <Footer />
+    <div className="relative min-h-screen bg-slate-50 dark:bg-[#090d16] text-slate-900 dark:text-slate-100 flex flex-col transition-colors selection:bg-brand-500/20 selection:text-brand-700 dark:selection:text-brand-300">
+      {/* Background Aurora Depth & Engineering Grid */}
+      <div className="aurora-canvas" aria-hidden="true">
+        <div className="aurora-glow-1" />
+        <div className="aurora-glow-2" />
+        <div className="aurora-glow-3" />
+      </div>
+      <div className="aurora-grid" aria-hidden="true" />
+
+      {/* Main App Content Stack */}
+      <div className="relative z-10 flex flex-col flex-1">
+        <Navbar onOpenCommandPalette={() => setPaletteOpen(true)} />
+        <main className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 pb-12 sm:pt-6 sm:pb-16">
+          {children}
+        </main>
+        <Footer />
+      </div>
       <CommandPalette open={paletteOpen} onOpenChange={setPaletteOpen} />
     </div>
   );

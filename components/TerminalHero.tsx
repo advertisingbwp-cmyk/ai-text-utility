@@ -1,300 +1,237 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React, { useState } from "react";
+import { Search, ArrowRight, ShieldCheck, Zap, Lock, Sparkles, Check, RefreshCw } from "lucide-react";
 
-interface CommandPart {
-  text: string;
-  cls: "base" | "flag" | "arg";
-}
-
-interface CommandItem {
-  parts: CommandPart[];
+interface DemoPreset {
+  id: string;
+  name: string;
+  toolName: string;
+  input: string;
   output: string;
+  metrics: { label: string; value: string }[];
 }
 
-const SEQUENCE: CommandItem[] = [
+const PRESETS: DemoPreset[] = [
   {
-    parts: [
-      { text: "run word-counter ", cls: "base" },
-      { text: "--text ", cls: "flag" },
-      { text: '"Hello world"', cls: "arg" },
+    id: "clean-spaces",
+    name: "Space Cleaner",
+    toolName: "Remove Extra Spaces",
+    input: "Clean   repeated     spaces    and\n\truntime   formatting      artifacts.",
+    output: "Clean repeated spaces and\n\truntime formatting artifacts.",
+    metrics: [
+      { label: "Excess Spaces", value: "-14" },
+      { label: "Tabs Preserved", value: "1" },
+      { label: "Execution", value: "<0.1ms" },
     ],
-    output: "2 words · 11 chars · 1s read",
   },
   {
-    parts: [
-      { text: "run json-formatter ", cls: "base" },
-      { text: "--file ", cls: "flag" },
-      { text: "data.json", cls: "arg" },
+    id: "word-metrics",
+    name: "Word Counter",
+    toolName: "Word & Text Metrics",
+    input: "Fast, private text utilities running locally inside modern browser memory.",
+    output: "10 words · 73 characters · 1 sentence · 0.05 min read",
+    metrics: [
+      { label: "Words", value: "10" },
+      { label: "Characters", value: "73" },
+      { label: "Reading Time", value: "3s" },
     ],
-    output: "valid JSON · formatted · 3 levels deep",
   },
   {
-    parts: [
-      { text: "run jwt-decode ", cls: "base" },
-      { text: "--token ", cls: "flag" },
-      { text: "eyJhbGci...", cls: "arg" },
+    id: "json-beautify",
+    name: "JSON Formatter",
+    toolName: "JSON Formatter & Validator",
+    input: '{"service":"ai-text-utility","status":"live","tools":43,"local":true}',
+    output: '{\n  "service": "ai-text-utility",\n  "status": "live",\n  "tools": 43,\n  "local": true\n}',
+    metrics: [
+      { label: "Syntax", value: "Valid" },
+      { label: "Keys", value: "4" },
+      { label: "Indentation", value: "2 spaces" },
     ],
-    output: "alg: HS256 · exp: valid · claims: 4",
   },
 ];
 
 export const TerminalHero: React.FC = () => {
-  const terminalBodyRef = useRef<HTMLDivElement>(null);
+  const [activePreset, setActivePreset] = useState<DemoPreset>(PRESETS[0]);
+  const [copied, setCopied] = useState(false);
 
-  useEffect(() => {
-    let isCancelled = false;
+  const handleCopy = () => {
+    navigator.clipboard.writeText(activePreset.output);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 1500);
+  };
 
-    const sleep = (ms: number) =>
-      new Promise((resolve) => setTimeout(resolve, ms));
-
-    const runSequence = async () => {
-      const container = terminalBodyRef.current;
-      if (!container) return;
-
-      while (!isCancelled) {
-        container.innerHTML = "";
-        container.style.opacity = "1";
-
-        for (let i = 0; i < SEQUENCE.length; i++) {
-          if (isCancelled) return;
-          const item = SEQUENCE[i];
-
-          // 1. Create Command Line Container
-          const group = document.createElement("div");
-          group.className = "mb-2 sm:mb-2.5";
-
-          const cmdLine = document.createElement("div");
-          cmdLine.className =
-            "flex items-center flex-wrap break-all text-[12.5px] leading-relaxed";
-
-          const prompt = document.createElement("span");
-          prompt.className = "text-teal-700 dark:text-teal-300 font-semibold mr-2 select-none";
-          prompt.setAttribute("aria-hidden", "true");
-          prompt.textContent = "❯";
-          cmdLine.appendChild(prompt);
-
-          const contentSpan = document.createElement("span");
-          cmdLine.appendChild(contentSpan);
-
-          const cursor = document.createElement("span");
-          cursor.className =
-            "terminal-cursor-blink inline-block w-[7px] h-[13.5px] bg-teal-700 dark:bg-teal-400 -mb-0.5 ml-0.5";
-          cursor.setAttribute("aria-hidden", "true");
-          cmdLine.appendChild(cursor);
-
-          group.appendChild(cmdLine);
-          container.appendChild(group);
-
-          // 2. Type parts character by character
-          for (let p = 0; p < item.parts.length; p++) {
-            if (isCancelled) return;
-            const part = item.parts[p];
-            const partSpan = document.createElement("span");
-            if (part.cls === "base") partSpan.className = "text-[#14151a]";
-            if (part.cls === "flag") partSpan.className = "text-[#6d28d9]";
-            if (part.cls === "arg") partSpan.className = "text-[#b45309]";
-            contentSpan.appendChild(partSpan);
-
-            for (let c = 0; c < part.text.length; c++) {
-              if (isCancelled) return;
-              partSpan.textContent += part.text[c];
-              await sleep(26);
-            }
-          }
-
-          // 3. Remove cursor from finished line (keep on the last item so it stays on line 3)
-          if (i < SEQUENCE.length - 1) {
-            cursor.remove();
-          }
-          await sleep(140);
-          if (isCancelled) return;
-
-          // 4. Render output with fadeInUp
-          const outLine = document.createElement("div");
-          outLine.className =
-            "terminal-output-fade text-[#6b7078] pl-4 mt-0.5 flex items-center gap-2 text-[12.5px]";
-
-          const arrow = document.createElement("span");
-          arrow.className = "text-blue-700 dark:text-blue-300 font-semibold select-none";
-          arrow.setAttribute("aria-hidden", "true");
-          arrow.textContent = "→";
-
-          const outText = document.createElement("span");
-          outText.textContent = item.output;
-
-          outLine.appendChild(arrow);
-          outLine.appendChild(outText);
-          group.appendChild(outLine);
-
-          await sleep(480);
-        }
-
-        if (isCancelled) return;
-
-        // Pause on 3rd command before looping (no 4th line)
-        await sleep(2400);
-        if (isCancelled) return;
-
-        // Fade out
-        container.style.transition = "opacity 350ms ease";
-        container.style.opacity = "0";
-        await sleep(380);
-      }
-    };
-
-    runSequence();
-
-    return () => {
-      isCancelled = true;
-    };
-  }, []);
+  const handleOpenPalette = () => {
+    window.dispatchEvent(new CustomEvent("open-command-palette"));
+  };
 
   return (
-    <section className="relative w-full">
-      <style>{`
-        @keyframes pulseRing {
-          0% {
-            transform: translate(-50%, -50%) scale(1);
-            opacity: 0.85;
-          }
-          100% {
-            transform: translate(-50%, -50%) scale(2.85);
-            opacity: 0;
-          }
-        }
-        @keyframes blinkDot {
-          0%, 100% { opacity: 1; }
-          50% { opacity: 0.3; }
-        }
-        @keyframes fadeInUp {
-          0% {
-            opacity: 0;
-            transform: translateY(4px);
-          }
-          100% {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        @keyframes blinkCursor {
-          0%, 49% { opacity: 1; }
-          50%, 100% { opacity: 0; }
-        }
-        .pulse-ring::after {
-          content: "";
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          width: 6.5px;
-          height: 6.5px;
-          border-radius: 50%;
-          border: 1.5px solid #0d9488;
-          transform: translate(-50%, -50%);
-          animation: pulseRing 1.9s cubic-bezier(0.22, 0.61, 0.36, 1) infinite;
-        }
-        .live-dot-blink {
-          animation: blinkDot 2.2s ease-in-out infinite;
-        }
-        .terminal-cursor-blink {
-          animation: blinkCursor 0.75s step-end infinite;
-        }
-        .terminal-output-fade {
-          animation: fadeInUp 350ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-      `}</style>
+    <section className="relative w-full pt-2 pb-6 sm:pt-4 sm:pb-8">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+        {/* Left Column: Hero Typography & Actions */}
+        <div className="lg:col-span-6 flex flex-col items-start text-left space-y-4">
+          {/* Eyebrow Pill */}
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-500/10 dark:bg-brand-500/15 border border-brand-500/25 text-brand-700 dark:text-brand-300 text-xs font-semibold tracking-tight shadow-2xs">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+            </span>
+            <span>Modern Aurora Utility Suite · 43+ Tools</span>
+          </div>
 
-      {/* Subtle Background Radial Glow Blobs */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_14%_12%,rgba(109,40,217,0.035)_0%,transparent_42%),radial-gradient(circle_at_86%_14%,rgba(13,148,136,0.04)_0%,transparent_44%)]"
-      />
+          {/* Primary H1 */}
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.12]">
+            Text tools that run at the speed of{" "}
+            <span className="bg-gradient-to-r from-brand-600 via-indigo-600 to-cyan-500 bg-clip-text text-transparent dark:from-brand-400 dark:via-indigo-300 dark:to-cyan-400">
+              browser memory
+            </span>
+            .
+          </h1>
 
-      <div className="max-w-[1180px] mx-auto pt-0 pb-1 sm:pt-1 sm:pb-2 lg:pt-1 lg:pb-3">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-7 lg:gap-10 items-center">
-          {/* LEFT COLUMN */}
-          <div className="flex flex-col items-start text-left">
-            {/* 1. Kicker Badge */}
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-800 dark:text-emerald-300 font-mono text-xs font-semibold tracking-tight">
-              <span className="relative w-1.5 h-1.5 bg-emerald-600 dark:bg-emerald-400 rounded-full shrink-0 pulse-ring" aria-hidden="true" />
-              <span>system online — 43 tools loaded</span>
+          {/* Value Proposition */}
+          <p className="text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed max-w-xl">
+            Format, inspect, convert, and clean text instantly with zero latency and zero server transmission.
+            Professional client-side utilities engineered for developers, writers, and technical teams.
+          </p>
+
+          {/* CTA Buttons */}
+          <div className="flex flex-wrap items-center gap-3 w-full sm:w-auto pt-1">
+            <button
+              type="button"
+              onClick={handleOpenPalette}
+              aria-label="Open Command Palette (Press Ctrl+K)"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-5 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white dark:bg-brand-600 dark:hover:bg-brand-500 font-semibold text-xs sm:text-sm shadow-md hover:shadow-lg transition-all duration-180 active:scale-[0.98] cursor-pointer"
+            >
+              <Search size={15} aria-hidden="true" />
+              <span>Search 43+ Tools</span>
+              <kbd className="ml-1 text-[11px] font-mono px-1.5 py-0.5 rounded bg-white/20 dark:bg-black/20 text-white/90">
+                ⌘K
+              </kbd>
+            </button>
+
+            <a
+              href="#tools-section"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/60 hover:bg-white dark:hover:bg-slate-900 text-slate-700 dark:text-slate-300 font-medium text-xs sm:text-sm transition-all duration-180 active:scale-[0.98]"
+            >
+              <span>Explore Utilities</span>
+              <ArrowRight size={14} aria-hidden="true" />
+            </a>
+          </div>
+
+          {/* Trust Indicators Row */}
+          <div className="w-full pt-4 border-t border-slate-200/80 dark:border-slate-800/80 grid grid-cols-3 gap-2 text-left">
+            <div className="flex items-center gap-2">
+              <div className="w-7 h-7 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0">
+                <ShieldCheck size={16} aria-hidden="true" />
+              </div>
+              <div>
+                <div className="text-xs font-bold text-slate-900 dark:text-white">100% Client-Side</div>
+                <div className="text-[11px] text-slate-500 dark:text-slate-400 hidden sm:block">Zero data retention</div>
+              </div>
             </div>
 
-            {/* 2. Headline */}
-            <h1 className="text-[26px] sm:text-[34px] lg:text-[40px] font-bold tracking-[-0.035em] leading-[1.15] text-slate-900 dark:text-slate-100 mt-3 mb-2">
-              Text tools that run like{" "}
-              <span className="text-brand-700 dark:text-brand-400 font-bold">
-                code
-              </span>
-              .
-            </h1>
-
-            {/* 3. Subheading Paragraph */}
-            <p className="text-slate-600 dark:text-slate-400 text-sm sm:text-base leading-relaxed max-w-[44ch] mb-4">
-              Format, decode, convert, and clean text with the speed and precision
-              of a command line — no install, no server, no waiting.
-            </p>
-
-            {/* 4. Stats Row - Symmetrical Balanced Grid */}
-            <div className="w-full border-t border-slate-200 dark:border-slate-800 pt-3 grid grid-cols-3 divide-x divide-slate-200 dark:divide-slate-800 text-center">
-              <div className="flex flex-col items-center px-2">
-                <span className="font-mono font-bold text-lg text-slate-900 dark:text-slate-100 tracking-tight leading-none">
-                  43+
-                </span>
-                <span className="text-xs text-slate-600 dark:text-slate-400 font-medium mt-1">
-                  utilities
-                </span>
+            <div className="flex items-center gap-2">
+              <div className="w-7 h-7 rounded-lg bg-brand-500/10 text-brand-600 dark:text-brand-400 flex items-center justify-center shrink-0">
+                <Zap size={16} aria-hidden="true" />
               </div>
-
-              <div className="flex flex-col items-center px-2">
-                <span className="font-mono font-bold text-lg text-slate-900 dark:text-slate-100 tracking-tight leading-none">
-                  0ms
-                </span>
-                <span className="text-xs text-slate-600 dark:text-slate-400 font-medium mt-1">
-                  server calls
-                </span>
+              <div>
+                <div className="text-xs font-bold text-slate-900 dark:text-white">&lt;1ms Latency</div>
+                <div className="text-[11px] text-slate-500 dark:text-slate-400 hidden sm:block">No server lag</div>
               </div>
+            </div>
 
-              <div className="flex flex-col items-center px-2">
-                <span className="font-mono font-bold text-lg text-slate-900 dark:text-slate-100 tracking-tight leading-none">
-                  100%
-                </span>
-                <span className="text-xs text-slate-600 dark:text-slate-400 font-medium mt-1">
-                  local
-                </span>
+            <div className="flex items-center gap-2">
+              <div className="w-7 h-7 rounded-lg bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center shrink-0">
+                <Lock size={16} aria-hidden="true" />
+              </div>
+              <div>
+                <div className="text-xs font-bold text-slate-900 dark:text-white">Private by Design</div>
+                <div className="text-[11px] text-slate-500 dark:text-slate-400 hidden sm:block">In-memory sandbox</div>
               </div>
             </div>
           </div>
+        </div>
 
-          {/* RIGHT COLUMN: TERMINAL CARD (Decorative interactive preview) */}
-          <div className="w-full" aria-hidden="true">
-            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-card overflow-hidden">
-              {/* Window Header */}
-              <div className="h-[36px] bg-slate-50 dark:bg-slate-950/60 border-b border-slate-200 dark:border-slate-800 px-3.5 flex items-center justify-between select-none">
-                <div className="flex items-center gap-3">
-                  <div className="flex items-center gap-1.5">
-                    <span className="w-2.5 h-2.5 rounded-full bg-rose-500" />
-                    <span className="w-2.5 h-2.5 rounded-full bg-amber-500" />
-                    <span className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
-                  </div>
-                  <span className="font-mono text-xs text-slate-500 dark:text-slate-400 font-medium ml-1 tracking-tight">
-                    ai-text-utility — zsh
-                  </span>
-                </div>
-                <div className="flex items-center gap-1.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 live-dot-blink" />
-                  <span className="font-mono text-xs text-slate-500 dark:text-slate-400 font-medium uppercase tracking-wider">
-                    live
-                  </span>
+        {/* Right Column: Modern Aurora Glass Preview OS Window */}
+        <div className="lg:col-span-6 w-full">
+          <div className="relative rounded-2xl border border-slate-200/90 dark:border-slate-800/90 bg-white/90 dark:bg-slate-900/80 backdrop-blur-md shadow-glass dark:shadow-2xl overflow-hidden transition-all">
+            {/* Titlebar / OS Header */}
+            <div className="h-10 bg-slate-100/70 dark:bg-slate-950/60 border-b border-slate-200/80 dark:border-slate-800/80 px-3.5 flex items-center justify-between select-none">
+              <div className="flex items-center gap-2">
+                <span className="w-2.5 h-2.5 rounded-full bg-rose-500/80 inline-block" />
+                <span className="w-2.5 h-2.5 rounded-full bg-amber-500/80 inline-block" />
+                <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/80 inline-block" />
+                <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400 font-medium ml-2">
+                  utility.preview.ts
+                </span>
+              </div>
+
+              {/* Mode Pills */}
+              <div className="flex items-center gap-1">
+                {PRESETS.map((preset) => (
+                  <button
+                    key={preset.id}
+                    type="button"
+                    onClick={() => setActivePreset(preset)}
+                    className={`px-2 py-0.5 rounded-md text-[11px] font-medium transition-colors cursor-pointer ${
+                      activePreset.id === preset.id
+                        ? "bg-white dark:bg-slate-800 text-slate-900 dark:text-white shadow-2xs font-semibold"
+                        : "text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200"
+                    }`}
+                  >
+                    {preset.name}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Preview Body */}
+            <div className="p-4 sm:p-5 space-y-3.5">
+              {/* Tool Identifier */}
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-semibold text-brand-600 dark:text-brand-400 uppercase tracking-wider flex items-center gap-1.5">
+                  <Sparkles size={13} />
+                  <span>{activePreset.toolName}</span>
+                </span>
+                <span className="text-[11px] font-mono px-2 py-0.5 rounded-md bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 font-medium">
+                  Live Engine
+                </span>
+              </div>
+
+              {/* Input Area */}
+              <div className="space-y-1">
+                <span className="text-[11px] font-mono text-slate-400 uppercase tracking-wider">Input Sample</span>
+                <div className="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-950/60 border border-slate-200/70 dark:border-slate-800/70 font-mono text-xs text-slate-700 dark:text-slate-300 whitespace-pre-wrap break-all min-h-[44px]">
+                  {activePreset.input}
                 </div>
               </div>
 
-              {/* Terminal Body */}
-              <div
-                ref={terminalBodyRef}
-                className="font-mono text-xs sm:text-[13px] leading-relaxed p-3.5 sm:p-4 min-h-[175px] text-slate-900 dark:text-slate-100"
-              >
-                {/* Dynamically typed content */}
+              {/* Output Area */}
+              <div className="space-y-1">
+                <div className="flex items-center justify-between">
+                  <span className="text-[11px] font-mono text-slate-400 uppercase tracking-wider">Instant Transformation</span>
+                  <button
+                    type="button"
+                    onClick={handleCopy}
+                    className="text-[11px] text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1 cursor-pointer font-medium"
+                  >
+                    {copied ? <Check size={11} className="text-emerald-500" /> : <RefreshCw size={11} />}
+                    <span>{copied ? "Copied!" : "Copy Output"}</span>
+                  </button>
+                </div>
+                <div className="p-2.5 rounded-xl bg-brand-50/50 dark:bg-brand-950/30 border border-brand-200/60 dark:border-brand-800/60 font-mono text-xs text-brand-900 dark:text-brand-200 whitespace-pre-wrap break-all min-h-[44px]">
+                  {activePreset.output}
+                </div>
+              </div>
+
+              {/* Metrics Pill Row */}
+              <div className="grid grid-cols-3 gap-2 pt-2 border-t border-slate-100 dark:border-slate-800/80">
+                {activePreset.metrics.map((m, idx) => (
+                  <div key={idx} className="p-2 rounded-lg bg-slate-50 dark:bg-slate-950/40 border border-slate-200/60 dark:border-slate-800/60 text-center">
+                    <div className="text-[10px] text-slate-500 dark:text-slate-400">{m.label}</div>
+                    <div className="text-xs font-bold font-mono text-slate-900 dark:text-white mt-0.5">{m.value}</div>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
