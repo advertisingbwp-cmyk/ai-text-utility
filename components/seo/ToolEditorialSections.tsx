@@ -20,6 +20,7 @@ import {
   FileSpreadsheet,
   FileCode,
   Minimize2,
+  Hash,
 } from "lucide-react";
 
 // ==========================================
@@ -2920,6 +2921,530 @@ export const HtmlMinifierEditorial: React.FC = () => {
     </div>
   );
 };
+
+// ==========================================
+// 17. HASH GENERATOR EDITORIAL
+// ==========================================
+export const HashGeneratorEditorial: React.FC = () => {
+  return (
+    <div className="space-y-12 pt-6 border-t border-slate-200 dark:border-slate-800">
+      {/* Section 1: What is a Cryptographic Hash Function? */}
+      <section aria-labelledby="what-is-hash-heading" className="space-y-4">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl bg-brand-50 dark:bg-brand-950/50 border border-brand-200 dark:border-brand-800/60 flex items-center justify-center text-brand-600 dark:text-brand-400 shrink-0">
+            <Fingerprint size={18} />
+          </div>
+          <div>
+            <h2
+              id="what-is-hash-heading"
+              className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white tracking-tight"
+            >
+              What is a Cryptographic Hash Function &amp; How Does It Work?
+            </h2>
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              Understanding deterministic message digests, mathematical one-way functions, and cryptographic integrity
+            </p>
+          </div>
+        </div>
+
+        <div className="p-6 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-4 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+          <p>
+            A <strong>cryptographic hash function</strong> is a mathematical algorithm that transforms an arbitrary-length string of digital data—such as a sentence, a password hash candidate, a software binary, or an API payload—into a fixed-length sequence of hexadecimal characters known as a <strong>message digest</strong> or <strong>checksum</strong>.
+          </p>
+          <p>
+            Unlike general-purpose programming hash codes (which are optimized for hashtable lookups), cryptographic hash functions are rigorously engineered to satisfy four fundamental mathematical criteria:
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5 pt-1">
+            <div className="p-4 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-slate-50/70 dark:bg-slate-950/40 space-y-1.5">
+              <span className="font-semibold text-slate-900 dark:text-white flex items-center gap-1.5 text-xs">
+                <ShieldCheck size={14} className="text-emerald-500" /> 1. Deterministic Output
+              </span>
+              <p className="text-xs text-slate-600 dark:text-slate-400">
+                The identical input will always yield the exact same hash value, regardless of how many times or on which platform the algorithm is executed.
+              </p>
+            </div>
+
+            <div className="p-4 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-slate-50/70 dark:bg-slate-950/40 space-y-1.5">
+              <span className="font-semibold text-slate-900 dark:text-white flex items-center gap-1.5 text-xs">
+                <ShieldCheck size={14} className="text-emerald-500" /> 2. Pre-Image Resistance (One-Way)
+              </span>
+              <p className="text-xs text-slate-600 dark:text-slate-400">
+                Given a specific output digest <code className="font-mono text-[11px]">H</code>, it is mathematically infeasible to determine the original input <code className="font-mono text-[11px]">m</code> that generated it.
+              </p>
+            </div>
+
+            <div className="p-4 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-slate-50/70 dark:bg-slate-950/40 space-y-1.5">
+              <span className="font-semibold text-slate-900 dark:text-white flex items-center gap-1.5 text-xs">
+                <ShieldCheck size={14} className="text-emerald-500" /> 3. Collision Resistance
+              </span>
+              <p className="text-xs text-slate-600 dark:text-slate-400">
+                It is computationally prohibitive to find two distinct inputs <code className="font-mono text-[11px]">m1</code> and <code className="font-mono text-[11px]">m2</code> such that <code className="font-mono text-[11px]">hash(m1) === hash(m2)</code>.
+              </p>
+            </div>
+
+            <div className="p-4 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-slate-50/70 dark:bg-slate-950/40 space-y-1.5">
+              <span className="font-semibold text-slate-900 dark:text-white flex items-center gap-1.5 text-xs">
+                <ShieldCheck size={14} className="text-emerald-500" /> 4. Strict Avalanche Effect
+              </span>
+              <p className="text-xs text-slate-600 dark:text-slate-400">
+                Altering even a single bit in the input causes approximately 50% of the output bits to flip unpredictably, preventing statistical pattern analysis.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Section 2: Step-by-Step Workflow Guide */}
+      <section aria-labelledby="hash-workflow-heading" className="space-y-4">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl bg-purple-50 dark:bg-purple-950/50 border border-purple-200 dark:border-purple-800/60 flex items-center justify-center text-purple-600 dark:text-purple-400 shrink-0">
+            <Layers size={18} />
+          </div>
+          <div>
+            <h2
+              id="hash-workflow-heading"
+              className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white tracking-tight"
+            >
+              How to Generate Hashes Online: 4-Step Workflow
+            </h2>
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              Generate, compare, and copy cryptographic digests with zero setup directly in your browser
+            </p>
+          </div>
+        </div>
+
+        <div className="p-6 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-4 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+          <ol className="list-decimal list-inside space-y-3.5 pl-1">
+            <li>
+              <strong className="text-slate-900 dark:text-white">Enter or Paste Your Text:</strong> Type or paste your plain text, string, token, or API payload into the primary input box. The tool automatically encodes the string to UTF-8 bytes in memory.
+            </li>
+            <li>
+              <strong className="text-slate-900 dark:text-white">Select Primary Algorithm:</strong> Choose your target algorithm (<span className="font-semibold text-brand-600 dark:text-brand-400">SHA-256</span>, <span className="font-semibold text-brand-600 dark:text-brand-400">SHA-384</span>, <span className="font-semibold text-brand-600 dark:text-brand-400">SHA-512</span>, or legacy <span className="font-semibold text-amber-500">SHA-1</span>) using the top pill buttons.
+            </li>
+            <li>
+              <strong className="text-slate-900 dark:text-white">Toggle Hex Casing:</strong> Leave the default lowercase hexadecimal format for standard Unix and Git environments, or check <strong>UPPERCASE Hex</strong> if your database or legacy verification utility requires capitalized characters.
+            </li>
+            <li>
+              <strong className="text-slate-900 dark:text-white">Inspect &amp; Copy Simultaneous Digests:</strong> Review the multi-algorithm digest cards rendered simultaneously below the workspace. Click the dedicated <em>Copy</em> button on any individual algorithm card to copy that specific checksum instantly to your clipboard.
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      {/* Section 3: Supported Cryptographic Algorithms Comparison */}
+      <section aria-labelledby="supported-algorithms-heading" className="space-y-4">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl bg-blue-50 dark:bg-blue-950/50 border border-blue-200 dark:border-blue-800/60 flex items-center justify-center text-blue-600 dark:text-blue-400 shrink-0">
+            <Code2 size={18} />
+          </div>
+          <div>
+            <h2
+              id="supported-algorithms-heading"
+              className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white tracking-tight"
+            >
+              Supported Hash Algorithms &amp; Digest Length Specifications
+            </h2>
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              Technical breakdown of algorithm families, output bit lengths, and security recommendations
+            </p>
+          </div>
+        </div>
+
+        <div className="p-6 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-4 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+          <p>
+            All hash calculations in this utility are computed using the browser-native <strong>Web Crypto API</strong> (<code className="font-mono text-[11px]">crypto.subtle.digest</code>). The table below outlines the exact specifications of each supported algorithm:
+          </p>
+
+          <div className="overflow-x-auto rounded-xl border border-slate-200 dark:border-slate-800">
+            <table className="w-full text-left text-xs">
+              <thead className="bg-slate-100 dark:bg-slate-800/80 text-slate-700 dark:text-slate-200 font-semibold border-b border-slate-200 dark:border-slate-800">
+                <tr>
+                  <th className="p-3">Algorithm</th>
+                  <th className="p-3">Output Bits</th>
+                  <th className="p-3">Hex Length</th>
+                  <th className="p-3">Security Level</th>
+                  <th className="p-3">Primary Use Cases</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-200 dark:divide-slate-800/60 font-mono text-[11px]">
+                <tr className="bg-white/50 dark:bg-slate-950/30">
+                  <td className="p-3 font-bold text-brand-600 dark:text-brand-400 font-sans">SHA-256</td>
+                  <td className="p-3">256 bits (32 bytes)</td>
+                  <td className="p-3">64 characters</td>
+                  <td className="p-3 font-sans font-medium text-emerald-600 dark:text-emerald-400">High (Modern Standard)</td>
+                  <td className="p-3 font-sans">TLS/SSL, Bitcoin, API signatures, software verification</td>
+                </tr>
+                <tr className="bg-slate-50/50 dark:bg-slate-900/30">
+                  <td className="p-3 font-bold text-brand-600 dark:text-brand-400 font-sans">SHA-384</td>
+                  <td className="p-3">384 bits (48 bytes)</td>
+                  <td className="p-3">96 characters</td>
+                  <td className="p-3 font-sans font-medium text-emerald-600 dark:text-emerald-400">Very High (Suite B)</td>
+                  <td className="p-3 font-sans">High-assurance federal systems, digital certificates</td>
+                </tr>
+                <tr className="bg-white/50 dark:bg-slate-950/30">
+                  <td className="p-3 font-bold text-brand-600 dark:text-brand-400 font-sans">SHA-512</td>
+                  <td className="p-3">512 bits (64 bytes)</td>
+                  <td className="p-3">128 characters</td>
+                  <td className="p-3 font-sans font-medium text-emerald-600 dark:text-emerald-400">Maximum (64-bit Native)</td>
+                  <td className="p-3 font-sans">64-bit high-throughput processing, high-entropy hashing</td>
+                </tr>
+                <tr className="bg-slate-50/50 dark:bg-slate-900/30">
+                  <td className="p-3 font-bold text-amber-500 font-sans">SHA-1</td>
+                  <td className="p-3">160 bits (20 bytes)</td>
+                  <td className="p-3">40 characters</td>
+                  <td className="p-3 font-sans font-medium text-amber-600 dark:text-amber-400">Deprecated (Legacy Only)</td>
+                  <td className="p-3 font-sans">Git commit IDs, BitTorrent infohashes, legacy file checksums</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div className="p-4 rounded-xl border border-amber-200/70 dark:border-amber-900/50 bg-amber-50/50 dark:bg-amber-950/20 space-y-1 text-xs">
+            <span className="font-semibold text-amber-800 dark:text-amber-300 flex items-center gap-1.5">
+              <AlertTriangle size={14} /> Why is MD5 Not Supported?
+            </span>
+            <p className="text-amber-700 dark:text-amber-400/90 leading-relaxed">
+              MD5 was designed in 1991 and is severely compromised by practical collision generation attacks (colliding digests can be constructed in seconds on consumer hardware). Because of these severe security flaws, the W3C Web Cryptography specification deliberately omitted MD5 from modern browser runtimes. We encourage users to migrate to SHA-256 for all modern cryptographic integrity applications.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Section 4: Hashing vs Encryption vs Base64 */}
+      <section aria-labelledby="hashing-vs-encryption-heading" className="space-y-4">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-800/60 flex items-center justify-center text-emerald-600 dark:text-emerald-400 shrink-0">
+            <Binary size={18} />
+          </div>
+          <div>
+            <h2
+              id="hashing-vs-encryption-heading"
+              className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white tracking-tight"
+            >
+              Hashing vs. Encryption vs. Encoding: What Is the Difference?
+            </h2>
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              Clear distinction between one-way digests, reversible ciphers, and transport representations
+            </p>
+          </div>
+        </div>
+
+        <div className="p-6 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-4 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+          <p>
+            In software development, these three terms are frequently confused, but they serve fundamentally distinct engineering purposes:
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="p-4 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-slate-50/70 dark:bg-slate-950/40 space-y-2">
+              <h3 className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider flex items-center gap-1.5">
+                <Fingerprint size={14} className="text-brand-500" /> 1. Cryptographic Hash
+              </h3>
+              <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                A <strong>strictly one-way mathematical function</strong> with no decryption key. Its purpose is to verify integrity, generate deterministic IDs, or validate data without exposing the underlying content. It cannot be reversed back to original text.
+              </p>
+            </div>
+
+            <div className="p-4 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-slate-50/70 dark:bg-slate-950/40 space-y-2">
+              <h3 className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider flex items-center gap-1.5">
+                <KeyRound size={14} className="text-emerald-500" /> 2. Encryption
+              </h3>
+              <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                A <strong>two-way reversible transformation</strong> designed to maintain confidentiality. Plaintext is transformed into ciphertext using a secret key (e.g. AES-256-GCM or RSA-4096) and can only be decrypted by authorized key holders.
+              </p>
+            </div>
+
+            <div className="p-4 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-slate-50/70 dark:bg-slate-950/40 space-y-2">
+              <h3 className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider flex items-center gap-1.5">
+                <Binary size={14} className="text-purple-500" /> 3. Encoding (Base64)
+              </h3>
+              <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                A <strong>two-way reversible data representation</strong> with no secret key. Base64 converts raw binary data into safe ASCII characters for email and JSON transport. You can convert strings or payloads using our <Link href="/tools/base64" className="text-brand-600 dark:text-brand-400 underline font-semibold">Base64 Tool</Link>.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Section 5: Password Hashing Warning */}
+      <section aria-labelledby="password-warning-heading" className="space-y-4">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl bg-rose-50 dark:bg-rose-950/50 border border-rose-200 dark:border-rose-800/60 flex items-center justify-center text-rose-600 dark:text-rose-400 shrink-0">
+            <AlertTriangle size={18} />
+          </div>
+          <div>
+            <h2
+              id="password-warning-heading"
+              className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white tracking-tight"
+            >
+              Security Warning: Why Fast Hashes Must Never Be Used for Passwords
+            </h2>
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              Why general-purpose algorithms like SHA-256 are dangerous for credential storage
+            </p>
+          </div>
+        </div>
+
+        <div className="p-6 rounded-2xl border border-rose-200/80 dark:border-rose-900/60 bg-rose-50/40 dark:bg-rose-950/20 shadow-subtle space-y-4 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+          <div className="flex items-start gap-3">
+            <AlertTriangle size={20} className="text-rose-600 dark:text-rose-400 shrink-0 mt-0.5" />
+            <div className="space-y-2">
+              <h3 className="text-sm font-bold text-rose-900 dark:text-rose-200">
+                Never Store User Passwords with Plain SHA-256 or SHA-512
+              </h3>
+              <p className="text-rose-800/90 dark:text-rose-300/90 leading-relaxed">
+                General-purpose cryptographic hash functions (including SHA-256, SHA-512, and MD5) were designed to be <strong>computationally fast</strong> to verify large file downloads and network streams efficiently. However, this high performance makes them fatally flawed for storing user credentials.
+              </p>
+              <p className="text-rose-800/90 dark:text-rose-300/90 leading-relaxed">
+                Modern consumer graphics cards (GPUs) can compute tens of billions of SHA-256 hashes per second. If an attacker breaches a database containing unsalted or simply-salted SHA-256 hashes, they can crack standard dictionary passwords in minutes using precomputed lookup tables or automated brute-force rigs.
+              </p>
+            </div>
+          </div>
+
+          <div className="p-4 rounded-xl border border-rose-200/60 dark:border-rose-900/40 bg-white/70 dark:bg-slate-900/60 space-y-2 text-xs">
+            <span className="font-bold text-slate-900 dark:text-white uppercase tracking-wider">
+              Recommended Password Storage Solutions (Slow, Memory-Hard KDFs)
+            </span>
+            <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
+              Modern production authentication architectures must utilize specialized, adaptive <strong>Key Derivation Functions (KDFs)</strong> with unique per-user cryptographic salts and configurable work factors:
+            </p>
+            <ul className="list-disc list-inside space-y-1 text-slate-600 dark:text-slate-400 pl-1">
+              <li><strong>Argon2 (Argon2id):</strong> The state-of-the-art winner of the Password Hashing Competition, highly resistant to GPU and ASIC acceleration due to intensive memory hardness.</li>
+              <li><strong>bcrypt:</strong> Battle-tested adaptive hashing algorithm with configurable cost factors that scale with computing power.</li>
+              <li><strong>scrypt:</strong> Specifically architected to demand substantial memory bandwidth, thwarting custom FPGA/ASIC hardware attacks.</li>
+              <li><strong>PBKDF2:</strong> NIST-standardized key derivation function utilizing thousands of iterations (e.g. HMAC-SHA256).</li>
+            </ul>
+            <p className="pt-1 text-slate-500 dark:text-slate-400">
+              Need to create strong, uncrackable credentials for your personal or enterprise accounts? Use our dedicated <Link href="/tools/password-generator" className="text-brand-600 dark:text-brand-400 underline font-semibold">Password Generator</Link> to create cryptographically randomized passwords.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Section 6: The Cryptographic Avalanche Effect */}
+      <section aria-labelledby="avalanche-heading" className="space-y-4">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl bg-amber-50 dark:bg-amber-950/50 border border-amber-200 dark:border-amber-800/60 flex items-center justify-center text-amber-600 dark:text-amber-400 shrink-0">
+            <Sparkles size={18} />
+          </div>
+          <div>
+            <h2
+              id="avalanche-heading"
+              className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white tracking-tight"
+            >
+              The Cryptographic Avalanche Effect Demonstrated
+            </h2>
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              How a single-character alteration completely transforms the resulting digest
+            </p>
+          </div>
+        </div>
+
+        <div className="p-6 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-4 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+          <p>
+            A core security requirement of cryptographic hash functions is the <strong>Strict Avalanche Criterion (SAC)</strong>: whenever a single input bit is flipped, each output bit has a 50% probability of changing. This prevents adversaries from deducing whether a candidate input is &quot;close&quot; to the target string.
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="p-4 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-slate-50/70 dark:bg-slate-950/40 space-y-2">
+              <span className="font-semibold text-slate-900 dark:text-white text-xs">
+                Input A: <code className="font-mono text-[11px] text-brand-600 dark:text-brand-400">Hello World</code>
+              </span>
+              <div className="p-2.5 rounded-lg bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 font-mono text-[11px] text-slate-700 dark:text-slate-300 break-all select-all">
+                a591a6d40bf420404a011733cfb7b190d62c65bf0bcda32b57b277d9ad9f146e
+              </div>
+            </div>
+
+            <div className="p-4 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-slate-50/70 dark:bg-slate-950/40 space-y-2">
+              <span className="font-semibold text-slate-900 dark:text-white text-xs">
+                Input B: <code className="font-mono text-[11px] text-brand-600 dark:text-brand-400">Hello World!</code> (added <code className="font-mono">!</code>)
+              </span>
+              <div className="p-2.5 rounded-lg bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 font-mono text-[11px] text-slate-700 dark:text-slate-300 break-all select-all">
+                7f83b1657ff1fc53b92dc18148a1d65dfc2d4b1fa3d677284addd200126d9069
+              </div>
+            </div>
+          </div>
+          <p className="text-xs text-slate-500 dark:text-slate-400 pt-1">
+            Notice how adding a single exclamation point produces a completely divergent 64-character hexadecimal digest, leaving zero statistical correlation between the two hashes.
+          </p>
+        </div>
+      </section>
+
+      {/* Section 7: Common Software Engineering & DevOps Use Cases */}
+      <section aria-labelledby="dev-use-cases-heading" className="space-y-4">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl bg-indigo-50 dark:bg-indigo-950/50 border border-indigo-200 dark:border-indigo-800/60 flex items-center justify-center text-indigo-600 dark:text-indigo-400 shrink-0">
+            <BookOpen size={18} />
+          </div>
+          <div>
+            <h2
+              id="dev-use-cases-heading"
+              className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white tracking-tight"
+            >
+              Everyday Developer, DevOps &amp; API Use Cases
+            </h2>
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              Practical applications for software engineers, systems architects, and security auditors
+            </p>
+          </div>
+        </div>
+
+        <div className="p-6 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-4 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="p-4 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-slate-50/70 dark:bg-slate-950/40 space-y-1.5">
+              <h3 className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">
+                1. API Signature &amp; Webhook Verification
+              </h3>
+              <p className="text-xs text-slate-600 dark:text-slate-400">
+                Payment gateways (Stripe, PayPal) and webhooks (GitHub, Slack) sign payloads using HMAC-SHA256 digests. This generator allows engineers to verify raw payload checksums and debug signature mismatches during integration testing.
+              </p>
+            </div>
+
+            <div className="p-4 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-slate-50/70 dark:bg-slate-950/40 space-y-1.5">
+              <h3 className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">
+                2. Deterministic Cache Keys &amp; Fingerprinting
+              </h3>
+              <p className="text-xs text-slate-600 dark:text-slate-400">
+                Distributed caching systems (Redis, Memcached) use SHA-256 digests of complex query objects or GraphQL query strings to construct uniform, fixed-length cache keys that never overflow memory limits.
+              </p>
+            </div>
+
+            <div className="p-4 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-slate-50/70 dark:bg-slate-950/40 space-y-1.5">
+              <h3 className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">
+                3. Content-Addressable Storage (Git &amp; IPFS)
+              </h3>
+              <p className="text-xs text-slate-600 dark:text-slate-400">
+                Version control systems like Git use SHA-1 and SHA-256 object IDs to track commits, trees, and blobs. Inspecting raw hashes assists developers in diagnosing corrupted Git refs or validating tree fingerprints.
+              </p>
+            </div>
+
+            <div className="p-4 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-slate-50/70 dark:bg-slate-950/40 space-y-1.5">
+              <h3 className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">
+                4. Database Deduplication &amp; Privacy Indexing
+              </h3>
+              <p className="text-xs text-slate-600 dark:text-slate-400">
+                Hashed email addresses or phone numbers are commonly indexed for unsubscribe lists or fraud monitoring without storing plaintext PII in search indices.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Section 8: 100% Client-Side Privacy */}
+      <section aria-labelledby="hash-privacy-heading" className="space-y-4">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-800/60 flex items-center justify-center text-emerald-600 dark:text-emerald-400 shrink-0">
+            <ShieldCheck size={18} />
+          </div>
+          <div>
+            <h2
+              id="hash-privacy-heading"
+              className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white tracking-tight"
+            >
+              100% Client-Side Web Crypto Execution &amp; Complete Privacy
+            </h2>
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              Hardware-accelerated processing strictly in local memory with zero network transmission
+            </p>
+          </div>
+        </div>
+
+        <div className="p-6 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-3 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+          <p>
+            Data security is paramount when handling tokens, passphrases, and sensitive API payloads. This utility runs entirely inside your browser using the native W3C <strong>Web Crypto API</strong> (<code className="font-mono text-[11px]">window.crypto.subtle.digest</code>).
+          </p>
+          <ul className="list-disc list-inside space-y-1.5 text-xs text-slate-600 dark:text-slate-400 pl-1">
+            <li><strong>Zero Server Uploads:</strong> Your input text is never sent to our application servers, third-party APIs, or telemetry backends.</li>
+            <li><strong>Hardware Acceleration:</strong> Uses your device&apos;s native cryptographic hardware instructions (such as Intel SHA extensions or ARMv8 crypto instructions) for instant computation.</li>
+            <li><strong>Offline Functionality:</strong> You can disconnect from the internet or inspect your browser&apos;s Network tab to confirm zero outgoing HTTP requests while hashing.</li>
+          </ul>
+        </div>
+      </section>
+
+      {/* Section 9: Contextual Utilities Navigation */}
+      <section aria-labelledby="hash-related-heading" className="space-y-4">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center text-slate-700 dark:text-slate-300 shrink-0">
+            <Layers size={18} />
+          </div>
+          <div>
+            <h2
+              id="hash-related-heading"
+              className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white tracking-tight"
+            >
+              Related Cryptographic &amp; Transform Utilities
+            </h2>
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              Explore interconnected developer tools for encoding, credentials, and token inspection
+            </p>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-2.5">
+            <div className="flex items-center justify-between">
+              <Link
+                href="/tools/base64"
+                className="text-sm font-bold text-slate-900 dark:text-white hover:text-brand-600 dark:hover:text-brand-400 transition-colors inline-flex items-center gap-1.5"
+              >
+                Base64 Tool <ArrowRight size={14} />
+              </Link>
+              <span className="text-[11px] font-mono text-brand-600 dark:text-brand-400">Encode</span>
+            </div>
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              Encode binary data or plain text to standard Base64 representation or decode Base64 strings safely.
+            </p>
+          </div>
+
+          <div className="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-2.5">
+            <div className="flex items-center justify-between">
+              <Link
+                href="/tools/password-generator"
+                className="text-sm font-bold text-slate-900 dark:text-white hover:text-brand-600 dark:hover:text-brand-400 transition-colors inline-flex items-center gap-1.5"
+              >
+                Password Generator <ArrowRight size={14} />
+              </Link>
+              <span className="text-[11px] font-mono text-emerald-600 dark:text-emerald-400">Security</span>
+            </div>
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              Generate cryptographically strong, high-entropy passwords with custom character sets and entropy scoring.
+            </p>
+          </div>
+
+          <div className="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-2.5">
+            <div className="flex items-center justify-between">
+              <Link
+                href="/tools/uuid-generator"
+                className="text-sm font-bold text-slate-900 dark:text-white hover:text-brand-600 dark:hover:text-brand-400 transition-colors inline-flex items-center gap-1.5"
+              >
+                UUID Generator <ArrowRight size={14} />
+              </Link>
+              <span className="text-[11px] font-mono text-purple-600 dark:text-purple-400">Identifiers</span>
+            </div>
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              Generate RFC 4122 compliant random UUID v4 identifiers for databases, APIs, and microservices.
+            </p>
+          </div>
+
+          <div className="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-2.5">
+            <div className="flex items-center justify-between">
+              <Link
+                href="/tools/jwt-decoder"
+                className="text-sm font-bold text-slate-900 dark:text-white hover:text-brand-600 dark:hover:text-brand-400 transition-colors inline-flex items-center gap-1.5"
+              >
+                JWT Decoder <ArrowRight size={14} />
+              </Link>
+              <span className="text-[11px] font-mono text-amber-600 dark:text-amber-400">Tokens</span>
+            </div>
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              Decode and inspect JSON Web Token headers, payload claims, and expiration timestamps locally.
+            </p>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+};
+
 
 
 

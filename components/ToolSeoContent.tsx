@@ -20,6 +20,7 @@ import {
   CsvToJsonEditorial,
   MarkdownToHtmlEditorial,
   HtmlMinifierEditorial,
+  HashGeneratorEditorial,
 } from "@/components/seo/ToolEditorialSections";
 import {
   Check,
@@ -671,6 +672,7 @@ const EDITORIAL_MAP: Record<string, React.FC> = {
   "csv-to-json": CsvToJsonEditorial,
   "markdown-to-html": MarkdownToHtmlEditorial,
   "html-minifier": HtmlMinifierEditorial,
+  "hash-generator": HashGeneratorEditorial,
 };
 
 export const ToolSeoContent: React.FC<ToolSeoContentProps> = ({ tool }) => {

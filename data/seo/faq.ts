@@ -462,32 +462,53 @@ export const TOOL_SPECIFIC_CONTENT: Record<
 
   "hash-generator": {
     howToSteps: [
-      "Type or paste your text, passphrase, or payload into the input box.",
-      "Select your target hashing algorithm: SHA-256, SHA-512, SHA-384, SHA-1, or MD5.",
-      "The tool calculates the cryptographic digest in real time as you type.",
-      "Click 'Copy' to copy the hexadecimal hash checksum to your clipboard.",
+      "Type or paste your plain text, passphrase, or payload into the input editor.",
+      "Select your primary target algorithm (SHA-256, SHA-384, SHA-512, or legacy SHA-1) from the top selector buttons.",
+      "Review all four cryptographic digests generated simultaneously in real time below the editor.",
+      "Toggle 'UPPERCASE Hex' if your target database, API, or checksum specification requires capitalized hexadecimal characters.",
+      "Click 'Copy' on the primary output or on any specific algorithm card to copy the digest to your clipboard.",
     ],
     features: [
-      "Powered by native browser Web Crypto API (`crypto.subtle.digest`)",
-      "Supports SHA-256, SHA-512, SHA-384, SHA-1, and MD5 algorithms",
-      "Instant live calculation with zero server communication",
-      "Hexadecimal output formatted for code, checksums, and verification",
+      "Hardware-accelerated cryptographic computation powered by the native browser Web Crypto API (`crypto.subtle.digest`)",
+      "Simultaneous parallel calculation for SHA-256, SHA-384, SHA-512, and legacy SHA-1",
+      "Real-time reactive digest generation with instant lowercase and UPPERCASE hexadecimal formatting",
+      "100% Client-side privacy: text is processed strictly in local browser memory and never leaves your device",
     ],
     faqs: [
       {
-        question: "Can a cryptographic hash be decrypted or reversed?",
+        question: "What is a cryptographic hash generator and how does it work?",
         answer:
-          "No. Cryptographic hashes are strictly one-way mathematical functions. It is computationally impossible to reverse a hash back to its original plaintext. Verification is performed by hashing the candidate input and comparing the resulting digests.",
+          "A cryptographic hash generator takes an arbitrary-length string of text, encodes it into bytes (typically UTF-8), and processes it through a deterministic mathematical hashing algorithm (such as SHA-256). The result is a fixed-size hexadecimal string known as a message digest or checksum. The process is deterministic—identical input always yields the exact same hash—yet irreversible, making it virtually impossible to reconstruct the original input from the digest alone.",
       },
       {
-        question: "Are MD5 and SHA-1 secure for passwords or modern security?",
+        question: "Which hash algorithms are supported by this tool?",
         answer:
-          "No. MD5 and SHA-1 suffer from known collision vulnerabilities and are considered cryptographically broken for security purposes. They should only be used for legacy checksums or file integrity validation. For security, use SHA-256, SHA-512, or salted key derivation functions like bcrypt or Argon2.",
+          "This utility natively supports SHA-256 (256-bit / 64 hex characters), SHA-384 (384-bit / 96 hex characters), SHA-512 (512-bit / 128 hex characters), and SHA-1 (160-bit / 40 hex characters) using the browser's hardware-accelerated Web Crypto API. All four digests are computed simultaneously so you can compare multiple hashes in parallel. Legacy algorithms like MD5 are intentionally excluded because they are cryptographically broken and unsupported by the W3C Web Crypto specification.",
       },
       {
-        question: "Is my text sent to any server when generating hashes?",
+        question: "Is hashing the same as encryption?",
         answer:
-          "No. All SHA calculations use the browser's native `window.crypto.subtle.digest()` API, running directly on your device's hardware. Your input text never leaves your local browser memory.",
+          "No. Hashing and encryption serve completely different purposes. Hashing is a strictly one-way transformation without a key; once data is hashed, it cannot be decrypted back into its original text. Encryption is a two-way process designed to protect confidentiality, where ciphertext can be reversed back into plaintext using a secret cryptographic key (such as AES or RSA).",
+      },
+      {
+        question: "Can a cryptographic hash like SHA-256 be reversed or decrypted?",
+        answer:
+          "No. Secure cryptographic hash functions possess strong pre-image resistance, making it mathematically impossible to reverse or decrypt the digest back to plaintext. The only way an attacker can attempt to identify the original input is through brute-force guessing or precomputed rainbow tables, which is why salting and computational difficulty are critical for sensitive data.",
+      },
+      {
+        question: "What is the difference between SHA-256 and SHA-512?",
+        answer:
+          "SHA-256 produces a 256-bit digest (64 hexadecimal characters) and operates on 32-bit words, making it efficient across all devices and the global standard for SSL/TLS, Git, and blockchain protocols. SHA-512 produces a 512-bit digest (128 hexadecimal characters) and operates on 64-bit words, providing higher collision resistance and often faster throughput on modern 64-bit desktop and server processors.",
+      },
+      {
+        question: "Should I use SHA-256 or SHA-512 to store user passwords?",
+        answer:
+          "No. High-speed general-purpose hashes like SHA-256 and SHA-512 are designed to be fast, which makes them dangerous for password storage because modern GPUs can compute billions of guesses per second. Production authentication systems should use slow, memory-hard Key Derivation Functions (KDFs) such as Argon2id, bcrypt, scrypt, or PBKDF2 with unique cryptographic salts. You can use our [Password Generator](/tools/password-generator) to generate high-entropy passwords.",
+      },
+      {
+        question: "Is my input text uploaded to any server or recorded?",
+        answer:
+          "No. All hashing is performed entirely client-side inside your browser using the native Web Crypto API (`window.crypto.subtle.digest`). Your input string is processed strictly in local browser memory and is never transmitted across the network, logged, or stored on any server.",
       },
     ],
   },

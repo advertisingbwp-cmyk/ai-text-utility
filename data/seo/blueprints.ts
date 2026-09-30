@@ -495,6 +495,39 @@ export const SEO_BLUEPRINT_MAP: Record<string, ToolSeoBlueprint> = {
       "remove-extra-spaces",
     ],
   },
+  "hash-generator": {
+    slug: "hash-generator",
+    title: "Hash Generator – SHA-256 & SHA-512 Hash Online Free",
+    metaDescription:
+      "Generate cryptographic hashes from text instantly. Create SHA-256, SHA-512 and other supported hash values directly in your browser for free.",
+    h1: "Online Hash Generator",
+    aboveTheFoldIntro:
+      "Generate cryptographic hash values from text instantly. Choose a supported hashing algorithm and create a deterministic digest directly in your browser.",
+    primaryKeyword: "hash generator",
+    secondaryKeywords: [
+      "online hash generator",
+      "sha256 generator",
+      "sha 256 hash generator",
+      "sha512 generator",
+      "sha 512 hash generator",
+      "sha384 generator",
+      "text hash generator",
+      "cryptographic hash generator",
+      "generate hash online",
+      "string hash generator",
+      "sha hash generator",
+      "sha1 generator",
+      "hash calculator",
+      "hash text online",
+    ],
+    popularAnchor: "Online Hash Generator",
+    clusterSlugs: [
+      "base64",
+      "password-generator",
+      "uuid-generator",
+      "jwt-decoder",
+    ],
+  },
 };
 
 
