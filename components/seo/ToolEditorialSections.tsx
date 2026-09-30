@@ -31,6 +31,7 @@ import {
   MessageSquare,
   Lightbulb,
   Sliders,
+  Eraser,
 } from "lucide-react";
 
 // ==========================================
@@ -5495,3 +5496,423 @@ export const RemoveSpecialCharsEditorial: React.FC = () => {
     </div>
   );
 };
+
+// ==========================================
+// 20. REMOVE EXTRA SPACES EDITORIAL
+// ==========================================
+export const RemoveExtraSpacesEditorial: React.FC = () => {
+  return (
+    <div className="space-y-12 pt-6 border-t border-slate-200 dark:border-slate-800">
+      {/* 1. What Does an Extra Space Remover Do? */}
+      <section aria-labelledby="spaces-guide-heading" className="space-y-4">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl bg-brand-50 dark:bg-brand-950/50 border border-brand-200 dark:border-brand-800/60 flex items-center justify-center text-brand-600 dark:text-brand-400 shrink-0">
+            <Eraser size={18} />
+          </div>
+          <div>
+            <h2
+              id="spaces-guide-heading"
+              className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white tracking-tight"
+            >
+              Online Extra Space Remover: Clean Repeated &amp; Unwanted Spaces Instantly
+            </h2>
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              Fast browser-based whitespace normalization for clean documents, articles, code, and spreadsheets
+            </p>
+          </div>
+        </div>
+
+        <div className="p-6 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-4 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+          <p>
+            Irregular spacing is one of the most common text formatting headaches. Double spaces after periods, errant spacebar hits between words, erratic gaps pasted from PDF files or tables, and invisible trailing spaces at the ends of lines can ruin the appearance of professional copy, break programming scripts, and cause search indexing anomalies.
+          </p>
+          <p>
+            The <strong>Remove Extra Spaces</strong> tool fixes erratic spacing instantly and safely. It provides two purpose-built modes: a layout-preserving <strong>Spaces Only</strong> mode that collapses repeated ASCII spaces (<code className="text-brand-600 dark:text-brand-400 bg-slate-100 dark:bg-slate-800 px-1 py-0.5 rounded font-mono text-[11px]">U+0020</code>) while keeping tab indentations and line breaks intact, and an <strong>All Whitespace</strong> mode that flattens any sequence of whitespace characters into a single-line, trimmed string.
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+            <div className="p-3.5 rounded-xl border border-slate-200/80 dark:border-slate-800 bg-slate-50 dark:bg-slate-950/60 space-y-1">
+              <span className="font-semibold text-slate-900 dark:text-white text-xs block">Spaces Only (Default)</span>
+              <p className="text-[11px] text-slate-500 dark:text-slate-400">
+                Collapses consecutive normal spaces to single spaces, cleans trailing line spaces, and preserves tabs and line breaks.
+              </p>
+            </div>
+            <div className="p-3.5 rounded-xl border border-slate-200/80 dark:border-slate-800 bg-slate-50 dark:bg-slate-950/60 space-y-1">
+              <span className="font-semibold text-slate-900 dark:text-white text-xs block">All Whitespace</span>
+              <p className="text-[11px] text-slate-500 dark:text-slate-400">
+                Replaces all whitespace sequences (spaces, tabs, newlines, NBSP) with a single space and trims the output into a single line.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 2. Before & After Transformation Examples */}
+      <section aria-labelledby="examples-heading" className="space-y-4">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl bg-indigo-50 dark:bg-indigo-950/50 border border-indigo-200 dark:border-indigo-800/60 flex items-center justify-center text-indigo-600 dark:text-indigo-400 shrink-0">
+            <BookOpen size={18} />
+          </div>
+          <div>
+            <h2
+              id="examples-heading"
+              className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white tracking-tight"
+            >
+              Before &amp; After Transformation Examples
+            </h2>
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              Verified outputs matching exact tool engine execution
+            </p>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {/* Example 1: Multiple Spaces in Prose */}
+          <div className="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle flex flex-col justify-between space-y-3">
+            <div className="space-y-2">
+              <span className="inline-block text-[11px] font-semibold text-brand-600 dark:text-brand-400 uppercase tracking-wider">
+                Mode: Spaces Only (Prose)
+              </span>
+              <div className="space-y-1">
+                <span className="text-[11px] text-slate-400 uppercase font-mono">Original Input:</span>
+                <div className="p-2.5 rounded-lg bg-slate-100 dark:bg-slate-800/80 font-mono text-xs text-rose-600 dark:text-rose-400 break-all">
+                  This&nbsp;&nbsp;&nbsp;&nbsp;sentence&nbsp;&nbsp;&nbsp;has&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;extra spaces.
+                </div>
+              </div>
+              <div className="space-y-1">
+                <span className="text-[11px] text-slate-400 uppercase font-mono">Cleaned Output:</span>
+                <div className="p-2.5 rounded-lg bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200/60 dark:border-emerald-800/60 font-mono text-xs text-emerald-700 dark:text-emerald-300 break-all">
+                  This sentence has extra spaces.
+                </div>
+              </div>
+            </div>
+            <p className="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed pt-2 border-t border-slate-100 dark:border-slate-800">
+              Repeated ASCII space sequences (4, 3, 5 spaces) are reduced to exactly one space between words.
+            </p>
+          </div>
+
+          {/* Example 2: Multiline & Tab Preservation */}
+          <div className="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle flex flex-col justify-between space-y-3">
+            <div className="space-y-2">
+              <span className="inline-block text-[11px] font-semibold text-indigo-600 dark:text-indigo-400 uppercase tracking-wider">
+                Mode: Spaces Only (Preserve Lines &amp; Tabs)
+              </span>
+              <div className="space-y-1">
+                <span className="text-[11px] text-slate-400 uppercase font-mono">Original Input:</span>
+                <div className="p-2.5 rounded-lg bg-slate-100 dark:bg-slate-800/80 font-mono text-xs text-rose-600 dark:text-rose-400 whitespace-pre">
+                  {"\tLine 1   has   gaps.\n\tLine 2    also   wide."}
+                </div>
+              </div>
+              <div className="space-y-1">
+                <span className="text-[11px] text-slate-400 uppercase font-mono">Cleaned Output:</span>
+                <div className="p-2.5 rounded-lg bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200/60 dark:border-emerald-800/60 font-mono text-xs text-emerald-700 dark:text-emerald-300 whitespace-pre">
+                  {"\tLine 1 has gaps.\n\tLine 2 also wide."}
+                </div>
+              </div>
+            </div>
+            <p className="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed pt-2 border-t border-slate-100 dark:border-slate-800">
+              Leading tab characters (<code>\t</code>) and newline separations remain intact. Only internal multiple spaces are collapsed.
+            </p>
+          </div>
+
+          {/* Example 3: All Whitespace Flattening */}
+          <div className="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle flex flex-col justify-between space-y-3">
+            <div className="space-y-2">
+              <span className="inline-block text-[11px] font-semibold text-amber-600 dark:text-amber-400 uppercase tracking-wider">
+                Mode: All Whitespace (Single Line)
+              </span>
+              <div className="space-y-1">
+                <span className="text-[11px] text-slate-400 uppercase font-mono">Original Input:</span>
+                <div className="p-2.5 rounded-lg bg-slate-100 dark:bg-slate-800/80 font-mono text-xs text-rose-600 dark:text-rose-400 whitespace-pre">
+                  {"Text   with \t tabs \n\n and   newlines."}
+                </div>
+              </div>
+              <div className="space-y-1">
+                <span className="text-[11px] text-slate-400 uppercase font-mono">Cleaned Output:</span>
+                <div className="p-2.5 rounded-lg bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200/60 dark:border-emerald-800/60 font-mono text-xs text-emerald-700 dark:text-emerald-300 break-all">
+                  Text with tabs and newlines.
+                </div>
+              </div>
+            </div>
+            <p className="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed pt-2 border-t border-slate-100 dark:border-slate-800">
+              All spaces, tabs, and line breaks are collapsed into single spaces, and the entire string is trimmed into one clean line.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* 3. Spaces Only vs All Whitespace: Direct Comparison */}
+      <section aria-labelledby="modes-comparison-heading" className="space-y-4">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl bg-purple-50 dark:bg-purple-950/50 border border-purple-200 dark:border-purple-800/60 flex items-center justify-center text-purple-600 dark:text-purple-400 shrink-0">
+            <Sliders size={18} />
+          </div>
+          <div>
+            <h2
+              id="modes-comparison-heading"
+              className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white tracking-tight"
+            >
+              Spaces Only vs. All Whitespace: Feature Comparison
+            </h2>
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              Understand how each mode processes spaces, tabs, newlines, and trailing characters
+            </p>
+          </div>
+        </div>
+
+        <div className="overflow-x-auto rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle">
+          <table className="w-full text-left border-collapse text-xs sm:text-sm">
+            <thead>
+              <tr className="border-b border-slate-200 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-950/60">
+                <th className="p-3.5 sm:p-4 font-semibold text-slate-900 dark:text-white">Feature / Behavior</th>
+                <th className="p-3.5 sm:p-4 font-semibold text-brand-600 dark:text-brand-400">Spaces Only (Default)</th>
+                <th className="p-3.5 sm:p-4 font-semibold text-purple-600 dark:text-purple-400">All Whitespace</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-100 dark:divide-slate-800/60 text-slate-600 dark:text-slate-300">
+              <tr>
+                <td className="p-3.5 sm:p-4 font-medium text-slate-900 dark:text-white">Consecutive ASCII Spaces (<code className="font-mono text-xs">U+0020</code>)</td>
+                <td className="p-3.5 sm:p-4 text-emerald-600 dark:text-emerald-400">Collapsed to single space (<code className="font-mono text-xs">/ &#123;2,&#125;/g</code>)</td>
+                <td className="p-3.5 sm:p-4 text-emerald-600 dark:text-emerald-400">Collapsed to single space (<code className="font-mono text-xs">/\s+/g</code>)</td>
+              </tr>
+              <tr>
+                <td className="p-3.5 sm:p-4 font-medium text-slate-900 dark:text-white">Line Breaks (<code className="font-mono text-xs">\n, \r\n</code>)</td>
+                <td className="p-3.5 sm:p-4 text-emerald-600 dark:text-emerald-400">Preserved (lines processed individually)</td>
+                <td className="p-3.5 sm:p-4 text-amber-600 dark:text-amber-400">Converted to single spaces</td>
+              </tr>
+              <tr>
+                <td className="p-3.5 sm:p-4 font-medium text-slate-900 dark:text-white">Tab Characters (<code className="font-mono text-xs">\t</code>)</td>
+                <td className="p-3.5 sm:p-4 text-emerald-600 dark:text-emerald-400">Preserved intact (for indentation &amp; columns)</td>
+                <td className="p-3.5 sm:p-4 text-amber-600 dark:text-amber-400">Converted to single spaces</td>
+              </tr>
+              <tr>
+                <td className="p-3.5 sm:p-4 font-medium text-slate-900 dark:text-white">Trailing Spaces per Line</td>
+                <td className="p-3.5 sm:p-4 text-emerald-600 dark:text-emerald-400">Automatically stripped (<code className="font-mono text-xs">/ +$/</code>)</td>
+                <td className="p-3.5 sm:p-4 text-emerald-600 dark:text-emerald-400">Entire result trimmed (<code className="font-mono text-xs">.trim()</code>)</td>
+              </tr>
+              <tr>
+                <td className="p-3.5 sm:p-4 font-medium text-slate-900 dark:text-white">Non-Breaking Spaces (NBSP / <code className="font-mono text-xs">\u00A0</code>)</td>
+                <td className="p-3.5 sm:p-4 text-slate-500 dark:text-slate-400">Preserved (only ASCII space is matched)</td>
+                <td className="p-3.5 sm:p-4 text-emerald-600 dark:text-emerald-400">Matched by <code className="font-mono text-xs">\s</code> &amp; normalized</td>
+              </tr>
+              <tr>
+                <td className="p-3.5 sm:p-4 font-medium text-slate-900 dark:text-white">Output Structure</td>
+                <td className="p-3.5 sm:p-4 font-medium">Multi-line layout retained</td>
+                <td className="p-3.5 sm:p-4 font-medium">Single continuous line</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      {/* 4. Common Causes of Erratic Spacing */}
+      <section aria-labelledby="causes-heading" className="space-y-4">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl bg-amber-50 dark:bg-amber-950/50 border border-amber-200 dark:border-amber-800/60 flex items-center justify-center text-amber-600 dark:text-amber-400 shrink-0">
+            <Lightbulb size={18} />
+          </div>
+          <div>
+            <h2
+              id="causes-heading"
+              className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white tracking-tight"
+            >
+              Why Extra Spaces Occur &amp; When to Remove Them
+            </h2>
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              Practical workflows where unwanted whitespace causes formatting issues
+            </p>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs sm:text-sm text-slate-600 dark:text-slate-300">
+          <div className="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-2">
+            <h3 className="font-semibold text-slate-900 dark:text-white flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-brand-500" />
+              1. Typewriter-Style Double Spaces After Periods
+            </h3>
+            <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+              Historical typing guidelines taught placing two spaces after terminal punctuation (<code className="font-mono text-xs">.  </code>, <code className="font-mono text-xs">?  </code>, <code className="font-mono text-xs">!  </code>). Modern digital typography standards and web browsers recommend a single space. This tool normalizes all post-punctuation spacing with one click.
+            </p>
+          </div>
+
+          <div className="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-2">
+            <h3 className="font-semibold text-slate-900 dark:text-white flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-brand-500" />
+              2. Text Copied from PDF Documents &amp; OCR
+            </h3>
+            <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+              PDFs position words using absolute physical coordinates rather than standard text flow. Copying text from a PDF often translates visual justification gaps into multiple consecutive space characters. Normalizing collapses these unnatural voids into standard word spaces.
+            </p>
+          </div>
+
+          <div className="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-2">
+            <h3 className="font-semibold text-slate-900 dark:text-white flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-brand-500" />
+              3. CMS, Database &amp; Spreadsheet Cleanup
+            </h3>
+            <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+              Erratic spacing in product titles, customer names, or CSV address fields can corrupt sorting algorithms, lead to duplicate record detection errors, and trigger validation failures in automated import routines.
+            </p>
+          </div>
+
+          <div className="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-2">
+            <h3 className="font-semibold text-slate-900 dark:text-white flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-brand-500" />
+              4. Code &amp; Markdown Formatting
+            </h3>
+            <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+              Trailing spaces at the ends of lines can trigger unwanted hard line breaks in strict Markdown renderers, cause git diff noise, and violate code linting rules (such as ESLint <code className="font-mono text-xs">no-trailing-spaces</code>).
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* 5. Tabs vs. Spaces */}
+      <section aria-labelledby="tabs-preservation-heading" className="space-y-4">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl bg-teal-50 dark:bg-teal-950/50 border border-teal-200 dark:border-teal-800/60 flex items-center justify-center text-teal-600 dark:text-teal-400 shrink-0">
+            <Wrench size={18} />
+          </div>
+          <div>
+            <h2
+              id="tabs-preservation-heading"
+              className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white tracking-tight"
+            >
+              Tabs Are Not Spaces: Why Tab Preservation Matters
+            </h2>
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              Keeping code indentation, tabular data, and hierarchical outlines intact
+            </p>
+          </div>
+        </div>
+
+        <div className="p-6 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-4 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+          <p>
+            In ASCII encoding, a tab (<code className="font-mono text-xs">\t</code> / <code className="font-mono text-xs">U+0009</code>) is an entirely distinct control character from a space (<code className="font-mono text-xs">U+0020</code>). In software development, markdown task lists, tab-separated value (TSV) files, and nested outlines, tab characters define semantic structure.
+          </p>
+          <p>
+            The default <strong>Spaces Only</strong> mode is deliberately engineered to preserve tab characters. It targets only repeated normal space characters, ensuring your indented Python, YAML, or TypeScript code blocks do not lose their indentation hierarchy while still purging accidental multiple spaces within variable declarations or comments.
+          </p>
+          <p className="text-xs text-slate-500 dark:text-slate-400 pt-1">
+            If your goal is specifically to convert tab characters into fixed-width space sequences (such as converting 1 tab to 2 or 4 spaces), use our dedicated <Link href="/tools/tabs-to-spaces" className="text-brand-600 dark:text-brand-400 font-semibold underline underline-offset-2 hover:text-brand-700 dark:hover:text-brand-300">Tabs to Spaces Converter</Link>.
+          </p>
+        </div>
+      </section>
+
+      {/* 6. Precision Note: Does Not Concatenate Words */}
+      <section aria-labelledby="word-boundary-heading" className="space-y-4">
+        <div className="p-6 rounded-2xl border border-blue-200 dark:border-blue-900/50 bg-blue-50/50 dark:bg-blue-950/20 shadow-subtle space-y-3">
+          <div className="flex items-center gap-2.5 text-blue-800 dark:text-blue-300">
+            <ShieldCheck size={20} className="shrink-0" />
+            <h2 id="word-boundary-heading" className="text-base font-bold">
+              Important Distinction: Normalizing Spaces vs. Deleting Every Space
+            </h2>
+          </div>
+          <p className="text-xs sm:text-sm text-blue-900/90 dark:text-blue-200/90 leading-relaxed font-medium">
+            This tool removes <em>extra and repeated</em> spaces down to a single space—it does NOT delete every space character or concatenate words together.
+          </p>
+          <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+            If you paste <code className="font-mono text-xs">&quot;quick  brown  fox&quot;</code>, the output will always be <code className="font-mono text-xs">&quot;quick brown fox&quot;</code>, preserving necessary word separation for natural reading and grammar. It will never output <code className="font-mono text-xs">&quot;quickbrownfox&quot;</code>.
+          </p>
+        </div>
+      </section>
+
+      {/* 7. Complementary Text Cleanup Tools */}
+      <section aria-labelledby="related-tools-heading" className="space-y-4">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-300 shrink-0">
+            <Layers size={18} />
+          </div>
+          <div>
+            <h2
+              id="related-tools-heading"
+              className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white tracking-tight"
+            >
+              Complementary Text Cleanup &amp; Formatting Tools
+            </h2>
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              Combine with specialized utilities for complete whitespace and layout control
+            </p>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-2">
+            <div className="flex items-center justify-between">
+              <Link
+                href="/tools/tabs-to-spaces"
+                className="text-sm font-bold text-slate-900 dark:text-white hover:text-brand-600 dark:hover:text-brand-400 transition-colors inline-flex items-center gap-1.5"
+              >
+                Tabs to Spaces <ArrowRight size={14} />
+              </Link>
+              <span className="text-[11px] font-mono text-brand-600 dark:text-brand-400">Indentation</span>
+            </div>
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              Convert tab characters into customizable 2, 4, or 8 space equivalents, or convert space indentations back to tabs.
+            </p>
+          </div>
+
+          <div className="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-2">
+            <div className="flex items-center justify-between">
+              <Link
+                href="/tools/trim-lines"
+                className="text-sm font-bold text-slate-900 dark:text-white hover:text-brand-600 dark:hover:text-brand-400 transition-colors inline-flex items-center gap-1.5"
+              >
+                Trim Lines <ArrowRight size={14} />
+              </Link>
+              <span className="text-[11px] font-mono text-emerald-600 dark:text-emerald-400">Per-Line</span>
+            </div>
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              Target leading and trailing whitespace per line specifically without altering internal spaces between words.
+            </p>
+          </div>
+
+          <div className="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-2">
+            <div className="flex items-center justify-between">
+              <Link
+                href="/tools/remove-line-breaks"
+                className="text-sm font-bold text-slate-900 dark:text-white hover:text-brand-600 dark:hover:text-brand-400 transition-colors inline-flex items-center gap-1.5"
+              >
+                Remove Line Breaks <ArrowRight size={14} />
+              </Link>
+              <span className="text-[11px] font-mono text-indigo-600 dark:text-indigo-400">Paragraphs</span>
+            </div>
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              Join broken sentences and multi-line paragraphs into unified continuous lines with custom delimiter control.
+            </p>
+          </div>
+
+          <div className="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-2">
+            <div className="flex items-center justify-between">
+              <Link
+                href="/tools/remove-empty-lines"
+                className="text-sm font-bold text-slate-900 dark:text-white hover:text-brand-600 dark:hover:text-brand-400 transition-colors inline-flex items-center gap-1.5"
+              >
+                Remove Empty Lines <ArrowRight size={14} />
+              </Link>
+              <span className="text-[11px] font-mono text-amber-600 dark:text-amber-400">Blanks</span>
+            </div>
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              Strip blank lines and whitespace-only lines while preserving original single paragraph breaks or compacting fully.
+            </p>
+          </div>
+
+          <div className="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-2">
+            <div className="flex items-center justify-between">
+              <Link
+                href="/tools/remove-special-chars"
+                className="text-sm font-bold text-slate-900 dark:text-white hover:text-brand-600 dark:hover:text-brand-400 transition-colors inline-flex items-center gap-1.5"
+              >
+                Remove Special Characters <ArrowRight size={14} />
+              </Link>
+              <span className="text-[11px] font-mono text-purple-600 dark:text-purple-400">Symbols</span>
+            </div>
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              Filter out unwanted symbols, punctuation, and non-alphanumeric noise with Unicode property support.
+            </p>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+};
+

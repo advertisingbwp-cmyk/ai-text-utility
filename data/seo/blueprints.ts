@@ -628,6 +628,40 @@ export const SEO_BLUEPRINT_MAP: Record<string, ToolSeoBlueprint> = {
       "regex-tester",
     ],
   },
+  "remove-extra-spaces": {
+    slug: "remove-extra-spaces",
+    title: "Remove Extra Spaces from Text Online – Free Space Remover",
+    metaDescription:
+      "Remove extra spaces from text online. Collapse repeated spaces, clean trailing spaces, or turn all whitespace into a single-line output with this free browser-based tool.",
+    h1: "Remove Extra Spaces from Text",
+    aboveTheFoldIntro:
+      "Clean repeated spaces from text instantly. Preserve tabs and line breaks in space-only mode, or collapse all whitespace into a clean single-line result.",
+    primaryKeyword: "remove extra spaces",
+    secondaryKeywords: [
+      "remove extra spaces online",
+      "remove extra spaces from text",
+      "remove spaces from text",
+      "extra space remover",
+      "multiple space remover",
+      "remove extra whitespace",
+      "whitespace remover",
+      "remove multiple spaces",
+      "collapse spaces",
+      "clean extra spaces",
+      "text space remover",
+      "remove double spaces",
+      "remove extra white space",
+      "normalize whitespace",
+    ],
+    popularAnchor: "Remove Extra Spaces",
+    clusterSlugs: [
+      "trim-lines",
+      "remove-line-breaks",
+      "remove-empty-lines",
+      "remove-special-chars",
+      "tabs-to-spaces",
+    ],
+  },
 };
 
 

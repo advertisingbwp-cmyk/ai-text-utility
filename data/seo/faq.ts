@@ -1410,32 +1410,52 @@ export const TOOL_SPECIFIC_CONTENT: Record<
   // ==========================================
   "remove-extra-spaces": {
     howToSteps: [
-      "Paste your text with erratic spacing or indentations into the input area.",
-      "The tool collapses consecutive spaces, tabs, and non-breaking spaces into single spaces.",
-      "Choose whether to trim leading/trailing line whitespace and preserve paragraph breaks.",
-      "Copy the cleanly formatted text to your clipboard.",
+      "Paste or type your text with repeated or irregular spacing into the input box.",
+      "Select your collapse scope: 'Spaces Only (Keep Tabs & Line Breaks)' to retain layout, or 'All Whitespace (Single Line Output)' to flatten all whitespace.",
+      "The tool immediately collapses consecutive spaces and cleans trailing spaces in real time.",
+      "Copy the cleanly formatted, normalized text to your clipboard.",
     ],
     features: [
-      "Collapses multiple spaces, tabs, and non-breaking spaces into single spaces",
-      "Trims leading and trailing spaces on every line",
-      "Preserves paragraph line breaks or unifies into a single smooth flow",
-      "100% Client-side execution with instantaneous results",
+      "Spaces Only mode collapses repeated spaces (U+0020) while preserving tabs and line breaks",
+      "All Whitespace mode converts tabs, newlines, and whitespace sequences into single spaces",
+      "Automatic trailing space removal on every line in spaces-only mode",
+      "100% client-side browser processing with zero server transmission for complete privacy",
     ],
     faqs: [
       {
-        question: "Does this tool remove non-breaking spaces (NBSP)?",
+        question: "How do I remove extra spaces from text?",
         answer:
-          "Yes. It identifies standard ASCII space characters as well as Unicode non-breaking spaces (`&nbsp;` / `\\u00A0`), normalizing all inconsistent whitespace.",
+          "Paste your text into the editor. By default, the tool operates in 'Spaces Only' mode, immediately collapsing multiple consecutive spaces into a single space and stripping trailing spaces from each line. You can switch to 'All Whitespace' mode to convert all tabs, line breaks, and space runs into single spaces on one line.",
       },
       {
-        question: "Will removing extra spaces destroy my paragraph breaks?",
+        question: "Does the tool remove double and multiple spaces?",
         answer:
-          "No. By default, existing line breaks and paragraph separations are preserved while multiple consecutive spaces on each line are collapsed into a single space.",
+          "Yes. In both modes, any run of two or more consecutive normal spaces is reduced to exactly one space, eliminating accidental double spaces between sentences, words, and list items.",
       },
       {
-        question: "Can I clean text copied from PDFs?",
+        question: "Does it preserve line breaks?",
         answer:
-          "Yes. Text copied from PDF documents frequently contains irregular whitespace and accidental tabs; this tool normalizes that spacing into natural sentences.",
+          "Yes, when using the default 'Spaces Only (Keep Tabs & Line Breaks)' mode. Each line retains its original line break while consecutive spaces within the line are collapsed. If you prefer to flatten all paragraphs and line breaks into a single continuous line, switch to 'All Whitespace' mode.",
+      },
+      {
+        question: "What is the difference between Spaces Only and All Whitespace mode?",
+        answer:
+          "'Spaces Only' collapses repeated standard spaces (U+0020) and strips trailing spaces while keeping tabs and line breaks intact. 'All Whitespace' matches all whitespace characters—including spaces, tabs, carriage returns, and newlines (matching regex \\s+)—flattening everything into a single-line, trimmed result.",
+      },
+      {
+        question: "Does the default mode remove tabs?",
+        answer:
+          "No. The default 'Spaces Only' mode preserves tab characters (\\t) so code indentation and column alignments remain undisturbed. If you want tabs removed, switch to 'All Whitespace' mode, or use our dedicated [Tabs to Spaces](/tools/tabs-to-spaces) converter.",
+      },
+      {
+        question: "Can it remove tabs and line breaks too?",
+        answer:
+          "Yes. Switching to 'All Whitespace (Single Line Output)' collapses tabs, newlines, and space sequences into a single standard space, and trims the result into one clean line.",
+      },
+      {
+        question: "Does it handle non-breaking spaces?",
+        answer:
+          "In 'All Whitespace' mode, JavaScript's \\s pattern matches Unicode whitespace characters including non-breaking spaces (U+00A0 / &nbsp;), collapsing them into standard ASCII spaces. In the default 'Spaces Only' mode, only standard ASCII spaces (U+0020) are collapsed so specialized non-breaking spaces are not altered.",
       },
     ],
   },

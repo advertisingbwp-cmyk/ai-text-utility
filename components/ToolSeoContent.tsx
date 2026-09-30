@@ -25,6 +25,7 @@ import {
   FancyFontsEditorial,
   AiFriendlyEditorial,
   RemoveSpecialCharsEditorial,
+  RemoveExtraSpacesEditorial,
 } from "@/components/seo/ToolEditorialSections";
 import {
   Check,
@@ -89,6 +90,7 @@ const EDITORIAL_MAP: Record<string, React.FC> = {
   "unix-timestamp": UnixTimestampEditorial,
   "ai-friendly": AiFriendlyEditorial,
   "remove-special-chars": RemoveSpecialCharsEditorial,
+  "remove-extra-spaces": RemoveExtraSpacesEditorial,
 };
 
 export const ToolSeoContent: React.FC<ToolSeoContentProps> = ({ tool }) => {

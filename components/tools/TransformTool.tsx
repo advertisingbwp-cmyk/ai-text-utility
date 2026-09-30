@@ -484,7 +484,7 @@ export const TransformTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
                     : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white border border-slate-200 dark:border-slate-700"
                 }`}
               >
-                Spaces & Tabs Only (Keep Line Breaks)
+                Spaces Only (Keep Tabs & Line Breaks)
               </button>
               <button
                 type="button"
