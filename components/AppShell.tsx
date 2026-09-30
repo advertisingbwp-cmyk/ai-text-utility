@@ -26,12 +26,13 @@ export const AppShell: React.FC<{ children: React.ReactNode }> = ({ children }) 
   }, []);
 
   return (
-    <div className="relative min-h-screen bg-slate-50 dark:bg-[#090d16] text-slate-900 dark:text-slate-100 flex flex-col transition-colors selection:bg-brand-500/20 selection:text-brand-700 dark:selection:text-brand-300">
+    <div className="relative min-h-screen bg-slate-50 dark:bg-[#090d16] text-slate-900 dark:text-slate-100 flex flex-col transition-colors selection:bg-brand-500/20 selection:text-brand-700 dark:selection:text-brand-300 overflow-x-clip">
       {/* Background Aurora Depth & Engineering Grid */}
       <div className="aurora-canvas" aria-hidden="true">
         <div className="aurora-glow-1" />
         <div className="aurora-glow-2" />
         <div className="aurora-glow-3" />
+        <div className="aurora-glow-4" />
       </div>
       <div className="aurora-grid" aria-hidden="true" />
 
