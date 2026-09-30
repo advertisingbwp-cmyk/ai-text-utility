@@ -2969,7 +2969,7 @@ export const HashGeneratorEditorial: React.FC = () => {
                 <ShieldCheck size={14} className="text-emerald-500" /> 2. Pre-Image Resistance (One-Way)
               </span>
               <p className="text-xs text-slate-600 dark:text-slate-400">
-                Given a specific output digest <code className="font-mono text-[11px]">H</code>, it is mathematically infeasible to determine the original input <code className="font-mono text-[11px]">m</code> that generated it.
+                Given a specific output digest <code className="font-mono text-[11px]">H</code>, it is computationally infeasible under expected security assumptions to calculate the original input text that generated it.
               </p>
             </div>
 
@@ -2978,7 +2978,7 @@ export const HashGeneratorEditorial: React.FC = () => {
                 <ShieldCheck size={14} className="text-emerald-500" /> 3. Collision Resistance
               </span>
               <p className="text-xs text-slate-600 dark:text-slate-400">
-                It is computationally prohibitive to find two distinct inputs <code className="font-mono text-[11px]">m1</code> and <code className="font-mono text-[11px]">m2</code> such that <code className="font-mono text-[11px]">hash(m1) === hash(m2)</code>.
+                It is computationally infeasible under current cryptographic assumptions to discover two distinct inputs <code className="font-mono text-[11px]">m1</code> and <code className="font-mono text-[11px]">m2</code> such that <code className="font-mono text-[11px]">hash(m1) === hash(m2)</code>.
               </p>
             </div>
 
@@ -2987,7 +2987,7 @@ export const HashGeneratorEditorial: React.FC = () => {
                 <ShieldCheck size={14} className="text-emerald-500" /> 4. Strict Avalanche Effect
               </span>
               <p className="text-xs text-slate-600 dark:text-slate-400">
-                Altering even a single bit in the input causes approximately 50% of the output bits to flip unpredictably, preventing statistical pattern analysis.
+                As an expected design property, flipping a single bit in the input causes each output bit to flip with approximately 50% probability on average, preventing statistical pattern analysis.
               </p>
             </div>
           </div>
@@ -3104,7 +3104,7 @@ export const HashGeneratorEditorial: React.FC = () => {
               <AlertTriangle size={14} /> Why is MD5 Not Supported?
             </span>
             <p className="text-amber-700 dark:text-amber-400/90 leading-relaxed">
-              MD5 was designed in 1991 and is severely compromised by practical collision generation attacks (colliding digests can be constructed in seconds on consumer hardware). Because of these severe security flaws, the W3C Web Cryptography specification deliberately omitted MD5 from modern browser runtimes. We encourage users to migrate to SHA-256 for all modern cryptographic integrity applications.
+              MD5 was designed in 1991 and is compromised by practical collision generation attacks. Because of these known weaknesses, the W3C Web Cryptography specification deliberately omitted MD5 from modern browser runtimes. We encourage users to use SHA-256 for all modern cryptographic integrity applications.
             </p>
           </div>
         </div>
@@ -3192,10 +3192,10 @@ export const HashGeneratorEditorial: React.FC = () => {
                 Never Store User Passwords with Plain SHA-256 or SHA-512
               </h3>
               <p className="text-rose-800/90 dark:text-rose-300/90 leading-relaxed">
-                General-purpose cryptographic hash functions (including SHA-256, SHA-512, and MD5) were designed to be <strong>computationally fast</strong> to verify large file downloads and network streams efficiently. However, this high performance makes them fatally flawed for storing user credentials.
+                General-purpose cryptographic hash functions (including SHA-256, SHA-512, and MD5) were designed to be <strong>computationally fast</strong> to verify large file downloads and data streams efficiently. However, this high performance makes them unsuitable by themselves for storing user credentials.
               </p>
               <p className="text-rose-800/90 dark:text-rose-300/90 leading-relaxed">
-                Modern consumer graphics cards (GPUs) can compute tens of billions of SHA-256 hashes per second. If an attacker breaches a database containing unsalted or simply-salted SHA-256 hashes, they can crack standard dictionary passwords in minutes using precomputed lookup tables or automated brute-force rigs.
+                Fast cryptographic hashes can be evaluated at very high rates by modern attackers using parallel computing resources. If an attacker breaches a database containing unsalted or fast SHA-256 hashes, they can rapidly test vast candidate dictionaries using automated brute-force attacks.
               </p>
             </div>
           </div>
@@ -3210,11 +3210,11 @@ export const HashGeneratorEditorial: React.FC = () => {
             <ul className="list-disc list-inside space-y-1 text-slate-600 dark:text-slate-400 pl-1">
               <li><strong>Argon2 (Argon2id):</strong> The state-of-the-art winner of the Password Hashing Competition, highly resistant to GPU and ASIC acceleration due to intensive memory hardness.</li>
               <li><strong>bcrypt:</strong> Battle-tested adaptive hashing algorithm with configurable cost factors that scale with computing power.</li>
-              <li><strong>scrypt:</strong> Specifically architected to demand substantial memory bandwidth, thwarting custom FPGA/ASIC hardware attacks.</li>
+              <li><strong>scrypt:</strong> Specifically architected to demand substantial memory bandwidth, increasing the resource cost of parallelized attacks.</li>
               <li><strong>PBKDF2:</strong> NIST-standardized key derivation function utilizing thousands of iterations (e.g. HMAC-SHA256).</li>
             </ul>
             <p className="pt-1 text-slate-500 dark:text-slate-400">
-              Need to create strong, uncrackable credentials for your personal or enterprise accounts? Use our dedicated <Link href="/tools/password-generator" className="text-brand-600 dark:text-brand-400 underline font-semibold">Password Generator</Link> to create cryptographically randomized passwords.
+              Need to create strong random passwords for your personal or enterprise accounts? Use our dedicated <Link href="/tools/password-generator" className="text-brand-600 dark:text-brand-400 underline font-semibold">Password Generator</Link> to create cryptographically randomized credentials.
             </p>
           </div>
         </div>
@@ -3241,7 +3241,7 @@ export const HashGeneratorEditorial: React.FC = () => {
 
         <div className="p-6 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-4 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
           <p>
-            A core security requirement of cryptographic hash functions is the <strong>Strict Avalanche Criterion (SAC)</strong>: whenever a single input bit is flipped, each output bit has a 50% probability of changing. This prevents adversaries from deducing whether a candidate input is &quot;close&quot; to the target string.
+            An expected design property of cryptographic hash functions is the <strong>Strict Avalanche Criterion (SAC)</strong>: when an input bit changes, each output bit is designed to have approximately a 50% probability of changing on average. This helps prevent adversaries from deducing whether a candidate input is related or close to the target string.
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -3292,28 +3292,28 @@ export const HashGeneratorEditorial: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="p-4 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-slate-50/70 dark:bg-slate-950/40 space-y-1.5">
               <h3 className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">
-                1. API Signature &amp; Webhook Verification
+                1. Comparing Known Text Digests &amp; API Experiments
               </h3>
               <p className="text-xs text-slate-600 dark:text-slate-400">
-                Payment gateways (Stripe, PayPal) and webhooks (GitHub, Slack) sign payloads using HMAC-SHA256 digests. This generator allows engineers to verify raw payload checksums and debug signature mismatches during integration testing.
+                Developers frequently verify sample outputs against documentation, test candidate strings, and run digest experiments on API request payloads to ensure local UTF-8 serialization matches expected SHA-256 digests.
               </p>
             </div>
 
             <div className="p-4 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-slate-50/70 dark:bg-slate-950/40 space-y-1.5">
               <h3 className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">
-                2. Deterministic Cache Keys &amp; Fingerprinting
+                2. Deterministic Cache Keys &amp; Text Fingerprints
               </h3>
               <p className="text-xs text-slate-600 dark:text-slate-400">
-                Distributed caching systems (Redis, Memcached) use SHA-256 digests of complex query objects or GraphQL query strings to construct uniform, fixed-length cache keys that never overflow memory limits.
+                Distributed caching systems (Redis, Memcached) use SHA-256 digests of complex text queries or configuration strings to construct uniform, fixed-length cache keys that never overflow memory limits.
               </p>
             </div>
 
             <div className="p-4 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-slate-50/70 dark:bg-slate-950/40 space-y-1.5">
               <h3 className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">
-                3. Content-Addressable Storage (Git &amp; IPFS)
+                3. Understanding Content Hashing &amp; Text Integrity
               </h3>
               <p className="text-xs text-slate-600 dark:text-slate-400">
-                Version control systems like Git use SHA-1 and SHA-256 object IDs to track commits, trees, and blobs. Inspecting raw hashes assists developers in diagnosing corrupted Git refs or validating tree fingerprints.
+                Understanding how cryptographic digests represent arbitrary text is fundamental to distributed systems. While protocols like Git add format framing prior to hashing, calculating raw text digests provides intuition for how deterministic fingerprinting works.
               </p>
             </div>
 
@@ -3329,7 +3329,7 @@ export const HashGeneratorEditorial: React.FC = () => {
         </div>
       </section>
 
-      {/* Section 8: 100% Client-Side Privacy */}
+      {/* Section 8: Client-Side Web Crypto Execution & Text Privacy */}
       <section aria-labelledby="hash-privacy-heading" className="space-y-4">
         <div className="flex items-center gap-3">
           <div className="w-9 h-9 rounded-xl bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-800/60 flex items-center justify-center text-emerald-600 dark:text-emerald-400 shrink-0">
@@ -3340,22 +3340,22 @@ export const HashGeneratorEditorial: React.FC = () => {
               id="hash-privacy-heading"
               className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white tracking-tight"
             >
-              100% Client-Side Web Crypto Execution &amp; Complete Privacy
+              Client-Side Web Crypto Execution &amp; Text Privacy
             </h2>
             <p className="text-xs text-slate-500 dark:text-slate-400">
-              Hardware-accelerated processing strictly in local memory with zero network transmission
+              Local browser-side execution with zero transmission to application hashing backends
             </p>
           </div>
         </div>
 
         <div className="p-6 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-3 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
           <p>
-            Data security is paramount when handling tokens, passphrases, and sensitive API payloads. This utility runs entirely inside your browser using the native W3C <strong>Web Crypto API</strong> (<code className="font-mono text-[11px]">window.crypto.subtle.digest</code>).
+            When handling tokens, passphrases, or sensitive text, understanding where data is processed is essential. This utility executes hash calculations directly in your browser session using the <strong>browser-native Web Crypto API</strong> (<code className="font-mono text-[11px]">window.crypto.subtle.digest</code>).
           </p>
           <ul className="list-disc list-inside space-y-1.5 text-xs text-slate-600 dark:text-slate-400 pl-1">
-            <li><strong>Zero Server Uploads:</strong> Your input text is never sent to our application servers, third-party APIs, or telemetry backends.</li>
-            <li><strong>Hardware Acceleration:</strong> Uses your device&apos;s native cryptographic hardware instructions (such as Intel SHA extensions or ARMv8 crypto instructions) for instant computation.</li>
-            <li><strong>Offline Functionality:</strong> You can disconnect from the internet or inspect your browser&apos;s Network tab to confirm zero outgoing HTTP requests while hashing.</li>
+            <li><strong>Local Hash Computation:</strong> All entered text is processed strictly within your local browser memory and is never transmitted to our application servers or any remote hashing API.</li>
+            <li><strong>Native Web Crypto Standard:</strong> Relies on standard browser cryptographic implementations without requiring external JavaScript hashing libraries or untrusted plugins.</li>
+            <li><strong>Deterministic Verification:</strong> You can immediately inspect, compare, and copy computed SHA-256, SHA-384, SHA-512, and SHA-1 values with instant in-browser reactivity.</li>
           </ul>
         </div>
       </section>

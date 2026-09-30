@@ -469,21 +469,21 @@ export const TOOL_SPECIFIC_CONTENT: Record<
       "Click 'Copy' on the primary output or on any specific algorithm card to copy the digest to your clipboard.",
     ],
     features: [
-      "Hardware-accelerated cryptographic computation powered by the native browser Web Crypto API (`crypto.subtle.digest`)",
+      "Cryptographic computation powered by the browser-native Web Crypto API (`crypto.subtle.digest`)",
       "Simultaneous parallel calculation for SHA-256, SHA-384, SHA-512, and legacy SHA-1",
       "Real-time reactive digest generation with instant lowercase and UPPERCASE hexadecimal formatting",
-      "100% Client-side privacy: text is processed strictly in local browser memory and never leaves your device",
+      "Client-side execution: text is processed locally in browser memory and is not sent to any backend hashing API",
     ],
     faqs: [
       {
         question: "What is a cryptographic hash generator and how does it work?",
         answer:
-          "A cryptographic hash generator takes an arbitrary-length string of text, encodes it into bytes (typically UTF-8), and processes it through a deterministic mathematical hashing algorithm (such as SHA-256). The result is a fixed-size hexadecimal string known as a message digest or checksum. The process is deterministic—identical input always yields the exact same hash—yet irreversible, making it virtually impossible to reconstruct the original input from the digest alone.",
+          "A cryptographic hash generator takes an arbitrary-length string of text, encodes it into bytes (typically UTF-8), and processes it through a deterministic mathematical hashing algorithm (such as SHA-256). The result is a fixed-size hexadecimal string known as a message digest or checksum. The process is deterministic—identical input always yields the exact same hash—yet irreversible, making it computationally infeasible under expected security assumptions to calculate the original input from the digest alone.",
       },
       {
         question: "Which hash algorithms are supported by this tool?",
         answer:
-          "This utility natively supports SHA-256 (256-bit / 64 hex characters), SHA-384 (384-bit / 96 hex characters), SHA-512 (512-bit / 128 hex characters), and SHA-1 (160-bit / 40 hex characters) using the browser's hardware-accelerated Web Crypto API. All four digests are computed simultaneously so you can compare multiple hashes in parallel. Legacy algorithms like MD5 are intentionally excluded because they are cryptographically broken and unsupported by the W3C Web Crypto specification.",
+          "This utility natively supports SHA-256 (256-bit / 64 hex characters), SHA-384 (384-bit / 96 hex characters), SHA-512 (512-bit / 128 hex characters), and SHA-1 (160-bit / 40 hex characters) using the browser-native Web Crypto API. All four digests are computed simultaneously so you can compare multiple hashes in parallel. Legacy algorithms like MD5 are intentionally excluded because they are cryptographically broken and unsupported by the W3C Web Crypto specification.",
       },
       {
         question: "Is hashing the same as encryption?",
@@ -493,7 +493,7 @@ export const TOOL_SPECIFIC_CONTENT: Record<
       {
         question: "Can a cryptographic hash like SHA-256 be reversed or decrypted?",
         answer:
-          "No. Secure cryptographic hash functions possess strong pre-image resistance, making it mathematically impossible to reverse or decrypt the digest back to plaintext. The only way an attacker can attempt to identify the original input is through brute-force guessing or precomputed rainbow tables, which is why salting and computational difficulty are critical for sensitive data.",
+          "No. Secure cryptographic hash functions possess strong pre-image resistance, making it computationally infeasible under expected security assumptions to reverse or calculate the original input text from the digest alone. The only way an attacker can attempt to identify the original input is through brute-force guessing or precomputed rainbow tables, which is why salting and computational difficulty are critical for sensitive data.",
       },
       {
         question: "What is the difference between SHA-256 and SHA-512?",
@@ -503,12 +503,12 @@ export const TOOL_SPECIFIC_CONTENT: Record<
       {
         question: "Should I use SHA-256 or SHA-512 to store user passwords?",
         answer:
-          "No. High-speed general-purpose hashes like SHA-256 and SHA-512 are designed to be fast, which makes them dangerous for password storage because modern GPUs can compute billions of guesses per second. Production authentication systems should use slow, memory-hard Key Derivation Functions (KDFs) such as Argon2id, bcrypt, scrypt, or PBKDF2 with unique cryptographic salts. You can use our [Password Generator](/tools/password-generator) to generate high-entropy passwords.",
+          "No. High-speed general-purpose hashes like SHA-256 and SHA-512 are designed to be fast, which makes them dangerous for password storage because fast hashes can be evaluated at very high rates by attackers using parallel hardware. Production authentication systems should use slow, memory-hard Key Derivation Functions (KDFs) such as Argon2id, bcrypt, scrypt, or PBKDF2 with unique cryptographic salts. You can use our [Password Generator](/tools/password-generator) to generate strong random passwords.",
       },
       {
         question: "Is my input text uploaded to any server or recorded?",
         answer:
-          "No. All hashing is performed entirely client-side inside your browser using the native Web Crypto API (`window.crypto.subtle.digest`). Your input string is processed strictly in local browser memory and is never transmitted across the network, logged, or stored on any server.",
+          "No. Hashing is performed client-side using the browser-native Web Crypto API (`window.crypto.subtle.digest`). Your entered text is processed locally in your browser session and is not transmitted to our application's servers or any remote hashing API.",
       },
     ],
   },
