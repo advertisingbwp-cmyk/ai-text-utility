@@ -36,7 +36,7 @@ export const GeneratorLayout: React.FC<WorkspaceProps> = ({
     <div className="space-y-6">
       {/* 1. Options & Configuration Card */}
       {customControls && (
-        <div className="rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white/70 dark:bg-slate-900/60 p-5 shadow-xs backdrop-blur-xs">
+        <div className="rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white/70 dark:bg-slate-900/60 p-5 shadow-xs">
           <div className="flex items-center gap-2 text-xs font-bold text-slate-800 dark:text-slate-200 uppercase tracking-wider pb-3 border-b border-slate-100 dark:border-slate-800/80 mb-4">
             <Sliders size={14} className="text-brand-600 dark:text-brand-400" />
             <span>Generation Parameters</span>
@@ -82,10 +82,10 @@ export const GeneratorLayout: React.FC<WorkspaceProps> = ({
               onClick={handleDownload}
               disabled={!output}
               aria-label="Download generated output"
-              className="p-1.5 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white hover:bg-white dark:hover:bg-slate-800 border border-transparent hover:border-slate-200/80 dark:hover:border-slate-700/80 disabled:opacity-30 rounded-xl transition-all cursor-pointer active:scale-[0.96]"
+              className="min-w-10 min-h-10 flex items-center justify-center p-2 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white hover:bg-white dark:hover:bg-slate-800 border border-transparent hover:border-slate-200/80 dark:hover:border-slate-700/80 disabled:opacity-30 rounded-xl transition-all cursor-pointer active:scale-[0.96]"
               title="Download as .txt"
             >
-              <Download size={14} />
+              <Download size={16} />
             </button>
             <CopyButton text={output} />
           </div>
@@ -102,7 +102,7 @@ export const GeneratorLayout: React.FC<WorkspaceProps> = ({
               placeholder={outputPlaceholder}
               aria-label="Generated output text"
               rows={8}
-              className="w-full p-4 bg-white/70 dark:bg-slate-900/50 rounded-xl border border-slate-200/70 dark:border-slate-800/80 text-slate-900 dark:text-slate-100 placeholder-slate-400/90 dark:placeholder-slate-500 font-mono text-xs sm:text-sm resize-y focus:outline-none leading-relaxed min-h-[160px] cursor-default"
+              className="w-full p-4 bg-white/70 dark:bg-slate-900/50 rounded-xl border border-slate-200/70 dark:border-slate-800/80 text-slate-900 dark:text-slate-100 placeholder-slate-400/90 dark:placeholder-slate-500 font-mono text-sm sm:text-base resize-y focus:outline-none leading-relaxed min-h-[160px] cursor-default"
             />
           </div>
         )}

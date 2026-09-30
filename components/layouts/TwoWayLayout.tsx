@@ -43,7 +43,7 @@ export const TwoWayLayout: React.FC<WorkspaceProps> = ({
   return (
     <div className="space-y-6">
       {/* 1. Bidirectional Direction Selector & Options */}
-      <div className="p-4 sm:p-5 rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white/70 dark:bg-slate-900/60 shadow-xs backdrop-blur-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="p-4 sm:p-5 rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white/70 dark:bg-slate-900/60 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div className="flex items-center gap-2">
           <ArrowLeftRight size={16} className="text-brand-600 dark:text-brand-400" />
           <span className="text-xs font-bold text-slate-800 dark:text-slate-200 uppercase tracking-wider">
@@ -83,10 +83,10 @@ export const TwoWayLayout: React.FC<WorkspaceProps> = ({
                   onClick={onClear}
                   disabled={!input && !output}
                   aria-label="Clear input and result"
-                  className="p-1.5 text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 hover:bg-rose-500/10 disabled:opacity-30 rounded-xl transition-all cursor-pointer active:scale-[0.96]"
+                  className="min-w-10 min-h-10 flex items-center justify-center p-2 text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 hover:bg-rose-500/10 disabled:opacity-30 rounded-xl transition-all cursor-pointer active:scale-[0.96]"
                   title="Clear (Ctrl+Shift+X)"
                 >
-                  <Trash2 size={15} />
+                  <Trash2 size={16} />
                 </button>
               )}
             </div>
@@ -100,7 +100,7 @@ export const TwoWayLayout: React.FC<WorkspaceProps> = ({
             placeholder={inputPlaceholder}
             aria-label="Source text input"
             rows={12}
-            className="w-full p-4 sm:p-5 bg-transparent text-slate-900 dark:text-slate-100 placeholder-slate-400/90 dark:placeholder-slate-500 font-mono text-xs sm:text-sm resize-y focus:outline-none leading-relaxed min-h-[220px]"
+            className="w-full p-4 sm:p-5 bg-transparent text-slate-900 dark:text-slate-100 placeholder-slate-400/90 dark:placeholder-slate-500 font-mono text-sm sm:text-base resize-y focus:outline-none leading-relaxed min-h-[220px]"
           />
 
           <div className="flex items-center justify-between px-4 py-2.5 border-t border-slate-200/70 dark:border-slate-800/80 bg-slate-50/60 dark:bg-slate-950/60 text-xs text-slate-500 dark:text-slate-400 font-mono">
@@ -126,10 +126,10 @@ export const TwoWayLayout: React.FC<WorkspaceProps> = ({
                   onClick={onSwap}
                   disabled={!output}
                   aria-label="Swap converted output to input"
-                  className="p-1.5 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white hover:bg-white dark:hover:bg-slate-800 border border-transparent hover:border-slate-200/80 dark:hover:border-slate-700/80 disabled:opacity-30 rounded-xl transition-all cursor-pointer group active:scale-[0.96]"
+                  className="min-w-10 min-h-10 flex items-center justify-center p-2 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white hover:bg-white dark:hover:bg-slate-800 border border-transparent hover:border-slate-200/80 dark:hover:border-slate-700/80 disabled:opacity-30 rounded-xl transition-all cursor-pointer group active:scale-[0.96]"
                   title="Swap output to input"
                 >
-                  <ArrowLeftRight size={14} className="transition-transform duration-200 group-hover:rotate-180" />
+                  <ArrowLeftRight size={16} className="transition-transform duration-200 group-hover:rotate-180" />
                 </button>
               )}
               <button
@@ -137,10 +137,10 @@ export const TwoWayLayout: React.FC<WorkspaceProps> = ({
                 onClick={handleDownload}
                 disabled={!output && !input}
                 aria-label="Download converted output"
-                className="p-1.5 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white hover:bg-white dark:hover:bg-slate-800 border border-transparent hover:border-slate-200/80 dark:hover:border-slate-700/80 disabled:opacity-30 rounded-xl transition-all cursor-pointer active:scale-[0.96]"
+                className="min-w-10 min-h-10 flex items-center justify-center p-2 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white hover:bg-white dark:hover:bg-slate-800 border border-transparent hover:border-slate-200/80 dark:hover:border-slate-700/80 disabled:opacity-30 rounded-xl transition-all cursor-pointer active:scale-[0.96]"
                 title="Download as .txt"
               >
-                <Download size={14} />
+                <Download size={16} />
               </button>
               <CopyButton text={output} />
             </div>
@@ -154,7 +154,7 @@ export const TwoWayLayout: React.FC<WorkspaceProps> = ({
             placeholder={outputPlaceholder}
             aria-label="Converted output"
             rows={12}
-            className="w-full p-4 sm:p-5 bg-transparent text-slate-900 dark:text-slate-100 placeholder-slate-400/90 dark:placeholder-slate-500 font-mono text-xs sm:text-sm resize-y focus:outline-none leading-relaxed min-h-[220px] cursor-default"
+            className="w-full p-4 sm:p-5 bg-transparent text-slate-900 dark:text-slate-100 placeholder-slate-400/90 dark:placeholder-slate-500 font-mono text-sm sm:text-base resize-y focus:outline-none leading-relaxed min-h-[220px] cursor-default"
           />
 
           <div className="flex items-center justify-between px-4 py-2.5 border-t border-slate-200/70 dark:border-slate-800/80 bg-slate-50/60 dark:bg-slate-950/60 text-xs text-slate-500 dark:text-slate-400 font-mono">

@@ -50,7 +50,8 @@ export const GalleryLayout: React.FC<WorkspaceProps> = ({
                 type="button"
                 onClick={onClear}
                 disabled={!input}
-                className="px-2.5 py-1 text-xs font-semibold text-slate-500 hover:text-rose-600 dark:hover:text-rose-400 hover:bg-rose-500/10 border border-slate-200/80 dark:border-slate-700/80 disabled:opacity-30 rounded-xl transition-all cursor-pointer active:scale-[0.96]"
+                aria-label="Clear text"
+                className="min-h-10 px-3.5 py-2 text-xs font-semibold text-slate-500 hover:text-rose-600 dark:hover:text-rose-400 hover:bg-rose-500/10 border border-slate-200/80 dark:border-slate-700/80 disabled:opacity-30 rounded-xl transition-all cursor-pointer active:scale-[0.96]"
                 title="Clear text"
               >
                 Clear

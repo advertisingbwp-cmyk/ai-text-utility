@@ -42,10 +42,10 @@ export const DashboardLayout: React.FC<WorkspaceProps> = ({
                 onClick={onClear}
                 disabled={!input}
                 aria-label="Clear editor text"
-                className="p-1.5 text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 hover:bg-rose-500/10 disabled:opacity-30 rounded-xl transition-all cursor-pointer active:scale-[0.96]"
+                className="min-w-10 min-h-10 flex items-center justify-center p-2 text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 hover:bg-rose-500/10 disabled:opacity-30 rounded-xl transition-all cursor-pointer active:scale-[0.96]"
                 title="Clear text"
               >
-                <Trash2 size={15} />
+                <Trash2 size={16} />
               </button>
             )}
           </div>
@@ -57,7 +57,7 @@ export const DashboardLayout: React.FC<WorkspaceProps> = ({
           placeholder={inputPlaceholder}
           aria-label="Dashboard text input"
           rows={tool.slug === "hash-generator" ? 4 : 8}
-          className="w-full p-4 sm:p-5 bg-transparent text-slate-900 dark:text-slate-100 placeholder-slate-400/90 dark:placeholder-slate-500 font-mono text-xs sm:text-sm resize-y focus:outline-none leading-relaxed min-h-[160px]"
+          className="w-full p-4 sm:p-5 bg-transparent text-slate-900 dark:text-slate-100 placeholder-slate-400/90 dark:placeholder-slate-500 font-mono text-sm sm:text-base resize-y focus:outline-none leading-relaxed min-h-[160px]"
         />
 
         <div className="flex items-center justify-between px-4 py-2.5 border-t border-slate-200/70 dark:border-slate-800/80 bg-slate-50/60 dark:bg-slate-950/60 text-[11px] text-slate-500 dark:text-slate-400 font-mono">

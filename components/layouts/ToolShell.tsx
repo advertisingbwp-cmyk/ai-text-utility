@@ -107,7 +107,7 @@ export const ToolShell: React.FC<ToolShellProps> = ({
       </nav>
 
       {/* Tool Header Card - Modern Aurora Glass */}
-      <div className="rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white/70 dark:bg-slate-900/50 p-6 shadow-xs backdrop-blur-xs">
+      <div className="rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white/70 dark:bg-slate-900/50 p-6 shadow-xs">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-5">
           <div className="flex items-start gap-4">
             <div
@@ -148,7 +148,7 @@ export const ToolShell: React.FC<ToolShellProps> = ({
               toolId={tool.id}
               toolName={tool.name}
               size={20}
-              className="p-2.5 border border-slate-200/90 dark:border-slate-800 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors shadow-2xs"
+              className="min-w-10 min-h-10 sm:min-w-11 sm:min-h-11 p-2.5 flex items-center justify-center border border-slate-200/90 dark:border-slate-800 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors shadow-2xs"
             />
           </div>
         </div>

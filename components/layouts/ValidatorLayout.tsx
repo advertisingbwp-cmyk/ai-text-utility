@@ -29,6 +29,28 @@ export const ValidatorLayout: React.FC<WorkspaceProps> = ({
   const isValid = !error && output.length > 0;
   const hasInput = input.trim().length > 0;
 
+  const validStatus = React.useMemo(() => {
+    if (tool.slug === "json-formatter") {
+      return {
+        title: "Valid JSON",
+        description: "Valid syntax parsed and formatted cleanly",
+        badge: "Valid JSON",
+      };
+    }
+    if (tool.slug === "jwt-decoder") {
+      return {
+        title: "Decoded Successfully",
+        description: "Payload and header claims decoded cleanly (signature unverified)",
+        badge: "Decoded",
+      };
+    }
+    return {
+      title: "Parsed Successfully",
+      description: "Parsed and formatted cleanly",
+      badge: "Parsed",
+    };
+  }, [tool.slug]);
+
   const handleDownload = () => {
     if (onDownload) {
       onDownload();
@@ -70,17 +92,17 @@ export const ValidatorLayout: React.FC<WorkspaceProps> = ({
             )}
             <div>
               <div className="text-xs font-bold uppercase tracking-wider">
-                {error ? "Validation Error" : isValid ? "Valid Syntax" : "Awaiting Validation"}
+                {error ? "Validation Error" : isValid ? validStatus.title : "Awaiting Validation"}
               </div>
               <div className="text-xs mt-0.5 font-mono">
-                {error || (isValid ? "Verified and formatted cleanly" : "Type or paste to inspect")}
+                {error || (isValid ? validStatus.description : "Type or paste to inspect")}
               </div>
             </div>
           </div>
 
           {isValid && (
             <span className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/20 text-emerald-800 dark:text-emerald-300 border border-emerald-500/30">
-              Verified
+              {validStatus.badge}
             </span>
           )}
         </div>
@@ -88,7 +110,7 @@ export const ValidatorLayout: React.FC<WorkspaceProps> = ({
 
       {/* Optional Formatting / Inspection Options Bar */}
       {customControls && (
-        <div className="p-4 sm:p-5 rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white/70 dark:bg-slate-900/60 shadow-xs backdrop-blur-xs flex items-center justify-between flex-wrap gap-3">
+        <div className="p-4 sm:p-5 rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white/70 dark:bg-slate-900/60 shadow-xs flex items-center justify-between flex-wrap gap-3">
           <div className="flex items-center gap-2 text-xs font-bold text-slate-800 dark:text-slate-200 uppercase tracking-wider">
             <Sparkles size={14} className="text-brand-600 dark:text-brand-400" />
             <span>Inspection &amp; Formatting Settings</span>
@@ -123,10 +145,10 @@ export const ValidatorLayout: React.FC<WorkspaceProps> = ({
                     onClick={onClear}
                     disabled={!input}
                     aria-label="Clear input"
-                    className="p-1.5 text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 hover:bg-rose-500/10 disabled:opacity-30 rounded-xl transition-all cursor-pointer active:scale-[0.96]"
+                    className="min-w-10 min-h-10 flex items-center justify-center p-2 text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 hover:bg-rose-500/10 disabled:opacity-30 rounded-xl transition-all cursor-pointer active:scale-[0.96]"
                     title="Clear"
                   >
-                    <Trash2 size={15} />
+                    <Trash2 size={16} />
                   </button>
                 )}
               </div>
@@ -138,12 +160,12 @@ export const ValidatorLayout: React.FC<WorkspaceProps> = ({
               placeholder={inputPlaceholder}
               aria-label="Raw validation input"
               rows={4}
-              className="w-full p-4 sm:p-5 bg-transparent text-slate-900 dark:text-slate-100 placeholder-slate-400/90 dark:placeholder-slate-500 font-mono text-xs sm:text-sm resize-y focus:outline-none leading-relaxed min-h-[120px]"
+              className="w-full p-4 sm:p-5 bg-transparent text-slate-900 dark:text-slate-100 placeholder-slate-400/90 dark:placeholder-slate-500 font-mono text-sm sm:text-base resize-y focus:outline-none leading-relaxed min-h-[120px]"
             />
           </div>
 
           {/* Structured Inspection View */}
-          <div className="rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-slate-50/60 dark:bg-slate-950/40 p-5 sm:p-6 shadow-xs backdrop-blur-xs transition-all">
+          <div className="rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-slate-50/60 dark:bg-slate-950/40 p-5 sm:p-6 shadow-xs transition-all">
             {customPreview}
           </div>
         </div>
@@ -172,10 +194,10 @@ export const ValidatorLayout: React.FC<WorkspaceProps> = ({
                     onClick={onClear}
                     disabled={!input}
                     aria-label="Clear input"
-                    className="p-1.5 text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 hover:bg-rose-500/10 disabled:opacity-30 rounded-xl transition-all cursor-pointer active:scale-[0.96]"
+                    className="min-w-10 min-h-10 flex items-center justify-center p-2 text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 hover:bg-rose-500/10 disabled:opacity-30 rounded-xl transition-all cursor-pointer active:scale-[0.96]"
                     title="Clear"
                   >
-                    <Trash2 size={15} />
+                    <Trash2 size={16} />
                   </button>
                 )}
               </div>
@@ -187,7 +209,7 @@ export const ValidatorLayout: React.FC<WorkspaceProps> = ({
               placeholder={inputPlaceholder}
               aria-label="Raw text to format and validate"
               rows={14}
-              className="w-full p-4 sm:p-5 bg-transparent text-slate-900 dark:text-slate-100 placeholder-slate-400/90 dark:placeholder-slate-500 font-mono text-xs sm:text-sm resize-y focus:outline-none leading-relaxed min-h-[260px]"
+              className="w-full p-4 sm:p-5 bg-transparent text-slate-900 dark:text-slate-100 placeholder-slate-400/90 dark:placeholder-slate-500 font-mono text-sm sm:text-base resize-y focus:outline-none leading-relaxed min-h-[260px]"
             />
 
             <div className="flex items-center justify-between px-4 py-2.5 border-t border-slate-200/70 dark:border-slate-800/80 bg-slate-50/60 dark:bg-slate-950/60 text-xs text-slate-500 dark:text-slate-400 font-mono">
@@ -208,10 +230,10 @@ export const ValidatorLayout: React.FC<WorkspaceProps> = ({
                   onClick={handleDownload}
                   disabled={!output}
                   aria-label="Download validated output"
-                  className="p-1.5 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white hover:bg-white dark:hover:bg-slate-800 border border-transparent hover:border-slate-200/80 dark:hover:border-slate-700/80 disabled:opacity-30 rounded-xl transition-all cursor-pointer active:scale-[0.96]"
+                  className="min-w-10 min-h-10 flex items-center justify-center p-2 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white hover:bg-white dark:hover:bg-slate-800 border border-transparent hover:border-slate-200/80 dark:hover:border-slate-700/80 disabled:opacity-30 rounded-xl transition-all cursor-pointer active:scale-[0.96]"
                   title="Download as .txt"
                 >
-                  <Download size={14} />
+                  <Download size={16} />
                 </button>
                 <CopyButton text={output} />
               </div>
@@ -223,7 +245,7 @@ export const ValidatorLayout: React.FC<WorkspaceProps> = ({
               placeholder={outputPlaceholder}
               aria-label="Validated result"
               rows={14}
-              className="w-full p-4 sm:p-5 bg-transparent text-slate-900 dark:text-slate-100 placeholder-slate-400/90 dark:placeholder-slate-500 font-mono text-xs sm:text-sm resize-y focus:outline-none leading-relaxed min-h-[260px] cursor-default"
+              className="w-full p-4 sm:p-5 bg-transparent text-slate-900 dark:text-slate-100 placeholder-slate-400/90 dark:placeholder-slate-500 font-mono text-sm sm:text-base resize-y focus:outline-none leading-relaxed min-h-[260px] cursor-default"
             />
 
             <div className="flex items-center justify-between px-4 py-2.5 border-t border-slate-200/70 dark:border-slate-800/80 bg-slate-50/60 dark:bg-slate-950/60 text-xs text-slate-500 dark:text-slate-400 font-mono">

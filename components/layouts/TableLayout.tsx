@@ -58,10 +58,10 @@ export const TableLayout: React.FC<WorkspaceProps> = ({
                 onClick={onClear}
                 disabled={!input}
                 aria-label="Clear source data"
-                className="p-1.5 text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 hover:bg-rose-500/10 disabled:opacity-30 rounded-xl transition-all cursor-pointer active:scale-[0.96]"
+                className="min-w-10 min-h-10 flex items-center justify-center p-2 text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 hover:bg-rose-500/10 disabled:opacity-30 rounded-xl transition-all cursor-pointer active:scale-[0.96]"
                 title="Clear input"
               >
-                <Trash2 size={15} />
+                <Trash2 size={16} />
               </button>
             )}
           </div>
@@ -73,7 +73,7 @@ export const TableLayout: React.FC<WorkspaceProps> = ({
           placeholder={inputPlaceholder}
           aria-label="Table source text input"
           rows={7}
-          className="w-full p-4 sm:p-5 bg-transparent text-slate-900 dark:text-slate-100 placeholder-slate-400/90 dark:placeholder-slate-500 font-mono text-xs sm:text-sm resize-y focus:outline-none leading-relaxed min-h-[160px]"
+          className="w-full p-4 sm:p-5 bg-transparent text-slate-900 dark:text-slate-100 placeholder-slate-400/90 dark:placeholder-slate-500 font-mono text-sm sm:text-base resize-y focus:outline-none leading-relaxed min-h-[160px]"
         />
 
         {/* Custom Controls Embedded inside Input footer if available */}
@@ -99,10 +99,10 @@ export const TableLayout: React.FC<WorkspaceProps> = ({
             onClick={handleDownload}
             disabled={!input}
             aria-label="Download table report"
-            className="p-1.5 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white hover:bg-white dark:hover:bg-slate-800 border border-transparent hover:border-slate-200/80 dark:hover:border-slate-700/80 disabled:opacity-30 rounded-xl transition-all cursor-pointer active:scale-[0.96]"
+            className="min-w-10 min-h-10 flex items-center justify-center p-2 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white hover:bg-white dark:hover:bg-slate-800 border border-transparent hover:border-slate-200/80 dark:hover:border-slate-700/80 disabled:opacity-30 rounded-xl transition-all cursor-pointer active:scale-[0.96]"
             title="Download report"
           >
-            <Download size={14} />
+            <Download size={16} />
           </button>
         </div>
 
