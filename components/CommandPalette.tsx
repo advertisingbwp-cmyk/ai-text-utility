@@ -53,40 +53,40 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-start justify-center pt-20 sm:pt-28 px-4 bg-slate-900/60 dark:bg-black/75 backdrop-blur-sm animate-in fade-in duration-150"
+      className="fixed inset-0 z-50 flex items-start justify-center pt-16 sm:pt-24 px-4 bg-slate-900/60 dark:bg-black/75 backdrop-blur-md animate-in fade-in duration-200"
       onClick={() => setIsOpen(false)}
     >
       <div
-        className="w-full max-w-2xl overflow-hidden rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-2xl text-slate-900 dark:text-slate-100 animate-in zoom-in-95 duration-150"
+        className="w-full max-w-2xl overflow-hidden rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/95 dark:bg-slate-900/95 shadow-2xl text-slate-900 dark:text-slate-100 animate-in zoom-in-95 duration-200"
         onClick={(e) => e.stopPropagation()}
       >
         <Command label="Command Palette" className="w-full">
-          <div className="flex items-center border-b border-slate-200 dark:border-slate-800 px-4 py-3 bg-white/95 dark:bg-slate-900/90">
-            <Search className="mr-3 h-5 w-5 shrink-0 text-slate-400 dark:text-slate-500" />
+          <div className="flex items-center border-b border-slate-200/90 dark:border-slate-800 px-4 py-3.5 bg-white/95 dark:bg-slate-900/90">
+            <Search className="mr-3 h-5 w-5 shrink-0 text-brand-600 dark:text-brand-400" />
             <Command.Input
               autoFocus
-              placeholder="Type to search all 40+ text utilities..."
-              className="w-full bg-transparent text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 outline-none"
+              placeholder="Search all 43 utilities by name, category, or task..."
+              className="w-full bg-transparent text-sm sm:text-base text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 outline-none"
             />
             <button
               type="button"
               onClick={() => setIsOpen(false)}
               aria-label="Close command palette"
-              className="p-1 text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 rounded-md transition-colors"
+              className="p-1.5 text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
             >
               <X size={18} />
             </button>
           </div>
 
           {/* Quick Category Filter Pills */}
-          <div className="flex items-center gap-1.5 px-4 py-2 border-b border-slate-200 dark:border-slate-800 bg-slate-50/80 dark:bg-slate-950/40 overflow-x-auto text-xs scrollbar-none">
+          <div className="flex items-center gap-1.5 px-4 py-2 border-b border-slate-100 dark:border-slate-800 bg-slate-50/80 dark:bg-slate-950/40 overflow-x-auto text-xs scrollbar-none">
             <button
               type="button"
               onClick={() => setSelectedCategory("ALL")}
-              className={`px-2.5 py-1 rounded-lg text-[11px] font-medium transition-colors whitespace-nowrap ${
+              className={`px-2.5 py-1 rounded-lg text-[11px] font-semibold transition-all whitespace-nowrap cursor-pointer ${
                 selectedCategory === "ALL"
-                  ? "bg-brand-600 text-white shadow-xs"
-                  : "bg-slate-200/70 dark:bg-slate-800/80 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
+                  ? "bg-slate-900 text-white dark:bg-brand-600 dark:text-white shadow-xs"
+                  : "bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
               }`}
             >
               All Tools ({TOOLS_REGISTRY.length})
@@ -96,10 +96,10 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
                 key={cat.name}
                 type="button"
                 onClick={() => setSelectedCategory(cat.name)}
-                className={`px-2.5 py-1 rounded-lg text-[11px] font-medium transition-colors whitespace-nowrap ${
+                className={`px-2.5 py-1 rounded-lg text-[11px] font-semibold transition-all whitespace-nowrap cursor-pointer ${
                   selectedCategory === cat.name
-                    ? "bg-brand-600 text-white shadow-xs"
-                    : "bg-slate-200/70 dark:bg-slate-800/80 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
+                    ? "bg-slate-900 text-white dark:bg-brand-600 dark:text-white shadow-xs"
+                    : "bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
                 }`}
               >
                 {cat.name}
@@ -120,7 +120,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
                 <Command.Group
                   key={cat.name}
                   heading={cat.name}
-                  className="px-2 py-1.5 text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider"
+                  className="px-2 py-1.5 text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider"
                 >
                   {toolsInCat.map((tool) => {
                     const theme = getToolTheme(tool.id, tool.category);
@@ -129,47 +129,45 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
                         key={tool.id}
                         value={`${tool.name} ${tool.category} ${tool.keywords.join(" ")}`}
                         onSelect={() => handleSelect(tool.slug)}
-                        className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/90 hover:text-slate-900 dark:hover:text-white cursor-pointer data-[selected=true]:bg-slate-100 dark:data-[selected=true]:bg-slate-800 data-[selected=true]:text-slate-900 dark:data-[selected=true]:text-white transition-colors"
+                        className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/90 hover:text-slate-900 dark:hover:text-white cursor-pointer data-[selected=true]:bg-brand-50/80 dark:data-[selected=true]:bg-slate-800 data-[selected=true]:text-brand-900 dark:data-[selected=true]:text-white transition-colors"
                       >
                         <div
-                          className={`w-7 h-7 rounded-lg flex items-center justify-center shrink-0 border ${theme.bg} ${theme.border}`}
+                          className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 border ${theme.bg} ${theme.border} shadow-2xs`}
                         >
-                          <span className="text-sm leading-none select-none" role="img" aria-hidden="true">
-                            {theme.emoji}
-                          </span>
+                          <DynamicIcon name={tool.icon} size={16} className={theme.text} />
                         </div>
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-2">
-                          <span className="font-medium text-slate-900 dark:text-slate-100 truncate">
-                            {tool.name}
-                          </span>
-                          {tool.category === "AI Magic" && (
-                            <span className="inline-flex items-center gap-0.5 text-xs text-brand-600 dark:text-brand-400 font-semibold">
-                              <Sparkles size={11} /> AI
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-2">
+                            <span className="font-semibold text-slate-900 dark:text-slate-100 truncate">
+                              {tool.name}
                             </span>
-                          )}
+                            {tool.category === "AI Magic" && (
+                              <span className="inline-flex items-center gap-0.5 text-[10px] font-bold px-1.5 py-0.2 rounded bg-brand-500/10 text-brand-600 dark:text-brand-400">
+                                <Sparkles size={10} /> AI
+                              </span>
+                            )}
+                          </div>
+                          <p className="text-[11px] text-slate-500 dark:text-slate-400 truncate">
+                            {tool.description}
+                          </p>
                         </div>
-                        <p className="text-xs text-slate-500 dark:text-slate-400 truncate">
-                          {tool.description}
-                        </p>
-                      </div>
-                      <span className="text-xs text-slate-400 dark:text-slate-500 shrink-0 font-mono">
-                        ↵ Open
-                      </span>
-                    </Command.Item>
-                  );
-                })}
+                        <span className="text-[11px] text-slate-400 dark:text-slate-500 shrink-0 font-mono">
+                          ↵ Open
+                        </span>
+                      </Command.Item>
+                    );
+                  })}
                 </Command.Group>
               );
             })}
           </Command.List>
 
-          <div className="flex items-center justify-between border-t border-slate-200 dark:border-slate-800 px-4 py-2 bg-slate-50/80 dark:bg-slate-950/60 text-xs text-slate-500 dark:text-slate-400">
+          <div className="flex items-center justify-between border-t border-slate-200/80 dark:border-slate-800 px-4 py-2.5 bg-slate-50/80 dark:bg-slate-950/60 text-xs text-slate-500 dark:text-slate-400 font-mono">
             <span>
-              Use <kbd className="font-mono bg-white dark:bg-slate-800 px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300">↑</kbd> <kbd className="font-mono bg-white dark:bg-slate-800 px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300">↓</kbd> to navigate
+              Use <kbd className="bg-white dark:bg-slate-800 px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300">↑</kbd> <kbd className="bg-white dark:bg-slate-800 px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300">↓</kbd> to navigate
             </span>
             <span>
-              <kbd className="font-mono bg-white dark:bg-slate-800 px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300">Esc</kbd> to close
+              <kbd className="bg-white dark:bg-slate-800 px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300">Esc</kbd> to close
             </span>
           </div>
         </Command>
