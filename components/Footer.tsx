@@ -5,7 +5,6 @@ import Link from "next/link";
 import { Shield, Zap, Sparkles } from "lucide-react";
 import { CATEGORIES } from "@/data/toolsRegistry";
 import { BrandLogo } from "@/components/BrandLogo";
-import { AdsterraSmartLink } from "@/components/ads";
 
 export const Footer: React.FC = () => {
   return (
@@ -100,9 +99,6 @@ export const Footer: React.FC = () => {
                 >
                   XML Sitemap
                 </a>
-              </li>
-              <li>
-                <AdsterraSmartLink variant="link" label="Featured Deals & Partners" />
               </li>
             </ul>
           </div>

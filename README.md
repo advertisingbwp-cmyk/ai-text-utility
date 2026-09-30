@@ -42,7 +42,7 @@ A modern, fast, accessible, and privacy-first web application providing 43+ inst
 - **Reverse Text**: Reverse text strings, reverse word order, or invert line order.
 - **Base64 Encode / Decode**: Full UTF-8 Unicode compliant Base64 encoding and decoding.
 - **URL Encoder / Decoder**: Percent-encode URI components or decode encoded URLs.
-- **Hash Generator**: Cryptographic SHA-256, SHA-384, SHA-512, and MD5 hashes via Web Crypto API.
+- **Hash Generator**: Generate SHA-256, SHA-384, SHA-512, and legacy SHA-1 hashes using the browser-native Web Crypto API.
 - **JWT Decoder**: Decode and inspect JSON Web Token headers, payloads, and timestamps locally.
 - **Password Generator**: Cryptographically secure random passwords with configurable length and character sets.
 - **UUID Generator**: RFC 4122 compliant UUID v4 generation using native crypto.
