@@ -461,6 +461,40 @@ export const SEO_BLUEPRINT_MAP: Record<string, ToolSeoBlueprint> = {
       "case-converter",
     ],
   },
+  "html-minifier": {
+    slug: "html-minifier",
+    title: "HTML Minifier – Minify HTML Code Online Free",
+    metaDescription:
+      "Minify HTML online instantly. Remove unnecessary whitespace and reduce HTML markup size for cleaner, smaller code directly in your browser.",
+    h1: "HTML Minifier",
+    aboveTheFoldIntro:
+      "Minify HTML code instantly by removing unnecessary formatting and whitespace. Produce smaller, cleaner HTML for websites, templates and development workflows.",
+    primaryKeyword: "html minifier",
+    secondaryKeywords: [
+      "html minifier",
+      "minify html",
+      "html minifier online",
+      "html compressor",
+      "compress html",
+      "html minification",
+      "html code minifier",
+      "online html minifier",
+      "html size reducer",
+      "remove whitespace html",
+      "html optimizer",
+      "compact html",
+      "minify html online",
+      "html compression tool",
+      "reduce html file size",
+    ],
+    popularAnchor: "HTML Minifier",
+    clusterSlugs: [
+      "markdown-to-html",
+      "strip-html-tags",
+      "json-formatter",
+      "remove-extra-spaces",
+    ],
+  },
 };
 
 

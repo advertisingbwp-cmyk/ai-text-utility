@@ -19,6 +19,7 @@ import {
   Table,
   FileSpreadsheet,
   FileCode,
+  Minimize2,
 } from "lucide-react";
 
 // ==========================================
@@ -2521,5 +2522,404 @@ export const MarkdownToHtmlEditorial: React.FC = () => {
     </div>
   );
 };
+
+// ==========================================
+// 15. HTML MINIFIER EDITORIAL
+// ==========================================
+export const HtmlMinifierEditorial: React.FC = () => {
+  return (
+    <div className="space-y-12 pt-6 border-t border-slate-200 dark:border-slate-800">
+      {/* 1. What is HTML Minification & Real Example */}
+      <section aria-labelledby="html-minifier-overview-heading" className="space-y-4">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl bg-brand-50 dark:bg-brand-950/50 border border-brand-200 dark:border-brand-800/60 flex items-center justify-center text-brand-600 dark:text-brand-400 shrink-0">
+            <Minimize2 size={18} />
+          </div>
+          <div>
+            <h2
+              id="html-minifier-overview-heading"
+              className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white tracking-tight"
+            >
+              What is HTML Minification &amp; How Does It Work?
+            </h2>
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              Reducing markup size by removing redundant whitespace, line breaks, and unnecessary source comments
+            </p>
+          </div>
+        </div>
+
+        <div className="p-6 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-4 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+          <p>
+            <strong className="text-slate-900 dark:text-white font-semibold">HTML minification</strong> is the process of stripping characters from HTML source code that web browsers do not require to correctly construct the Document Object Model (DOM) and display the page. During development, programmers use tab indents, blank lines, extra spacing, and explanatory comments to make code human-readable. Minification eliminates this overhead before deployment.
+          </p>
+          <p>
+            Our <strong className="text-slate-900 dark:text-white font-semibold">Free Online HTML Minifier</strong> collapses whitespace between tags, normalizes multi-space attribute gaps, strips standard comments, and preserves sensitive code blocks verbatim:
+          </p>
+
+          {/* Side-by-side Visual Code Example */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-1">
+            <div className="p-4 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-slate-50/70 dark:bg-slate-950/40 space-y-2">
+              <span className="text-xs font-bold text-brand-600 dark:text-brand-400 uppercase tracking-wider">
+                Unminified Source HTML Input
+              </span>
+              <pre className="p-3 rounded-lg bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 text-[11px] font-mono text-slate-800 dark:text-slate-200 overflow-x-auto">
+{`<div   class="container"   id="main"  >
+  <!-- Main Heading Comment -->
+  <h1>   Welcome to AI Text Utility   </h1>
+  <p>Fast, private text tools.</p>
+</div>`}
+              </pre>
+            </div>
+
+            <div className="p-4 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-slate-50/70 dark:bg-slate-950/40 space-y-2">
+              <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">
+                Minified HTML Output
+              </span>
+              <pre className="p-3 rounded-lg bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 text-[11px] font-mono text-slate-800 dark:text-slate-200 overflow-x-auto">
+{`<div class="container" id="main"><h1> Welcome to AI Text Utility </h1><p>Fast, private text tools.</p></div>`}
+              </pre>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 2. Step-by-Step Workflow */}
+      <section aria-labelledby="html-minifier-workflow-heading" className="space-y-4">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl bg-purple-50 dark:bg-purple-950/50 border border-purple-200 dark:border-purple-800/60 flex items-center justify-center text-purple-600 dark:text-purple-400 shrink-0">
+            <Table size={18} />
+          </div>
+          <div>
+            <h2
+              id="html-minifier-workflow-heading"
+              className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white tracking-tight"
+            >
+              How to Minify HTML Step-by-Step
+            </h2>
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              Fast client-side workflow with real-time compression metrics
+            </p>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
+          <div className="p-4 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-1.5">
+            <span className="text-xs font-bold text-brand-600 dark:text-brand-400 uppercase tracking-wider flex items-center gap-1.5">
+              <span className="w-5 h-5 rounded-full bg-brand-500/10 flex items-center justify-center text-[11px]">1</span>
+              Paste HTML
+            </span>
+            <p className="text-xs text-slate-600 dark:text-slate-400">
+              Paste your HTML markup into the editor, or click &apos;Load Sample&apos; to test with formatted template code.
+            </p>
+          </div>
+
+          <div className="p-4 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-1.5">
+            <span className="text-xs font-bold text-brand-600 dark:text-brand-400 uppercase tracking-wider flex items-center gap-1.5">
+              <span className="w-5 h-5 rounded-full bg-brand-500/10 flex items-center justify-center text-[11px]">2</span>
+              Configure Options
+            </span>
+            <p className="text-xs text-slate-600 dark:text-slate-400">
+              Toggle &apos;Strip Comments&apos; to remove comments and &apos;Collapse Whitespace&apos; to remove redundant gaps.
+            </p>
+          </div>
+
+          <div className="p-4 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-1.5">
+            <span className="text-xs font-bold text-brand-600 dark:text-brand-400 uppercase tracking-wider flex items-center gap-1.5">
+              <span className="w-5 h-5 rounded-full bg-brand-500/10 flex items-center justify-center text-[11px]">3</span>
+              Review Savings
+            </span>
+            <p className="text-xs text-slate-600 dark:text-slate-400">
+              Inspect the live statistics badge displaying original bytes, minified bytes, and percentage saved.
+            </p>
+          </div>
+
+          <div className="p-4 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-1.5">
+            <span className="text-xs font-bold text-brand-600 dark:text-brand-400 uppercase tracking-wider flex items-center gap-1.5">
+              <span className="w-5 h-5 rounded-full bg-brand-500/10 flex items-center justify-center text-[11px]">4</span>
+              Copy or Download
+            </span>
+            <p className="text-xs text-slate-600 dark:text-slate-400">
+              Click &apos;Copy&apos; to grab the minified HTML, or click &apos;Download&apos; to save an <code className="font-mono text-[11px]">.html</code> file.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* 3. Whitespace Handling & Tag Compacting */}
+      <section aria-labelledby="html-minifier-whitespace-heading" className="space-y-4">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-800/60 flex items-center justify-center text-emerald-600 dark:text-emerald-400 shrink-0">
+            <Code2 size={18} />
+          </div>
+          <div>
+            <h2
+              id="html-minifier-whitespace-heading"
+              className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white tracking-tight"
+            >
+              Whitespace Handling &amp; Tag Compacting Rules
+            </h2>
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              Predictable whitespace reduction without breaking HTML document integrity
+            </p>
+          </div>
+        </div>
+
+        <div className="p-6 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-4 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="p-4 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-slate-50/70 dark:bg-slate-950/40 space-y-2">
+              <h3 className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">
+                1. Inter-Tag Whitespace
+              </h3>
+              <p className="text-xs text-slate-600 dark:text-slate-400">
+                Whitespace between closing and opening tags (<code className="font-mono text-[11px]">&gt;   &lt;</code>) is completely eliminated, joining elements directly (<code className="font-mono text-[11px]">&gt;&lt;</code>). This removes indentation spaces and blank line gaps between markup blocks.
+              </p>
+            </div>
+
+            <div className="p-4 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-slate-50/70 dark:bg-slate-950/40 space-y-2">
+              <h3 className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">
+                2. Attribute Gaps
+              </h3>
+              <p className="text-xs text-slate-600 dark:text-slate-400">
+                Excess spaces inside opening tags (such as <code className="font-mono text-[11px]">&lt;div    class=&quot;box&quot;   &gt;</code>) are collapsed into a single space (<code className="font-mono text-[11px]">&lt;div class=&quot;box&quot;&gt;</code>) while strictly preserving quoted attribute values.
+              </p>
+            </div>
+
+            <div className="p-4 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-slate-50/70 dark:bg-slate-950/40 space-y-2">
+              <h3 className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">
+                3. Text-Node Spacing
+              </h3>
+              <p className="text-xs text-slate-600 dark:text-slate-400">
+                Multiple consecutive spaces within regular paragraph and text nodes are reduced to single spaces (<code className="font-mono text-[11px]">\s&#123;2,&#125;</code> &rarr; <code className="font-mono text-[11px]">&quot; &quot;</code>), mirroring how browser layout engines render inline text.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 4. HTML Comments & Conditional Comments */}
+      <section aria-labelledby="html-minifier-comments-heading" className="space-y-4">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl bg-amber-50 dark:bg-amber-950/50 border border-amber-200 dark:border-amber-800/60 flex items-center justify-center text-amber-600 dark:text-amber-400 shrink-0">
+            <Layers size={18} />
+          </div>
+          <div>
+            <h2
+              id="html-minifier-comments-heading"
+              className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white tracking-tight"
+            >
+              Standard Comments vs. Conditional Comments
+            </h2>
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              Safe comment stripping with automated preservation of legacy browser directives
+            </p>
+          </div>
+        </div>
+
+        <div className="p-6 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-4 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="p-4 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-slate-50/70 dark:bg-slate-950/40 space-y-1.5">
+              <span className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider flex items-center gap-1.5">
+                <span className="text-brand-600">●</span> Standard Comments Stripped
+              </span>
+              <p className="text-xs text-slate-600 dark:text-slate-400">
+                Informational source comments (such as <code className="font-mono text-[11px]">&lt;!-- Header Section --&gt;</code>) are removed when the &apos;Strip Comments&apos; option is active, preventing internal developer notes and draft markers from shipping to production.
+              </p>
+            </div>
+
+            <div className="p-4 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-slate-50/70 dark:bg-slate-950/40 space-y-1.5">
+              <span className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider flex items-center gap-1.5">
+                <span className="text-emerald-600">●</span> Conditional Comments Preserved
+              </span>
+              <p className="text-xs text-slate-600 dark:text-slate-400">
+                Internet Explorer conditional comments (such as <code className="font-mono text-[11px]">&lt;!--[if IE 9]&gt;...&lt;![endif]--&gt;</code>) are automatically protected against removal, ensuring legacy polyfills and stylesheets continue to target older browsers correctly.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 5. Verbatim Preservation: pre, textarea, script, style */}
+      <section aria-labelledby="html-minifier-verbatim-heading" className="space-y-4">
+        <div className="p-6 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-4 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+          <h3 id="html-minifier-verbatim-heading" className="text-base font-semibold text-slate-900 dark:text-white flex items-center gap-2">
+            Verbatim Preservation of Sensitive Elements
+          </h3>
+          <p>
+            Certain HTML tags rely strictly on whitespace and newline formatting to function correctly. Our minifier isolates these blocks with temporary placeholders prior to processing and restores them verbatim:
+          </p>
+          <ul className="space-y-2 text-xs list-disc list-inside text-slate-600 dark:text-slate-400">
+            <li><strong className="text-slate-800 dark:text-slate-200">&lt;pre&gt; and &lt;textarea&gt;:</strong> Indentation, ASCII art, preformatted code, and line breaks are fully preserved. Compacting whitespace inside these elements would disrupt their visual presentation and form input values.</li>
+            <li><strong className="text-slate-800 dark:text-slate-200">&lt;script&gt; and &lt;style&gt;:</strong> JavaScript code and CSS stylesheets embedded in your HTML are preserved verbatim. This tool focuses strictly on HTML markup compaction; it does not alter inline JavaScript or CSS syntax, preventing script errors or broken CSS rules.</li>
+          </ul>
+        </div>
+      </section>
+
+      {/* 6. Does HTML Minification Change Page Appearance? */}
+      <section aria-labelledby="html-minifier-appearance-heading" className="space-y-4">
+        <div className="p-6 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-4 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+          <h3 id="html-minifier-appearance-heading" className="text-base font-semibold text-slate-900 dark:text-white flex items-center gap-2">
+            Does HTML Minification Change Page Appearance?
+          </h3>
+          <p>
+            In standard, standards-compliant HTML, minification does not alter how the page looks to your users. Web browsers naturally collapse multiple adjacent whitespace characters into a single space during layout calculation.
+          </p>
+          <p>
+            However, if your stylesheet utilizes whitespace-sensitive layout techniques—such as relying on the exact space gap between inline-block elements (<code className="font-mono text-[11px]">display: inline-block</code>) or custom <code className="font-mono text-[11px]">white-space: pre-wrap</code> rules—removing whitespace between tags can alter element spacing. We recommend testing your minified HTML in your browser to confirm layout fidelity.
+          </p>
+        </div>
+      </section>
+
+      {/* 7. HTML Minification vs. Gzip/Brotli Compression */}
+      <section aria-labelledby="html-minifier-vs-gzip-heading" className="space-y-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-3">
+            <h3 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              🛠️ HTML Minification (Source Level)
+            </h3>
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              Minification permanently eliminates unneeded characters from the file itself before deployment:
+            </p>
+            <ul className="space-y-1.5 text-xs list-disc list-inside text-slate-600 dark:text-slate-400">
+              <li>Permanently deletes indentation, comments, and extra spaces.</li>
+              <li>Reduces file size stored on disk, CDNs, and server caches.</li>
+              <li>Decreases the uncompressed token count that the browser parser must process.</li>
+            </ul>
+          </div>
+
+          <div className="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-3">
+            <h3 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              📦 Gzip &amp; Brotli (Transport Level)
+            </h3>
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              Compression algorithms run on your web server to compress network payloads in transit:
+            </p>
+            <ul className="space-y-1.5 text-xs list-disc list-inside text-slate-600 dark:text-slate-400">
+              <li>Applies dictionary and entropy encoding (Gzip or Brotli) on HTTP responses.</li>
+              <li>Operates at the wire layer; browsers decompress it upon download.</li>
+              <li>Works synergistically with minification: minified source files compress to even smaller network transfers.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      {/* 8. Downstream Workflows & Privacy */}
+      <section aria-labelledby="html-minifier-workflows-heading" className="space-y-4">
+        <div className="p-6 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-4 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+          <h3 id="html-minifier-workflows-heading" className="text-base font-semibold text-slate-900 dark:text-white flex items-center gap-2">
+            Related Developer Workflows &amp; Privacy
+          </h3>
+          <p>
+            If you have converted Markdown documentation into HTML using our{" "}
+            <Link
+              href="/tools/markdown-to-html"
+              className="text-brand-600 dark:text-brand-400 font-semibold underline underline-offset-2 hover:text-brand-700 dark:hover:text-brand-300"
+            >
+              Markdown to HTML Converter
+            </Link>, you can paste the generated markup here to compact it before adding it to production web templates.
+          </p>
+          <p>
+            Conversely, if you have rich HTML documents and need to strip away markup entirely to extract raw, unformatted text for word counts or plain-text summaries, use our dedicated{" "}
+            <Link
+              href="/tools/strip-html-tags"
+              className="text-brand-600 dark:text-brand-400 font-semibold underline underline-offset-2 hover:text-brand-700 dark:hover:text-brand-300"
+            >
+              Strip HTML Tags
+            </Link>{" "}
+            tool.
+          </p>
+          <div className="p-3.5 rounded-xl bg-emerald-50/70 dark:bg-emerald-950/30 border border-emerald-200/80 dark:border-emerald-800/80 text-xs text-emerald-800 dark:text-emerald-300 flex items-center gap-2">
+            <ShieldCheck size={16} className="shrink-0 text-emerald-600 dark:text-emerald-400" />
+            <span>
+              <strong>100% Client-Side Privacy:</strong> All HTML minification and byte calculations execute locally in your browser memory. Your HTML templates, proprietary code, and page content are never uploaded to any remote server.
+            </span>
+          </div>
+        </div>
+      </section>
+
+      {/* 9. Contextual Internal Linking Grid */}
+      <section aria-labelledby="html-minifier-cluster-heading" className="space-y-4">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl bg-blue-50 dark:bg-blue-950/50 border border-blue-200 dark:border-blue-800/60 flex items-center justify-center text-blue-600 dark:text-blue-400 shrink-0">
+            <Layers size={18} />
+          </div>
+          <div>
+            <h2
+              id="html-minifier-cluster-heading"
+              className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white tracking-tight"
+            >
+              Complementary Developer &amp; Markup Utilities
+            </h2>
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              Essential utilities for compiling, cleaning, and formatting web documents
+            </p>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-2.5">
+            <div className="flex items-center justify-between">
+              <Link
+                href="/tools/markdown-to-html"
+                className="text-sm font-bold text-slate-900 dark:text-white hover:text-brand-600 dark:hover:text-brand-400 transition-colors inline-flex items-center gap-1.5"
+              >
+                Markdown to HTML <ArrowRight size={14} />
+              </Link>
+              <span className="text-[11px] font-mono text-brand-600 dark:text-brand-400">Compile</span>
+            </div>
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              Convert Markdown headings, lists, links, and code blocks into clean HTML ready for minification and publication.
+            </p>
+          </div>
+
+          <div className="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-2.5">
+            <div className="flex items-center justify-between">
+              <Link
+                href="/tools/strip-html-tags"
+                className="text-sm font-bold text-slate-900 dark:text-white hover:text-brand-600 dark:hover:text-brand-400 transition-colors inline-flex items-center gap-1.5"
+              >
+                Strip HTML Tags <ArrowRight size={14} />
+              </Link>
+              <span className="text-[11px] font-mono text-emerald-600 dark:text-emerald-400">Sanitize</span>
+            </div>
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              Remove all HTML tags and markup elements from text to extract clean plain-text copy for documentation or excerpts.
+            </p>
+          </div>
+
+          <div className="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-2.5">
+            <div className="flex items-center justify-between">
+              <Link
+                href="/tools/json-formatter"
+                className="text-sm font-bold text-slate-900 dark:text-white hover:text-brand-600 dark:hover:text-brand-400 transition-colors inline-flex items-center gap-1.5"
+              >
+                JSON Formatter <ArrowRight size={14} />
+              </Link>
+              <span className="text-[11px] font-mono text-purple-600 dark:text-purple-400">Format</span>
+            </div>
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              Beautify, validate, or compact structured JSON payloads with configurable indentation and syntax error highlighting.
+            </p>
+          </div>
+
+          <div className="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-2.5">
+            <div className="flex items-center justify-between">
+              <Link
+                href="/tools/remove-extra-spaces"
+                className="text-sm font-bold text-slate-900 dark:text-white hover:text-brand-600 dark:hover:text-brand-400 transition-colors inline-flex items-center gap-1.5"
+              >
+                Remove Extra Spaces <ArrowRight size={14} />
+              </Link>
+              <span className="text-[11px] font-mono text-amber-600 dark:text-amber-400">Cleanup</span>
+            </div>
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              Clean text documents by removing duplicate spaces, tabs, and uneven indentation gaps across lines.
+            </p>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+};
+
 
 

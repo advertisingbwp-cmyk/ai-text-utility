@@ -19,6 +19,7 @@ import {
   JsonToCsvEditorial,
   CsvToJsonEditorial,
   MarkdownToHtmlEditorial,
+  HtmlMinifierEditorial,
 } from "@/components/seo/ToolEditorialSections";
 import {
   Check,
@@ -669,6 +670,7 @@ const EDITORIAL_MAP: Record<string, React.FC> = {
   "json-to-csv": JsonToCsvEditorial,
   "csv-to-json": CsvToJsonEditorial,
   "markdown-to-html": MarkdownToHtmlEditorial,
+  "html-minifier": HtmlMinifierEditorial,
 };
 
 export const ToolSeoContent: React.FC<ToolSeoContentProps> = ({ tool }) => {

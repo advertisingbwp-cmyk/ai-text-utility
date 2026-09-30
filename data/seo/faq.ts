@@ -1333,32 +1333,53 @@ export const TOOL_SPECIFIC_CONTENT: Record<
 
   "html-minifier": {
     howToSteps: [
-      "Paste your raw HTML code into the input editor.",
-      "Select minification preferences: remove whitespace, strip comments, and condense attributes.",
-      "Inspect the compressed HTML and review byte savings statistics.",
-      "Copy the minified HTML markup or download it as a `.html` file.",
+      "Paste your HTML code into the input editor or click 'Load Sample' to test with an example template.",
+      "Configure your preferences: toggle 'Strip Comments' to remove HTML comments and 'Collapse Whitespace' to eliminate redundant spacing.",
+      "The tool minifies markup in real time as you type, calculating byte reduction and percentage saved.",
+      "Click 'Copy' to copy the minified HTML to your clipboard, or click 'Download' to save the output as an `.html` file.",
     ],
     features: [
-      "Strips redundant whitespace, tabs, and line breaks outside preformatted elements",
-      "Removes standard HTML comments while preserving conditional comments",
-      "Protects embedded `<script>` and `<style>` blocks from corruption",
-      "Displays percentage size reduction and bandwidth savings",
+      "Collapses redundant inter-tag whitespace, multi-space attribute gaps, and repeated spacing in text nodes",
+      "Strips standard HTML comments while preserving conditional comments (`<!--[if ...]>`)",
+      "Protects whitespace and formatting inside `<pre>`, `<textarea>`, `<script>`, and `<style>` blocks verbatim",
+      "Live size calculation displaying original bytes, minified bytes, and exact percentage saved",
+      "100% private in-browser processing with zero server uploads or logging",
     ],
     faqs: [
       {
-        question: "Does minifying HTML change the visual appearance of my web page?",
+        question: "What is an HTML minifier?",
         answer:
-          "No. Minification only strips redundant whitespace and comments that browsers ignore when rendering. The layout, visual styling, and functionality remain identical.",
+          "An HTML minifier is a developer tool that analyzes HTML markup and removes characters that browsers do not need to parse or render the page—such as indentation spaces, extra line breaks, and unnecessary source code comments—producing compact code with a smaller transfer footprint.",
       },
       {
-        question: "Will minification break inline JavaScript or CSS?",
+        question: "What does this HTML minifier remove?",
         answer:
-          "No. Whitespace within `<script>` and `<style>` blocks is preserved safely so that JavaScript syntax and CSS property rules remain fully functional.",
+          "When both options are enabled, this tool strips standard HTML comments (`<!-- ... -->`), eliminates whitespace between adjacent tags (`> <` becomes `><`), collapses multiple spaces within opening tag attributes to a single space, and reduces consecutive spaces in text nodes to single spaces. It also trims leading and trailing document whitespace.",
       },
       {
-        question: "Why should I minify HTML files?",
+        question: "Does HTML minification change how a web page looks?",
         answer:
-          "Minifying HTML reduces page payload size, lowering bandwidth consumption and speeding up page download and parse times, which improves Core Web Vitals and SEO rankings.",
+          "In well-structured HTML, minification does not alter visual rendering because web browsers naturally collapse multiple adjacent whitespace characters in the DOM. However, if your CSS relies on whitespace sensitivity (such as `white-space: pre` or inline-block spacing), you should preview the minified output to ensure visual formatting remains as intended.",
+      },
+      {
+        question: "Are HTML comments removed, and what about conditional comments?",
+        answer:
+          "Yes, standard HTML comments are removed when the 'Strip Comments' option is checked. However, Internet Explorer conditional comments (such as `<!--[if ...]>`) are automatically detected and preserved verbatim to protect legacy browser compatibility directives.",
+      },
+      {
+        question: "Is whitespace inside <pre>, <textarea>, <script>, and <style> preserved?",
+        answer:
+          "Yes. The minifier isolates `<pre>`, `<textarea>`, `<script>`, and `<style>` blocks during processing and restores them verbatim. Formatting, indentation, code strings, and line breaks inside these tags remain untouched.",
+      },
+      {
+        question: "What is the difference between HTML minification and gzip or Brotli compression?",
+        answer:
+          "HTML minification is a source-code transformation that permanently removes unnecessary characters before deployment. Gzip and Brotli are transport-layer HTTP compression algorithms applied by web servers to compress the transfer stream. Minification and server compression complement each other: minifying HTML reduces the uncompressed token stream, resulting in even smaller compressed payloads.",
+      },
+      {
+        question: "Does this tool process HTML locally in my browser?",
+        answer:
+          "Yes, minification runs 100% client-side in your local browser memory using JavaScript. Your HTML markup, templates, and proprietary page source are never transmitted to, stored on, or logged by any server.",
       },
     ],
   },
