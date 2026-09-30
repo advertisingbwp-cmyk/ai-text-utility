@@ -1279,35 +1279,57 @@ export const TOOL_SPECIFIC_CONTENT: Record<
 
   "markdown-to-html": {
     howToSteps: [
-      "Type or paste your Markdown document into the left-hand editor.",
-      "The parser renders headings, lists, bold, italics, code blocks, blockquotes, and tables in real time.",
-      "Switch between rendered visual preview and raw HTML markup view.",
-      "Copy clean HTML code for your CMS, blog, or web page.",
+      "Type or paste your Markdown syntax into the editor, or click 'Load Sample' to populate example content.",
+      "The converter parses headings, formatting, lists, blockquotes, code blocks, and links in real time directly in your browser.",
+      "Use the Output View toggle to switch between 'HTML Source' to inspect the generated markup and 'Rendered Preview' to see visual formatting.",
+      "Click 'Copy' to copy the HTML code to your clipboard, or click 'Download' to save the output as an `.html` file.",
     ],
     features: [
-      "Fast CommonMark and GitHub Flavored Markdown (GFM) compliant parsing",
-      "Renders headings, tables, task lists, code blocks, blockquotes, and links",
-      "Live split-screen visual preview alongside raw HTML source code",
-      "Sanitized HTML output to prevent cross-site scripting (XSS)",
+      "Instant client-side conversion for headings (H1–H6), bold, italics, strikethrough, and blockquotes",
+      "Supports ordered lists (`1.`), unordered lists (`-`, `*`), and horizontal rules (`---`)",
+      "Fenced code blocks with language classes (`<code class=\"language-...\">`) and inline code formatting",
+      "Inline raw HTML escaping and protocol filtering for safe link and image destinations",
+      "Dual view modes: inspect raw HTML markup or preview styled visual output in real time",
     ],
     faqs: [
       {
-        question: "Does this tool support GitHub Flavored Markdown (GFM)?",
+        question: "What is Markdown to HTML conversion?",
         answer:
-          "Yes. It supports popular GFM syntax including tables, strikethrough (`~~text~~`), fenced code blocks with language specifiers, and task checklists.",
+          "Markdown to HTML conversion transforms lightweight, human-readable Markdown plain-text formatting (such as `#` for headings, `**` for bold, and `-` for bullet lists) into structured, semantic HTML markup (`<h1>`, `<strong>`, `<ul>`) ready for publication in web browsers, blogs, documentation portals, and content management systems.",
       },
       {
-        question: "Is the generated HTML output secure against XSS vulnerabilities?",
+        question: "How do I convert Markdown to HTML?",
         answer:
-          "Yes. Dangerous HTML elements and unescaped scripts are sanitized during visual preview to prevent script execution vulnerabilities.",
+          "Paste or type your Markdown text directly into the input editor, or click 'Load Sample'. The converter processes your text in real time. Use the 'Output View' toggle to switch between inspecting the raw 'HTML Source' code or reviewing the rendered visual elements in 'Rendered Preview', then click 'Copy' or 'Download' to export your HTML.",
       },
       {
-        question: "Can I copy the raw HTML markup directly?",
+        question: "What Markdown syntax does this converter support?",
         answer:
-          "Yes. Simply switch to the HTML code tab and click 'Copy' to copy clean, semantic HTML ready for insertion into WordPress, Webflow, or static websites.",
+          "The converter supports heading levels 1 through 6 (`#` to `######`), bold (`**text**` or `__text__`), italics (`*text*` or `_text_`), combined bold-italic (`***text***`), strikethrough (`~~text~~`), blockquotes (`>`), ordered lists (`1.`), unordered lists (`-` or `*`), horizontal rules (`---`, `***`, `___`), links (`[title](url)`), images (`![alt](url)`), inline code (` `code` `), and fenced code blocks (```).",
+      },
+      {
+        question: "Are code blocks and syntax highlighting supported?",
+        answer:
+          "Yes. Fenced code blocks with optional language identifiers (such as ```typescript) are converted into semantic `<pre><code class=\"language-typescript\">` tags, and inline code snippets are wrapped in `<code>`. Note that the converter generates standard semantic HTML classes without bundling heavy third-party syntax highlighting scripts, keeping your markup lightweight and easily styled by Prism.js, highlight.js, or Tailwind Typography.",
+      },
+      {
+        question: "Can Markdown contain raw HTML tags?",
+        answer:
+          "Any raw HTML tags embedded in your input text are automatically escaped into safe HTML entities (for example, `<script>` becomes `&lt;script&gt;` and `<div>` becomes `&lt;div&gt;`). This ensures that HTML snippets display accurately as text rather than executing as browser elements.",
+      },
+      {
+        question: "Is the generated HTML sanitized against security vulnerabilities?",
+        answer:
+          "Yes, automated protections are built in: raw HTML tags are converted to text entities, and destination URLs for links and images are strictly filtered. The converter only permits safe protocols (`http:`, `https:`, `mailto:`, relative paths, and anchor links). Unsafe protocols like `javascript:` or embedded SVG data URIs are automatically replaced with `#unsafe-url`. If you intend to render untrusted user-submitted Markdown in sensitive production environments, we recommend applying a dedicated DOM sanitizer like DOMPurify before DOM injection.",
+      },
+      {
+        question: "Does conversion happen in my browser?",
+        answer:
+          "Yes, 100% of the conversion runs locally in your browser's JavaScript memory. Your Markdown text, draft articles, and documentation files are never transmitted to, stored on, or logged by any remote server.",
       },
     ],
   },
+
 
   "html-minifier": {
     howToSteps: [

@@ -18,6 +18,7 @@ import {
   SlugGeneratorEditorial,
   JsonToCsvEditorial,
   CsvToJsonEditorial,
+  MarkdownToHtmlEditorial,
 } from "@/components/seo/ToolEditorialSections";
 import {
   Check,
@@ -667,6 +668,7 @@ const EDITORIAL_MAP: Record<string, React.FC> = {
   "slug-generator": SlugGeneratorEditorial,
   "json-to-csv": JsonToCsvEditorial,
   "csv-to-json": CsvToJsonEditorial,
+  "markdown-to-html": MarkdownToHtmlEditorial,
 };
 
 export const ToolSeoContent: React.FC<ToolSeoContentProps> = ({ tool }) => {

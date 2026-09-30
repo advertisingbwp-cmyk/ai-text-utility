@@ -426,7 +426,43 @@ export const SEO_BLUEPRINT_MAP: Record<string, ToolSeoBlueprint> = {
       "html-minifier",
     ],
   },
+  "markdown-to-html": {
+    slug: "markdown-to-html",
+    title: "Markdown to HTML Converter – Convert Markdown Online Free",
+    metaDescription:
+      "Convert Markdown to clean HTML instantly. Transform headings, links, lists, code blocks and formatted Markdown into HTML directly in your browser.",
+    h1: "Markdown to HTML Converter",
+    aboveTheFoldIntro:
+      "Convert Markdown into clean HTML instantly. Paste Markdown syntax and generate ready-to-use HTML for websites, documentation, blogs and developer workflows.",
+    primaryKeyword: "markdown to html",
+    secondaryKeywords: [
+      "markdown to html",
+      "markdown to html converter",
+      "convert markdown to html",
+      "markdown converter",
+      "markdown to html online",
+      "md to html",
+      "markdown html converter",
+      "markdown parser",
+      "markdown renderer",
+      "markdown to html code",
+      "convert md to html",
+      "markdown preview",
+      "online markdown converter",
+      "markdown syntax to html",
+      "markdown editor html",
+    ],
+    popularAnchor: "Markdown to HTML Converter",
+    clusterSlugs: [
+      "html-minifier",
+      "strip-html-tags",
+      "json-formatter",
+      "word-counter",
+      "case-converter",
+    ],
+  },
 };
+
 
 import { getToolBySlug } from "../tools/index.ts";
 

@@ -18,6 +18,7 @@ import {
   Sparkles,
   Table,
   FileSpreadsheet,
+  FileCode,
 } from "lucide-react";
 
 // ==========================================
@@ -2019,4 +2020,506 @@ Bob,31`}
     </div>
   );
 };
+
+// ==========================================
+// 14. MARKDOWN TO HTML EDITORIAL
+// ==========================================
+export const MarkdownToHtmlEditorial: React.FC = () => {
+  return (
+    <div className="space-y-12 pt-6 border-t border-slate-200 dark:border-slate-800">
+      {/* 1. What is Markdown & How Does Markdown to HTML Conversion Work? */}
+      <section aria-labelledby="md-overview-heading" className="space-y-4">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl bg-brand-50 dark:bg-brand-950/50 border border-brand-200 dark:border-brand-800/60 flex items-center justify-center text-brand-600 dark:text-brand-400 shrink-0">
+            <FileCode size={18} />
+          </div>
+          <div>
+            <h2
+              id="md-overview-heading"
+              className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white tracking-tight"
+            >
+              What is Markdown &amp; How Does Markdown to HTML Conversion Work?
+            </h2>
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              Transforming lightweight plain-text formatting into semantic, browser-renderable markup
+            </p>
+          </div>
+        </div>
+
+        <div className="p-6 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-4 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+          <p>
+            <strong className="text-slate-900 dark:text-white font-semibold">Markdown</strong> is a lightweight plain-text formatting syntax created in 2004 by John Gruber and Aaron Swartz. It allows writers and developers to format articles, documentation, notes, and README files using clean, unobtrusive punctuation characters that remain easy to read in raw text format.
+          </p>
+          <p>
+            A <strong className="text-slate-900 dark:text-white font-semibold">Markdown to HTML converter</strong> parses these plain-text markers and compiles them into standard, semantic <strong className="text-slate-900 dark:text-white font-semibold">HTML</strong> (HyperText Markup Language) tags. For example, typing a hash symbol followed by a space designates a primary document heading:
+          </p>
+
+          {/* Side-by-side Visual Code Example */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-1">
+            <div className="p-4 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-slate-50/70 dark:bg-slate-950/40 space-y-2">
+              <span className="text-xs font-bold text-brand-600 dark:text-brand-400 uppercase tracking-wider">
+                Source Markdown Input
+              </span>
+              <pre className="p-3 rounded-lg bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 text-[11px] font-mono text-slate-800 dark:text-slate-200 overflow-x-auto">
+{`# Hello World`}
+              </pre>
+            </div>
+
+            <div className="p-4 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-slate-50/70 dark:bg-slate-950/40 space-y-2">
+              <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">
+                Resulting HTML Output
+              </span>
+              <pre className="p-3 rounded-lg bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 text-[11px] font-mono text-slate-800 dark:text-slate-200 overflow-x-auto">
+{`<h1>Hello World</h1>`}
+              </pre>
+            </div>
+          </div>
+          <p>
+            Our online converter executes this translation instantaneously in your browser, enabling you to preview rendered styles, copy clean markup for your website or CMS, and download standalone HTML files with zero server roundtrips.
+          </p>
+        </div>
+      </section>
+
+      {/* 2. Step-by-Step Converter Workflow */}
+      <section aria-labelledby="md-workflow-heading" className="space-y-4">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl bg-purple-50 dark:bg-purple-950/50 border border-purple-200 dark:border-purple-800/60 flex items-center justify-center text-purple-600 dark:text-purple-400 shrink-0">
+            <Table size={18} />
+          </div>
+          <div>
+            <h2
+              id="md-workflow-heading"
+              className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white tracking-tight"
+            >
+              How to Convert Markdown to HTML Step-by-Step
+            </h2>
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              Browser-based conversion workflow with live dual-view inspection
+            </p>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
+          <div className="p-4 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-1.5">
+            <span className="text-xs font-bold text-brand-600 dark:text-brand-400 uppercase tracking-wider flex items-center gap-1.5">
+              <span className="w-5 h-5 rounded-full bg-brand-500/10 flex items-center justify-center text-[11px]">1</span>
+              Paste Markdown
+            </span>
+            <p className="text-xs text-slate-600 dark:text-slate-400">
+              Type or paste your Markdown syntax into the editor, or click &apos;Load Sample&apos; to test formatted example content.
+            </p>
+          </div>
+
+          <div className="p-4 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-1.5">
+            <span className="text-xs font-bold text-brand-600 dark:text-brand-400 uppercase tracking-wider flex items-center gap-1.5">
+              <span className="w-5 h-5 rounded-full bg-brand-500/10 flex items-center justify-center text-[11px]">2</span>
+              Live Rendering
+            </span>
+            <p className="text-xs text-slate-600 dark:text-slate-400">
+              The converter parses headings, formatting, lists, code, and links in real time as you type with zero delay.
+            </p>
+          </div>
+
+          <div className="p-4 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-1.5">
+            <span className="text-xs font-bold text-brand-600 dark:text-brand-400 uppercase tracking-wider flex items-center gap-1.5">
+              <span className="w-5 h-5 rounded-full bg-brand-500/10 flex items-center justify-center text-[11px]">3</span>
+              Switch Output View
+            </span>
+            <p className="text-xs text-slate-600 dark:text-slate-400">
+              Toggle between &apos;HTML Source&apos; to inspect the generated code and &apos;Rendered Preview&apos; to view formatted prose.
+            </p>
+          </div>
+
+          <div className="p-4 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-1.5">
+            <span className="text-xs font-bold text-brand-600 dark:text-brand-400 uppercase tracking-wider flex items-center gap-1.5">
+              <span className="w-5 h-5 rounded-full bg-brand-500/10 flex items-center justify-center text-[11px]">4</span>
+              Copy or Download
+            </span>
+            <p className="text-xs text-slate-600 dark:text-slate-400">
+              Click &apos;Copy&apos; to grab the HTML code, &apos;Download&apos; to save an <code className="font-mono text-[11px]">.html</code> file, or &apos;Swap&apos; to reuse output.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* 3. Common Markdown Syntax & HTML Output Reference Table */}
+      <section aria-labelledby="md-syntax-table-heading" className="space-y-4">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-800/60 flex items-center justify-center text-emerald-600 dark:text-emerald-400 shrink-0">
+            <Code2 size={18} />
+          </div>
+          <div>
+            <h2
+              id="md-syntax-table-heading"
+              className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white tracking-tight"
+            >
+              Supported Markdown Syntax &amp; HTML Output Reference
+            </h2>
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              Accurate breakdown of supported formatting markers and compiled HTML tags
+            </p>
+          </div>
+        </div>
+
+        <div className="overflow-x-auto rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle">
+          <table className="w-full text-left text-xs sm:text-sm">
+            <thead className="bg-slate-50/80 dark:bg-slate-950/60 border-b border-slate-200/80 dark:border-slate-800 text-[11px] font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
+              <tr>
+                <th className="py-3 px-4">Element</th>
+                <th className="py-3 px-4">Markdown Syntax</th>
+                <th className="py-3 px-4">Generated HTML Output</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-100 dark:divide-slate-800/60 font-mono text-[11px] sm:text-xs text-slate-600 dark:text-slate-300">
+              <tr>
+                <td className="py-2.5 px-4 font-sans font-medium text-slate-900 dark:text-white">Heading 1</td>
+                <td className="py-2.5 px-4 text-brand-600 dark:text-brand-400"># Heading 1</td>
+                <td className="py-2.5 px-4">&lt;h1&gt;Heading 1&lt;/h1&gt;</td>
+              </tr>
+              <tr>
+                <td className="py-2.5 px-4 font-sans font-medium text-slate-900 dark:text-white">Heading 2</td>
+                <td className="py-2.5 px-4 text-brand-600 dark:text-brand-400">## Heading 2</td>
+                <td className="py-2.5 px-4">&lt;h2&gt;Heading 2&lt;/h2&gt;</td>
+              </tr>
+              <tr>
+                <td className="py-2.5 px-4 font-sans font-medium text-slate-900 dark:text-white">Headings 3–6</td>
+                <td className="py-2.5 px-4 text-brand-600 dark:text-brand-400">### H3 to ###### H6</td>
+                <td className="py-2.5 px-4">&lt;h3&gt;H3&lt;/h3&gt; ... &lt;h6&gt;H6&lt;/h6&gt;</td>
+              </tr>
+              <tr>
+                <td className="py-2.5 px-4 font-sans font-medium text-slate-900 dark:text-white">Bold Text</td>
+                <td className="py-2.5 px-4 text-brand-600 dark:text-brand-400">**bold** or __bold__</td>
+                <td className="py-2.5 px-4">&lt;strong&gt;bold&lt;/strong&gt;</td>
+              </tr>
+              <tr>
+                <td className="py-2.5 px-4 font-sans font-medium text-slate-900 dark:text-white">Italic Text</td>
+                <td className="py-2.5 px-4 text-brand-600 dark:text-brand-400">*italic* or _italic_</td>
+                <td className="py-2.5 px-4">&lt;em&gt;italic&lt;/em&gt;</td>
+              </tr>
+              <tr>
+                <td className="py-2.5 px-4 font-sans font-medium text-slate-900 dark:text-white">Bold &amp; Italic</td>
+                <td className="py-2.5 px-4 text-brand-600 dark:text-brand-400">***bold and italic***</td>
+                <td className="py-2.5 px-4">&lt;strong&gt;&lt;em&gt;bold and italic&lt;/em&gt;&lt;/strong&gt;</td>
+              </tr>
+              <tr>
+                <td className="py-2.5 px-4 font-sans font-medium text-slate-900 dark:text-white">Strikethrough</td>
+                <td className="py-2.5 px-4 text-brand-600 dark:text-brand-400">~~deleted text~~</td>
+                <td className="py-2.5 px-4">&lt;del&gt;deleted text&lt;/del&gt;</td>
+              </tr>
+              <tr>
+                <td className="py-2.5 px-4 font-sans font-medium text-slate-900 dark:text-white">Inline Code</td>
+                <td className="py-2.5 px-4 text-brand-600 dark:text-brand-400">`const count = 42;`</td>
+                <td className="py-2.5 px-4">&lt;code&gt;const count = 42;&lt;/code&gt;</td>
+              </tr>
+              <tr>
+                <td className="py-2.5 px-4 font-sans font-medium text-slate-900 dark:text-white">Fenced Code Block</td>
+                <td className="py-2.5 px-4 text-brand-600 dark:text-brand-400">```js ... ```</td>
+                <td className="py-2.5 px-4">&lt;pre&gt;&lt;code class=&quot;language-js&quot;&gt;...&lt;/code&gt;&lt;/pre&gt;</td>
+              </tr>
+              <tr>
+                <td className="py-2.5 px-4 font-sans font-medium text-slate-900 dark:text-white">Blockquote</td>
+                <td className="py-2.5 px-4 text-brand-600 dark:text-brand-400">&gt; Quoted paragraph</td>
+                <td className="py-2.5 px-4">&lt;blockquote&gt;&lt;p&gt;Quoted paragraph&lt;/p&gt;&lt;/blockquote&gt;</td>
+              </tr>
+              <tr>
+                <td className="py-2.5 px-4 font-sans font-medium text-slate-900 dark:text-white">Unordered List</td>
+                <td className="py-2.5 px-4 text-brand-600 dark:text-brand-400">- Item or * Item</td>
+                <td className="py-2.5 px-4">&lt;ul&gt;&lt;li&gt;Item&lt;/li&gt;&lt;/ul&gt;</td>
+              </tr>
+              <tr>
+                <td className="py-2.5 px-4 font-sans font-medium text-slate-900 dark:text-white">Ordered List</td>
+                <td className="py-2.5 px-4 text-brand-600 dark:text-brand-400">1. Step one</td>
+                <td className="py-2.5 px-4">&lt;ol&gt;&lt;li&gt;Step one&lt;/li&gt;&lt;/ol&gt;</td>
+              </tr>
+              <tr>
+                <td className="py-2.5 px-4 font-sans font-medium text-slate-900 dark:text-white">Horizontal Rule</td>
+                <td className="py-2.5 px-4 text-brand-600 dark:text-brand-400">--- or ***</td>
+                <td className="py-2.5 px-4">&lt;hr /&gt;</td>
+              </tr>
+              <tr>
+                <td className="py-2.5 px-4 font-sans font-medium text-slate-900 dark:text-white">Link</td>
+                <td className="py-2.5 px-4 text-brand-600 dark:text-brand-400">[OpenAI](https://openai.com)</td>
+                <td className="py-2.5 px-4">&lt;a href=&quot;https://openai.com&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;OpenAI&lt;/a&gt;</td>
+              </tr>
+              <tr>
+                <td className="py-2.5 px-4 font-sans font-medium text-slate-900 dark:text-white">Image</td>
+                <td className="py-2.5 px-4 text-brand-600 dark:text-brand-400">![Alt](https://example.com/pic.png)</td>
+                <td className="py-2.5 px-4">&lt;img src=&quot;https://example.com/pic.png&quot; alt=&quot;Alt&quot; loading=&quot;lazy&quot; /&gt;</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p className="text-[11px] text-slate-500 dark:text-slate-400 italic">
+          * Note: Complex GitHub Flavored Markdown (GFM) extensions such as tabular pipe grids (<code className="font-mono text-[11px]">| col |</code>) and interactive task checklists (<code className="font-mono text-[11px]">- [ ]</code>) are not parsed as table or checkbox elements by this converter; they render as standard paragraph lines.
+        </p>
+      </section>
+
+      {/* 4. Headings, Lists, Links & Code Blocks Deep Dive */}
+      <section aria-labelledby="md-syntax-deepdive-heading" className="space-y-4">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl bg-amber-50 dark:bg-amber-950/50 border border-amber-200 dark:border-amber-800/60 flex items-center justify-center text-amber-600 dark:text-amber-400 shrink-0">
+            <Layers size={18} />
+          </div>
+          <div>
+            <h2
+              id="md-syntax-deepdive-heading"
+              className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white tracking-tight"
+            >
+              Headings, Lists, Links &amp; Code Blocks
+            </h2>
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              Structuring document hierarchy, navigation, and code snippets
+            </p>
+          </div>
+        </div>
+
+        <div className="p-6 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-4 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="p-4 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-slate-50/70 dark:bg-slate-950/40 space-y-2">
+              <h3 className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">
+                1. Headings (H1 to H6)
+              </h3>
+              <p className="text-xs text-slate-600 dark:text-slate-400">
+                Prefixing a line with 1 to 6 hash symbols (<code className="font-mono text-[11px]">#</code> to <code className="font-mono text-[11px]">######</code>) generates semantic <code className="font-mono text-[11px]">&lt;h1&gt;</code> through <code className="font-mono text-[11px]">&lt;h6&gt;</code> elements. Maintaining sequential heading levels is essential for clear document hierarchy, accessibility screen readers, and search engine crawling.
+              </p>
+            </div>
+
+            <div className="p-4 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-slate-50/70 dark:bg-slate-950/40 space-y-2">
+              <h3 className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">
+                2. Ordered &amp; Unordered Lists
+              </h3>
+              <p className="text-xs text-slate-600 dark:text-slate-400">
+                Start lines with hyphens (<code className="font-mono text-[11px]">-</code>) or asterisks (<code className="font-mono text-[11px]">*</code>) to generate an unordered list (<code className="font-mono text-[11px]">&lt;ul&gt;</code>). Use numbers followed by periods (<code className="font-mono text-[11px]">1.</code>, <code className="font-mono text-[11px]">2.</code>) for ordered lists (<code className="font-mono text-[11px]">&lt;ol&gt;</code>). List items are automatically wrapped in <code className="font-mono text-[11px]">&lt;li&gt;</code> tags.
+              </p>
+            </div>
+
+            <div className="p-4 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-slate-50/70 dark:bg-slate-950/40 space-y-2">
+              <h3 className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">
+                3. Links &amp; Safe Image References
+              </h3>
+              <p className="text-xs text-slate-600 dark:text-slate-400">
+                Hyperlinks (<code className="font-mono text-[11px]">[Title](URL)</code>) automatically output with <code className="font-mono text-[11px]">target=&quot;_blank&quot;</code> and <code className="font-mono text-[11px]">rel=&quot;noopener noreferrer&quot;</code> for external security. Images (<code className="font-mono text-[11px]">![Alt](URL)</code>) render with an alt attribute and <code className="font-mono text-[11px]">loading=&quot;lazy&quot;</code> for optimized web page performance.
+              </p>
+            </div>
+
+            <div className="p-4 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-slate-50/70 dark:bg-slate-950/40 space-y-2">
+              <h3 className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">
+                4. Code Blocks &amp; Language Classes
+              </h3>
+              <p className="text-xs text-slate-600 dark:text-slate-400">
+                Wrap inline identifiers in single backticks (<code className="font-mono text-[11px]">`code`</code>). Multi-line code wrapped in triple backticks generates <code className="font-mono text-[11px]">&lt;pre&gt;&lt;code class=&quot;language-xyz&quot;&gt;</code>. Note that the converter outputs standard semantic class names without bundled syntax highlighting scripts, keeping your markup lightweight and easily styled by Prism.js or highlight.js.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 5. Raw HTML Handling, Escaping & Security Guidance */}
+      <section aria-labelledby="md-security-heading" className="space-y-4">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl bg-rose-50 dark:bg-rose-950/50 border border-rose-200 dark:border-rose-800/60 flex items-center justify-center text-rose-600 dark:text-rose-400 shrink-0">
+            <ShieldCheck size={18} />
+          </div>
+          <div>
+            <h2
+              id="md-security-heading"
+              className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white tracking-tight"
+            >
+              Raw HTML Handling &amp; Security Considerations
+            </h2>
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              Understanding inline escaping, URL scheme validation, and production sanitization
+            </p>
+          </div>
+        </div>
+
+        <div className="p-6 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-4 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+          <p>
+            Security is paramount when converting formatted text into executable HTML markup. Our converter employs automated parsing safeguards to protect against common cross-site scripting (XSS) vectors:
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-1">
+            <div className="p-4 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-slate-50/70 dark:bg-slate-950/40 space-y-1.5">
+              <span className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider flex items-center gap-1.5">
+                <span className="text-brand-600">●</span> Raw HTML Escaped by Default
+              </span>
+              <p className="text-xs text-slate-600 dark:text-slate-400">
+                Any raw HTML tags entered into the Markdown editor (such as <code className="font-mono text-[11px]">&lt;script&gt;</code> or <code className="font-mono text-[11px]">&lt;div&gt;</code>) are automatically escaped into safe text entities (<code className="font-mono text-[11px]">&amp;lt;script&amp;gt;</code>). Raw HTML does not execute in the browser preview.
+              </p>
+            </div>
+
+            <div className="p-4 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-slate-50/70 dark:bg-slate-950/40 space-y-1.5">
+              <span className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider flex items-center gap-1.5">
+                <span className="text-emerald-600">●</span> Protocol Whitelisting
+              </span>
+              <p className="text-xs text-slate-600 dark:text-slate-400">
+                Links and images are strictly filtered. The parser permits only standard protocols (<code className="font-mono text-[11px]">https:</code>, <code className="font-mono text-[11px]">http:</code>, <code className="font-mono text-[11px]">mailto:</code>, relative paths, and anchor fragments). Dangerous schemes such as <code className="font-mono text-[11px]">javascript:</code> or SVG data URIs are replaced with <code className="font-mono text-[11px]">#unsafe-url</code>.
+              </p>
+            </div>
+          </div>
+
+          <div className="p-4 rounded-xl bg-amber-50/70 dark:bg-amber-950/30 border border-amber-200/80 dark:border-amber-800/80 text-xs text-amber-800 dark:text-amber-300 space-y-1.5">
+            <div className="font-semibold flex items-center gap-1.5 text-amber-900 dark:text-amber-200">
+              <AlertTriangle size={15} />
+              <span>Production Integration Advice</span>
+            </div>
+            <p>
+              While this tool sanitizes URLs and escapes raw HTML tags for safe browser rendering, developers accepting Markdown from untrusted public users in production applications should always pass converted HTML through a dedicated server-side or DOM sanitizer (such as <strong className="font-semibold">DOMPurify</strong>) prior to database storage or client DOM injection.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* 6. Markdown vs HTML & Publishing Workflows */}
+      <section aria-labelledby="md-vs-html-heading" className="space-y-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-3">
+            <h3 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              📝 Markdown vs. HTML Comparison
+            </h3>
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              Understanding when to author in Markdown versus publishing in HTML:
+            </p>
+            <ul className="space-y-1.5 text-xs list-disc list-inside text-slate-600 dark:text-slate-400">
+              <li><strong className="text-slate-800 dark:text-slate-200">Authoring Speed:</strong> Markdown minimizes typing overhead with intuitive symbols (<code className="font-mono text-[11px]">#</code>, <code className="font-mono text-[11px]">*</code>, <code className="font-mono text-[11px]">-</code>) without requiring closing tags.</li>
+              <li><strong className="text-slate-800 dark:text-slate-200">Version Control:</strong> Markdown files diff cleanly in Git without noisy tag attributes or inline styles.</li>
+              <li><strong className="text-slate-800 dark:text-slate-200">Browser Rendering:</strong> Browsers cannot directly render raw Markdown; it must be converted into HTML for web pages and applications.</li>
+            </ul>
+          </div>
+
+          <div className="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-3">
+            <h3 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              🚀 Documentation &amp; Content Workflows
+            </h3>
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              Converting Markdown to HTML powers modern publishing pipelines:
+            </p>
+            <ul className="space-y-1.5 text-xs list-disc list-inside text-slate-600 dark:text-slate-400">
+              <li><strong className="text-slate-800 dark:text-slate-200">Developer Documentation:</strong> Turn README files and release notes into formatted documentation pages.</li>
+              <li><strong className="text-slate-800 dark:text-slate-200">Static Sites &amp; Blogs:</strong> Generate HTML content for Next.js, Astro, Hugo, or Jekyll static site builds.</li>
+              <li><strong className="text-slate-800 dark:text-slate-200">CMS Publishing:</strong> Paste clean HTML directly into WordPress, Webflow, or Ghost text editors.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      {/* 7. Downstream Optimizations: Minify & Strip HTML Tags */}
+      <section aria-labelledby="md-downstream-heading" className="space-y-4">
+        <div className="p-6 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-4 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+          <h3 id="md-downstream-heading" className="text-base font-semibold text-slate-900 dark:text-white flex items-center gap-2">
+            Minifying Output &amp; Stripping HTML Markup
+          </h3>
+          <p>
+            Once you have generated your HTML markup, you can optimize it for production using our{" "}
+            <Link
+              href="/tools/html-minifier"
+              className="text-brand-600 dark:text-brand-400 font-semibold underline underline-offset-2 hover:text-brand-700 dark:hover:text-brand-300"
+            >
+              HTML Minifier
+            </Link>. Minifying removes redundant whitespace, blank lines, and unnecessary formatting to compress file size and enhance page load speeds.
+          </p>
+          <p>
+            Conversely, if you have existing HTML documents and need to extract pure plain text without tags for word counting, search indexing, or copy editing, use our dedicated{" "}
+            <Link
+              href="/tools/strip-html-tags"
+              className="text-brand-600 dark:text-brand-400 font-semibold underline underline-offset-2 hover:text-brand-700 dark:hover:text-brand-300"
+            >
+              Strip HTML Tags
+            </Link>{" "}
+            utility.
+          </p>
+          <div className="p-3.5 rounded-xl bg-emerald-50/70 dark:bg-emerald-950/30 border border-emerald-200/80 dark:border-emerald-800/80 text-xs text-emerald-800 dark:text-emerald-300 flex items-center gap-2">
+            <ShieldCheck size={16} className="shrink-0 text-emerald-600 dark:text-emerald-400" />
+            <span>
+              <strong>100% Client-Side Privacy:</strong> All Markdown parsing, HTML generation, and preview rendering run strictly within your local browser memory. No text is ever uploaded to remote servers.
+            </span>
+          </div>
+        </div>
+      </section>
+
+      {/* 8. Contextual Internal Linking */}
+      <section aria-labelledby="md-tools-cluster-heading" className="space-y-4">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl bg-blue-50 dark:bg-blue-950/50 border border-blue-200 dark:border-blue-800/60 flex items-center justify-center text-blue-600 dark:text-blue-400 shrink-0">
+            <Layers size={18} />
+          </div>
+          <div>
+            <h2
+              id="md-tools-cluster-heading"
+              className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white tracking-tight"
+            >
+              Complementary Developer &amp; Content Utilities
+            </h2>
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              Essential utilities for formatting, compressing, and inspecting text and web markup
+            </p>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-2.5">
+            <div className="flex items-center justify-between">
+              <Link
+                href="/tools/html-minifier"
+                className="text-sm font-bold text-slate-900 dark:text-white hover:text-brand-600 dark:hover:text-brand-400 transition-colors inline-flex items-center gap-1.5"
+              >
+                HTML Minifier <ArrowRight size={14} />
+              </Link>
+              <span className="text-[11px] font-mono text-brand-600 dark:text-brand-400">Compress</span>
+            </div>
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              Compress generated HTML by stripping redundant whitespace and comments to accelerate web page loading speeds.
+            </p>
+          </div>
+
+          <div className="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-2.5">
+            <div className="flex items-center justify-between">
+              <Link
+                href="/tools/strip-html-tags"
+                className="text-sm font-bold text-slate-900 dark:text-white hover:text-brand-600 dark:hover:text-brand-400 transition-colors inline-flex items-center gap-1.5"
+              >
+                Strip HTML Tags <ArrowRight size={14} />
+              </Link>
+              <span className="text-[11px] font-mono text-emerald-600 dark:text-emerald-400">Sanitize</span>
+            </div>
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              Remove HTML tags and markup from rich text, leaving clean plain-text copy for documentation or excerpts.
+            </p>
+          </div>
+
+          <div className="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-2.5">
+            <div className="flex items-center justify-between">
+              <Link
+                href="/tools/word-counter"
+                className="text-sm font-bold text-slate-900 dark:text-white hover:text-brand-600 dark:hover:text-brand-400 transition-colors inline-flex items-center gap-1.5"
+              >
+                Word Counter <ArrowRight size={14} />
+              </Link>
+              <span className="text-[11px] font-mono text-purple-600 dark:text-purple-400">Metrics</span>
+            </div>
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              Analyze word count, character metrics, paragraph totals, and reading time for your Markdown draft articles.
+            </p>
+          </div>
+
+          <div className="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-2.5">
+            <div className="flex items-center justify-between">
+              <Link
+                href="/tools/case-converter"
+                className="text-sm font-bold text-slate-900 dark:text-white hover:text-brand-600 dark:hover:text-brand-400 transition-colors inline-flex items-center gap-1.5"
+              >
+                Case Converter <ArrowRight size={14} />
+              </Link>
+              <span className="text-[11px] font-mono text-amber-600 dark:text-amber-400">Format</span>
+            </div>
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              Standardize headings and titles between Title Case, UPPERCASE, lowercase, and sentence case before exporting to HTML.
+            </p>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+};
+
 
