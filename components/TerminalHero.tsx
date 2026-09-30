@@ -66,7 +66,7 @@ export const TerminalHero: React.FC = () => {
         <div className="lg:col-span-6 w-full min-w-0 flex flex-col items-start text-left space-y-4 sm:space-y-5">
           {/* Eyebrow Pill */}
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-500/10 dark:bg-brand-500/15 border border-blue-500/20 text-brand-700 dark:text-brand-300 text-xs font-semibold tracking-tight shadow-2xs">
-            <Sparkles size={13} className="text-brand-600 dark:text-brand-400" />
+            <Zap size={13} className="text-brand-600 dark:text-brand-400 fill-brand-600/20" />
             <span>{totalTools} Powerful Tools</span>
           </div>
 
@@ -80,18 +80,18 @@ export const TerminalHero: React.FC = () => {
 
           {/* Supporting Paragraph */}
           <p className="text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed max-w-lg">
-            Analyze, transform, clean, format, and generate text with modern browser-based utilities. Most standard tools run locally in your browser, while AI tools use server-side requests.
+            Analyze, transform, clean, and generate text with modern, fast and privacy-focused tools. Built for developers, writers and everyone who works with text.
           </p>
 
-          {/* Compact 3-item Trust Row (Figma Layout) */}
+          {/* Compact 3-item Trust Row (Reference Image Layout) */}
           <div className="w-full pt-2 flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-5 text-left">
             <div className="flex items-center gap-2.5">
               <div className="w-9 h-9 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center shrink-0 border border-blue-500/20">
                 <ShieldCheck size={18} aria-hidden="true" />
               </div>
               <div>
-                <div className="text-xs font-bold text-slate-900 dark:text-white">Standard Tools Local</div>
-                <div className="text-[11px] text-slate-500 dark:text-slate-400">Most standard utilities run in-browser</div>
+                <div className="text-xs font-bold text-slate-900 dark:text-white">Private &amp; Secure</div>
+                <div className="text-[11px] text-slate-500 dark:text-slate-400">Most tools run in your browser</div>
               </div>
             </div>
 
@@ -101,7 +101,7 @@ export const TerminalHero: React.FC = () => {
               </div>
               <div>
                 <div className="text-xs font-bold text-slate-900 dark:text-white">Fast Processing</div>
-                <div className="text-[11px] text-slate-500 dark:text-slate-400">Browser-based deterministic utilities</div>
+                <div className="text-[11px] text-slate-500 dark:text-slate-400">Instant results as you work</div>
               </div>
             </div>
 
@@ -110,8 +110,8 @@ export const TerminalHero: React.FC = () => {
                 <Sparkles size={18} aria-hidden="true" />
               </div>
               <div>
-                <div className="text-xs font-bold text-slate-900 dark:text-white">AI Tools</div>
-                <div className="text-[11px] text-slate-500 dark:text-slate-400">Server-assisted where required</div>
+                <div className="text-xs font-bold text-slate-900 dark:text-white">AI Powered</div>
+                <div className="text-[11px] text-slate-500 dark:text-slate-400">Advanced tools with AI</div>
               </div>
             </div>
           </div>
