@@ -50,7 +50,7 @@ export const TEXT_TOOLS: ToolDefinition[] = [
     category: "Text",
     layout: "transform",
     description: "Strip all Unicode emojis and pictographs while preserving original punctuation and words.",
-    icon: "SmilePlus",
+    icon: "Eraser",
     keywords: ["strip emojis", "remove icons", "unicode cleaner", "emoticons"],
     featured: false,
     logicReference: "removeEmojis",

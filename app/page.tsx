@@ -68,27 +68,27 @@ const RecentToolCard: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
 
   return (
     <div
-      className={`card-3d group relative flex flex-col justify-between rounded-2xl bg-gradient-to-br ${recentTheme.cardBg} ${recentTheme.border} p-4 sm:p-4.5 active:scale-[0.99]`}
+      className={`card-3d group relative flex flex-col justify-between rounded-2xl bg-gradient-to-br ${recentTheme.cardBg} ${recentTheme.border} p-3.5 sm:p-4 active:scale-[0.99]`}
     >
       <div>
-        <div className="flex items-center justify-between gap-2 mb-2.5">
+        <div className="flex items-center justify-between gap-2 mb-2 sm:mb-2.5">
           <div
-            className={`w-11 h-11 rounded-xl flex items-center justify-center transition-all duration-200 group-hover:scale-110 shrink-0 border ${theme.bg} ${theme.border} icon-3d`}
+            className={`w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center transition-all duration-200 group-hover:scale-110 shrink-0 border ${theme.bg} ${theme.border} icon-3d`}
             aria-hidden="true"
           >
             <DynamicIcon
               name={tool.icon}
-              size={20}
+              size={18}
               className={`${theme.text} transition-transform duration-200 group-hover:rotate-3`}
             />
           </div>
 
           <div className="relative z-20">
-            <FavoriteStar toolId={tool.id} toolName={tool.name} size={15} className="p-1" />
+            <FavoriteStar toolId={tool.id} toolName={tool.name} size={15} />
           </div>
         </div>
 
-        <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors mb-1 line-clamp-1">
+        <h3 className="text-xs sm:text-sm font-bold text-slate-900 dark:text-slate-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors mb-1 line-clamp-1">
           <Link
             href={`/tools/${tool.slug}`}
             className="focus:outline-none focus:underline after:content-[''] after:absolute after:inset-0 after:rounded-2xl after:z-0"
@@ -96,20 +96,25 @@ const RecentToolCard: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
             {tool.name}
           </Link>
         </h3>
-        <p className="text-xs text-[#5F6F89] dark:text-slate-400 leading-relaxed line-clamp-2">
+        <p className="text-[11px] sm:text-xs text-[#5F6F89] dark:text-slate-400 leading-relaxed line-clamp-2">
           {tool.description}
         </p>
       </div>
 
-      <div className="mt-3.5 pt-2.5 border-t border-[rgba(100,120,160,0.12)] dark:border-slate-800/60 flex items-center justify-between text-xs">
-        <span className={`text-[10px] sm:text-[11px] font-semibold px-2.5 py-0.5 rounded-md border ${recentTheme.badge} shadow-2xs backdrop-blur-xs`}>
-          {tool.category}
-        </span>
+      <div className="mt-3 pt-2.5 border-t border-[rgba(100,120,160,0.12)] dark:border-slate-800/60 flex items-center justify-between text-xs">
+        <div className="flex items-center gap-1.5 truncate max-w-[70%]">
+          <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-md border truncate ${recentTheme.badge} shadow-2xs backdrop-blur-xs`}>
+            {tool.category}
+          </span>
+          <span className="text-[9px] font-medium px-1.5 py-0.2 rounded bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20 shrink-0">
+            Recent
+          </span>
+        </div>
         <span
-          className="relative z-10 w-7 h-7 rounded-full bg-white/70 dark:bg-slate-800/70 border border-white/80 dark:border-slate-700/60 text-slate-500 dark:text-slate-400 group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:to-indigo-600 group-hover:text-white group-hover:border-transparent group-hover:shadow-[0_4px_10px_rgba(37,99,235,0.30)] flex items-center justify-center transition-all shadow-2xs shrink-0"
+          className="relative z-10 w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-white/70 dark:bg-slate-800/70 border border-white/80 dark:border-slate-700/60 text-slate-500 dark:text-slate-400 group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:to-indigo-600 group-hover:text-white group-hover:border-transparent group-hover:shadow-[0_4px_10px_rgba(37,99,235,0.30)] flex items-center justify-center transition-all shadow-2xs shrink-0"
           aria-hidden="true"
         >
-          <ArrowRight size={13} className="transition-transform duration-200 group-hover:translate-x-0.5" />
+          <ArrowRight size={12} className="transition-transform duration-200 group-hover:translate-x-0.5" />
         </span>
       </div>
     </div>
@@ -167,37 +172,35 @@ export default function HomePage() {
     <div className="w-full max-w-7xl mx-auto space-y-6 sm:space-y-8 pb-16">
       <TerminalHero />
 
-      {/* Prominent Floating Search Bar (3D Spatial Capsule) */}
-      <div className="relative group w-full max-w-2xl mx-auto -mt-2 sm:-mt-4">
+      {/* Floating Search Bar (Balanced SaaS Capsule) */}
+      <div className="relative group w-full max-w-xl mx-auto -mt-2 sm:-mt-3">
         {/* Subtle Outer Ambient Glows: Soft Blue & Violet Accent */}
-        <div className="absolute -inset-1.5 bg-gradient-to-r from-blue-500/20 via-sky-400/15 to-purple-500/25 rounded-full blur-md opacity-60 group-hover:opacity-90 transition duration-300 -z-10" />
+        <div className="absolute -inset-1 bg-gradient-to-r from-blue-500/15 via-sky-400/10 to-purple-500/20 rounded-full blur-xs opacity-30 group-hover:opacity-60 transition duration-300 -z-10" />
         
         <button
           type="button"
           onClick={() => window.dispatchEvent(new CustomEvent("open-command-palette"))}
           aria-label="Search tools, categories or features"
-          className="search-glass-bar w-full flex items-center justify-between gap-3 px-4 sm:px-5 py-3 sm:py-3.5 rounded-full cursor-pointer group text-left active:scale-[0.99]"
+          className="search-glass-bar w-full flex items-center justify-between gap-3 px-4 sm:px-5 py-2.5 sm:py-3 rounded-full cursor-pointer group text-left active:scale-[0.99]"
         >
           <div className="flex items-center gap-3">
-            <Search size={18} className="text-brand-600 dark:text-brand-400 group-hover:scale-110 transition-transform shrink-0" />
+            <Search size={17} className="text-brand-600 dark:text-brand-400 group-hover:scale-110 transition-transform shrink-0" />
             <span className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 font-normal group-hover:text-slate-800 dark:group-hover:text-slate-200">
               Search tools, categories or features...
             </span>
           </div>
           <div className="flex items-center shrink-0">
             <div className="relative">
-              {/* Extremely subtle purple glow near the arrow button */}
-              <div className="absolute -inset-1 bg-purple-500/30 rounded-full blur-xs opacity-70 group-hover:opacity-100 transition-opacity" />
-              <div className="relative w-8 h-8 rounded-full bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 text-white flex items-center justify-center shadow-3d-button group-hover:scale-105 active:scale-95 transition-all">
-                <ArrowRight size={14} />
+              <div className="relative w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 text-white flex items-center justify-center shadow-3d-button group-hover:scale-105 active:scale-95 transition-all">
+                <ArrowRight size={13} />
               </div>
             </div>
           </div>
         </button>
       </div>
 
-      {/* Category Filter Rail (Light Glass Pills) */}
-      <section id="tools-section" className="w-full min-w-0 scroll-mt-24">
+      {/* Category Filter Rail (Functional Filters Only) */}
+      <section id="tools-section" className="w-full min-w-0 scroll-mt-24 space-y-2">
         <div className="flex items-center justify-start sm:justify-center overflow-x-auto pb-2 scrollbar-none gap-2 sm:gap-2.5">
           <button
             type="button"
@@ -248,10 +251,11 @@ export default function HomePage() {
               </button>
             );
           })}
+        </div>
 
-          <div className="shrink-0 pl-1">
-            <AdsterraSmartLink variant="badge" label="Featured Deals" />
-          </div>
+        {/* Promotional Secondary Callout (Cleanly separated from category rail) */}
+        <div className="flex items-center justify-end px-1">
+          <AdsterraSmartLink variant="badge" label="Featured Deals" />
         </div>
       </section>
 
@@ -273,10 +277,10 @@ export default function HomePage() {
             </div>
             <a
               href="#tools-section"
-              className="text-xs font-semibold text-brand-600 dark:text-brand-400 hover:text-brand-700 dark:hover:text-brand-300 hover:underline inline-flex items-center gap-1 transition-colors"
+              className="group/viewall inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold text-brand-600 dark:text-brand-400 hover:text-brand-700 dark:hover:text-brand-300 bg-white/50 dark:bg-slate-800/50 hover:bg-white/80 dark:hover:bg-slate-700/60 border border-white/60 dark:border-slate-700/50 backdrop-blur-xs shadow-2xs transition-all duration-200"
             >
-              <span>View all</span>
-              <ArrowRight size={13} />
+              <span>View all tools</span>
+              <ArrowRight size={12} className="transition-transform duration-200 group-hover/viewall:translate-x-0.5" />
             </a>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5 sm:gap-4">
@@ -383,10 +387,10 @@ export default function HomePage() {
       {/* Factual Information & Guidance Card (Moved down to preserve first viewport) */}
       <section className="max-w-4xl mx-auto rounded-2xl border border-white/70 dark:border-slate-800/80 bg-white/65 dark:bg-slate-900/60 backdrop-blur-md p-6 sm:p-8 space-y-3.5 shadow-xs" aria-labelledby="intro-heading">
         <h2 id="intro-heading" className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white tracking-tight">Free online text tools for everyday work</h2>
-        <p className="text-sm leading-relaxed text-[#5F6F89] dark:text-slate-400">
+        <p className="text-sm leading-relaxed text-[#5F6F89] dark:text-slate-400 max-w-[72ch]">
           AI Text Utility is a collection of browser-based tools for writers, students, developers, and office workflows. Use the tools to count words and characters, clean lists, change text case, format JSON, test regular expressions, encode data, generate identifiers, work with dates, or prepare text for publishing. Most utilities process your input locally in the browser, so routine text transformations do not need a server upload.
         </p>
-        <p className="text-sm leading-relaxed text-[#5F6F89] dark:text-slate-400">
+        <p className="text-sm leading-relaxed text-[#5F6F89] dark:text-slate-400 max-w-[72ch]">
           Each tool page includes practical instructions, feature details, common questions, limitations, and links to related utilities. AI Magic tools are optional and clearly separated from the browser-only tools because they require a server request to an AI provider.
         </p>
       </section>
@@ -409,7 +413,7 @@ export default function HomePage() {
             </div>
             <h3 className="font-bold text-slate-900 dark:text-white text-sm">For writing</h3>
             <p className="text-xs leading-relaxed text-[#5F6F89] dark:text-slate-400">
-              Use Word Counter for length checks, Case Converter for capitalization, Cleanup tools for messy text, and the AI writing tools when you want an assisted rewrite.
+              Use <Link href="/tools/word-counter" className="text-brand-600 dark:text-brand-400 font-medium hover:underline">Word Counter</Link> for length checks, <Link href="/tools/case-converter" className="text-brand-600 dark:text-brand-400 font-medium hover:underline">Case Converter</Link> for capitalization, <Link href="/tools/remove-extra-spaces" className="text-brand-600 dark:text-brand-400 font-medium hover:underline">Cleanup tools</Link> for messy text, and the AI writing tools when you want an assisted rewrite.
             </p>
           </div>
           <div className="p-5 rounded-2xl border border-white/70 dark:border-slate-800/80 bg-white/65 dark:bg-slate-900/60 backdrop-blur-md space-y-3 shadow-xs hover:shadow-md transition-all">
@@ -418,7 +422,7 @@ export default function HomePage() {
             </div>
             <h3 className="font-bold text-slate-900 dark:text-white text-sm">For developers</h3>
             <p className="text-xs leading-relaxed text-[#5F6F89] dark:text-slate-400">
-              Use JSON Formatter, Regex Tester, Base64, UUID, JWT, URL encoding, hashing, and date utilities for quick checks during development.
+              Use <Link href="/tools/json-formatter" className="text-brand-600 dark:text-brand-400 font-medium hover:underline">JSON Formatter</Link>, <Link href="/tools/regex-tester" className="text-brand-600 dark:text-brand-400 font-medium hover:underline">Regex Tester</Link>, <Link href="/tools/base64" className="text-brand-600 dark:text-brand-400 font-medium hover:underline">Base64</Link>, <Link href="/tools/uuid-generator" className="text-brand-600 dark:text-brand-400 font-medium hover:underline">UUID</Link>, <Link href="/tools/jwt-decoder" className="text-brand-600 dark:text-brand-400 font-medium hover:underline">JWT</Link>, <Link href="/tools/url-encoder" className="text-brand-600 dark:text-brand-400 font-medium hover:underline">URL encoding</Link>, hashing, and date utilities for quick checks during development.
             </p>
           </div>
           <div className="p-5 rounded-2xl border border-white/70 dark:border-slate-800/80 bg-white/65 dark:bg-slate-900/60 backdrop-blur-md space-y-3 shadow-xs hover:shadow-md transition-all">
@@ -427,18 +431,18 @@ export default function HomePage() {
             </div>
             <h3 className="font-bold text-slate-900 dark:text-white text-sm">For privacy</h3>
             <p className="text-xs leading-relaxed text-[#5F6F89] dark:text-slate-400">
-              For ordinary transformations, processing stays in your browser. For AI tools, read the Privacy Policy before submitting text because those requests necessarily leave the browser.
+              For ordinary transformations, processing stays in your browser. For AI tools, read the <Link href="/privacy" className="text-brand-600 dark:text-brand-400 font-medium hover:underline">Privacy Policy</Link> before submitting text because those requests necessarily leave the browser.
             </p>
           </div>
         </div>
-        <div className="flex flex-wrap gap-4 text-xs pt-1">
-          <Link href="/about" className="inline-flex items-center gap-1 font-semibold text-brand-600 dark:text-brand-400 hover:underline">
+        <div className="flex flex-wrap items-center justify-center gap-6 text-xs pt-2">
+          <Link href="/about" className="inline-flex items-center gap-1 font-semibold text-brand-600 dark:text-brand-400 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40 rounded-sm">
             About the project <ArrowRight size={13} />
           </Link>
-          <Link href="/privacy" className="inline-flex items-center gap-1 font-semibold text-brand-600 dark:text-brand-400 hover:underline">
+          <Link href="/privacy" className="inline-flex items-center gap-1 font-semibold text-brand-600 dark:text-brand-400 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40 rounded-sm">
             Privacy Policy <ArrowRight size={13} />
           </Link>
-          <Link href="/contact" className="inline-flex items-center gap-1 font-semibold text-brand-600 dark:text-brand-400 hover:underline">
+          <Link href="/contact" className="inline-flex items-center gap-1 font-semibold text-brand-600 dark:text-brand-400 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40 rounded-sm">
             Contact support <ArrowRight size={13} />
           </Link>
         </div>

@@ -61,19 +61,21 @@ export const FavoriteStar: React.FC<FavoriteStarProps> = ({
       type="button"
       onClick={handleClick}
       aria-label={labelText}
+      title={labelText}
       className={cn(
-        "inline-flex items-center justify-center min-w-[44px] min-h-[44px] p-2 rounded-lg transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-amber-400/50 hover:bg-slate-100/80 dark:hover:bg-slate-800/80",
+        "relative z-20 inline-flex items-center justify-center min-w-[36px] min-h-[36px] w-9 h-9 rounded-full transition-all duration-150 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-1",
         favorite
-          ? "text-amber-500 hover:text-amber-400"
-          : "text-slate-400 hover:text-slate-600 dark:text-slate-500 dark:hover:text-slate-300",
+          ? "bg-amber-500/15 text-amber-500 border border-amber-400/40 shadow-xs hover:bg-amber-500/25 hover:scale-105"
+          : "bg-white/50 dark:bg-slate-800/40 text-slate-400 dark:text-slate-500 border border-white/70 dark:border-slate-700/60 shadow-2xs hover:text-amber-500 dark:hover:text-amber-400 hover:bg-white/80 dark:hover:bg-slate-700/60 hover:scale-105",
         className
       )}
     >
       <Star
         size={size}
+        strokeWidth={2.2}
         className={cn(
           "transition-transform active:scale-125",
-          favorite ? "fill-amber-400 text-amber-400" : ""
+          favorite ? "fill-amber-400 text-amber-500" : ""
         )}
       />
       {showLabel && (

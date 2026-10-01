@@ -37,9 +37,9 @@ export const Footer: React.FC = () => {
 
           {/* Col 2: Categories */}
           <div className="md:col-span-3 space-y-3">
-            <h4 className="text-xs font-bold text-slate-900 dark:text-slate-100 tracking-normal">
+            <h3 className="text-xs font-bold text-slate-900 dark:text-slate-100 tracking-normal">
               Tool Categories
-            </h4>
+            </h3>
             <ul className="space-y-2 text-xs text-slate-500 dark:text-slate-400">
               {CATEGORIES.map((cat) => (
                 <li key={cat.name}>
@@ -56,9 +56,9 @@ export const Footer: React.FC = () => {
 
           {/* Col 3: Resources & Trust */}
           <div className="md:col-span-3 space-y-3">
-            <h4 className="text-xs font-bold text-slate-900 dark:text-slate-100 tracking-normal">
+            <h3 className="text-xs font-bold text-slate-900 dark:text-slate-100 tracking-normal">
               Legal & Resources
-            </h4>
+            </h3>
             <ul className="space-y-2 text-xs text-slate-500 dark:text-slate-400">
               <li>
                 <Link href="/about" className="hover:text-slate-900 dark:hover:text-white transition-colors">

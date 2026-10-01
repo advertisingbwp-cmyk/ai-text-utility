@@ -133,16 +133,25 @@ export const TerminalHero: React.FC = () => {
                 </div>
 
                 {/* Preset Selector Tabs */}
-                <div className="flex items-center gap-1 overflow-x-auto scrollbar-none py-1 min-w-0">
+                <div
+                  role="tablist"
+                  aria-label="Interactive Demo Presets"
+                  className="flex items-center gap-1 overflow-x-auto scrollbar-none py-1 min-w-0"
+                >
                   {PRESETS.map((preset) => (
                     <button
                       key={preset.id}
+                      id={`demo-tab-${preset.id}`}
+                      role="tab"
+                      aria-selected={activePreset.id === preset.id}
+                      aria-controls="demo-tabpanel"
+                      tabIndex={activePreset.id === preset.id ? 0 : -1}
                       type="button"
                       onClick={() => setActivePreset(preset)}
-                      className={`px-2.5 py-1 rounded-lg text-xs transition-all cursor-pointer whitespace-nowrap flex items-center gap-1.5 ${
+                      className={`h-7 px-2.5 rounded-lg text-xs transition-all cursor-pointer whitespace-nowrap flex items-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/50 ${
                         activePreset.id === preset.id
-                          ? "bg-white/90 dark:bg-slate-800 text-slate-900 dark:text-white shadow-[0_2px_6px_rgba(0,0,0,0.06),inset_0_1px_0_rgba(255,255,255,1)] font-bold border border-white/80 dark:border-slate-700/80 scale-[1.02]"
-                          : "text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 font-medium"
+                          ? "bg-white/95 dark:bg-slate-800 text-slate-900 dark:text-white shadow-[0_2px_6px_rgba(0,0,0,0.06),inset_0_1px_0_rgba(255,255,255,1)] font-bold border border-white/80 dark:border-slate-700/80 scale-[1.02]"
+                          : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-white/40 dark:hover:bg-slate-800/40 font-medium"
                       }`}
                     >
                       {activePreset.id === preset.id && <Sparkles size={11} className="text-amber-500" />}
@@ -159,7 +168,12 @@ export const TerminalHero: React.FC = () => {
               </div>
 
               {/* Preview Body: Split Input/Output View */}
-              <div className="p-4 sm:p-5 space-y-3">
+              <div
+                id="demo-tabpanel"
+                role="tabpanel"
+                aria-labelledby={`demo-tab-${activePreset.id}`}
+                className="p-4 sm:p-5 space-y-3"
+              >
                 <div className="grid grid-cols-1 sm:grid-cols-[1fr_auto_1fr] items-center gap-3">
                   {/* Input Box */}
                   <div className="space-y-1">
@@ -188,7 +202,7 @@ export const TerminalHero: React.FC = () => {
                         type="button"
                         onClick={handleCopy}
                         aria-label="Copy demo output"
-                        className="text-[11px] text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1 cursor-pointer font-medium"
+                        className="h-6 px-2 rounded-md border border-slate-200/80 dark:border-slate-700/70 bg-white/70 dark:bg-slate-800/70 backdrop-blur-xs text-[11px] font-medium text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-white dark:hover:bg-slate-800 hover:border-slate-300 dark:hover:border-slate-600 shadow-2xs inline-flex items-center gap-1 cursor-pointer transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40"
                       >
                         {copied ? <Check size={11} className="text-emerald-500" /> : <RefreshCw size={11} />}
                         <span>{copied ? "Copied" : "Copy"}</span>
