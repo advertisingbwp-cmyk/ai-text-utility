@@ -80,26 +80,6 @@ export const Footer: React.FC = () => {
                   Terms of Service
                 </Link>
               </li>
-              <li>
-                <a
-                  href="/robots.txt"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-slate-900 dark:hover:text-white transition-colors"
-                >
-                  Robots Directive
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/sitemap.xml"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-slate-900 dark:hover:text-white transition-colors"
-                >
-                  XML Sitemap
-                </a>
-              </li>
             </ul>
           </div>
         </div>
