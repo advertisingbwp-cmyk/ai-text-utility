@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { AppShell } from "@/components/AppShell";
-import Script from "next/script";
 
 export const metadata: Metadata = {
   metadataBase: new URL(
@@ -118,12 +117,6 @@ export default function RootLayout({
       </head>
       <body className="bg-slate-50 dark:bg-[#090d16] text-slate-900 dark:text-slate-100 antialiased selection:bg-brand-500/15 selection:text-brand-700 dark:selection:text-brand-300">
         <AppShell>{children}</AppShell>
-
-        {/* Adsterra Social Bar */}
-        <Script
-          src="https://pl31247527.profitableratecpmnetwork.com/bb/2d/0c/bb2d0c583cc5168221edaaa19801920a.js"
-          strategy="lazyOnload"
-        />
       </body>
     </html>
   );
