@@ -184,10 +184,7 @@ export default function HomePage() {
               Search tools, categories or features...
             </span>
           </div>
-          <div className="flex items-center gap-2 shrink-0">
-            <kbd className="hidden sm:inline-flex items-center gap-0.5 text-[11px] font-mono px-2 py-1 rounded-lg border border-slate-200/80 dark:border-slate-700/80 bg-white/70 dark:bg-slate-800/70 text-slate-500 dark:text-slate-400 font-semibold shadow-2xs">
-              ⌘K
-            </kbd>
+          <div className="flex items-center shrink-0">
             <div className="relative">
               {/* Extremely subtle purple glow near the arrow button */}
               <div className="absolute -inset-1 bg-purple-500/30 rounded-full blur-xs opacity-70 group-hover:opacity-100 transition-opacity" />

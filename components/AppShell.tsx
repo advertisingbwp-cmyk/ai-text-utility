@@ -5,6 +5,7 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { CommandPalette } from "@/components/CommandPalette";
 import { CursorGlow } from "@/components/CursorGlow";
+import { ScrollAurora } from "@/components/ScrollAurora";
 
 export const AppShell: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [paletteOpen, setPaletteOpen] = useState(false);
@@ -28,17 +29,35 @@ export const AppShell: React.FC<{ children: React.ReactNode }> = ({ children }) 
 
   return (
     <div className="relative min-h-screen text-slate-900 dark:text-slate-100 flex flex-col transition-colors selection:bg-brand-500/20 selection:text-brand-700 dark:selection:text-brand-300 overflow-x-clip">
-      {/* Modern Liquid Glass Aurora Spatial Backdrop System */}
+      {/* Modern Liquid Glass Aurora Spatial Backdrop System with Parallax Wrappers */}
       <div className="aurora-canvas pointer-events-none select-none" aria-hidden="true">
-        <div className="aurora-ambient-glows" />
-        <div className="liquid-wave-left" />
-        <div className="liquid-wave-center-right" />
-        <div className="liquid-wave-bottom-right" />
-        <div className="liquid-wave-far-right" />
-        <div className="liquid-glass-sphere-1" />
-        <div className="liquid-glass-sphere-2" />
+        <div className="parallax-ambient">
+          <div className="aurora-ambient-glows" />
+        </div>
+        <div className="parallax-wave-left">
+          <div className="liquid-wave-left" />
+        </div>
+        <div className="parallax-wave-center">
+          <div className="liquid-wave-center-right" />
+        </div>
+        <div className="parallax-wave-bottom">
+          <div className="liquid-wave-bottom-right" />
+        </div>
+        <div className="parallax-wave-far">
+          <div className="liquid-wave-far-right" />
+        </div>
+        <div className="parallax-sphere-1">
+          <div className="liquid-glass-sphere-1" />
+        </div>
+        <div className="parallax-sphere-2">
+          <div className="liquid-glass-sphere-2" />
+        </div>
         <div className="search-ambient-glow" />
+        <div className="aurora-scroll-tint" />
       </div>
+
+      {/* Autonomous Scroll Parallax Driver */}
+      <ScrollAurora />
 
       {/* Desktop Subtle Cursor-Following Radial Glow */}
       <CursorGlow />

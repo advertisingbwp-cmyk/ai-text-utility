@@ -381,6 +381,102 @@ body {
   }
 }
 
+/* ========================================================
+   AURORA SCROLL PARALLAX SYSTEM
+   ======================================================== */
+.parallax-ambient,
+.parallax-wave-left,
+.parallax-wave-center,
+.parallax-wave-bottom,
+.parallax-wave-far,
+.parallax-sphere-1,
+.parallax-sphere-2 {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  will-change: transform;
+}
+
+/* Ambient glow: vertical movement around 10–18px */
+.parallax-ambient {
+  transform: translate3d(0, calc(var(--scroll-p, 0) * -14px), 0);
+}
+
+/* Left liquid wave: vertical movement around 20–28px, slight horizontal drift around 5–10px, subtle scale */
+.parallax-wave-left {
+  transform: translate3d(
+    calc(var(--scroll-p, 0) * 8px),
+    calc(var(--scroll-p, 0) * 24px),
+    0
+  ) scale(calc(1 + var(--scroll-p, 0) * 0.015));
+}
+
+/* Center-right wave: opposite-direction vertical movement around 18–26px, subtle scale */
+.parallax-wave-center {
+  transform: translate3d(
+    calc(var(--scroll-p, 0) * -5px),
+    calc(var(--scroll-p, 0) * -22px),
+    0
+  ) scale(calc(1 + var(--scroll-p, 0) * 0.02));
+}
+
+/* Bottom-right wave: vertical movement around 25–35px */
+.parallax-wave-bottom {
+  transform: translate3d(
+    calc(var(--scroll-p, 0) * -8px),
+    calc(var(--scroll-p, 0) * 30px),
+    0
+  );
+}
+
+/* Far-right wave: subtle drift */
+.parallax-wave-far {
+  transform: translate3d(
+    0,
+    calc(var(--scroll-p, 0) * -18px),
+    0
+  );
+}
+
+/* Large glass sphere: around 20–30px movement + depth scale */
+.parallax-sphere-1 {
+  transform: translate3d(
+    calc(var(--scroll-p, 0) * -10px),
+    calc(var(--scroll-p, 0) * 26px),
+    0
+  ) scale(calc(1 + var(--scroll-p, 0) * 0.02));
+}
+
+/* Small sphere: around 12–20px movement (opposite direction) */
+.parallax-sphere-2 {
+  transform: translate3d(
+    calc(var(--scroll-p, 0) * 7px),
+    calc(var(--scroll-p, 0) * -16px),
+    0
+  );
+}
+
+/* Scroll Tint Layer: Top is pure cyan/sky, scrolling down introduces subtle lavender/violet */
+.aurora-scroll-tint {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 70% 40%, rgba(184, 165, 255, 0.28) 0%, transparent 60%),
+    radial-gradient(circle at 30% 70%, rgba(154, 124, 255, 0.18) 0%, transparent 50%);
+  filter: blur(40px);
+  opacity: calc(var(--scroll-p, 0) * 0.65);
+  transition: opacity 80ms linear;
+}
+
+.dark .aurora-scroll-tint {
+  background:
+    radial-gradient(ellipse at 70% 40%, rgba(139, 92, 246, 0.20) 0%, transparent 60%),
+    radial-gradient(circle at 30% 70%, rgba(168, 85, 247, 0.14) 0%, transparent 50%);
+  filter: blur(50px);
+  opacity: calc(var(--scroll-p, 0) * 0.65);
+}
+
 /* Reduced Motion Safety */
 @media (prefers-reduced-motion: reduce) {
   .liquid-wave-left,
@@ -390,9 +486,20 @@ body {
   .liquid-glass-sphere-1,
   .liquid-glass-sphere-2,
   .search-ambient-glow,
-  .aurora-ambient-glows {
+  .aurora-ambient-glows,
+  .parallax-ambient,
+  .parallax-wave-left,
+  .parallax-wave-center,
+  .parallax-wave-bottom,
+  .parallax-wave-far,
+  .parallax-sphere-1,
+  .parallax-sphere-2,
+  .aurora-scroll-tint {
     animation: none !important;
     transform: none !important;
+  }
+  .aurora-scroll-tint {
+    opacity: 0 !important;
   }
 }
 
@@ -413,6 +520,23 @@ body {
   .liquid-glass-sphere-1,
   .liquid-glass-sphere-2 {
     display: none;
+  }
+  .parallax-ambient {
+    transform: translate3d(0, calc(var(--scroll-p, 0) * -7px), 0);
+  }
+  .parallax-wave-left {
+    transform: translate3d(
+      calc(var(--scroll-p, 0) * 4px),
+      calc(var(--scroll-p, 0) * 12px),
+      0
+    ) scale(calc(1 + var(--scroll-p, 0) * 0.01));
+  }
+  .parallax-wave-center {
+    transform: translate3d(
+      0,
+      calc(var(--scroll-p, 0) * -11px),
+      0
+    ) scale(calc(1 + var(--scroll-p, 0) * 0.01));
   }
 }
 
