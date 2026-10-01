@@ -8,9 +8,9 @@ import { BrandLogo } from "@/components/BrandLogo";
 
 export const Footer: React.FC = () => {
   return (
-    <footer className="border-t border-slate-200/80 dark:border-slate-800/80 bg-white/50 dark:bg-slate-950/50 backdrop-blur-sm transition-colors mt-12">
+    <footer className="border-t border-white/60 dark:border-slate-800/80 bg-white/45 dark:bg-slate-950/50 backdrop-blur-md transition-colors mt-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-10">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-10 pb-8 border-b border-slate-200/80 dark:border-slate-800/80">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-10 pb-8 border-b border-[rgba(100,120,160,0.12)] dark:border-slate-800/80">
           {/* Col 1: Brand & Purpose */}
           <div className="md:col-span-6 space-y-4 max-w-md">
             <Link href="/" className="inline-flex items-center group" aria-label="AI Text Utility Home">

@@ -182,11 +182,11 @@ export const ToolLayout: React.FC<ToolLayoutProps> = ({
       </nav>
 
       {/* Tool Header Card */}
-      <div className="rounded-2xl border border-slate-200/90 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/50 p-6 shadow-subtle backdrop-blur-xs">
+      <div className="rounded-2xl border border-white/70 dark:border-slate-800/80 bg-white/68 dark:bg-slate-900/60 p-6 shadow-[0_12px_35px_rgba(55,95,180,0.08),inset_0_1px_0_rgba(255,255,255,0.85)] backdrop-blur-md">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="flex items-start gap-4">
             <div
-              className={`w-12 h-12 rounded-xl flex items-center justify-center shrink-0 shadow-xs border ${theme.bg} ${theme.border}`}
+              className={`w-12 h-12 rounded-xl flex items-center justify-center shrink-0 shadow-xs border ${theme.bg} ${theme.border} icon-3d`}
             >
               <span className="text-2xl select-none" role="img" aria-hidden="true">
                 {theme.emoji}
@@ -208,7 +208,7 @@ export const ToolLayout: React.FC<ToolLayoutProps> = ({
                   {tool.category}
                 </span>
                 {tool.supportsLiveMode && (
-                  <span className="text-xs font-medium px-2.5 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800">
+                  <span className="text-xs font-medium px-2.5 py-0.5 rounded-full bg-emerald-50/90 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-400 border border-emerald-200/80 dark:border-emerald-800">
                     Live Auto-Run
                   </span>
                 )}
@@ -262,8 +262,8 @@ export const ToolLayout: React.FC<ToolLayoutProps> = ({
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
           {/* Input Panel */}
           {!hideDefaultInput && (
-            <div className="flex flex-col rounded-2xl border border-slate-200/90 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/60 overflow-hidden shadow-subtle">
-              <div className="flex items-center justify-between px-4 py-3 border-b border-slate-200/80 dark:border-slate-800 bg-slate-50/80 dark:bg-slate-950/40">
+            <div className="flex flex-col rounded-2xl border border-white/70 dark:border-slate-800/80 bg-white/68 dark:bg-slate-900/60 overflow-hidden shadow-[0_12px_35px_rgba(55,95,180,0.08),inset_0_1px_0_rgba(255,255,255,0.85)] backdrop-blur-md">
+              <div className="flex items-center justify-between px-4 py-3 border-b border-[rgba(100,120,160,0.12)] dark:border-slate-800 bg-white/60 dark:bg-slate-950/40 backdrop-blur-xs">
                 <span className="text-xs font-semibold text-slate-700 dark:text-slate-300 flex items-center gap-2">
                   <FileText size={14} className="text-slate-400" />
                   Input Text
@@ -273,7 +273,7 @@ export const ToolLayout: React.FC<ToolLayoutProps> = ({
                     <button
                       type="button"
                       onClick={() => onInputChange(tool.sampleInput || "")}
-                      className="px-2 py-1 text-[11px] font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 bg-slate-100 dark:bg-slate-800/60 hover:bg-slate-200 dark:hover:bg-slate-800 rounded-md transition-colors"
+                      className="px-2 py-1 text-[11px] font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 bg-white/70 dark:bg-slate-800/60 hover:bg-white/90 dark:hover:bg-slate-800 rounded-md border border-white/60 dark:border-slate-700/60 shadow-2xs transition-colors"
                     >
                       Load Sample
                     </button>
@@ -301,7 +301,7 @@ export const ToolLayout: React.FC<ToolLayoutProps> = ({
               />
 
               {/* Input Live Stats Bar */}
-              <div className="flex items-center justify-between px-4 py-2 border-t border-slate-200/80 dark:border-slate-800/80 bg-slate-50/80 dark:bg-slate-950/60 text-[11px] text-slate-500 dark:text-slate-400 font-mono flex-wrap gap-2">
+              <div className="flex items-center justify-between px-4 py-2 border-t border-[rgba(100,120,160,0.12)] dark:border-slate-800/80 bg-white/50 dark:bg-slate-950/60 text-[11px] text-slate-500 dark:text-slate-400 font-mono flex-wrap gap-2 backdrop-blur-xs">
                 <div className="flex items-center gap-3">
                   <span>{stats.words.toLocaleString()} words</span>
                   <span>•</span>
@@ -319,8 +319,8 @@ export const ToolLayout: React.FC<ToolLayoutProps> = ({
 
           {/* Output Panel / Preview */}
           {!hideDefaultOutput && (
-            <div className="flex flex-col rounded-2xl border border-slate-200/90 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/60 overflow-hidden shadow-subtle">
-              <div className="flex items-center justify-between px-4 py-3 border-b border-slate-200/80 dark:border-slate-800 bg-slate-50/80 dark:bg-slate-950/40">
+            <div className="flex flex-col rounded-2xl border border-white/70 dark:border-slate-800/80 bg-white/68 dark:bg-slate-900/60 overflow-hidden shadow-[0_12px_35px_rgba(55,95,180,0.08),inset_0_1px_0_rgba(255,255,255,0.85)] backdrop-blur-md">
+              <div className="flex items-center justify-between px-4 py-3 border-b border-[rgba(100,120,160,0.12)] dark:border-slate-800 bg-white/60 dark:bg-slate-950/40 backdrop-blur-xs">
                 <span className="text-xs font-semibold text-slate-700 dark:text-slate-300">
                   Output Result
                 </span>
@@ -366,7 +366,7 @@ export const ToolLayout: React.FC<ToolLayoutProps> = ({
                 />
               )}
 
-              <div className="flex items-center justify-between px-4 py-2 border-t border-slate-200/80 dark:border-slate-800/80 bg-slate-50/80 dark:bg-slate-950/60 text-xs text-slate-500 dark:text-slate-400 font-mono">
+              <div className="flex items-center justify-between px-4 py-2 border-t border-[rgba(100,120,160,0.12)] dark:border-slate-800/80 bg-white/50 dark:bg-slate-950/60 text-xs text-slate-500 dark:text-slate-400 font-mono backdrop-blur-xs">
                 <span>{output ? `${output.length} characters generated` : "Waiting for input"}</span>
                 <span className="text-xs text-slate-400">Read-only</span>
               </div>
@@ -377,10 +377,10 @@ export const ToolLayout: React.FC<ToolLayoutProps> = ({
 
       {/* Main Action Bar */}
       {!hideActionBar && (
-        <div className="flex items-center justify-between gap-3 p-4 rounded-2xl border border-slate-200/90 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/40 shadow-subtle">
+        <div className="flex items-center justify-between gap-3 p-4 rounded-2xl border border-white/70 dark:border-slate-800/80 bg-white/68 dark:bg-slate-900/50 shadow-[0_12px_35px_rgba(55,95,180,0.08),inset_0_1px_0_rgba(255,255,255,0.85)] backdrop-blur-md">
           <div className="text-xs text-slate-500 dark:text-slate-400 hidden sm:block">
             Press{" "}
-            <kbd className="font-mono bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300">
+            <kbd className="font-mono bg-white/70 dark:bg-slate-800 px-1.5 py-0.5 rounded border border-white/80 dark:border-slate-700 text-slate-700 dark:text-slate-300 shadow-2xs">
               Ctrl+Enter
             </kbd>{" "}
             to run
@@ -391,7 +391,7 @@ export const ToolLayout: React.FC<ToolLayoutProps> = ({
               <button
                 type="button"
                 onClick={onClear}
-                className="px-4 py-2 text-xs font-semibold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 border border-slate-200 dark:border-slate-700/80 bg-white dark:bg-slate-800/80 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition-colors shadow-xs"
+                className="px-4 py-2 text-xs font-semibold text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-slate-100 border border-white/80 dark:border-slate-700/80 bg-white/70 dark:bg-slate-800/80 hover:bg-white/90 dark:hover:bg-slate-800 rounded-xl transition-colors shadow-2xs backdrop-blur-xs"
               >
                 Clear
               </button>
@@ -424,14 +424,14 @@ export const ToolLayout: React.FC<ToolLayoutProps> = ({
       {/* Shortcuts Modal */}
       {showShortcutsHelp && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 dark:bg-black/75 backdrop-blur-sm animate-in fade-in"
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 dark:bg-black/75 backdrop-blur-md animate-in fade-in"
           onClick={() => setShowShortcutsHelp(false)}
         >
           <div
-            className="w-full max-w-md rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-6 shadow-2xl text-slate-900 dark:text-slate-100 animate-in zoom-in-95"
+            className="w-full max-w-md rounded-2xl border border-white/70 dark:border-slate-700 bg-white/85 dark:bg-slate-900/90 backdrop-blur-xl p-6 shadow-2xl text-slate-900 dark:text-slate-100 animate-in zoom-in-95"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="flex items-center justify-between pb-4 border-b border-slate-200 dark:border-slate-800">
+            <div className="flex items-center justify-between pb-4 border-b border-[rgba(100,120,160,0.12)] dark:border-slate-800">
               <h3 className="text-base font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
                 <HelpCircle size={18} className="text-brand-600 dark:text-brand-400" />
                 Keyboard Shortcuts
