@@ -26,7 +26,7 @@ export const ToolCard: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
             />
           </div>
 
-          <div className="relative z-20 flex items-center">
+          <div className="relative z-20 flex items-center -mr-1 -mt-1">
             <FavoriteStar toolId={tool.id} toolName={tool.name} size={15} />
           </div>
         </div>

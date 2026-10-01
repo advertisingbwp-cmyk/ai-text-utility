@@ -63,26 +63,34 @@ export const FavoriteStar: React.FC<FavoriteStarProps> = ({
       aria-label={labelText}
       title={labelText}
       className={cn(
-        "relative z-20 inline-flex items-center justify-center min-w-[36px] min-h-[36px] w-9 h-9 rounded-full transition-all duration-150 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-1",
-        favorite
-          ? "bg-amber-500/15 text-amber-500 border border-amber-400/40 shadow-xs hover:bg-amber-500/25 hover:scale-105"
-          : "bg-white/50 dark:bg-slate-800/40 text-slate-400 dark:text-slate-500 border border-white/70 dark:border-slate-700/60 shadow-2xs hover:text-amber-500 dark:hover:text-amber-400 hover:bg-white/80 dark:hover:bg-slate-700/60 hover:scale-105",
+        "group/fav relative z-20 inline-flex items-center justify-center min-w-[44px] min-h-[44px] w-11 h-11 rounded-full cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-1 p-0 transition-transform active:scale-[0.98]",
+        showLabel && "w-auto px-1",
         className
       )}
     >
-      <Star
-        size={size}
-        strokeWidth={2.2}
+      <span
         className={cn(
-          "transition-transform active:scale-125",
-          favorite ? "fill-amber-400 text-amber-500" : ""
+          "w-9 h-9 min-w-[36px] min-h-[36px] rounded-full flex items-center justify-center transition-all duration-150 pointer-events-none",
+          favorite
+            ? "bg-amber-500/15 text-amber-500 border border-amber-400/40 shadow-xs group-hover/fav:bg-amber-500/25 group-hover/fav:scale-105"
+            : "bg-white/50 dark:bg-slate-800/40 text-slate-400 dark:text-slate-500 border border-white/70 dark:border-slate-700/60 shadow-2xs group-hover/fav:text-amber-500 dark:group-hover/fav:text-amber-400 group-hover/fav:bg-white/80 dark:group-hover/fav:bg-slate-700/60 group-hover/fav:scale-105",
+          showLabel && "w-auto px-2.5"
         )}
-      />
-      {showLabel && (
-        <span className="text-xs font-medium ml-1.5">
-          {favorite ? "Favorited" : "Favorite"}
-        </span>
-      )}
+      >
+        <Star
+          size={size}
+          strokeWidth={2.2}
+          className={cn(
+            "transition-transform group-active/fav:scale-125 shrink-0",
+            favorite ? "fill-amber-400 text-amber-500" : ""
+          )}
+        />
+        {showLabel && (
+          <span className="text-xs font-medium ml-1.5 shrink-0">
+            {favorite ? "Favorited" : "Favorite"}
+          </span>
+        )}
+      </span>
     </button>
   );
 };

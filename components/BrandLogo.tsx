@@ -148,7 +148,7 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({
           </span>
         </div>
         {showSubtitle && (
-          <span className="text-[10px] sm:text-[11px] font-medium text-slate-500 dark:text-slate-400 leading-none mt-0.5 tracking-normal">
+          <span className="text-xs font-medium text-slate-500 dark:text-slate-400 leading-none mt-0.5 tracking-normal">
             Fast, Private &amp; Client-Side
           </span>
         )}

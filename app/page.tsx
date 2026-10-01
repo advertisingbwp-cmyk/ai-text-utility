@@ -83,7 +83,7 @@ const RecentToolCard: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
             />
           </div>
 
-          <div className="relative z-20">
+          <div className="relative z-20 flex items-center -mr-1 -mt-1">
             <FavoriteStar toolId={tool.id} toolName={tool.name} size={15} />
           </div>
         </div>
@@ -277,7 +277,7 @@ export default function HomePage() {
             </div>
             <a
               href="#tools-section"
-              className="group/viewall inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold text-brand-600 dark:text-brand-400 hover:text-brand-700 dark:hover:text-brand-300 bg-white/50 dark:bg-slate-800/50 hover:bg-white/80 dark:hover:bg-slate-700/60 border border-white/60 dark:border-slate-700/50 backdrop-blur-xs shadow-2xs transition-all duration-200"
+              className="btn-secondary h-8 px-3 rounded-full text-xs font-semibold text-brand-600 dark:text-brand-400 hover:text-brand-700 dark:hover:text-brand-300 group/viewall inline-flex items-center gap-1.5 transition-all duration-200"
             >
               <span>View all tools</span>
               <ArrowRight size={12} className="transition-transform duration-200 group-hover/viewall:translate-x-0.5" />

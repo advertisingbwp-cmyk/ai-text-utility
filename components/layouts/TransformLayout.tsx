@@ -81,7 +81,7 @@ export const TransformLayout: React.FC<WorkspaceProps> = ({
                 <button
                   type="button"
                   onClick={() => onInputChange(tool.sampleInput || "")}
-                  className="min-h-10 px-3 py-1.5 text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white bg-slate-100/90 dark:bg-slate-800/70 hover:bg-slate-200/80 dark:hover:bg-slate-700/80 rounded-xl transition-colors cursor-pointer active:scale-[0.98] inline-flex items-center"
+                  className="btn-secondary h-8 px-3 text-xs font-semibold cursor-pointer active:scale-[0.98] inline-flex items-center"
                 >
                   Load Sample
                 </button>
@@ -92,7 +92,7 @@ export const TransformLayout: React.FC<WorkspaceProps> = ({
                   onClick={onClear}
                   disabled={!input && !output}
                   aria-label="Clear input and output"
-                  className="min-w-10 min-h-10 flex items-center justify-center p-2 text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 hover:bg-rose-500/10 disabled:opacity-30 rounded-xl transition-all cursor-pointer active:scale-[0.96]"
+                  className="btn-icon text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 hover:bg-rose-500/10 disabled:opacity-30 cursor-pointer active:scale-[0.96]"
                   title="Clear (Ctrl+Shift+X)"
                 >
                   <Trash2 size={16} />
@@ -143,7 +143,7 @@ export const TransformLayout: React.FC<WorkspaceProps> = ({
                   onClick={onSwap}
                   disabled={!output}
                   aria-label="Swap result to input"
-                  className="min-w-10 min-h-10 flex items-center justify-center p-2 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white hover:bg-white dark:hover:bg-slate-800 border border-transparent hover:border-slate-200/80 dark:hover:border-slate-700/80 disabled:opacity-30 rounded-xl transition-all cursor-pointer group active:scale-[0.96]"
+                  className="btn-icon text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white disabled:opacity-30 cursor-pointer group active:scale-[0.96]"
                   title="Swap output to input"
                 >
                   <ArrowLeftRight size={15} className="transition-transform duration-200 group-hover:rotate-180" />
@@ -155,7 +155,7 @@ export const TransformLayout: React.FC<WorkspaceProps> = ({
                   onClick={handleDownload}
                   disabled={!output && !input}
                   aria-label="Download result as text file"
-                  className="min-w-10 min-h-10 flex items-center justify-center p-2 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white hover:bg-white dark:hover:bg-slate-800 border border-transparent hover:border-slate-200/80 dark:hover:border-slate-700/80 disabled:opacity-30 rounded-xl transition-all cursor-pointer active:scale-[0.96]"
+                  className="btn-icon text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white disabled:opacity-30 cursor-pointer active:scale-[0.96]"
                   title="Download as .txt"
                 >
                   <Download size={15} />

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { Search, ArrowRight, ShieldCheck, Zap, Lock, Sparkles, Check, RefreshCw } from "lucide-react";
 import { TOOLS_REGISTRY } from "@/data/toolsRegistry";
 
@@ -52,11 +52,35 @@ export const TerminalHero: React.FC = () => {
   const [activePreset, setActivePreset] = useState<DemoPreset>(PRESETS[0]);
   const [copied, setCopied] = useState(false);
   const totalTools = TOOLS_REGISTRY.length;
+  const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
   const handleCopy = () => {
     navigator.clipboard.writeText(activePreset.output);
     setCopied(true);
     setTimeout(() => setCopied(false), 1500);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent, index: number) => {
+    let nextIndex = index;
+    if (e.key === "ArrowRight") {
+      e.preventDefault();
+      nextIndex = (index + 1) % PRESETS.length;
+    } else if (e.key === "ArrowLeft") {
+      e.preventDefault();
+      nextIndex = (index - 1 + PRESETS.length) % PRESETS.length;
+    } else if (e.key === "Home") {
+      e.preventDefault();
+      nextIndex = 0;
+    } else if (e.key === "End") {
+      e.preventDefault();
+      nextIndex = PRESETS.length - 1;
+    } else {
+      return;
+    }
+
+    const nextPreset = PRESETS[nextIndex];
+    setActivePreset(nextPreset);
+    tabRefs.current[nextIndex]?.focus();
   };
 
   return (
@@ -138,9 +162,12 @@ export const TerminalHero: React.FC = () => {
                   aria-label="Interactive Demo Presets"
                   className="flex items-center gap-1 overflow-x-auto scrollbar-none py-1 min-w-0"
                 >
-                  {PRESETS.map((preset) => (
+                  {PRESETS.map((preset, index) => (
                     <button
                       key={preset.id}
+                      ref={(el) => {
+                        tabRefs.current[index] = el;
+                      }}
                       id={`demo-tab-${preset.id}`}
                       role="tab"
                       aria-selected={activePreset.id === preset.id}
@@ -148,6 +175,7 @@ export const TerminalHero: React.FC = () => {
                       tabIndex={activePreset.id === preset.id ? 0 : -1}
                       type="button"
                       onClick={() => setActivePreset(preset)}
+                      onKeyDown={(e) => handleKeyDown(e, index)}
                       className={`h-7 px-2.5 rounded-lg text-xs transition-all cursor-pointer whitespace-nowrap flex items-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/50 ${
                         activePreset.id === preset.id
                           ? "bg-white/95 dark:bg-slate-800 text-slate-900 dark:text-white shadow-[0_2px_6px_rgba(0,0,0,0.06),inset_0_1px_0_rgba(255,255,255,1)] font-bold border border-white/80 dark:border-slate-700/80 scale-[1.02]"
@@ -202,7 +230,7 @@ export const TerminalHero: React.FC = () => {
                         type="button"
                         onClick={handleCopy}
                         aria-label="Copy demo output"
-                        className="h-6 px-2 rounded-md border border-slate-200/80 dark:border-slate-700/70 bg-white/70 dark:bg-slate-800/70 backdrop-blur-xs text-[11px] font-medium text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-white dark:hover:bg-slate-800 hover:border-slate-300 dark:hover:border-slate-600 shadow-2xs inline-flex items-center gap-1 cursor-pointer transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40"
+                        className="btn-secondary h-6 px-2 text-[11px] font-medium inline-flex items-center gap-1 cursor-pointer transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40"
                       >
                         {copied ? <Check size={11} className="text-emerald-500" /> : <RefreshCw size={11} />}
                         <span>{copied ? "Copied" : "Copy"}</span>
