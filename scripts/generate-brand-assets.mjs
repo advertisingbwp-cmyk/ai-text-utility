@@ -1,134 +1,227 @@
-import fs from "fs";
-import path from "path";
-import sharp from "sharp";
+import sharp from 'sharp';
+import fs from 'fs';
+import path from 'path';
 
-const rootDir = process.cwd();
-const publicDir = path.join(rootDir, "public");
-const brandDir = path.join(publicDir, "brand");
+// Helper to create ICO file from PNG buffer
+function createIco(pngBuffer) {
+  // 6 bytes header + 16 bytes directory entry + png data
+  const header = Buffer.alloc(6);
+  header.writeUInt16LE(0, 0); // reserved
+  header.writeUInt16LE(1, 2); // ICO type
+  header.writeUInt16LE(1, 4); // 1 image
 
-if (!fs.existsSync(brandDir)) {
-  fs.mkdirSync(brandDir, { recursive: true });
+  const entry = Buffer.alloc(16);
+  entry.writeUInt8(32, 0); // width 32
+  entry.writeUInt8(32, 1); // height 32
+  entry.writeUInt8(0, 2); // color count
+  entry.writeUInt8(0, 3); // reserved
+  entry.writeUInt16LE(1, 4); // color planes
+  entry.writeUInt16LE(32, 6); // bits per pixel
+  entry.writeUInt32LE(pngBuffer.length, 8); // image size
+  entry.writeUInt32LE(22, 12); // offset (6 + 16)
+
+  return Buffer.concat([header, entry, pngBuffer]);
 }
 
-const iconSvgPath = path.join(rootDir, "app", "icon.svg");
-const iconSvgBuffer = fs.readFileSync(iconSvgPath);
+// 1. Icon SVG (with dark navy rounded square background for app icon / favicon)
+export const appIconSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <defs>
+    <linearGradient id="ai_arch_grad" x1="12" y1="52" x2="50" y2="48" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#06B6D4" />
+      <stop offset="25%" stop-color="#0EA5E9" />
+      <stop offset="50%" stop-color="#3B82F6" />
+      <stop offset="72%" stop-color="#7C3AED" />
+      <stop offset="88%" stop-color="#9333EA" />
+      <stop offset="100%" stop-color="#EC4899" />
+    </linearGradient>
+    <linearGradient id="ai_ring_back" x1="36" y1="23" x2="48" y2="34" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#3B82F6" />
+      <stop offset="60%" stop-color="#6366F1" />
+      <stop offset="100%" stop-color="#7E22CE" />
+    </linearGradient>
+    <linearGradient id="ai_ring_front" x1="19" y1="38" x2="48" y2="28" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0EA5E9" />
+      <stop offset="35%" stop-color="#38BDF8" />
+      <stop offset="70%" stop-color="#818CF8" />
+      <stop offset="90%" stop-color="#A855F7" />
+      <stop offset="100%" stop-color="#C084FC" />
+    </linearGradient>
+    <linearGradient id="ai_sparkle_grad" x1="44" y1="6" x2="52" y2="14" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="40%" stop-color="#E0F2FE" />
+      <stop offset="80%" stop-color="#38BDF8" />
+      <stop offset="100%" stop-color="#818CF8" />
+    </linearGradient>
+    <filter id="ribbon_drop_shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="-0.8" dy="1.8" stdDeviation="1.2" flood-color="#020617" flood-opacity="0.55" />
+    </filter>
+  </defs>
 
-const logoSvgPath = path.join(brandDir, "logo.svg");
-const logoSvgBuffer = fs.readFileSync(logoSvgPath);
+  <!-- Dark navy squircle background -->
+  <rect width="64" height="64" rx="16" fill="#0F172A" />
 
-async function generateAssets() {
-  console.log("Generating brand assets with Sharp...");
+  <g transform="translate(0.5, 0.5)">
+    <!-- 1. BACK RING: wraps behind the right leg -->
+    <path
+      d="M 37 24 C 40 21 44.5 21.5 47 24.5 C 49 27.2 48.5 30.5 46 33.5"
+      stroke="url(#ai_ring_back)"
+      stroke-width="5.2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
 
-  // 1. Favicon PNGs
-  await sharp(iconSvgBuffer).resize(16, 16).png().toFile(path.join(publicDir, "favicon-16x16.png"));
-  console.log("✓ public/favicon-16x16.png");
+    <!-- 2. MAIN A ARCH -->
+    <path
+      d="M 16 49.5 L 28 14 C 29.5 9.8 32.5 9.8 34 14 L 46 49.5"
+      stroke="url(#ai_arch_grad)"
+      stroke-width="9.5"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
 
-  await sharp(iconSvgBuffer).resize(32, 32).png().toFile(path.join(publicDir, "favicon-32x32.png"));
-  console.log("✓ public/favicon-32x32.png");
+    <!-- 3. FRONT RIBBON / CROSSBAR -->
+    <path
+      d="M 19 37.5 C 23.5 34 31 28.8 38.5 27.8 C 43.5 27 47.2 29 47.8 32 C 48.2 35 45 37.5 40.5 38.5 C 34 40 25.5 41 20 39.2 Z"
+      fill="url(#ai_ring_front)"
+      filter="url(#ribbon_drop_shadow)"
+    />
 
-  await sharp(iconSvgBuffer).resize(48, 48).png().toFile(path.join(publicDir, "favicon-48x48.png"));
-  console.log("✓ public/favicon-48x48.png");
+    <!-- 4. SPECULAR HIGHLIGHT on front ribbon crest -->
+    <path
+      d="M 23.5 36 C 28 33 34.5 29.5 39.5 28.8 C 43 28.3 45.2 29 45 30.2 C 44 31.5 40 33 35.5 34.2 C 29.5 35.5 25 36.5 23.5 36 Z"
+      fill="rgba(255, 255, 255, 0.45)"
+    />
 
-  // Legacy favicon.ico from 32x32 PNG
-  await sharp(iconSvgBuffer).resize(32, 32).toFormat("png").toFile(path.join(publicDir, "favicon.ico"));
-  console.log("✓ public/favicon.ico");
+    <!-- 5. 4-POINT AI SPARKLE -->
+    <path
+      d="M 48 5.5 Q 48 11 42.5 11 Q 48 11 48 16.5 Q 48 11 53.5 11 Q 48 11 48 5.5 Z"
+      fill="url(#ai_sparkle_grad)"
+    />
+    <circle cx="48" cy="11" r="1.2" fill="#FFFFFF" />
+  </g>
+</svg>`;
 
-  // 2. Apple Touch Icon (180x180)
-  await sharp(iconSvgBuffer).resize(180, 180).png().toFile(path.join(publicDir, "apple-touch-icon.png"));
-  console.log("✓ public/apple-touch-icon.png");
+// 2. Standalone Master Mark SVG (transparent background, for BrandLogo component and brand SVGs)
+export const masterMarkSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <defs>
+    <linearGradient id="ai_arch_grad" x1="12" y1="52" x2="50" y2="48" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#06B6D4" />
+      <stop offset="25%" stop-color="#0EA5E9" />
+      <stop offset="50%" stop-color="#3B82F6" />
+      <stop offset="72%" stop-color="#7C3AED" />
+      <stop offset="88%" stop-color="#9333EA" />
+      <stop offset="100%" stop-color="#EC4899" />
+    </linearGradient>
+    <linearGradient id="ai_ring_back" x1="36" y1="23" x2="48" y2="34" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#3B82F6" />
+      <stop offset="60%" stop-color="#6366F1" />
+      <stop offset="100%" stop-color="#7E22CE" />
+    </linearGradient>
+    <linearGradient id="ai_ring_front" x1="19" y1="38" x2="48" y2="28" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0EA5E9" />
+      <stop offset="35%" stop-color="#38BDF8" />
+      <stop offset="70%" stop-color="#818CF8" />
+      <stop offset="90%" stop-color="#A855F7" />
+      <stop offset="100%" stop-color="#C084FC" />
+    </linearGradient>
+    <linearGradient id="ai_sparkle_grad" x1="44" y1="6" x2="52" y2="14" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="40%" stop-color="#E0F2FE" />
+      <stop offset="80%" stop-color="#38BDF8" />
+      <stop offset="100%" stop-color="#818CF8" />
+    </linearGradient>
+    <filter id="ribbon_drop_shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="-0.8" dy="1.8" stdDeviation="1.2" flood-color="#020617" flood-opacity="0.55" />
+    </filter>
+  </defs>
 
-  // 3. Android PWA Icons (192 & 512)
-  await sharp(iconSvgBuffer).resize(192, 192).png().toFile(path.join(publicDir, "android-chrome-192x192.png"));
-  console.log("✓ public/android-chrome-192x192.png");
+  <g class="brand-logo-symbol">
+    <!-- 1. BACK RING: wraps behind the right leg -->
+    <path
+      d="M 37 24 C 40 21 44.5 21.5 47 24.5 C 49 27.2 48.5 30.5 46 33.5"
+      stroke="url(#ai_ring_back)"
+      stroke-width="5.2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
 
-  await sharp(iconSvgBuffer).resize(512, 512).png().toFile(path.join(publicDir, "android-chrome-512x512.png"));
-  console.log("✓ public/android-chrome-512x512.png");
+    <!-- 2. MAIN A ARCH -->
+    <path
+      d="M 16 49.5 L 28 14 C 29.5 9.8 32.5 9.8 34 14 L 46 49.5"
+      stroke="url(#ai_arch_grad)"
+      stroke-width="9.5"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
 
-  // 4. Source 512x512 App Icon
-  await sharp(iconSvgBuffer).resize(512, 512).png().toFile(path.join(brandDir, "icon-512.png"));
-  console.log("✓ public/brand/icon-512.png");
+    <!-- 3. FRONT RIBBON / CROSSBAR -->
+    <path
+      d="M 19 37.5 C 23.5 34 31 28.8 38.5 27.8 C 43.5 27 47.2 29 47.8 32 C 48.2 35 45 37.5 40.5 38.5 C 34 40 25.5 41 20 39.2 Z"
+      fill="url(#ai_ring_front)"
+      filter="url(#ribbon_drop_shadow)"
+    />
 
-  // 5. Horizontal Logo PNG (High-Res transparent)
-  await sharp(logoSvgBuffer).resize(1300).png().toFile(path.join(brandDir, "logo.png"));
-  console.log("✓ public/brand/logo.png");
+    <!-- 4. SPECULAR HIGHLIGHT on front ribbon crest -->
+    <path
+      d="M 23.5 36 C 28 33 34.5 29.5 39.5 28.8 C 43 28.3 45.2 29 45 30.2 C 44 31.5 40 33 35.5 34.2 C 29.5 35.5 25 36.5 23.5 36 Z"
+      fill="rgba(255, 255, 255, 0.45)"
+    />
 
-  // 6. Social OpenGraph Card (1200x630)
-  // Create crisp SVG background with brand mark & typography
-  const ogSvg = `
-  <svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
-    <defs>
-      <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stop-color="#090d16" />
-        <stop offset="50%" stop-color="#0f172a" />
-        <stop offset="100%" stop-color="#020617" />
-      </linearGradient>
-      <linearGradient id="ai_cyan" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stop-color="#38bdf8" />
-        <stop offset="100%" stop-color="#2563eb" />
-      </linearGradient>
-      <linearGradient id="glow" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.15" />
-        <stop offset="100%" stop-color="#38bdf8" stop-opacity="0.0" />
-      </linearGradient>
-    </defs>
-
-    <!-- Background -->
-    <rect width="1200" height="630" fill="url(#bg)" />
-
-    <!-- Ambient glow circle -->
-    <circle cx="600" cy="240" r="340" fill="url(#glow)" />
-
-    <!-- Logo Icon Container (140x140) -->
-    <g transform="translate(530, 90)">
-      <rect width="140" height="140" rx="35" fill="#1e293b" stroke="#334155" stroke-width="3" />
-      <g transform="scale(2.916)">
-        <path d="M12 12C12 10.8954 12.8954 10 14 10H34C35.1046 10 36 10.8954 36 12C36 13.1046 35.1046 14 34 14H14C12.8954 14 12 13.1046 12 12Z" fill="#38bdf8" />
-        <path d="M14 36L22.5 15H25.5L34 36H29.5L27.5 31H20.5L18.5 36H14Z" fill="#ffffff" />
-        <polygon points="24,19 22.2,27 25.8,27" fill="#1e293b" />
-        <rect x="18" y="28.5" width="12" height="2.5" rx="1.25" fill="#38bdf8" />
-      </g>
+    <!-- 5. 4-POINT AI SPARKLE -->
+    <g class="brand-sparkle">
+      <path
+        d="M 48 5.5 Q 48 11 42.5 11 Q 48 11 48 16.5 Q 48 11 53.5 11 Q 48 11 48 5.5 Z"
+        fill="url(#ai_sparkle_grad)"
+      />
+      <circle cx="48" cy="11" r="1.2" fill="#FFFFFF" />
     </g>
+  </g>
+</svg>`;
 
-    <!-- Main Title -->
-    <text x="600" y="300" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="52" font-weight="900" letter-spacing="-0.03em" fill="#ffffff">
-      AI Text Utility
-    </text>
+async function generateAll() {
+  const iconBuffer = Buffer.from(appIconSvg);
+  const markBuffer = Buffer.from(masterMarkSvg);
 
-    <!-- Subtitle -->
-    <text x="600" y="360" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="24" font-weight="500" fill="#94a3b8">
-      43+ Fast, Private, Client-Side Text Tools &amp; AI Assistants
-    </text>
+  // Write SVG files
+  fs.writeFileSync('app/icon.svg', appIconSvg, 'utf8');
+  fs.writeFileSync('public/favicon.svg', appIconSvg, 'utf8');
+  fs.writeFileSync('public/brand/logo.svg', masterMarkSvg, 'utf8');
+  fs.writeFileSync('public/brand/logo-compact.svg', masterMarkSvg, 'utf8');
+  fs.writeFileSync('public/brand/logo-dark.svg', masterMarkSvg, 'utf8');
 
-    <!-- Feature Pill Badges -->
-    <g transform="translate(330, 430)">
-      <!-- Badge 1 -->
-      <rect x="0" y="0" width="160" height="42" rx="21" fill="#1e293b" stroke="#334155" />
-      <text x="80" y="26" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="700" fill="#38bdf8">100% PRIVATE</text>
+  // Render PNG icon assets
+  const sizes = [
+    { file: 'public/favicon-16x16.png', size: 16 },
+    { file: 'public/favicon-32x32.png', size: 32 },
+    { file: 'public/favicon-48x48.png', size: 48 },
+    { file: 'public/apple-touch-icon.png', size: 180 },
+    { file: 'public/android-chrome-192x192.png', size: 192 },
+    { file: 'public/android-chrome-512x512.png', size: 512 },
+    { file: 'public/brand/icon-512.png', size: 512 },
+  ];
 
-      <!-- Badge 2 -->
-      <rect x="190" y="0" width="160" height="42" rx="21" fill="#1e293b" stroke="#334155" />
-      <text x="270" y="26" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="700" fill="#10b981">ZERO LATENCY</text>
+  for (const item of sizes) {
+    await sharp(iconBuffer)
+      .resize(item.size, item.size)
+      .png()
+      .toFile(item.file);
+    console.log(`Generated ${item.file} (${item.size}x${item.size})`);
+  }
 
-      <!-- Badge 3 -->
-      <rect x="380" y="0" width="160" height="42" rx="21" fill="#1e293b" stroke="#334155" />
-      <text x="460" y="26" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="700" fill="#a855f7">AI POWERED</text>
-    </g>
+  // Generate public/favicon.ico
+  const png32Buffer = await sharp(iconBuffer).resize(32, 32).png().toBuffer();
+  const icoBuffer = createIco(png32Buffer);
+  fs.writeFileSync('public/favicon.ico', icoBuffer);
+  console.log('Generated public/favicon.ico');
 
-    <!-- Domain Footer -->
-    <text x="600" y="550" text-anchor="middle" font-family="monospace" font-size="16" font-weight="600" fill="#64748b" letter-spacing="0.1em">
-      AI-TEXT-UTILITY.VERCEL.APP
-    </text>
-  </svg>
-  `;
+  // Also update public/brand/logo.png (512x512 with transparent background)
+  await sharp(markBuffer)
+    .resize(512, 512)
+    .png()
+    .toFile('public/brand/logo.png');
+  console.log('Generated public/brand/logo.png');
 
-  await sharp(Buffer.from(ogSvg)).png().toFile(path.join(brandDir, "og-image.png"));
-  console.log("✓ public/brand/og-image.png");
-
-  // Also copy to public/og-image.png for standard route
-  fs.copyFileSync(path.join(brandDir, "og-image.png"), path.join(publicDir, "og-image.png"));
-  console.log("✓ public/og-image.png");
-
-  console.log("All brand assets successfully generated!");
+  console.log('All brand assets successfully generated!');
 }
 
-generateAssets().catch(console.error);
+generateAll().catch(console.error);

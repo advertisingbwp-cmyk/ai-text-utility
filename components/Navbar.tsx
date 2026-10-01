@@ -60,7 +60,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCommandPalette }) => {
         <Link
           href="/"
           className="focus:outline-none focus:ring-2 focus:ring-brand-500/30 rounded-xl p-1 -ml-1 group shrink-0 transition-transform active:scale-[0.98]"
-          aria-label="AI Text Utility Home"
+          aria-label="AI Text Utility home"
         >
           <BrandLogo size="md" showSubtitle={true} />
         </Link>

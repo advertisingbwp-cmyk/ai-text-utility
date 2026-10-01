@@ -13,8 +13,8 @@ export const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-10 pb-8 border-b border-[rgba(100,120,160,0.12)] dark:border-slate-800/80">
           {/* Col 1: Brand & Purpose */}
           <div className="md:col-span-6 space-y-4 max-w-md">
-            <Link href="/" className="inline-flex items-center group" aria-label="AI Text Utility Home">
-              <BrandLogo size="md" />
+            <Link href="/" className="inline-flex items-center group" aria-label="AI Text Utility home">
+              <BrandLogo size="md" showSubtitle={true} />
             </Link>
             <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
               A high-performance suite of {TOOLS_REGISTRY.length} tools for formatting, converting, analyzing, and cleaning text. Built for developers, writers, students, and professionals who demand speed, privacy, and precision.

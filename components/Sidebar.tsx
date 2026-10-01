@@ -36,7 +36,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ onOpenCommandPalette }) => {
           href="/"
           onClick={closeMobile}
           className="flex items-center gap-2.5 group focus:outline-none focus:ring-2 focus:ring-brand-500/50 rounded-lg p-0.5"
-          aria-label="AI Text Utility Home"
+          aria-label="AI Text Utility home"
         >
           <BrandLogo size="md" showSubtitle={true} />
         </Link>
