@@ -74,7 +74,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   return {
     title: `${tool.name} - Free Online Text Utility`,
-    description: `${tool.description} Fast, secure, and private browser-based utility.`,
+    description: `${tool.description} ${tool.requiresAI ? "Text is sent to an AI provider for processing; review the result before use." : "Process text locally in your browser."}`,
     keywords: [
       ...tool.keywords,
       tool.category,
@@ -149,12 +149,6 @@ export default async function ToolPage({ params }: PageProps) {
       {
         "@type": "ListItem",
         position: 2,
-        name: tool.category,
-        item: `${baseUrl}/#category-${tool.category.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`,
-      },
-      {
-        "@type": "ListItem",
-        position: 3,
         name: tool.name,
         item: toolUrl,
       },

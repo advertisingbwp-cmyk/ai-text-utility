@@ -1,4 +1,5 @@
 import React from "react";
+import { SUPPLEMENTAL_GUIDES } from "@/data/seo/supplementalGuides";
 import Link from "next/link";
 import { ToolDefinition, getToolsByCategory, getFeaturedTools, getToolBySlug } from "@/data/toolsRegistry";
 import { getToolEducationalContent } from "@/data/toolFaqs";
@@ -97,6 +98,7 @@ export const ToolSeoContent: React.FC<ToolSeoContentProps> = ({ tool }) => {
   const content = getToolEducationalContent(tool.category, tool.slug, tool.name);
   const blueprint = getToolSeoBlueprint(tool.slug);
   const EditorialComponent = EDITORIAL_MAP[tool.slug];
+  const guide = SUPPLEMENTAL_GUIDES[tool.slug];
 
   // Prioritize cluster slugs from SEO blueprint if available
   let fallbackTools: ToolDefinition[] = [];
@@ -189,6 +191,14 @@ export const ToolSeoContent: React.FC<ToolSeoContentProps> = ({ tool }) => {
 
       {/* Dedicated Deep Editorial Guide */}
       {EditorialComponent && <EditorialComponent />}
+      {guide && (
+        <section aria-labelledby="practical-guide-heading" className="space-y-4 rounded-2xl border border-slate-200 dark:border-slate-800 p-6">
+          <h2 id="practical-guide-heading" className="text-xl font-bold text-slate-900 dark:text-white">{guide.heading}</h2>
+          <p className="text-sm leading-relaxed">{guide.example}</p>
+          <h3 className="font-semibold text-slate-900 dark:text-white">Limitations and checks</h3>
+          <p className="text-sm leading-relaxed">{guide.limitations}</p>
+        </section>
+      )}
 
       {/* Frequently Asked Questions */}
       <section aria-labelledby="faq-heading" className="space-y-6">

@@ -25,7 +25,7 @@ function getSharedObserver(): IntersectionObserver | null {
         });
       },
       {
-        threshold: 0.05,
+        threshold: 0,
         rootMargin: "0px 0px 100px 0px",
       }
     );
@@ -78,12 +78,13 @@ export const ScrollReveal: React.FC<ScrollRevealProps> = ({
     // Arm the reveal transition only for content strictly below the fold
     el.classList.add("scroll-reveal-arm");
 
+    let cleanupTimer: ReturnType<typeof setTimeout> | undefined;
     const onReveal = () => {
       el.classList.add("is-revealed");
       // Clean up arming class after transition completes to release GPU memory & leave DOM clean
-      setTimeout(() => {
+      cleanupTimer = setTimeout(() => {
         el.classList.remove("scroll-reveal-arm");
-      }, 700);
+      }, 750);
     };
 
     observerCallbacks.set(el, onReveal);
@@ -92,6 +93,8 @@ export const ScrollReveal: React.FC<ScrollRevealProps> = ({
     return () => {
       observerCallbacks.delete(el);
       observer.unobserve(el);
+      clearTimeout(cleanupTimer);
+      el.classList.remove("scroll-reveal-arm");
     };
   }, []);
 

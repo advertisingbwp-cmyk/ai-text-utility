@@ -34,3 +34,6 @@ jobs:
         run: npm run build
         env:
           NEXT_PUBLIC_SITE_URL: https://ai-text-utility.vercel.app
+
+      - name: Verify production routes and structured data
+        run: npm run check:production

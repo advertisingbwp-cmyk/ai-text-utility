@@ -29,6 +29,7 @@ export function useScrollParallax(options: ScrollParallaxOptions = {}) {
     if (motionQuery.matches) {
       document.documentElement.style.setProperty("--scroll-p", "0");
       document.documentElement.style.setProperty("--hero-parallax-y", "0px");
+      document.documentElement.style.setProperty("--hero-parallax-distance", "0");
       document.documentElement.style.setProperty("--hero-parallax-reverse", "0px");
       return;
     }
@@ -70,6 +71,7 @@ export function useScrollParallax(options: ScrollParallaxOptions = {}) {
         currentHeroY = targetHeroY;
         document.documentElement.style.setProperty("--scroll-p", currentProgress.toFixed(4));
         document.documentElement.style.setProperty("--hero-parallax-y", `${currentHeroY.toFixed(2)}px`);
+        document.documentElement.style.setProperty("--hero-parallax-distance", currentHeroY.toFixed(2));
         document.documentElement.style.setProperty(
           "--hero-parallax-reverse",
           `${(-currentHeroY * 0.5).toFixed(2)}px`
@@ -81,6 +83,7 @@ export function useScrollParallax(options: ScrollParallaxOptions = {}) {
 
       document.documentElement.style.setProperty("--scroll-p", currentProgress.toFixed(4));
       document.documentElement.style.setProperty("--hero-parallax-y", `${currentHeroY.toFixed(2)}px`);
+      document.documentElement.style.setProperty("--hero-parallax-distance", currentHeroY.toFixed(2));
       document.documentElement.style.setProperty(
         "--hero-parallax-reverse",
         `${(-currentHeroY * 0.5).toFixed(2)}px`
