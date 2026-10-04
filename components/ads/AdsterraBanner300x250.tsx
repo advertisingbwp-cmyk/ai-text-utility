@@ -40,6 +40,9 @@ export const AdsterraBanner300x250: React.FC<{ className?: string }> = ({ classN
       </span>
       <iframe
         srcDoc={html}
+        sandbox="allow-scripts allow-popups allow-popups-to-escape-sandbox"
+        loading="lazy"
+        referrerPolicy="strict-origin-when-cross-origin"
         width={300}
         height={250}
         title="Sponsored Ad 300x250"

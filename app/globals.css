@@ -438,7 +438,7 @@ body {
     calc(var(--hero-parallax-y, 0px) * 0.22),
     calc(var(--hero-parallax-y, 0px) * 0.72),
     0
-  ) scale(calc(1 + var(--hero-parallax-y, 0px) * 0.0004));
+  ) scale(calc(1 + var(--hero-parallax-distance, 0) * 0.0004));
 }
 
 /* Center-right wave: opposite-direction vertical movement around 18–26px, subtle scale */
@@ -447,7 +447,7 @@ body {
     calc(var(--hero-parallax-y, 0px) * -0.15),
     calc(var(--hero-parallax-y, 0px) * -0.65),
     0
-  ) scale(calc(1 + var(--hero-parallax-y, 0px) * 0.0005));
+  ) scale(calc(1 + var(--hero-parallax-distance, 0) * 0.0005));
 }
 
 /* Bottom-right wave: vertical movement around 25–35px */
@@ -474,7 +474,7 @@ body {
     calc(var(--hero-parallax-y, 0px) * -0.25),
     calc(var(--hero-parallax-y, 0px) * 0.72),
     0
-  ) scale(calc(1 + var(--hero-parallax-y, 0px) * 0.0005));
+  ) scale(calc(1 + var(--hero-parallax-distance, 0) * 0.0005));
 }
 
 /* Small sphere: around 12–20px movement (opposite direction) */
@@ -565,14 +565,14 @@ body {
       calc(var(--hero-parallax-y, 0px) * 0.15),
       calc(var(--hero-parallax-y, 0px) * 0.5),
       0
-    ) scale(calc(1 + var(--hero-parallax-y, 0px) * 0.0003));
+    ) scale(calc(1 + var(--hero-parallax-distance, 0) * 0.0003));
   }
   .parallax-wave-center {
     transform: translate3d(
       0,
       calc(var(--hero-parallax-y, 0px) * -0.5),
       0
-    ) scale(calc(1 + var(--hero-parallax-y, 0px) * 0.0003));
+    ) scale(calc(1 + var(--hero-parallax-distance, 0) * 0.0003));
   }
   .hero-parallax-ambient {
     transform: translate3d(0, calc(var(--hero-parallax-y, 0px) * -0.25), 0);

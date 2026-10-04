@@ -109,7 +109,7 @@ export async function POST(req: Request): Promise<NextResponse<AiResponseBody>> 
       return NextResponse.json(
         {
           success: false,
-          error: "AI service is currently unconfigured. Set GEMINI_API_KEY in environment variables.",
+          error: "AI writing is temporarily unavailable. Please try again later.",
         },
         { status: 503 }
       );
@@ -159,7 +159,7 @@ export async function POST(req: Request): Promise<NextResponse<AiResponseBody>> 
       if (statusCode === 400) {
         clientMessage = "Invalid request payload sent to the AI service.";
       } else if (statusCode === 401 || statusCode === 403) {
-        clientMessage = "AI service authentication error. Please check server API key configuration.";
+        clientMessage = "AI writing is temporarily unavailable. Please try again later.";
       } else if (statusCode === 429) {
         clientMessage = "Rate limit exceeded from upstream AI provider. Please wait a moment.";
       } else if (statusCode === 503 || statusCode === 504) {

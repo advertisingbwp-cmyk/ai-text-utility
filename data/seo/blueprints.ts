@@ -1,3 +1,5 @@
+import { SUPPLEMENTAL_GUIDES } from "./supplementalGuides.ts";
+
 export interface ToolSeoBlueprint {
   slug: string;
   title: string;
@@ -11,6 +13,11 @@ export interface ToolSeoBlueprint {
 }
 
 export const SEO_BLUEPRINT_MAP: Record<string, ToolSeoBlueprint> = {
+  ...Object.fromEntries(Object.entries(SUPPLEMENTAL_GUIDES).map(([slug, guide]) => [slug, {
+    slug, title: guide.title, metaDescription: guide.description, h1: guide.title,
+    aboveTheFoldIntro: guide.description, primaryKeyword: guide.title.toLowerCase(),
+    secondaryKeywords: [], popularAnchor: guide.title, clusterSlugs: guide.related,
+  }])),
   "word-counter": {
     slug: "word-counter",
     title: "Word Counter – Free Online Word Count & Character Counter",

@@ -38,6 +38,9 @@ export const AdsterraNativeBanner: React.FC<{ className?: string }> = ({ classNa
       </div>
       <iframe
         srcDoc={html}
+        sandbox="allow-scripts allow-popups allow-popups-to-escape-sandbox"
+        loading="lazy"
+        referrerPolicy="strict-origin-when-cross-origin"
         title="Sponsored Native Banner"
         frameBorder="0"
         scrolling="no"

@@ -164,3 +164,18 @@ test("10. Query String Parser", () => {
   assert.deepEqual(complex.jsonRepresentation["tag"], ["react", "nextjs"]);
   assert.equal(complex.jsonRepresentation["code"], "✓");
 });
+
+test("Query parser preserves special keys without prototype mutation", () => {
+  const parsed = parseQueryString("?__proto__=one&__proto__=two&constructor=ok&toString=value");
+  assert.deepEqual(parsed.jsonRepresentation.__proto__, ["one", "two"]);
+  assert.equal(parsed.jsonRepresentation.constructor, "ok");
+  assert.equal(parsed.jsonRepresentation.toString, "value");
+  assert.equal(Object.getPrototypeOf(parsed.jsonRepresentation), Object.prototype);
+  assert.equal(JSON.parse(JSON.stringify(parsed.jsonRepresentation)).__proto__[0], "one");
+});
+
+test("Query parser excludes URL paths and fragments", () => {
+  assert.equal(parseQueryString("https://example.com/path").totalParams, 0);
+  assert.equal(parseQueryString("https://example.com/#?token=secret").totalParams, 0);
+  assert.deepEqual(parseQueryString("https://example.com/?q=one#?q=two").jsonRepresentation, {q: "one"});
+});

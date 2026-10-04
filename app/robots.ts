@@ -11,10 +11,8 @@ export default function robots(): MetadataRoute.Robots {
         allow: ["/", "/tools/", "/about", "/contact", "/privacy", "/terms"],
         disallow: [
           "/api/",
-          "/_next/",
           "/admin/",
           "/private/",
-          "/*.json$",
         ],
       },
     ],

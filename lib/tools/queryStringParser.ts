@@ -33,6 +33,11 @@ export function parseQueryString(input: string): QueryParserResult {
   let query = input.trim();
 
   // If full URL, extract portion after '?'
+  if (/^https?:\/\//i.test(query) && !query.split("#")[0].includes("?")) {
+    return { entries: [], totalParams: 0, uniqueKeys: 0, jsonRepresentation: {} };
+  }
+  // A fragment is never part of the query, even if it contains a question mark.
+  query = query.split("#")[0];
   const questionIdx = query.indexOf("?");
   if (questionIdx !== -1) {
     query = query.slice(questionIdx + 1);
@@ -73,8 +78,8 @@ export function parseQueryString(input: string): QueryParserResult {
     });
 
     // Populate JSON structure handling duplicate keys
-    if (json[decodedKey] === undefined) {
-      json[decodedKey] = decodedValue;
+    if (!Object.hasOwn(json, decodedKey)) {
+      Object.defineProperty(json, decodedKey, { value: decodedValue, enumerable: true, writable: true, configurable: true });
     } else if (Array.isArray(json[decodedKey])) {
       (json[decodedKey] as string[]).push(decodedValue);
     } else {
