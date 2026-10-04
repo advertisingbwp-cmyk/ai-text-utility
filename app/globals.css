@@ -429,32 +429,32 @@ body {
 
 /* Ambient glow: vertical movement around 10–18px */
 .parallax-ambient {
-  transform: translate3d(0, calc(var(--scroll-p, 0) * -14px), 0);
+  transform: translate3d(0, calc(var(--hero-parallax-y, 0px) * -0.4), 0);
 }
 
 /* Left liquid wave: vertical movement around 20–28px, slight horizontal drift around 5–10px, subtle scale */
 .parallax-wave-left {
   transform: translate3d(
-    calc(var(--scroll-p, 0) * 8px),
-    calc(var(--scroll-p, 0) * 24px),
+    calc(var(--hero-parallax-y, 0px) * 0.22),
+    calc(var(--hero-parallax-y, 0px) * 0.72),
     0
-  ) scale(calc(1 + var(--scroll-p, 0) * 0.015));
+  ) scale(calc(1 + var(--hero-parallax-y, 0px) * 0.0004));
 }
 
 /* Center-right wave: opposite-direction vertical movement around 18–26px, subtle scale */
 .parallax-wave-center {
   transform: translate3d(
-    calc(var(--scroll-p, 0) * -5px),
-    calc(var(--scroll-p, 0) * -22px),
+    calc(var(--hero-parallax-y, 0px) * -0.15),
+    calc(var(--hero-parallax-y, 0px) * -0.65),
     0
-  ) scale(calc(1 + var(--scroll-p, 0) * 0.02));
+  ) scale(calc(1 + var(--hero-parallax-y, 0px) * 0.0005));
 }
 
 /* Bottom-right wave: vertical movement around 25–35px */
 .parallax-wave-bottom {
   transform: translate3d(
-    calc(var(--scroll-p, 0) * -8px),
-    calc(var(--scroll-p, 0) * 30px),
+    calc(var(--hero-parallax-y, 0px) * -0.22),
+    calc(var(--hero-parallax-y, 0px) * 0.82),
     0
   );
 }
@@ -463,7 +463,7 @@ body {
 .parallax-wave-far {
   transform: translate3d(
     0,
-    calc(var(--scroll-p, 0) * -18px),
+    calc(var(--hero-parallax-y, 0px) * -0.45),
     0
   );
 }
@@ -471,19 +471,24 @@ body {
 /* Large glass sphere: around 20–30px movement + depth scale */
 .parallax-sphere-1 {
   transform: translate3d(
-    calc(var(--scroll-p, 0) * -10px),
-    calc(var(--scroll-p, 0) * 26px),
+    calc(var(--hero-parallax-y, 0px) * -0.25),
+    calc(var(--hero-parallax-y, 0px) * 0.72),
     0
-  ) scale(calc(1 + var(--scroll-p, 0) * 0.02));
+  ) scale(calc(1 + var(--hero-parallax-y, 0px) * 0.0005));
 }
 
 /* Small sphere: around 12–20px movement (opposite direction) */
 .parallax-sphere-2 {
   transform: translate3d(
-    calc(var(--scroll-p, 0) * 7px),
-    calc(var(--scroll-p, 0) * -16px),
+    calc(var(--hero-parallax-y, 0px) * 0.2),
+    calc(var(--hero-parallax-y, 0px) * -0.45),
     0
   );
+}
+
+/* Hero ambient glow subtle depth */
+.hero-parallax-ambient {
+  transform: translate3d(0, calc(var(--hero-parallax-y, 0px) * -0.35), 0);
 }
 
 /* Scroll Tint Layer: Top is pure cyan/sky, scrolling down introduces subtle lavender/violet */
@@ -524,6 +529,7 @@ body {
   .parallax-wave-far,
   .parallax-sphere-1,
   .parallax-sphere-2,
+  .hero-parallax-ambient,
   .aurora-scroll-tint {
     animation: none !important;
     transform: none !important;
@@ -552,21 +558,75 @@ body {
     display: none;
   }
   .parallax-ambient {
-    transform: translate3d(0, calc(var(--scroll-p, 0) * -7px), 0);
+    transform: translate3d(0, calc(var(--hero-parallax-y, 0px) * -0.3), 0);
   }
   .parallax-wave-left {
     transform: translate3d(
-      calc(var(--scroll-p, 0) * 4px),
-      calc(var(--scroll-p, 0) * 12px),
+      calc(var(--hero-parallax-y, 0px) * 0.15),
+      calc(var(--hero-parallax-y, 0px) * 0.5),
       0
-    ) scale(calc(1 + var(--scroll-p, 0) * 0.01));
+    ) scale(calc(1 + var(--hero-parallax-y, 0px) * 0.0003));
   }
   .parallax-wave-center {
     transform: translate3d(
       0,
-      calc(var(--scroll-p, 0) * -11px),
+      calc(var(--hero-parallax-y, 0px) * -0.5),
       0
-    ) scale(calc(1 + var(--scroll-p, 0) * 0.01));
+    ) scale(calc(1 + var(--hero-parallax-y, 0px) * 0.0003));
+  }
+  .hero-parallax-ambient {
+    transform: translate3d(0, calc(var(--hero-parallax-y, 0px) * -0.25), 0);
+  }
+}
+
+/* ========================================================
+   SCROLL REVEAL & TOOL CARD STAGGER SYSTEM
+   ======================================================== */
+.scroll-reveal {
+  opacity: 1;
+  transform: none;
+}
+
+/* Initial state only armed for below-fold items via JS, preserving bot/SSR rendering */
+.scroll-reveal.scroll-reveal-arm {
+  opacity: 0;
+  transform: translate3d(0, 20px, 0);
+  transition: opacity 600ms cubic-bezier(0.16, 1, 0.3, 1),
+              transform 600ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.scroll-reveal.scroll-reveal-arm.is-revealed {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+/* Tool card stagger inside revealed container */
+.scroll-reveal.scroll-stagger.scroll-reveal-arm > *,
+.scroll-reveal.scroll-reveal-arm .scroll-stagger > * {
+  opacity: 0;
+  transform: translate3d(0, 16px, 0);
+  transition: opacity 500ms cubic-bezier(0.16, 1, 0.3, 1),
+              transform 500ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: calc(var(--stagger-i, 0) * 40ms);
+}
+
+.scroll-reveal.scroll-stagger.scroll-reveal-arm.is-revealed > *,
+.scroll-reveal.scroll-reveal-arm.is-revealed .scroll-stagger > * {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-reveal,
+  .scroll-reveal.scroll-reveal-arm,
+  .scroll-reveal.scroll-reveal-arm.is-revealed,
+  .scroll-reveal.scroll-stagger.scroll-reveal-arm > *,
+  .scroll-reveal.scroll-reveal-arm .scroll-stagger > *,
+  .scroll-reveal.scroll-stagger.scroll-reveal-arm.is-revealed > *,
+  .scroll-reveal.scroll-reveal-arm.is-revealed .scroll-stagger > * {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
   }
 }
 
@@ -685,7 +745,6 @@ body {
               box-shadow 200ms cubic-bezier(0.2, 0.8, 0.2, 1),
               border-color 200ms cubic-bezier(0.2, 0.8, 0.2, 1),
               background-color 200ms cubic-bezier(0.2, 0.8, 0.2, 1);
-  will-change: transform;
 }
 
 .card-3d:hover {
@@ -836,6 +895,22 @@ body {
   backdrop-filter: blur(18px) saturate(130%);
   -webkit-backdrop-filter: blur(18px) saturate(130%);
   border-bottom: 1px solid var(--glass-nav-border);
+}
+
+.navbar-glass.navbar-past-hero {
+  background: rgba(250, 252, 255, 0.88);
+  backdrop-filter: blur(24px) saturate(140%);
+  -webkit-backdrop-filter: blur(24px) saturate(140%);
+  border-bottom: 1px solid rgba(100, 130, 180, 0.18);
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.08), 0 2px 6px -1px rgba(15, 23, 42, 0.04);
+}
+
+.dark .navbar-glass.navbar-past-hero {
+  background: rgba(9, 13, 22, 0.88);
+  backdrop-filter: blur(24px) saturate(140%);
+  -webkit-backdrop-filter: blur(24px) saturate(140%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.45);
 }
 
 /* 3D Floating Hero Showcase Card */

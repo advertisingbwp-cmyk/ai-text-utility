@@ -14,6 +14,7 @@ import { getFavorites, getRecentTools } from "@/lib/storage";
 import { getCategoryTheme, getToolTheme } from "@/lib/toolThemes";
 
 import { FavoriteStar } from "@/components/FavoriteStar";
+import { ScrollReveal } from "@/components/ScrollReveal";
 
 function getRecentCardTheme(category: ToolCategory) {
   switch (category) {
@@ -260,7 +261,7 @@ export default function HomePage() {
       </section>
 
       {selectedCategory === "ALL" && !onlyFavorites && recentTools.length > 0 && (
-        <section id="recent" aria-labelledby="recent-heading" className="space-y-3.5">
+        <ScrollReveal as="section" id="recent" aria-labelledby="recent-heading" className="space-y-3.5">
           <div className="flex items-center justify-between pb-1">
             <div className="flex items-center gap-2.5">
               <div className="w-8 h-8 rounded-full bg-blue-500/10 text-brand-600 dark:text-brand-400 flex items-center justify-center border border-blue-500/20 backdrop-blur-sm shadow-2xs">
@@ -283,12 +284,14 @@ export default function HomePage() {
               <ArrowRight size={12} className="transition-transform duration-200 group-hover/viewall:translate-x-0.5" />
             </a>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5 sm:gap-4">
-            {recentTools.map((tool) => (
-              <RecentToolCard key={`recent-${tool.id}`} tool={tool} />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5 sm:gap-4 scroll-stagger">
+            {recentTools.map((tool, idx) => (
+              <div key={`recent-${tool.id}`} style={{ "--stagger-i": idx } as React.CSSProperties}>
+                <RecentToolCard tool={tool} />
+              </div>
             ))}
           </div>
-        </section>
+        </ScrollReveal>
       )}
 
       {filteredTools.length === 0 ? (
@@ -305,7 +308,8 @@ export default function HomePage() {
             const isAI = cat.name === ("AI Magic" as ToolCategory);
             const catTheme = getCategoryTheme(cat.name);
             return (
-              <section
+              <ScrollReveal
+                as="section"
                 key={cat.name}
                 id={`category-${cat.name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}
                 className="space-y-3.5 scroll-mt-20"
@@ -345,17 +349,19 @@ export default function HomePage() {
                     </button>
                   </div>
                 </div>
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-3.5">
-                  {toolsInCat.map((tool) => (
-                    <ToolCard key={tool.id} tool={tool} />
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-3.5 scroll-stagger">
+                  {toolsInCat.map((tool, idx) => (
+                    <div key={tool.id} style={{ "--stagger-i": idx % 5 } as React.CSSProperties}>
+                      <ToolCard tool={tool} />
+                    </div>
                   ))}
                 </div>
-              </section>
+              </ScrollReveal>
             );
           })}
         </div>
       ) : (
-        <section className="space-y-4">
+        <ScrollReveal as="section" className="space-y-4">
           <div className="flex items-center justify-between border-b border-[rgba(100,120,160,0.12)] dark:border-slate-800/80 pb-3.5">
             <div>
               <h2 className="text-base sm:text-lg font-bold text-slate-900 dark:text-slate-100 tracking-tight">
@@ -376,16 +382,18 @@ export default function HomePage() {
               </button>
             )}
           </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-3.5">
-            {filteredTools.map((tool) => (
-              <ToolCard key={tool.id} tool={tool} />
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-3.5 scroll-stagger">
+            {filteredTools.map((tool, idx) => (
+              <div key={tool.id} style={{ "--stagger-i": idx % 5 } as React.CSSProperties}>
+                <ToolCard tool={tool} />
+              </div>
             ))}
           </div>
-        </section>
+        </ScrollReveal>
       )}
 
       {/* Factual Information & Guidance Card (Moved down to preserve first viewport) */}
-      <section className="max-w-4xl mx-auto rounded-2xl border border-white/70 dark:border-slate-800/80 bg-white/65 dark:bg-slate-900/60 backdrop-blur-md p-6 sm:p-8 space-y-3.5 shadow-xs" aria-labelledby="intro-heading">
+      <ScrollReveal as="section" className="max-w-4xl mx-auto rounded-2xl border border-white/70 dark:border-slate-800/80 bg-white/65 dark:bg-slate-900/60 backdrop-blur-md p-6 sm:p-8 space-y-3.5 shadow-xs" aria-labelledby="intro-heading">
         <h2 id="intro-heading" className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white tracking-tight">Free online text tools for everyday work</h2>
         <p className="text-sm leading-relaxed text-[#5F6F89] dark:text-slate-400 max-w-[72ch]">
           AI Text Utility is a collection of browser-based tools for writers, students, developers, and office workflows. Use the tools to count words and characters, clean lists, change text case, format JSON, test regular expressions, encode data, generate identifiers, work with dates, or prepare text for publishing. Most utilities process your input locally in the browser, so routine text transformations do not need a server upload.
@@ -393,9 +401,9 @@ export default function HomePage() {
         <p className="text-sm leading-relaxed text-[#5F6F89] dark:text-slate-400 max-w-[72ch]">
           Each tool page includes practical instructions, feature details, common questions, limitations, and links to related utilities. AI Magic tools are optional and clearly separated from the browser-only tools because they require a server request to an AI provider.
         </p>
-      </section>
+      </ScrollReveal>
 
-      <section aria-labelledby="how-it-works-heading" className="max-w-4xl mx-auto pt-8 border-t border-[rgba(100,120,160,0.12)] dark:border-slate-800/80 space-y-6">
+      <ScrollReveal as="section" aria-labelledby="how-it-works-heading" className="max-w-4xl mx-auto pt-8 border-t border-[rgba(100,120,160,0.12)] dark:border-slate-800/80 space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2">
           <div>
             <h2 id="how-it-works-heading" className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white tracking-tight">
@@ -406,8 +414,8 @@ export default function HomePage() {
             </p>
           </div>
         </div>
-        <div className="grid md:grid-cols-3 gap-4">
-          <div className="p-5 rounded-2xl border border-white/70 dark:border-slate-800/80 bg-white/65 dark:bg-slate-900/60 backdrop-blur-md space-y-3 shadow-xs hover:shadow-md transition-all">
+        <div className="grid md:grid-cols-3 gap-4 scroll-stagger">
+          <div style={{ "--stagger-i": 0 } as React.CSSProperties} className="p-5 rounded-2xl border border-white/70 dark:border-slate-800/80 bg-white/65 dark:bg-slate-900/60 backdrop-blur-md space-y-3 shadow-xs hover:shadow-md transition-all">
             <div className="w-9 h-9 rounded-xl bg-blue-500/12 text-blue-600 dark:text-blue-400 flex items-center justify-center border border-blue-400/30 icon-3d shadow-2xs">
               <Type size={17} />
             </div>
@@ -416,7 +424,7 @@ export default function HomePage() {
               Use <Link href="/tools/word-counter" className="text-brand-600 dark:text-brand-400 font-medium hover:underline">Word Counter</Link> for length checks, <Link href="/tools/case-converter" className="text-brand-600 dark:text-brand-400 font-medium hover:underline">Case Converter</Link> for capitalization, <Link href="/tools/remove-extra-spaces" className="text-brand-600 dark:text-brand-400 font-medium hover:underline">Cleanup tools</Link> for messy text, and the AI writing tools when you want an assisted rewrite.
             </p>
           </div>
-          <div className="p-5 rounded-2xl border border-white/70 dark:border-slate-800/80 bg-white/65 dark:bg-slate-900/60 backdrop-blur-md space-y-3 shadow-xs hover:shadow-md transition-all">
+          <div style={{ "--stagger-i": 1 } as React.CSSProperties} className="p-5 rounded-2xl border border-white/70 dark:border-slate-800/80 bg-white/65 dark:bg-slate-900/60 backdrop-blur-md space-y-3 shadow-xs hover:shadow-md transition-all">
             <div className="w-9 h-9 rounded-xl bg-emerald-500/12 text-emerald-600 dark:text-emerald-400 flex items-center justify-center border border-emerald-400/30 icon-3d shadow-2xs">
               <Code2 size={17} />
             </div>
@@ -425,7 +433,7 @@ export default function HomePage() {
               Use <Link href="/tools/json-formatter" className="text-brand-600 dark:text-brand-400 font-medium hover:underline">JSON Formatter</Link>, <Link href="/tools/regex-tester" className="text-brand-600 dark:text-brand-400 font-medium hover:underline">Regex Tester</Link>, <Link href="/tools/base64" className="text-brand-600 dark:text-brand-400 font-medium hover:underline">Base64</Link>, <Link href="/tools/uuid-generator" className="text-brand-600 dark:text-brand-400 font-medium hover:underline">UUID</Link>, <Link href="/tools/jwt-decoder" className="text-brand-600 dark:text-brand-400 font-medium hover:underline">JWT</Link>, <Link href="/tools/url-encoder" className="text-brand-600 dark:text-brand-400 font-medium hover:underline">URL encoding</Link>, hashing, and date utilities for quick checks during development.
             </p>
           </div>
-          <div className="p-5 rounded-2xl border border-white/70 dark:border-slate-800/80 bg-white/65 dark:bg-slate-900/60 backdrop-blur-md space-y-3 shadow-xs hover:shadow-md transition-all">
+          <div style={{ "--stagger-i": 2 } as React.CSSProperties} className="p-5 rounded-2xl border border-white/70 dark:border-slate-800/80 bg-white/65 dark:bg-slate-900/60 backdrop-blur-md space-y-3 shadow-xs hover:shadow-md transition-all">
             <div className="w-9 h-9 rounded-xl bg-purple-500/12 text-purple-600 dark:text-purple-400 flex items-center justify-center border border-purple-400/30 icon-3d shadow-2xs">
               <ShieldCheck size={17} />
             </div>
@@ -446,12 +454,12 @@ export default function HomePage() {
             Contact support <ArrowRight size={13} />
           </Link>
         </div>
-      </section>
+      </ScrollReveal>
 
       {/* Sponsored Adsterra Responsive Banner */}
       <AdsterraResponsiveBanner />
 
-      <section aria-labelledby="popular-tools-heading" className="pt-8 border-t border-[rgba(100,120,160,0.12)] dark:border-slate-800/80 space-y-4">
+      <ScrollReveal as="section" aria-labelledby="popular-tools-heading" className="pt-8 border-t border-[rgba(100,120,160,0.12)] dark:border-slate-800/80 space-y-4">
         <div>
           <h2 id="popular-tools-heading" className="text-base sm:text-lg font-bold text-slate-900 dark:text-white tracking-tight">
             Popular Free Developer &amp; Text Tools
@@ -460,34 +468,35 @@ export default function HomePage() {
             Fast, privacy-focused browser utilities with client-side execution
           </p>
         </div>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
-          {TOP_10_P0_TOOLS.map((slug) => {
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 scroll-stagger">
+          {TOP_10_P0_TOOLS.map((slug, idx) => {
             const blueprint = getToolSeoBlueprint(slug);
             const tool = getToolBySlug(slug);
             if (!blueprint || !tool) return null;
             return (
-              <Link
-                key={slug}
-                href={`/tools/${slug}`}
-                className="group p-3.5 rounded-2xl border border-white/70 dark:border-slate-800/80 bg-white/65 dark:bg-slate-900/60 backdrop-blur-md hover:bg-white/90 dark:hover:bg-slate-900/90 hover:border-white/90 dark:hover:border-slate-700/80 transition-all duration-200 flex flex-col justify-between space-y-2 shadow-xs hover:shadow-md hover:-translate-y-0.5"
-              >
-                <div>
-                  <span className="text-xs font-bold text-slate-900 dark:text-slate-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors line-clamp-1">
-                    {blueprint.h1}
+              <div key={slug} style={{ "--stagger-i": idx % 5 } as React.CSSProperties}>
+                <Link
+                  href={`/tools/${slug}`}
+                  className="group p-3.5 rounded-2xl border border-white/70 dark:border-slate-800/80 bg-white/65 dark:bg-slate-900/60 backdrop-blur-md hover:bg-white/90 dark:hover:bg-slate-900/90 hover:border-white/90 dark:hover:border-slate-700/80 transition-all duration-200 flex flex-col justify-between space-y-2 shadow-xs hover:shadow-md hover:-translate-y-0.5 h-full"
+                >
+                  <div>
+                    <span className="text-xs font-bold text-slate-900 dark:text-slate-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors line-clamp-1">
+                      {blueprint.h1}
+                    </span>
+                    <span className="text-[11px] text-[#5F6F89] dark:text-slate-400 line-clamp-1 mt-0.5 block">
+                      {blueprint.primaryKeyword}
+                    </span>
+                  </div>
+                  <span className="text-[11px] text-brand-600 dark:text-brand-400 font-semibold inline-flex items-center gap-1 pt-1">
+                    <span>Open tool</span>
+                    <ArrowRight size={11} className="transition-transform group-hover:translate-x-0.5" />
                   </span>
-                  <span className="text-[11px] text-[#5F6F89] dark:text-slate-400 line-clamp-1 mt-0.5 block">
-                    {blueprint.primaryKeyword}
-                  </span>
-                </div>
-                <span className="text-[11px] text-brand-600 dark:text-brand-400 font-semibold inline-flex items-center gap-1 pt-1">
-                  <span>Open tool</span>
-                  <ArrowRight size={11} className="transition-transform group-hover:translate-x-0.5" />
-                </span>
-              </Link>
+                </Link>
+              </div>
             );
           })}
         </div>
-      </section>
+      </ScrollReveal>
 
       {/* Sponsored Adsterra Native Banner */}
       <AdsterraNativeBanner />

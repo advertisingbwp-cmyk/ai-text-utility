@@ -15,6 +15,7 @@ interface NavbarProps {
 export const Navbar: React.FC<NavbarProps> = ({ onOpenCommandPalette }) => {
   const [favCount, setFavCount] = useState(0);
   const [scrolled, setScrolled] = useState(false);
+  const [pastHero, setPastHero] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
 
@@ -32,8 +33,22 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCommandPalette }) => {
   }, []);
 
   useEffect(() => {
+    let prevScrolled = false;
+    let prevPastHero = false;
+
     const handleScroll = () => {
-      setScrolled(window.scrollY > 16);
+      const y = window.scrollY || window.pageYOffset || 0;
+      const isScrolled = y > 16;
+      const isPastHero = y > 380;
+
+      if (isScrolled !== prevScrolled) {
+        prevScrolled = isScrolled;
+        setScrolled(isScrolled);
+      }
+      if (isPastHero !== prevPastHero) {
+        prevPastHero = isPastHero;
+        setPastHero(isPastHero);
+      }
     };
     handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -51,9 +66,9 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCommandPalette }) => {
 
   return (
     <header
-      className={`sticky top-0 z-40 w-full transition-all duration-200 navbar-glass ${
+      className={`sticky top-0 z-40 w-full transition-all duration-300 navbar-glass ${
         scrolled ? "shadow-navScrolled backdrop-blur-xl" : ""
-      }`}
+      } ${pastHero ? "navbar-past-hero" : ""}`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-3 sm:gap-6">
         {/* Brand Logo */}

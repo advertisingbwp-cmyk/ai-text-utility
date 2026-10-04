@@ -145,7 +145,7 @@ export const TerminalHero: React.FC = () => {
         <div className="lg:col-span-6 w-full min-w-0">
           <div className="relative group">
             {/* Ambient 3D Aurora Backlight */}
-            <div className="absolute -inset-2 bg-gradient-to-tr from-cyan-400/35 via-indigo-500/25 to-pink-500/35 rounded-[32px] blur-xl opacity-75 group-hover:opacity-100 transition duration-500 -z-10" />
+            <div className="hero-parallax-ambient absolute -inset-2 bg-gradient-to-tr from-cyan-400/35 via-indigo-500/25 to-pink-500/35 rounded-[32px] blur-xl opacity-75 group-hover:opacity-100 transition duration-500 -z-10" />
 
             <div className="relative rounded-2xl sm:rounded-3xl border border-white/80 dark:border-slate-800/90 bg-white/80 dark:bg-slate-900/80 hero-card-3d overflow-hidden transition-all backdrop-blur-xl">
               {/* Top Bar / App Card Chrome */}
