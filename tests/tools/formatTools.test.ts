@@ -32,7 +32,7 @@ test("1. JSON Formatter & Validator", () => {
 });
 
 test("2. JSON to CSV Converter", () => {
-  assert.equal(convertJsonToCsv(""), "");
+  assert.throws(() => convertJsonToCsv(""), /Enter/);
 
   const jsonInput = JSON.stringify([
     { id: 1, name: "Alice Johnson", role: "Engineer, Lead", note: 'Has "expert" badge' },
@@ -52,13 +52,13 @@ test("2. JSON to CSV Converter", () => {
 });
 
 test("3. CSV to JSON Converter", () => {
-  assert.equal(convertCsvToJson(""), "[]");
+  assert.throws(() => convertCsvToJson(""), /Enter/);
 
   const csvInput = `name,age,city,notes
 "Johnson, Alice",28,Seattle,"Loves ""TypeScript"" & coding"
 Bob,32,Austin,""`;
 
-  const json = convertCsvToJson(csvInput);
+  const json = convertCsvToJson(csvInput, { parseNumbersAndBooleans: true });
   const parsed = JSON.parse(json);
 
   assert.equal(parsed.length, 2);

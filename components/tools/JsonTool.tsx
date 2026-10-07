@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useCallback, useMemo } from "react";
+import React, { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import { ToolDefinition } from "@/data/toolsRegistry";
 import { ToolWorkspaceResolver } from "@/components/layouts";
 import {
@@ -12,6 +12,7 @@ import {
   HtmlMinifierResult,
   decodeJwt,
 } from "@/lib/tools/index";
+import { readConversionFile, conversionExport } from "@/lib/tools/csvConversion";
 import { trackEvent } from "@/lib/analytics";
 
 export const JsonTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
@@ -27,17 +28,62 @@ export const JsonTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
   const [jsonToCsvQuoteAll, setJsonToCsvQuoteAll] = useState<boolean>(false);
   const [csvToJsonDelim, setCsvToJsonDelim] = useState<string>(",");
   const [csvToJsonHeaders, setCsvToJsonHeaders] = useState<boolean>(true);
-  const [csvToJsonParseTypes, setCsvToJsonParseTypes] = useState<boolean>(true);
+  const [csvToJsonParseTypes, setCsvToJsonParseTypes] = useState<boolean>(false);
   const [markdownView, setMarkdownView] = useState<"preview" | "source">("source");
   const [htmlMinifyComments, setHtmlMinifyComments] = useState<boolean>(true);
   const [htmlMinifyWs, setHtmlMinifyWs] = useState<boolean>(true);
   const [htmlMinifyStats, setHtmlMinifyStats] = useState<HtmlMinifierResult | null>(null);
   const [jwtView, setJwtView] = useState<"visual" | "raw">("visual");
 
+  const isCsvConversion = tool.slug === "csv-to-json" || tool.slug === "json-to-csv";
+  const importVersion = useRef(0);
+  useEffect(() => () => { importVersion.current++; }, []);
+  const changeInput = (value: string) => {
+    if (isCsvConversion) {
+      importVersion.current++;
+      if (value === input) { executeTool(value); return; }
+      setOutput("");
+    }
+    setInput(value);
+  };
+  const importFile = async (file?: File) => {
+    if (!file || !isCsvConversion) return;
+    const version = ++importVersion.current;
+    setOutput("");
+    setError(null);
+    try {
+      const result = await readConversionFile(file, tool.slug as "csv-to-json" | "json-to-csv");
+      if (version !== importVersion.current) return;
+      if (result.delimiter) setCsvToJsonDelim(result.delimiter);
+      setInput(result.text);
+      setOutput(tool.slug === "csv-to-json"
+        ? convertCsvToJson(result.text, {delimiter: result.delimiter ?? csvToJsonDelim, hasHeaders: csvToJsonHeaders, parseNumbersAndBooleans: csvToJsonParseTypes})
+        : convertJsonToCsv(result.text, {delimiter: jsonToCsvDelim, quoteAll: jsonToCsvQuoteAll}));
+    } catch (err) {
+      if (version === importVersion.current) {
+        setOutput("");
+        setError(err instanceof Error ? err.message : "Unable to import file.");
+      }
+    }
+  };
+  const downloadConversion = () => {
+    if (!output || error) return;
+    const spec = conversionExport(tool.slug as "csv-to-json" | "json-to-csv", jsonToCsvDelim);
+    const url = URL.createObjectURL(new Blob([output], {type: spec.mime}));
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = spec.filename;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  };
+
   const executeTool = useCallback(
     (currentInput: string) => {
       setError(null);
       if (!currentInput) {
+        if (isCsvConversion) setError("Enter CSV or JSON content to convert.");
         setOutput("");
         setHtmlMinifyStats(null);
         return;
@@ -109,11 +155,13 @@ export const JsonTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
           }
         }
       } catch (err) {
+        if (isCsvConversion) setOutput("");
         setError(err instanceof Error ? err.message : "Error executing format/validator tool");
       }
     },
     [
       tool.slug,
+      isCsvConversion,
       jsonIndent,
       jsonSortKeys,
       jsonToCsvDelim,
@@ -144,6 +192,7 @@ export const JsonTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
   };
 
   const handleClear = () => {
+    importVersion.current++;
     setInput("");
     setOutput("");
     setError(null);
@@ -204,12 +253,12 @@ export const JsonTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
                 id="json-to-csv-delimiter"
                 name="jsonToCsvDelimiter"
                 value={jsonToCsvDelim}
-                onChange={(e) => setJsonToCsvDelim(e.target.value)}
+                onChange={(e) => { importVersion.current++; setOutput(""); setJsonToCsvDelim(e.target.value); }}
                 className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1 text-slate-800 dark:text-slate-200 focus:outline-none focus:border-brand-500 shadow-2xs"
               >
                 <option value=",">Comma (,)</option>
                 <option value=";">Semicolon (;)</option>
-                <option value="\t">Tab (\\t)</option>
+                <option value={"\t"}>Tab (TSV)</option>
                 <option value="|">Pipe (|)</option>
               </select>
             </div>
@@ -220,7 +269,7 @@ export const JsonTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
                 name="jsonToCsvQuoteAll"
                 type="checkbox"
                 checked={jsonToCsvQuoteAll}
-                onChange={(e) => setJsonToCsvQuoteAll(e.target.checked)}
+                onChange={(e) => { importVersion.current++; setOutput(""); setJsonToCsvQuoteAll(e.target.checked); }}
                 className="rounded border-slate-300 dark:border-slate-700 text-brand-600 focus:ring-brand-500 bg-white dark:bg-slate-800"
               />
               <span>Quote All Fields</span>
@@ -237,12 +286,12 @@ export const JsonTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
                 id="csv-to-json-delimiter"
                 name="csvToJsonDelimiter"
                 value={csvToJsonDelim}
-                onChange={(e) => setCsvToJsonDelim(e.target.value)}
+                onChange={(e) => { importVersion.current++; setOutput(""); setCsvToJsonDelim(e.target.value); }}
                 className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1 text-slate-800 dark:text-slate-200 focus:outline-none focus:border-brand-500 shadow-2xs"
               >
                 <option value=",">Comma (,)</option>
                 <option value=";">Semicolon (;)</option>
-                <option value="\t">Tab (\\t)</option>
+                <option value={"\t"}>Tab (TSV)</option>
                 <option value="|">Pipe (|)</option>
               </select>
             </div>
@@ -253,7 +302,7 @@ export const JsonTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
                 name="csvToJsonHeaders"
                 type="checkbox"
                 checked={csvToJsonHeaders}
-                onChange={(e) => setCsvToJsonHeaders(e.target.checked)}
+                onChange={(e) => { importVersion.current++; setOutput(""); setCsvToJsonHeaders(e.target.checked); }}
                 className="rounded border-slate-300 dark:border-slate-700 text-brand-600 focus:ring-brand-500 bg-white dark:bg-slate-800"
               />
               <span>First Row as Headers</span>
@@ -265,10 +314,10 @@ export const JsonTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
                 name="csvToJsonParseTypes"
                 type="checkbox"
                 checked={csvToJsonParseTypes}
-                onChange={(e) => setCsvToJsonParseTypes(e.target.checked)}
+                onChange={(e) => { importVersion.current++; setOutput(""); setCsvToJsonParseTypes(e.target.checked); }}
                 className="rounded border-slate-300 dark:border-slate-700 text-brand-600 focus:ring-brand-500 bg-white dark:bg-slate-800"
               />
-              <span>Parse Numbers & Booleans</span>
+              <span>Infer safe integers, booleans &amp; null</span>
             </label>
           </div>
         );
@@ -498,10 +547,24 @@ export const JsonTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
       tool={tool}
       input={input}
       output={output}
-      onInputChange={setInput}
+      onInputChange={isCsvConversion ? changeInput : setInput}
       onRun={handleRun}
       onClear={handleClear}
-      onSwap={handleSwap}
+      onSwap={isCsvConversion ? undefined : handleSwap}
+      onDownload={isCsvConversion ? downloadConversion : undefined}
+      canDownload={isCsvConversion ? !!output && !error : undefined}
+      downloadTitle={isCsvConversion ? "Download " + conversionExport(tool.slug as "csv-to-json" | "json-to-csv", jsonToCsvDelim).filename : undefined}
+      headerExtra={isCsvConversion ? (
+        <div className="space-y-2 text-xs text-slate-600 dark:text-slate-300">
+          <label htmlFor="conversion-file">Import {tool.slug === "csv-to-json" ? "CSV / TSV" : "JSON"} (UTF-8, max 5 MiB)</label>
+          <input id="conversion-file" type="file"
+            accept={tool.slug === "csv-to-json" ? ".csv,.tsv" : ".json"}
+            onChange={e => { const file = e.target.files?.[0]; e.target.value = ""; void importFile(file); }} />
+          <p>{tool.slug === "csv-to-json"
+            ? "Cells stay text by default. Duplicate headers get unique suffixes; empty or extra columns use column_N. Missing cells become empty strings. TSV files select Tab; CSV files keep your selected delimiter."
+            : "Null and missing fields become empty cells; nested values use compact JSON. Quote large integers and exact decimals as strings: JSON numbers use standard JavaScript precision. Unsafe integers are rejected."}</p>
+        </div>
+      ) : undefined}
       isLoading={isLoading}
       error={error}
       customControls={customControls}

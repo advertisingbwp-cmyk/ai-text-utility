@@ -1,3 +1,5 @@
+import { validateDelimiter, validateConversionInput, MAX_TABLE_CELLS } from './csvConversion';
+
 export interface JsonToCsvOptions {
   delimiter?: string;
   quoteAll?: boolean;
@@ -7,17 +9,24 @@ export function convertJsonToCsv(
   input: string,
   options: JsonToCsvOptions = {}
 ): string {
-  if (!input || !input.trim()) return "";
+  validateConversionInput(input);
 
-  const delimiter = options.delimiter || ",";
+  const delimiter = options.delimiter ?? ",";
+  validateDelimiter(delimiter);
   const quoteAll = options.quoteAll ?? false;
 
   let data: unknown;
   try {
-    data = JSON.parse(input);
+    data = JSON.parse(input.replace(/^\uFEFF/, ''), (_key, value: unknown) => {
+      if (typeof value === 'number' && (!Number.isFinite(value) || (Number.isInteger(value) && !Number.isSafeInteger(value)))) {
+        throw new Error('Unsafe JSON number: quote large integers as strings to preserve exact digits.');
+      }
+      return value;
+    });
   } catch (err) {
     throw new Error(
-      `Invalid JSON: ${err instanceof Error ? err.message : "Parse failure"}`
+      err instanceof Error && err.message.startsWith('Unsafe JSON number:')
+        ? err.message : 'Invalid JSON: check quotes, commas and brackets.'
     );
   }
 
@@ -33,7 +42,7 @@ export function convertJsonToCsv(
   }
 
   if (data.length === 0) {
-    return "";
+    throw new Error('No records to convert: provide a non-empty array of objects.');
   }
 
   // Verify all elements are objects
@@ -57,7 +66,7 @@ export function convertJsonToCsv(
 
   const headers = Array.from(headerSet);
   if (headers.length === 0) {
-    return "";
+    throw new Error('No columns to convert: provide objects with at least one key.');
   }
 
   const escapeCsvCell = (val: unknown): string => {
@@ -86,13 +95,14 @@ export function convertJsonToCsv(
   };
 
   const rows: string[] = [];
+  if (headers.length * data.length > MAX_TABLE_CELLS) throw new Error('JSON exceeds the 1,000,000 cell table limit.');
 
   // Header row
   rows.push(headers.map(escapeCsvCell).join(delimiter));
 
   // Data rows
   for (const item of data as Record<string, unknown>[]) {
-    const row = headers.map((header) => escapeCsvCell(item[header]));
+    const row = headers.map((header) => escapeCsvCell(Object.hasOwn(item, header) ? item[header] : undefined));
     rows.push(row.join(delimiter));
   }
 

@@ -10,6 +10,7 @@ export interface WorkspaceProps {
   onClear?: () => void;
   onSwap?: () => void;
   onDownload?: () => void;
+  downloadTitle?: string;
   isLoading?: boolean;
   error?: string | null;
   canSwap?: boolean;

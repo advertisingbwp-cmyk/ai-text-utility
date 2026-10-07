@@ -20,6 +20,7 @@ export const TransformLayout: React.FC<WorkspaceProps> = ({
   onClear,
   onSwap,
   onDownload,
+  downloadTitle = "Download as .txt",
   customControls,
   inputPlaceholder = "Enter or paste your text here...",
   outputPlaceholder = "Transformed text will appear here automatically...",
@@ -156,7 +157,7 @@ export const TransformLayout: React.FC<WorkspaceProps> = ({
                   disabled={!output && !input}
                   aria-label="Download result as text file"
                   className="btn-icon text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white disabled:opacity-30 cursor-pointer active:scale-[0.96]"
-                  title="Download as .txt"
+                  title={downloadTitle}
                 >
                   <Download size={15} />
                 </button>

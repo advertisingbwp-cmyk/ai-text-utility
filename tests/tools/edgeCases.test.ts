@@ -116,11 +116,9 @@ test("Edge Cases 2: Empty Input Handling Across All Pure Tools", async () => {
   assert.equal(jsonEmpty.isValid, true);
   assert.equal(jsonEmpty.formatted, "");
 
-  const csvEmpty = convertJsonToCsv("");
-  assert.equal(csvEmpty, "");
+  assert.throws(() => convertJsonToCsv(""), /Enter/);
 
-  const csvToJsonEmpty = convertCsvToJson("");
-  assert.equal(csvToJsonEmpty, "[]");
+  assert.throws(() => convertCsvToJson(""), /Enter/);
 
   const dualDateEmpty = calculateDateDifference("", "");
   assert.equal(dualDateEmpty.isValid, false);

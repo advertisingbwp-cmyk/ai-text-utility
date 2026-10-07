@@ -146,7 +146,7 @@ test("Phase 2 - 5. JSON ↔ CSV: Quoting, Multi-line & Leading Zeros Preservatio
   const roundtripParsed = JSON.parse(roundtripJson);
   assert.equal(roundtripParsed[0].title, "Line 1\nLine 2");
   assert.equal(roundtripParsed[0].tag, "Tech, AI");
-  assert.equal(roundtripParsed[0].rating, 5);
+  assert.equal(roundtripParsed[0].rating, "5"); // CSV cells stay text by default
   assert.equal(roundtripParsed[1].title, 'Contains "quotes"');
 });
 
