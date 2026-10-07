@@ -1,9 +1,20 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useRef } from "react";
 
 export const AdsterraBanner300x250: React.FC<{ className?: string }> = ({ className = "" }) => {
-  const html = `<!DOCTYPE html>
+  const iframeRef = useRef<HTMLIFrameElement>(null);
+
+  useEffect(() => {
+    const iframe = iframeRef.current;
+    if (!iframe) return;
+
+    try {
+      const doc = iframe.contentDocument || iframe.contentWindow?.document;
+      if (!doc) return;
+
+      doc.open();
+      doc.write(`<!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8" />
@@ -20,7 +31,7 @@ export const AdsterraBanner300x250: React.FC<{ className?: string }> = ({ classN
   </style>
 </head>
 <body>
-  <script>
+  <script type="text/javascript">
     atOptions = {
       'key' : 'dc60669d213c871b2e2024882d61f041',
       'format' : 'iframe',
@@ -29,9 +40,14 @@ export const AdsterraBanner300x250: React.FC<{ className?: string }> = ({ classN
       'params' : {}
     };
   </script>
-  <script src="https://www.highrevenueformat.com/dc60669d213c871b2e2024882d61f041/invoke.js"></script>
+  <script type="text/javascript" src="//www.highrevenueformat.com/dc60669d213c871b2e2024882d61f041/invoke.js"></script>
 </body>
-</html>`;
+</html>`);
+      doc.close();
+    } catch {
+      // Ignore cross-origin access errors if any
+    }
+  }, []);
 
   return (
     <div className={`flex flex-col items-center justify-center my-4 ${className}`}>
@@ -39,10 +55,7 @@ export const AdsterraBanner300x250: React.FC<{ className?: string }> = ({ classN
         Advertisement
       </span>
       <iframe
-        srcDoc={html}
-        sandbox="allow-scripts allow-popups allow-popups-to-escape-sandbox"
-        loading="lazy"
-        referrerPolicy="strict-origin-when-cross-origin"
+        ref={iframeRef}
         width={300}
         height={250}
         title="Sponsored Ad 300x250"

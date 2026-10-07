@@ -1,27 +1,24 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useRef } from "react";
 
 export const AdsterraNativeBanner: React.FC<{ className?: string }> = ({ className = "" }) => {
-  const html = `<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      background: transparent;
-      font-family: system-ui, -apple-system, sans-serif;
-    }
-  </style>
-</head>
-<body>
-  <div id="container-8aca604b8b2ab0a3b2106d4958e02b1d"></div>
-  <script async="async" data-cfasync="false" src="https://pl31247526.profitableratecpmnetwork.com/8aca604b8b2ab0a3b2106d4958e02b1d/invoke.js"></script>
-</body>
-</html>`;
+  const bannerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = bannerRef.current;
+    if (!el) return;
+
+    // Prevent duplicate script injection
+    if (el.querySelector("script[src*='profitableratecpmnetwork']")) return;
+
+    const script = document.createElement("script");
+    script.async = true;
+    script.setAttribute("data-cfasync", "false");
+    script.src = "https://pl31247526.profitableratecpmnetwork.com/8aca604b8b2ab0a3b2106d4958e02b1d/invoke.js";
+
+    el.appendChild(script);
+  }, []);
 
   return (
     <aside
@@ -36,16 +33,9 @@ export const AdsterraNativeBanner: React.FC<{ className?: string }> = ({ classNa
           Sponsored Content
         </span>
       </div>
-      <iframe
-        srcDoc={html}
-        sandbox="allow-scripts allow-popups allow-popups-to-escape-sandbox"
-        loading="lazy"
-        referrerPolicy="strict-origin-when-cross-origin"
-        title="Sponsored Native Banner"
-        frameBorder="0"
-        scrolling="no"
-        className="w-full min-h-[160px] rounded-xl overflow-hidden bg-transparent"
-      />
+      <div ref={bannerRef} className="w-full min-h-[160px] flex justify-center items-center overflow-hidden relative">
+        <div id="container-8aca604b8b2ab0a3b2106d4958e02b1d" />
+      </div>
     </aside>
   );
 };
