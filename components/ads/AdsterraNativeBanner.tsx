@@ -18,8 +18,8 @@ export const AdsterraNativeBanner: React.FC<{ className?: string }> = ({ classNa
   </style>
 </head>
 <body>
-  <script async="async" data-cfasync="false" src="https://pl31247526.profitableratecpmnetwork.com/8aca604b8b2ab0a3b2106d4958e02b1d/invoke.js"></script>
   <div id="container-8aca604b8b2ab0a3b2106d4958e02b1d"></div>
+  <script async="async" data-cfasync="false" src="https://pl31247526.profitableratecpmnetwork.com/8aca604b8b2ab0a3b2106d4958e02b1d/invoke.js"></script>
 </body>
 </html>`;
 
