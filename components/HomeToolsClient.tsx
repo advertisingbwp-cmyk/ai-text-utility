@@ -199,8 +199,8 @@ export function HomeToolsClient({ children }: { children: React.ReactNode }) {
       </div>
 
       {/* Category Filter Rail (Functional Filters Only) */}
-      <section id="tools-section" className="w-full min-w-0 scroll-mt-24 space-y-2">
-        <div className="flex items-center justify-start sm:justify-center overflow-x-auto pb-2 scrollbar-none gap-2 sm:gap-2.5">
+      <section id="tools-section" className="w-full min-w-0 scroll-mt-24 -mt-2 sm:-mt-3">
+        <div className="flex items-center justify-start sm:justify-center overflow-x-auto pb-1.5 scrollbar-none gap-2 sm:gap-2.5">
           <button
             type="button"
             onClick={() => { setSelectedCategory("ALL"); setOnlyFavorites(false); }}
@@ -251,12 +251,12 @@ export function HomeToolsClient({ children }: { children: React.ReactNode }) {
             );
           })}
         </div>
-
-        {/* Promotional Secondary Callout (Cleanly separated from category rail) */}
-        <div className="flex items-center justify-end px-1">
-          <AdsterraSmartLink variant="badge" label="Featured Deals" />
-        </div>
       </section>
+
+      {/* Promotional Callout (Visually separated from category rail) */}
+      <div className="flex items-center justify-end px-1 -mt-3 sm:-mt-4">
+        <AdsterraSmartLink variant="badge" label="Featured Deals" />
+      </div>
 
       {selectedCategory === "ALL" && !onlyFavorites && recentTools.length > 0 && (
         <section id="recent" aria-labelledby="recent-heading" className="space-y-3.5">
@@ -274,17 +274,10 @@ export function HomeToolsClient({ children }: { children: React.ReactNode }) {
                 </p>
               </div>
             </div>
-            <a
-              href="#tools-section"
-              className="btn-secondary h-8 px-3 rounded-full text-xs font-semibold text-brand-600 dark:text-brand-400 hover:text-brand-700 dark:hover:text-brand-300 group/viewall inline-flex items-center gap-1.5 transition-all duration-200"
-            >
-              <span>View all tools</span>
-              <ArrowRight size={12} className="transition-transform duration-200 group-hover/viewall:translate-x-0.5" />
-            </a>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5 sm:gap-4">
+          <div className="flex flex-wrap gap-3.5 sm:gap-4">
             {recentTools.map((tool) => (
-              <div key={`recent-${tool.id}`}>
+              <div key={`recent-${tool.id}`} className="w-full sm:w-[260px] md:w-[280px]">
                 <RecentToolCard tool={tool} />
               </div>
             ))}
@@ -309,9 +302,9 @@ export function HomeToolsClient({ children }: { children: React.ReactNode }) {
               <section
                 key={cat.name}
                 id={`category-${cat.name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}
-                className="space-y-3.5 scroll-mt-20"
+                className="space-y-2.5 scroll-mt-20"
               >
-                <div className="flex items-center justify-between border-b border-[rgba(100,120,160,0.12)] dark:border-slate-800/80 pb-3">
+                <div className="flex items-center justify-between border-b border-[rgba(100,120,160,0.12)] dark:border-slate-800/80 pb-2.5">
                   <div className="flex items-center gap-3">
                     <div className={`w-9 h-9 rounded-xl flex items-center justify-center border shadow-xs ${catTheme.bg} ${catTheme.border} icon-3d`}>
                       <DynamicIcon name={cat.icon} size={18} className={catTheme.text} />
@@ -359,7 +352,7 @@ export function HomeToolsClient({ children }: { children: React.ReactNode }) {
         </div>
       ) : (
         <section className="space-y-4">
-          <div className="flex items-center justify-between border-b border-[rgba(100,120,160,0.12)] dark:border-slate-800/80 pb-3.5">
+          <div className="flex items-center justify-between border-b border-[rgba(100,120,160,0.12)] dark:border-slate-800/80 pb-3">
             <div>
               <h2 className="text-base sm:text-lg font-bold text-slate-900 dark:text-slate-100 tracking-tight">
                 {onlyFavorites ? "Your Favorited Utilities" : `${selectedCategory} Utilities`}
@@ -368,14 +361,14 @@ export function HomeToolsClient({ children }: { children: React.ReactNode }) {
                 {onlyFavorites ? `${filteredTools.length} saved tools` : `${filteredTools.length} tools found`}
               </p>
             </div>
-            {onlyFavorites && (
+            {(selectedCategory !== "ALL" || onlyFavorites) && (
               <button
                 type="button"
                 onClick={() => { setOnlyFavorites(false); setSelectedCategory("ALL"); }}
-                className="text-xs sm:text-sm text-slate-500 hover:text-brand-600 dark:text-slate-400 dark:hover:text-brand-400 font-semibold inline-flex items-center gap-1.5 transition-colors"
+                className="btn-secondary h-8 px-3 rounded-full text-xs font-semibold text-brand-600 dark:text-brand-400 hover:text-brand-700 dark:hover:text-brand-300 group/viewall inline-flex items-center gap-1.5 transition-all duration-200 cursor-pointer"
               >
-                <span>View All Tools</span>
-                <ArrowRight size={14} />
+                <span>View all tools</span>
+                <ArrowRight size={12} className="transition-transform duration-200 group-hover/viewall:translate-x-0.5" />
               </button>
             )}
           </div>
