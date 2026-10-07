@@ -579,56 +579,7 @@ body {
   }
 }
 
-/* ========================================================
-   SCROLL REVEAL & TOOL CARD STAGGER SYSTEM
-   ======================================================== */
-.scroll-reveal {
-  opacity: 1;
-  transform: none;
-}
 
-/* Initial state only armed for below-fold items via JS, preserving bot/SSR rendering */
-.scroll-reveal.scroll-reveal-arm {
-  opacity: 0;
-  transform: translate3d(0, 20px, 0);
-  transition: opacity 600ms cubic-bezier(0.16, 1, 0.3, 1),
-              transform 600ms cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.scroll-reveal.scroll-reveal-arm.is-revealed {
-  opacity: 1;
-  transform: translate3d(0, 0, 0);
-}
-
-/* Tool card stagger inside revealed container */
-.scroll-reveal.scroll-stagger.scroll-reveal-arm > *,
-.scroll-reveal.scroll-reveal-arm .scroll-stagger > * {
-  opacity: 0;
-  transform: translate3d(0, 16px, 0);
-  transition: opacity 500ms cubic-bezier(0.16, 1, 0.3, 1),
-              transform 500ms cubic-bezier(0.16, 1, 0.3, 1);
-  transition-delay: calc(var(--stagger-i, 0) * 40ms);
-}
-
-.scroll-reveal.scroll-stagger.scroll-reveal-arm.is-revealed > *,
-.scroll-reveal.scroll-reveal-arm.is-revealed .scroll-stagger > * {
-  opacity: 1;
-  transform: translate3d(0, 0, 0);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .scroll-reveal,
-  .scroll-reveal.scroll-reveal-arm,
-  .scroll-reveal.scroll-reveal-arm.is-revealed,
-  .scroll-reveal.scroll-stagger.scroll-reveal-arm > *,
-  .scroll-reveal.scroll-reveal-arm .scroll-stagger > *,
-  .scroll-reveal.scroll-stagger.scroll-reveal-arm.is-revealed > *,
-  .scroll-reveal.scroll-reveal-arm.is-revealed .scroll-stagger > * {
-    opacity: 1 !important;
-    transform: none !important;
-    transition: none !important;
-  }
-}
 
 /* Modern Card Micro-interactions */
 .card-aurora {

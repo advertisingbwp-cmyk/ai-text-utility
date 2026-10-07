@@ -13,7 +13,6 @@ import { getFavorites, getRecentTools } from "@/lib/storage";
 import { getCategoryTheme, getToolTheme } from "@/lib/toolThemes";
 
 import { FavoriteStar } from "@/components/FavoriteStar";
-import { ScrollReveal } from "@/components/ScrollReveal";
 
 function getRecentCardTheme(category: ToolCategory) {
   switch (category) {
@@ -260,7 +259,7 @@ export function HomeToolsClient({ children }: { children: React.ReactNode }) {
       </section>
 
       {selectedCategory === "ALL" && !onlyFavorites && recentTools.length > 0 && (
-        <ScrollReveal as="section" id="recent" aria-labelledby="recent-heading" className="space-y-3.5">
+        <section id="recent" aria-labelledby="recent-heading" className="space-y-3.5">
           <div className="flex items-center justify-between pb-1">
             <div className="flex items-center gap-2.5">
               <div className="w-8 h-8 rounded-full bg-blue-500/10 text-brand-600 dark:text-brand-400 flex items-center justify-center border border-blue-500/20 backdrop-blur-sm shadow-2xs">
@@ -283,14 +282,14 @@ export function HomeToolsClient({ children }: { children: React.ReactNode }) {
               <ArrowRight size={12} className="transition-transform duration-200 group-hover/viewall:translate-x-0.5" />
             </a>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5 sm:gap-4 scroll-stagger">
-            {recentTools.map((tool, idx) => (
-              <div key={`recent-${tool.id}`} style={{ "--stagger-i": idx } as React.CSSProperties}>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5 sm:gap-4">
+            {recentTools.map((tool) => (
+              <div key={`recent-${tool.id}`}>
                 <RecentToolCard tool={tool} />
               </div>
             ))}
           </div>
-        </ScrollReveal>
+        </section>
       )}
 
       {filteredTools.length === 0 ? (
@@ -307,8 +306,7 @@ export function HomeToolsClient({ children }: { children: React.ReactNode }) {
             const isAI = cat.name === ("AI Magic" as ToolCategory);
             const catTheme = getCategoryTheme(cat.name);
             return (
-              <ScrollReveal
-                as="section"
+              <section
                 key={cat.name}
                 id={`category-${cat.name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}
                 className="space-y-3.5 scroll-mt-20"
@@ -348,19 +346,19 @@ export function HomeToolsClient({ children }: { children: React.ReactNode }) {
                     </button>
                   </div>
                 </div>
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-3.5 scroll-stagger">
-                  {toolsInCat.map((tool, idx) => (
-                    <div key={tool.id} style={{ "--stagger-i": idx % 5 } as React.CSSProperties}>
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-3.5">
+                  {toolsInCat.map((tool) => (
+                    <div key={tool.id}>
                       <ToolCard tool={tool} />
                     </div>
                   ))}
                 </div>
-              </ScrollReveal>
+              </section>
             );
           })}
         </div>
       ) : (
-        <ScrollReveal as="section" className="space-y-4">
+        <section className="space-y-4">
           <div className="flex items-center justify-between border-b border-[rgba(100,120,160,0.12)] dark:border-slate-800/80 pb-3.5">
             <div>
               <h2 className="text-base sm:text-lg font-bold text-slate-900 dark:text-slate-100 tracking-tight">
@@ -381,14 +379,14 @@ export function HomeToolsClient({ children }: { children: React.ReactNode }) {
               </button>
             )}
           </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-3.5 scroll-stagger">
-            {filteredTools.map((tool, idx) => (
-              <div key={tool.id} style={{ "--stagger-i": idx % 5 } as React.CSSProperties}>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-3.5">
+            {filteredTools.map((tool) => (
+              <div key={tool.id}>
                 <ToolCard tool={tool} />
               </div>
             ))}
           </div>
-        </ScrollReveal>
+        </section>
       )}
 
       {children}
