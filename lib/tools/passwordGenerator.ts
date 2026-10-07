@@ -140,8 +140,7 @@ export function generatePasswords(
 function getRandomInt(max: number): number {
   const cryptoObj = globalThis.crypto;
   if (!cryptoObj?.getRandomValues) {
-    // Math.random fallback only if crypto is somehow unavailable
-    return Math.floor(Math.random() * max);
+    throw new Error("Secure password generation is unavailable. Use a browser with Web Crypto support in a secure context.");
   }
 
   const randomBuffer = new Uint32Array(1);

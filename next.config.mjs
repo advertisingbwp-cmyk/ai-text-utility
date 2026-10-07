@@ -1,17 +1,21 @@
+import { validateAdFrameOrigin } from './lib/adFrameOrigin.mjs';
 /** @type {import('next').NextConfig} */
 
 /**
  * Content Security Policy (CSP) Configuration
  * Permits self-hosted assets, inline scripts/styles for Next.js hydration,
- * and verified upstream domains for Adsterra ad delivery and AI API endpoints.
+ * Ad scripts execute on a separate host; the app only permits its frame origin.
  */
+const adOrigin = validateAdFrameOrigin(process.env.NEXT_PUBLIC_AD_FRAME_ORIGIN,
+  process.env.NEXT_PUBLIC_SITE_URL || 'https://ai-text-utility.vercel.app');
 const cspHeader = `
   default-src 'self' https: data: blob:;
-  script-src 'self' 'unsafe-inline' 'unsafe-eval' https:;
+  script-src 'self' 'unsafe-inline' 'unsafe-eval';
   style-src 'self' 'unsafe-inline' https:;
   img-src 'self' data: blob: https:;
   font-src 'self' data: https:;
-  frame-src 'self' data: blob: https:;
+  frame-src ${adOrigin || "'none'"};
+  worker-src 'self' blob:;
   connect-src 'self' https:;
   object-src 'none';
   base-uri 'self';

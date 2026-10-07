@@ -1,9 +1,12 @@
 "use client";
 
-import React, { useState, useEffect, useCallback, useMemo } from "react";
+import React, { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import { ToolDefinition } from "@/data/toolsRegistry";
 import { ToolWorkspaceResolver } from "@/components/layouts";
-import { testRegex, formatRegexReport, parseQueryString, formatQueryParserReport } from "@/lib/tools/index";
+import { formatRegexReport, parseQueryString, formatQueryParserReport } from "@/lib/tools/index";
+import { DEFAULT_REGEX_PATTERN } from "@/lib/tools/regexTester";
+import type { RegexTestResult } from "@/lib/tools/regexTester";
+import { RegexTaskRunner } from "@/lib/tools/regexWorkerClient";
 import { trackEvent } from "@/lib/analytics";
 
 export const RegexTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
@@ -13,8 +16,15 @@ export const RegexTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
   const [error, setError] = useState<string | null>(null);
 
   // Regex Tester State
-  const [regexPattern, setRegexPattern] = useState<string>("user_id_(\\\\d+)");
+  const [regexPattern, setRegexPattern] = useState<string>(DEFAULT_REGEX_PATTERN);
   const [regexFlags, setRegexFlags] = useState<string>("g");
+  const [regexResult, setRegexResult] = useState<RegexTestResult | null>(null);
+  const regexRunner = useRef<RegexTaskRunner | null>(null);
+  const taskVersion = useRef(0);
+  const cancelRegex = useCallback(() => {
+    taskVersion.current++;
+    regexRunner.current?.cancel();
+  }, []);
 
   // Query String Parser State
   const [queryView, setQueryView] = useState<"table" | "json" | "text">("table");
@@ -22,19 +32,29 @@ export const RegexTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
   const executeTool = useCallback(
     (currentInput: string) => {
       setError(null);
+      if (tool.slug === "regex-tester") {
+        const version = ++taskVersion.current;
+        regexRunner.current ??= new RegexTaskRunner();
+        setRegexResult(null);
+        setOutput("");
+        setIsLoading(true);
+        void regexRunner.current.run({ input: currentInput, pattern: regexPattern, flags: regexFlags })
+          .then(result => {
+            if (!result || version !== taskVersion.current) return;
+            setRegexResult(result);
+            setOutput(formatRegexReport(result));
+            setError(result.isValid ? null : result.error || "Regex evaluation failed.");
+            setIsLoading(false);
+          });
+        return;
+      }
       if (!currentInput) {
         setOutput("");
         return;
       }
 
       try {
-        if (tool.slug === "regex-tester") {
-          const res = testRegex(currentInput, regexPattern, regexFlags);
-          if (!res.isValid) {
-            setError(res.error || "Invalid Regular Expression");
-          }
-          setOutput(formatRegexReport(res));
-        } else if (tool.slug === "query-string-parser") {
+        if (tool.slug === "query-string-parser") {
           const res = parseQueryString(currentInput);
           if (queryView === "json") {
             setOutput(JSON.stringify(res.jsonRepresentation, null, 2));
@@ -53,7 +73,8 @@ export const RegexTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
     if (tool.supportsLiveMode) {
       executeTool(input);
     }
-  }, [input, tool.supportsLiveMode, executeTool]);
+    return () => { if (tool.slug === "regex-tester") cancelRegex(); };
+  }, [input, tool.supportsLiveMode, tool.slug, executeTool, cancelRegex]);
 
   const handleRun = () => {
     setIsLoading(true);
@@ -63,10 +84,11 @@ export const RegexTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
       inputLength: input.length,
     });
     executeTool(input);
-    setIsLoading(false);
+    if (tool.slug !== "regex-tester") setIsLoading(false);
   };
 
   const handleClear = () => {
+    if (tool.slug === "regex-tester") { cancelRegex(); setRegexResult(null); setIsLoading(false); }
     setInput("");
     setOutput("");
     setError(null);
@@ -82,7 +104,8 @@ export const RegexTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
               <input
                 type="text"
                 value={regexPattern}
-                onChange={(e) => setRegexPattern(e.target.value)}
+                onChange={(e) => { cancelRegex(); setRegexResult(null); setRegexPattern(e.target.value); }}
+                aria-label="Regex pattern"
                 placeholder="Enter regex pattern..."
                 className="flex-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-1.5 text-slate-900 dark:text-slate-100 font-mono text-xs focus:outline-none focus:border-brand-500 shadow-2xs"
               />
@@ -92,13 +115,16 @@ export const RegexTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
             <div className="flex items-center gap-2">
               <span className="text-slate-700 dark:text-slate-300 font-medium">Flags:</span>
               <div className="flex items-center gap-1">
-                {["g", "i", "m", "s", "u"].map((flag) => {
+                {["g", "i", "m", "s", "u", "y"].map((flag) => {
                   const active = regexFlags.includes(flag);
                   return (
                     <button
                       key={flag}
                       type="button"
+                      aria-pressed={active}
                       onClick={() => {
+                        cancelRegex();
+                        setRegexResult(null);
                         setRegexFlags((prev) =>
                           active ? prev.replace(flag, "") : `${prev}${flag}`
                         );
@@ -196,9 +222,16 @@ export const RegexTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
     }
 
     if (tool.slug === "regex-tester") {
-      const res = testRegex(input, regexPattern, regexFlags);
+      const res = regexResult;
+      if (!res) return <div role="status" aria-live="polite" className="text-xs text-slate-500">
+        {isLoading ? "Evaluating regex in a worker…" : "Enter a pattern and test string to begin."}
+      </div>;
       return (
         <div className="space-y-4">
+          <div role="status" aria-live="polite" className="text-xs text-slate-500">
+            {!res.isValid ? res.error : !res.pattern ? "Enter a regular expression pattern to test." :
+              `${res.matchCount} matches • ${Math.round(res.durationMs ?? 0)} ms${res.truncated ? " • Result limit reached; additional matches or captures may exist." : ""}`}
+          </div>
           <div className="flex items-center justify-between text-xs">
             <span className="text-slate-600 dark:text-slate-400 font-medium">
               Matches Found:{" "}
@@ -209,7 +242,7 @@ export const RegexTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
             {res.isValid ? (
               <span className="text-[11px] text-emerald-600 dark:text-emerald-400 font-mono font-medium">✓ Valid Expression</span>
             ) : (
-              <span className="text-[11px] text-rose-600 dark:text-rose-400 font-mono font-medium">✕ Invalid Syntax</span>
+              <span className="text-[11px] text-rose-600 dark:text-rose-400 font-mono font-medium">✕ Evaluation error</span>
             )}
           </div>
 
@@ -223,11 +256,11 @@ export const RegexTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
                   <div className="flex items-center justify-between">
                     <span className="text-slate-700 dark:text-slate-400 font-semibold">Match #{idx + 1}</span>
                     <span className="text-xs text-slate-500 dark:text-slate-400">
-                      idx {m.index}..{m.index + m.length}
+                      idx {m.start}..{m.end}
                     </span>
                   </div>
                   <div className="p-1.5 rounded bg-emerald-500/10 border border-emerald-500/20 text-emerald-700 dark:text-emerald-300 break-all font-semibold">
-                    {m.match}
+                    {input.slice(m.start, m.end) || "(zero-length match)"}
                   </div>
                   {m.groups.length > 0 && (
                     <div className="mt-1 pt-1 border-t border-slate-200 dark:border-slate-800/80 space-y-1">
@@ -254,14 +287,18 @@ export const RegexTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
     }
 
     return null;
-  }, [tool.slug, input, regexPattern, regexFlags, queryView]);
+  }, [tool.slug, input, regexResult, isLoading, queryView]);
 
   return (
     <ToolWorkspaceResolver
       tool={tool}
       input={input}
       output={output}
-      onInputChange={setInput}
+      onInputChange={(value) => {
+        if (tool.slug === "regex-tester" && value === input) return;
+        if (tool.slug === "regex-tester") { cancelRegex(); setRegexResult(null); }
+        setInput(value);
+      }}
       onRun={handleRun}
       onClear={handleClear}
       isLoading={isLoading}

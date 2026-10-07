@@ -1,0 +1,5 @@
+{
+  "framework": null,
+  "buildCommand": "node build.mjs",
+  "installCommand": "echo No dependencies"
+}

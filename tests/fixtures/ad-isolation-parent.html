@@ -1,0 +1,20 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><title>Controlled ad boundary test</title>
+<h1>Controlled cross-origin isolation test</h1>
+<label>Password sentinel <input value="TEST_SECRET_PASSWORD_4fc92"></label>
+<label>Text sentinel <textarea>TEST_PRIVATE_TEXT_91ba</textarea></label>
+<pre id="result" role="status">Waiting for controlled frame</pre>
+<script>
+localStorage.setItem("ad-isolation-sentinel","TEST_PRIVATE_TEXT_91ba");
+sessionStorage.setItem("ad-isolation-sentinel","TEST_SECRET_PASSWORD_4fc92");
+window.addEventListener("message", event => {
+  const frame=document.querySelector("iframe");
+  if(event.origin!=="http://127.0.0.1:3005"||event.source!==frame.contentWindow)return;
+  const checks=event.data.checks;
+  if(!Array.isArray(checks))return;
+  const passed=checks.length===5&&checks.every(check=>check.denied&&check.error==="SecurityError");
+  document.getElementById("result").textContent=JSON.stringify({passed,checks},null,2);
+  localStorage.removeItem("ad-isolation-sentinel");sessionStorage.removeItem("ad-isolation-sentinel");
+});
+</script>
+<iframe title="Controlled cross-origin test" src="http://127.0.0.1:3005" sandbox="allow-scripts allow-same-origin allow-popups" referrerpolicy="no-referrer"></iframe>
+</html>
