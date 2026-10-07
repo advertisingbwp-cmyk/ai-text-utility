@@ -25,7 +25,7 @@ export const GeneratorLayout: React.FC<WorkspaceProps> = ({
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = `${tool.slug}-result.txt`;
+    a.download = tool.slug === "password-generator" ? "generated-passwords.txt" : `${tool.slug}-result.txt`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);

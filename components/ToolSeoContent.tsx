@@ -182,7 +182,7 @@ export const ToolSeoContent: React.FC<ToolSeoContentProps> = ({ tool }) => {
               <span>
                 {isAI
                   ? "AI requests are transmitted via encrypted HTTPS through server-side endpoints to the configured AI provider. This application does not store submitted text in its database."
-                  : "All processing runs 100% locally in your browser memory. Your text never leaves your device."}
+                  : "This tool processes text in your browser without sending it to our backend. Embedded ads are currently disabled; sponsored destinations have their own privacy practices."}
               </span>
             </div>
           </div>

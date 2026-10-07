@@ -1,24 +1,13 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React from "react";
+import { AdsterraFrame, nativeDocument } from "./AdsterraFrame";
+import { AD_FORMAT_ENABLED } from "@/lib/adPolicy";
 
 export const AdsterraNativeBanner: React.FC<{ className?: string }> = ({ className = "" }) => {
-  const bannerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const el = bannerRef.current;
-    if (!el) return;
-
-    // Prevent duplicate script injection
-    if (el.querySelector("script[src*='profitableratecpmnetwork']")) return;
-
-    const script = document.createElement("script");
-    script.async = true;
-    script.setAttribute("data-cfasync", "false");
-    script.src = "https://pl31247526.profitableratecpmnetwork.com/8aca604b8b2ab0a3b2106d4958e02b1d/invoke.js";
-
-    el.appendChild(script);
-  }, []);
+  if (!AD_FORMAT_ENABLED.native) {
+    return <div aria-hidden="true" className={`my-6 h-[224px] ${className}`} />;
+  }
 
   return (
     <aside
@@ -33,8 +22,8 @@ export const AdsterraNativeBanner: React.FC<{ className?: string }> = ({ classNa
           Sponsored Content
         </span>
       </div>
-      <div ref={bannerRef} className="w-full min-h-[160px] flex justify-center items-center overflow-hidden relative">
-        <div id="container-8aca604b8b2ab0a3b2106d4958e02b1d" />
+      <div className="w-full h-[160px] flex justify-center items-center overflow-hidden relative">
+        <AdsterraFrame title="Sponsored Native Ad" width="100%" height={160} document={nativeDocument} className="w-full" />
       </div>
     </aside>
   );

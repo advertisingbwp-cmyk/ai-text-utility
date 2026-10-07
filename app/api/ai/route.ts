@@ -12,6 +12,12 @@ export async function POST(req: Request): Promise<NextResponse<AiResponseBody>> 
     const clientIp = extractClientIp(req.headers);
     const rateLimiter = getAiRateLimiter();
     const rateLimit = await rateLimiter.check(clientIp);
+    // Capture before provider work so its latency does not shift the advertised reset.
+    const rateLimitHeaders = {
+      "X-RateLimit-Limit": rateLimit.limit.toString(),
+      "X-RateLimit-Remaining": rateLimit.remaining.toString(),
+      "X-RateLimit-Reset": Math.ceil((Date.now() + rateLimit.resetMs) / 1000).toString(),
+    };
 
     if (!rateLimit.allowed) {
       return NextResponse.json(
@@ -23,9 +29,7 @@ export async function POST(req: Request): Promise<NextResponse<AiResponseBody>> 
           status: 429,
           headers: {
             "Retry-After": Math.ceil(rateLimit.resetMs / 1000).toString(),
-            "X-RateLimit-Limit": rateLimit.limit.toString(),
-            "X-RateLimit-Remaining": rateLimit.remaining.toString(),
-            "X-RateLimit-Reset": Math.ceil((Date.now() + rateLimit.resetMs) / 1000).toString(),
+            ...rateLimitHeaders,
           },
         }
       );
@@ -143,10 +147,7 @@ export async function POST(req: Request): Promise<NextResponse<AiResponseBody>> 
       },
       {
         status: 200,
-        headers: {
-          "X-RateLimit-Limit": rateLimit.limit.toString(),
-          "X-RateLimit-Remaining": rateLimit.remaining.toString(),
-        },
+        headers: rateLimitHeaders,
       }
     );
   } catch (err: unknown) {

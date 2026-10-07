@@ -8,7 +8,7 @@
         "start": "next start",
         "check:production": "node --experimental-strip-types scripts/check-production.mjs",
         "typecheck": "tsc --noEmit",
-        "test": "node --experimental-strip-types --test \"tests/**/*.test.ts\""
+        "test": "node --import tsx --test \"tests/**/*.test.ts\""
     },
     "keywords": [
         "text-utility",
@@ -19,13 +19,16 @@
     "author": "AI Text Utility Team",
     "license": "MIT",
     "devDependencies": {
+        "@types/jsdom": "^21.1.7",
         "@types/node": "^26.4.1",
         "@types/react": "^19.2.18",
         "@types/react-dom": "^19.2.7",
         "autoprefixer": "^10.5.5",
+        "jsdom": "^26.1.0",
         "postcss": "^8.5.28",
         "sharp": "^0.35.5",
         "tailwindcss": "^3.4.19",
+        "tsx": "^4.23.15",
         "typescript": "^7.0.2"
     },
     "dependencies": {

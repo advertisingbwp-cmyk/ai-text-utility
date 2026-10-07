@@ -55,7 +55,7 @@ export function HomeSeoContent() {
             </div>
             <h3 className="font-bold text-slate-900 dark:text-white text-sm">For privacy</h3>
             <p className="text-xs leading-relaxed text-[#5F6F89] dark:text-slate-400">
-              For ordinary transformations, processing stays in your browser. For AI tools, read the <Link href="/privacy" className="text-brand-600 dark:text-brand-400 font-medium hover:underline">Privacy Policy</Link> before submitting text because those requests necessarily leave the browser.
+              Ordinary transformations process text in your browser without sending it to our backend. AI requests leave the browser. Embedded ads are currently disabled; sponsored links lead to external sites. Read the <Link href="/privacy" className="text-brand-600 dark:text-brand-400 font-medium hover:underline">Privacy Policy</Link> for details.
             </p>
           </div>
         </div>

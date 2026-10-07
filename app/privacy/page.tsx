@@ -35,7 +35,7 @@ export default function PrivacyPage() {
           Privacy Policy
         </h1>
         <p className="text-xs text-slate-500 dark:text-slate-400">
-          Last Updated: September 2026 • Effective Immediately
+          Last Updated: October 2026 • Effective Immediately
         </p>
       </div>
 
@@ -67,7 +67,7 @@ export default function PrivacyPage() {
           </div>
           <h2 className="text-sm font-semibold text-slate-900 dark:text-white">No Sensitive Tracking</h2>
           <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-            Analytics track only anonymous UI interactions without collecting or reading your input text.
+            Our application analytics events exclude input text. Advertising partners have separate data practices described below.
           </p>
         </div>
       </div>
@@ -82,7 +82,7 @@ export default function PrivacyPage() {
             and Hash Generator), your content is processed entirely within your web browser using JavaScript client-side APIs.
           </p>
           <p className="text-slate-500 dark:text-slate-400">
-            We do not transmit, inspect, store, or log the text you enter into our client-side tools on any server.
+            Our browser-only tools do not send your input or generated output to our backend. Advertising requests are separate from tool processing.
           </p>
         </section>
 
@@ -129,10 +129,16 @@ export default function PrivacyPage() {
         <section className="space-y-3">
           <h2 className="text-lg font-semibold text-slate-900 dark:text-white">5. Advertising & Third-Party Partners</h2>
           <p>
-            To keep our utility suite 100% free and accessible without subscription paywalls, we display advertisements and sponsored links served by third-party advertising networks, including Adsterra and its affiliated distribution partners.
+            Sponsored links from advertising partners, including Adsterra, help support our free tools. Embedded advertising is currently disabled as explained below.
           </p>
           <p className="text-slate-500 dark:text-slate-400">
-            These ad networks may use anonymous cookies, web beacons, or device identifiers to serve contextual advertisements and measure campaign effectiveness. These third-party technologies operate subject to the respective privacy policies of those networks.
+            Ad networks receive network information such as your IP address and browser details when ads load. They may use cookies, web beacons or device identifiers, subject to browser restrictions and their own privacy policies. These identifiers are not necessarily anonymous.
+          </p>
+          <p className="text-slate-500 dark:text-slate-400">
+            Embedded banner and Native ad formats are currently disabled because their scripts require access unavailable in our sandbox. Sponsored links remain available. Any embedded format we enable must run in a sandboxed frame without same-origin access, and we do not pass tool input or output into ad frames.
+          </p>
+          <p className="text-slate-500 dark:text-slate-400">
+            Sensitive tool pages do not load embedded advertising while compatible isolated banners are unavailable. Sponsored links open an external site in a new tab without access to the originating tab; that site&apos;s own privacy practices apply after you click.
           </p>
           <p className="text-slate-500 dark:text-slate-400">
             You can control or disable cookie tracking at any time via your browser privacy settings, or by utilizing industry opt-out tools such as the Network Advertising Initiative (NAI) or Digital Advertising Alliance (DAA).

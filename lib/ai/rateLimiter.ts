@@ -3,7 +3,8 @@
  * Pluggable architecture supporting:
  * 1. Local in-memory sliding window limiter (development & testing)
  * 2. Distributed Upstash Redis REST limiter (production serverless / multi-instance Vercel)
- * 3. Graceful failover: falls back to in-memory if Redis connection fails.
+ * 3. Graceful failover: persistent runtime-local memory if Redis fails.
+ * Local state is not shared across instances, cold starts or regions.
  */
 
 export interface RateLimitResult {
@@ -61,7 +62,7 @@ export class InMemoryRateLimiter implements AiRateLimiter {
     return {
       allowed: true,
       remaining: Math.max(0, this.maxRequests - recent.length),
-      resetMs: this.windowMs,
+      resetMs: Math.max(0, this.windowMs - (now - recent[0])),
       limit: this.maxRequests,
     };
   }
@@ -108,6 +109,7 @@ export class UpstashRedisRateLimiter implements AiRateLimiter {
   public readonly windowMs: number;
   private timeoutMs: number;
   private fallbackLimiter: InMemoryRateLimiter;
+  private lastWarningAt = -Infinity;
 
   constructor(config: UpstashRedisConfig) {
     this.url = config.url.replace(/\/+$/, "");
@@ -128,7 +130,8 @@ export class UpstashRedisRateLimiter implements AiRateLimiter {
     const timer = setTimeout(() => controller.abort(), this.timeoutMs);
 
     try {
-      // Pipeline INCR and EXPIRE in a single HTTP request to Upstash
+      // INCR is atomic; the pipeline as a whole is not a transaction.
+      // Keep the counter in Redis rather than doing a read/modify/write locally.
       const response = await fetch(`${this.url}/pipeline`, {
         method: "POST",
         headers: {
@@ -154,11 +157,12 @@ export class UpstashRedisRateLimiter implements AiRateLimiter {
       const results = (await response.json()) as UpstashResponseItem[];
       const count = Number(results?.[0]?.result);
 
-      if (isNaN(count)) {
+      if (!Number.isSafeInteger(count) || count < 1 || results?.[0]?.error ||
+          results?.[1]?.error || results?.[1]?.result !== 1) {
         throw new Error("Invalid response format from Upstash Redis pipeline");
       }
 
-      const resetMs = Math.max(0, (windowBucket + 1) * this.windowMs - now);
+      const resetMs = Math.max(0, (windowBucket + 1) * this.windowMs - Date.now());
       const allowed = count <= this.maxRequests;
       const remaining = Math.max(0, this.maxRequests - count);
 
@@ -168,12 +172,14 @@ export class UpstashRedisRateLimiter implements AiRateLimiter {
         resetMs,
         limit: this.maxRequests,
       };
-    } catch (err: unknown) {
-      // Safe fallback: log server-side warning and fallback to local memory
-      console.warn(
-        "[RateLimiter]: Distributed Redis check failed, failing over to local in-memory limiter:",
-        err instanceof Error ? err.message : String(err)
-      );
+    } catch {
+      // One sanitized warning per minute per runtime, including during concurrent failures.
+      // Never include raw infrastructure errors, URLs, credentials or client IPs.
+      const warningAt = Date.now();
+      if (warningAt - this.lastWarningAt >= 60_000) {
+        this.lastWarningAt = warningAt;
+        console.warn("[RateLimiter]: Redis unavailable or invalid response; using runtime-local rate limiting. Redis will be retried on the next request.");
+      }
       return this.fallbackLimiter.check(ip);
     } finally {
       clearTimeout(timer);
@@ -186,21 +192,18 @@ export class UpstashRedisRateLimiter implements AiRateLimiter {
 }
 
 /**
- * Factory to obtain the active rate limiter.
- * In production with UPSTASH credentials configured, returns UpstashRedisRateLimiter.
- * Otherwise returns InMemoryRateLimiter.
+ * Configuration is read once when this server module is initialized.
+ * Redeploy/restart the runtime to apply changed environment settings.
  */
-export function getAiRateLimiter(): AiRateLimiter {
+function createAiRateLimiter(): AiRateLimiter {
   const upstashUrl = process.env.UPSTASH_REDIS_REST_URL;
   const upstashToken = process.env.UPSTASH_REDIS_REST_TOKEN;
-  const maxRequests = parseInt(process.env.AI_RATE_LIMIT_PER_IP_MINUTE || "15", 10);
-  const limit = isNaN(maxRequests) ? 15 : maxRequests;
 
   if (upstashUrl && upstashToken) {
     return new UpstashRedisRateLimiter({
       url: upstashUrl,
       token: upstashToken,
-      maxRequests: limit,
+      maxRequests: defaultMax,
       windowMs: 60 * 1000,
     });
   }
@@ -209,8 +212,13 @@ export function getAiRateLimiter(): AiRateLimiter {
 }
 
 // Singleton in-memory limiter
-const defaultMax = parseInt(process.env.AI_RATE_LIMIT_PER_IP_MINUTE || "15", 10);
-export const globalInMemoryLimiter = new InMemoryRateLimiter(isNaN(defaultMax) ? 15 : defaultMax);
+const configuredMax = Number(process.env.AI_RATE_LIMIT_PER_IP_MINUTE || "15");
+const defaultMax = Number.isSafeInteger(configuredMax) && configuredMax > 0 ? configuredMax : 15;
+export const globalInMemoryLimiter = new InMemoryRateLimiter(defaultMax);
 
-// Backward-compatible singleton export
-export const globalAiRateLimiter = globalInMemoryLimiter;
+// One Redis client and one persistent fallback per module/runtime.
+export const globalAiRateLimiter = createAiRateLimiter();
+
+export function getAiRateLimiter(): AiRateLimiter {
+  return globalAiRateLimiter;
+}

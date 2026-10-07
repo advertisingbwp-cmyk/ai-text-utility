@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState, useEffect, useCallback, useMemo } from "react";
+import React, { useState, useEffect, useCallback, useMemo, useRef } from "react";
+import type { PasswordResult } from "@/lib/tools/passwordGenerator";
 import { ToolDefinition } from "@/data/toolsRegistry";
 import { ToolWorkspaceResolver } from "@/components/layouts";
 import { CopyButton } from "@/components/CopyButton";
@@ -21,6 +22,8 @@ export const GeneratorTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
   const [error, setError] = useState<string | null>(null);
 
   // Password Generator State
+  const [passwordResult, setPasswordResult] = useState<PasswordResult | null>(null);
+  const lastPasswordAutoRun = useRef<((input: string) => void) | null>(null);
   const [pwLength, setPwLength] = useState<number>(16);
   const [pwUpper, setPwUpper] = useState<boolean>(true);
   const [pwLower, setPwLower] = useState<boolean>(true);
@@ -60,7 +63,7 @@ export const GeneratorTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
               excludeAmbiguous: pwExcludeAmbiguous,
               count: pwCount,
             });
-            setOutput(res.passwords.join("\n"));
+            setPasswordResult(res);
             break;
           }
 
@@ -114,6 +117,7 @@ export const GeneratorTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
           }
         }
       } catch (err) {
+        if (tool.slug === "password-generator") setPasswordResult(null);
         setError(err instanceof Error ? err.message : "Error generating content");
       }
     },
@@ -138,8 +142,15 @@ export const GeneratorTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
   );
 
   useEffect(() => {
+    if (tool.slug === "password-generator") {
+      // Options change this callback. Skip StrictMode's replay of the same mount effect.
+      if (lastPasswordAutoRun.current === executeTool) return;
+      lastPasswordAutoRun.current = executeTool;
+    } else {
+      lastPasswordAutoRun.current = null;
+    }
     executeTool(input);
-  }, [input, executeTool]);
+  }, [input, executeTool, tool.slug]);
 
   const handleRun = () => {
     setIsLoading(true);
@@ -155,6 +166,7 @@ export const GeneratorTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
   const handleClear = () => {
     setInput("");
     setOutput("");
+    setPasswordResult(null);
     setError(null);
   };
 
@@ -387,15 +399,14 @@ export const GeneratorTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
 
   const customPreview = useMemo(() => {
     if (tool.slug === "password-generator") {
-      const res = generatePasswords({
-        length: pwLength,
-        uppercase: pwUpper,
-        lowercase: pwLower,
-        numbers: pwNumbers,
-        symbols: pwSymbols,
-        excludeAmbiguous: pwExcludeAmbiguous,
-        count: pwCount,
-      });
+      const res = passwordResult;
+      if (!res) {
+        return (
+          <div className="min-h-[88px] flex items-center text-sm text-slate-500 dark:text-slate-400">
+            Generate a password to begin.
+          </div>
+        );
+      }
 
       const strengthColors = {
         "very-weak": "text-rose-500 bg-rose-500/10 border-rose-500/20",
@@ -474,13 +485,7 @@ export const GeneratorTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
     return null;
   }, [
     tool.slug,
-    pwLength,
-    pwUpper,
-    pwLower,
-    pwNumbers,
-    pwSymbols,
-    pwExcludeAmbiguous,
-    pwCount,
+    passwordResult,
     allHashes,
     output,
   ]);
@@ -489,7 +494,7 @@ export const GeneratorTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
     <ToolWorkspaceResolver
       tool={tool}
       input={input}
-      output={output}
+      output={tool.slug === "password-generator" ? passwordResult?.passwords.join("\n") ?? "" : output}
       onInputChange={setInput}
       onRun={handleRun}
       onClear={handleClear}
