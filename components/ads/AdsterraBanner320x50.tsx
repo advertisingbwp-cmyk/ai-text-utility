@@ -40,7 +40,7 @@ export const AdsterraBanner320x50: React.FC<{ className?: string }> = ({ classNa
       'params' : {}
     };
   </script>
-  <script type="text/javascript" src="//www.highrevenueformat.com/87759585f06f50f90802d1b4cea40a5d/invoke.js"></script>
+  <script type="text/javascript" src="https://www.highrevenueformat.com/87759585f06f50f90802d1b4cea40a5d/invoke.js"></script>
 </body>
 </html>`);
       doc.close();
