@@ -1,0 +1,14 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><title>Controlled probe</title><p>Controlled probe: no provider scripts or external requests.</p><script>
+const probes={
+ document:()=>window.parent.document,
+ input:()=>window.parent.document.querySelector("input").value,
+ textarea:()=>window.parent.document.querySelector("textarea").value,
+ localStorage:()=>window.parent.localStorage.getItem("ad-isolation-sentinel"),
+ sessionStorage:()=>window.parent.sessionStorage.getItem("ad-isolation-sentinel")
+};
+const checks=Object.entries(probes).map(([name,read])=>{
+ try{read();return {name,denied:false,error:null};}
+ catch(error){return {name,denied:true,error:error.name};}
+});
+parent.postMessage({checks},"http://127.0.0.1:3004");
+</script></html>

@@ -129,16 +129,16 @@ export default function PrivacyPage() {
         <section className="space-y-3">
           <h2 className="text-lg font-semibold text-slate-900 dark:text-white">5. Advertising & Third-Party Partners</h2>
           <p>
-            Sponsored links from advertising partners, including Adsterra, help support our free tools. Embedded advertising is currently disabled as explained below.
+            Embedded advertising and sponsored links from advertising partners, including Adsterra, help support our free tools. Configured embedded ads run on a separate advertising origin.
           </p>
           <p className="text-slate-500 dark:text-slate-400">
             Ad networks receive network information such as your IP address and browser details when ads load. They may use cookies, web beacons or device identifiers, subject to browser restrictions and their own privacy policies. These identifiers are not necessarily anonymous.
           </p>
           <p className="text-slate-500 dark:text-slate-400">
-            Embedded banner and Native ad formats are currently disabled because their scripts require access unavailable in our sandbox. Sponsored links remain available. Any embedded format we enable must run in a sandboxed frame without same-origin access, and we do not pass tool input or output into ad frames.
+            Embedded banners and Native ads are hosted in sandboxed cross-origin frames, separate from the application document. Browser origin restrictions isolate the frame from the parent document and storage. Tool input and output are not intentionally passed to advertising frames. Ads are omitted when a separate ad host is not configured or cannot load.
           </p>
           <p className="text-slate-500 dark:text-slate-400">
-            Sensitive tool pages do not load embedded advertising while compatible isolated banners are unavailable. Sponsored links open an external site in a new tab without access to the originating tab; that site&apos;s own privacy practices apply after you click.
+            Sensitive tool pages may display isolated cross-origin banners; Native ads are excluded on those pages. Sponsored links open an external site in a new tab without access to the originating tab; that site&apos;s own privacy practices apply after you click.
           </p>
           <p className="text-slate-500 dark:text-slate-400">
             You can control or disable cookie tracking at any time via your browser privacy settings, or by utilizing industry opt-out tools such as the Network Advertising Initiative (NAI) or Digital Advertising Alliance (DAA).

@@ -30,6 +30,10 @@ jobs:
       - name: Run Test Suite
         run: npm test
 
+      - name: Build isolated static ad host
+        working-directory: ad-host
+        run: node build.mjs
+
       - name: Production Build
         run: npm run build
         env:
