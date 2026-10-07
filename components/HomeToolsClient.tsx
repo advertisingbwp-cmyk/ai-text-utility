@@ -8,7 +8,7 @@ import { ToolCard } from "@/components/ToolCard";
 import { EmptyState } from "@/components/EmptyState";
 import { TerminalHero } from "@/components/TerminalHero";
 import { DynamicIcon } from "@/components/DynamicIcon";
-import { AdsterraSmartLink } from "@/components/ads";
+import { AdsterraSmartLink, AdsterraBanner300x250 } from "@/components/ads";
 import { getFavorites, getRecentTools } from "@/lib/storage";
 import { getCategoryTheme, getToolTheme } from "@/lib/toolThemes";
 
@@ -354,6 +354,11 @@ export function HomeToolsClient({ children }: { children: React.ReactNode }) {
                       <ToolCard tool={tool} />
                     </div>
                   ))}
+                  {cat.name === "Format" && (
+                    <div className="col-span-2 sm:col-span-3 md:col-span-2 lg:col-span-4 card-3d rounded-2xl p-3 sm:p-4 overflow-hidden flex flex-col items-center justify-center bg-white/60 dark:bg-slate-900/40 backdrop-blur-md border border-white/70 dark:border-slate-800/80 shadow-xs">
+                      <AdsterraBanner300x250 className="my-0" />
+                    </div>
+                  )}
                 </div>
               </ScrollReveal>
             );
@@ -387,6 +392,11 @@ export function HomeToolsClient({ children }: { children: React.ReactNode }) {
                 <ToolCard tool={tool} />
               </div>
             ))}
+            {selectedCategory === "Format" && (
+              <div className="col-span-2 sm:col-span-3 md:col-span-2 lg:col-span-4 card-3d rounded-2xl p-3 sm:p-4 overflow-hidden flex flex-col items-center justify-center bg-white/60 dark:bg-slate-900/40 backdrop-blur-md border border-white/70 dark:border-slate-800/80 shadow-xs">
+                <AdsterraBanner300x250 className="my-0" />
+              </div>
+            )}
           </div>
         </ScrollReveal>
       )}
