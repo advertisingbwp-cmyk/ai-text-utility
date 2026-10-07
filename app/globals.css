@@ -109,7 +109,7 @@ body {
   background: linear-gradient(135deg, #090d16 0%, #0d1322 40%, #0a0e1a 75%, #100b18 100%);
 }
 
-/* Ambient Radial Glow Cloud */
+/* Ambient Radial Glow Cloud (Transforms smoothly with scroll) */
 .aurora-ambient-glows {
   position: absolute;
   inset: 0;
@@ -120,7 +120,10 @@ body {
     radial-gradient(circle at 86% 24%, rgba(184, 165, 255, 0.32), transparent 42%),
     radial-gradient(circle at 95% 42%, rgba(242, 180, 232, 0.28), transparent 36%),
     radial-gradient(circle at 50% 68%, rgba(168, 240, 244, 0.22), transparent 45%);
-  filter: blur(48px);
+  filter: blur(48px) hue-rotate(var(--aurora-hue-shift, 0deg));
+  transform: scale(var(--aurora-glow-scale, 1)) translate3d(0, calc(var(--aurora-shift-y, 0px) * -0.2), 0);
+  will-change: transform, filter;
+  transition: filter 120ms linear;
 }
 
 .dark .aurora-ambient-glows {
@@ -128,7 +131,10 @@ body {
     radial-gradient(circle at 14% 32%, rgba(14, 165, 233, 0.25), transparent 42%),
     radial-gradient(circle at 72% 28%, rgba(99, 102, 241, 0.25), transparent 40%),
     radial-gradient(circle at 95% 42%, rgba(236, 72, 153, 0.20), transparent 36%);
-  filter: blur(60px);
+  filter: blur(60px) hue-rotate(var(--aurora-hue-shift, 0deg));
+  transform: scale(var(--aurora-glow-scale, 1)) translate3d(0, calc(var(--aurora-shift-y, 0px) * -0.2), 0);
+  will-change: transform, filter;
+  transition: filter 120ms linear;
 }
 
 /* Wave 1: Top-Left Cyan/Sky Liquid Glass Swell */
@@ -468,22 +474,22 @@ body {
   );
 }
 
-/* Large glass sphere: around 20–30px movement + depth scale */
+/* Large glass sphere: responsive movement + depth scaling across scroll */
 .parallax-sphere-1 {
   transform: translate3d(
-    calc(var(--hero-parallax-y, 0px) * -0.25),
-    calc(var(--hero-parallax-y, 0px) * 0.72),
+    calc(var(--hero-parallax-y, 0px) * -0.25 + var(--scroll-p, 0) * -22px),
+    calc(var(--hero-parallax-y, 0px) * 0.72 + var(--scroll-p, 0) * -65px),
     0
-  ) scale(calc(1 + var(--hero-parallax-distance, 0) * 0.0005));
+  ) scale(calc(1 + var(--hero-parallax-distance, 0) * 0.0005 + var(--scroll-p, 0) * 0.07));
 }
 
-/* Small sphere: around 12–20px movement (opposite direction) */
+/* Small sphere: counter movement across scroll */
 .parallax-sphere-2 {
   transform: translate3d(
-    calc(var(--hero-parallax-y, 0px) * 0.2),
-    calc(var(--hero-parallax-y, 0px) * -0.45),
+    calc(var(--hero-parallax-y, 0px) * 0.2 + var(--scroll-p, 0) * 16px),
+    calc(var(--hero-parallax-y, 0px) * -0.45 + var(--scroll-p, 0) * 45px),
     0
-  );
+  ) scale(calc(1 - var(--scroll-p, 0) * 0.04));
 }
 
 /* Hero ambient glow subtle depth */
@@ -491,25 +497,32 @@ body {
   transform: translate3d(0, calc(var(--hero-parallax-y, 0px) * -0.35), 0);
 }
 
-/* Scroll Tint Layer: Top is pure cyan/sky, scrolling down introduces subtle lavender/violet */
+/* Scroll Tint Layer: Top is pure cyan/sky, scrolling down introduces rich lavender, indigo, and warm dusk rose */
 .aurora-scroll-tint {
   position: absolute;
   inset: 0;
   pointer-events: none;
   background:
-    radial-gradient(ellipse at 70% 40%, rgba(184, 165, 255, 0.28) 0%, transparent 60%),
-    radial-gradient(circle at 30% 70%, rgba(154, 124, 255, 0.18) 0%, transparent 50%);
-  filter: blur(40px);
-  opacity: calc(var(--scroll-p, 0) * 0.65);
+    radial-gradient(ellipse at 75% 35%, rgba(168, 85, 247, 0.26) 0%, transparent 58%),
+    radial-gradient(circle at 25% 65%, rgba(99, 102, 241, 0.22) 0%, transparent 52%),
+    radial-gradient(ellipse at 50% 90%, rgba(244, 114, 182, 0.18) 0%, transparent 50%);
+  filter: blur(48px);
+  opacity: calc(var(--scroll-p, 0) * 0.85);
+  transform: translate3d(0, calc(var(--scroll-p, 0) * -50px), 0);
+  will-change: transform, opacity;
   transition: opacity 80ms linear;
 }
 
 .dark .aurora-scroll-tint {
   background:
-    radial-gradient(ellipse at 70% 40%, rgba(139, 92, 246, 0.20) 0%, transparent 60%),
-    radial-gradient(circle at 30% 70%, rgba(168, 85, 247, 0.14) 0%, transparent 50%);
-  filter: blur(50px);
-  opacity: calc(var(--scroll-p, 0) * 0.65);
+    radial-gradient(ellipse at 75% 35%, rgba(147, 51, 234, 0.22) 0%, transparent 58%),
+    radial-gradient(circle at 25% 65%, rgba(79, 70, 229, 0.20) 0%, transparent 52%),
+    radial-gradient(ellipse at 50% 90%, rgba(236, 72, 153, 0.16) 0%, transparent 50%);
+  filter: blur(60px);
+  opacity: calc(var(--scroll-p, 0) * 0.85);
+  transform: translate3d(0, calc(var(--scroll-p, 0) * -50px), 0);
+  will-change: transform, opacity;
+  transition: opacity 80ms linear;
 }
 
 /* Reduced Motion Safety */

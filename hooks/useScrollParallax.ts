@@ -24,13 +24,21 @@ export function useScrollParallax(options: ScrollParallaxOptions = {}) {
   } = options;
 
   useEffect(() => {
+    const applyStyles = (prog: number, hero: number) => {
+      const root = document.documentElement.style;
+      root.setProperty("--scroll-p", prog.toFixed(4));
+      root.setProperty("--aurora-hue-shift", `${(prog * 45).toFixed(1)}deg`);
+      root.setProperty("--aurora-glow-scale", (1 + prog * 0.12).toFixed(3));
+      root.setProperty("--aurora-shift-y", `${(prog * 100).toFixed(1)}px`);
+      root.setProperty("--hero-parallax-y", `${hero.toFixed(2)}px`);
+      root.setProperty("--hero-parallax-distance", hero.toFixed(2));
+      root.setProperty("--hero-parallax-reverse", `${(-hero * 0.5).toFixed(2)}px`);
+    };
+
     // Check user preference for reduced motion
     const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
     if (motionQuery.matches) {
-      document.documentElement.style.setProperty("--scroll-p", "0");
-      document.documentElement.style.setProperty("--hero-parallax-y", "0px");
-      document.documentElement.style.setProperty("--hero-parallax-distance", "0");
-      document.documentElement.style.setProperty("--hero-parallax-reverse", "0px");
+      applyStyles(0, 0);
       return;
     }
 
@@ -69,25 +77,13 @@ export function useScrollParallax(options: ScrollParallaxOptions = {}) {
       if (settled) {
         currentProgress = targetProgress;
         currentHeroY = targetHeroY;
-        document.documentElement.style.setProperty("--scroll-p", currentProgress.toFixed(4));
-        document.documentElement.style.setProperty("--hero-parallax-y", `${currentHeroY.toFixed(2)}px`);
-        document.documentElement.style.setProperty("--hero-parallax-distance", currentHeroY.toFixed(2));
-        document.documentElement.style.setProperty(
-          "--hero-parallax-reverse",
-          `${(-currentHeroY * 0.5).toFixed(2)}px`
-        );
+        applyStyles(currentProgress, currentHeroY);
         isRunning = false;
         rafId = null;
         return;
       }
 
-      document.documentElement.style.setProperty("--scroll-p", currentProgress.toFixed(4));
-      document.documentElement.style.setProperty("--hero-parallax-y", `${currentHeroY.toFixed(2)}px`);
-      document.documentElement.style.setProperty("--hero-parallax-distance", currentHeroY.toFixed(2));
-      document.documentElement.style.setProperty(
-        "--hero-parallax-reverse",
-        `${(-currentHeroY * 0.5).toFixed(2)}px`
-      );
+      applyStyles(currentProgress, currentHeroY);
 
       rafId = requestAnimationFrame(updateLoop);
     };
