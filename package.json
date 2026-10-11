@@ -38,7 +38,7 @@
         "lucide-react": "^1.42.0",
         "micromark": "^4.0.3",
         "micromark-extension-gfm-strikethrough": "^2.1.0",
-        "next": "^16.3.4",
+        "next": "^16.4.0",
         "parse5": "^8.0.1",
         "react": "^19.2.8",
         "react-dom": "^19.2.8",
