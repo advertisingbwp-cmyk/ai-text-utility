@@ -1,3 +1,4 @@
+import { serializeStructuredData } from "@/lib/structuredData";
 import React from "react";
 import { Metadata } from "next";
 import Link from "next/link";
@@ -38,7 +39,7 @@ export default function ContactPage() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+        dangerouslySetInnerHTML={{ __html: serializeStructuredData(breadcrumbSchema) }}
       />
 
       <div className="max-w-4xl mx-auto py-10 px-4 sm:px-6 space-y-10 text-slate-600 dark:text-slate-300">

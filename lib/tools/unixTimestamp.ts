@@ -1,3 +1,5 @@
+import { parseStrictDate } from "./dateParsing.ts";
+
 /**
  * Unix Timestamp Converter
  * Pure TypeScript logic for bidirectional conversion between epoch timestamps and human dates.
@@ -27,8 +29,8 @@ export interface UnixTimestampResult {
 }
 
 // Practical year boundaries for standard web dates (Year 0 to 9999)
-const MIN_SAFE_TIMESTAMP_MS = -62167219200000; // 0001-01-01T00:00:00Z
-const MAX_SAFE_TIMESTAMP_MS = 253402300799000; // 9999-12-31T23:59:59Z
+const MIN_SAFE_TIMESTAMP_MS = -62167219200000; // 0000-01-01T00:00:00Z
+const MAX_SAFE_TIMESTAMP_MS = 253402300799999; // 9999-12-31T23:59:59Z
 
 /**
  * Formats a relative duration into human-readable text (e.g. "2 hours ago", "in 3 days").
@@ -112,8 +114,8 @@ export function convertUnixTimestamp(
 
     const numericVal = parseFloat(input);
 
-    if (isNaN(numericVal)) {
-      return defaultFailResult("Timestamp evaluates to NaN.");
+    if (!Number.isFinite(numericVal)) {
+      return defaultFailResult("Timestamp must be a finite number.");
     }
 
     // Determine whether input represents seconds or milliseconds
@@ -127,7 +129,7 @@ export function convertUnixTimestamp(
       seconds = Math.floor(numericVal / 1000);
     } else {
       // Auto-detect unit: if 12+ digits or > 30 billion, treat as milliseconds
-      if (Math.abs(numericVal) > 30000000000 || input.replace(/^-/, "").length >= 12) {
+      if (Math.abs(numericVal) > 30000000000 || input.replace(/^-/, "").split(".")[0].length >= 12) {
         usedUnit = "milliseconds";
         milliseconds = Math.round(numericVal);
         seconds = Math.floor(numericVal / 1000);
@@ -141,18 +143,18 @@ export function convertUnixTimestamp(
     // Practical range check
     if (milliseconds < MIN_SAFE_TIMESTAMP_MS || milliseconds > MAX_SAFE_TIMESTAMP_MS) {
       return defaultFailResult(
-        `Timestamp out of practical range (Years 0001 - 9999). Received ${usedUnit}: ${numericVal}.`
+        `Timestamp out of practical range (Years 0000 - 9999). Received ${usedUnit}: ${numericVal}.`
       );
     }
 
     targetDate = new Date(milliseconds);
   } else {
     // date-to-timestamp mode
-    targetDate = new Date(input);
+    targetDate = parseStrictDate(input, timezone);
 
     if (isNaN(targetDate.getTime())) {
       return defaultFailResult(
-        `Unable to parse date string: "${input}". Supported formats include ISO 8601 (2026-09-07T14:30:00Z), RFC 2822, or standard date formats.`
+        `Unable to parse date string: "${input}". Use YYYY-MM-DD or ISO date-time (2026-09-07T14:30:00Z). Invalid calendar dates and ambiguous/nonexistent local times are rejected. Include an explicit offset for DST transitions.`
       );
     }
 
@@ -162,10 +164,13 @@ export function convertUnixTimestamp(
 
     if (milliseconds < MIN_SAFE_TIMESTAMP_MS || milliseconds > MAX_SAFE_TIMESTAMP_MS) {
       return defaultFailResult(
-        `Date "${input}" is outside practical Gregorian calendar limits (Years 0001 - 9999).`
+        `Date "${input}" is outside practical Gregorian calendar limits (Years 0000 - 9999).`
       );
     }
   }
+
+  // Derive both units from the same rounded millisecond instant.
+  seconds = Math.floor(milliseconds / 1000);
 
   // Format outputs
   const iso = targetDate.toISOString();

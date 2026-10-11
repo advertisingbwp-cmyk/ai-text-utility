@@ -13,16 +13,21 @@ export const CompactLayout: React.FC<WorkspaceProps> = ({
   onClear,
   onDownload,
   customControls,
+  customWorkspace,
   customPreview,
   inputPlaceholder = "Enter value...",
+  resultReady = output !== "",
+  isLoading = false,
+  error = null,
 }) => {
+  const canExport = resultReady && !isLoading && !error;
   const handleDownload = () => {
+    if (!canExport) return;
     if (onDownload) {
       onDownload();
       return;
     }
-    const content = output || input;
-    if (!content) return;
+    const content = output;
     const blob = new Blob([content], { type: "text/plain;charset=utf-8" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
@@ -31,7 +36,7 @@ export const CompactLayout: React.FC<WorkspaceProps> = ({
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
-    URL.revokeObjectURL(url);
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
   };
 
   return (
@@ -49,7 +54,7 @@ export const CompactLayout: React.FC<WorkspaceProps> = ({
           <div className="flex items-center gap-2">
             <Calendar size={15} className="text-brand-600 dark:text-brand-400" />
             <span className="text-xs font-bold text-slate-800 dark:text-slate-200 uppercase tracking-wider">
-              Input Parameter
+              {tool.slug === "date-difference" ? "Start & End Dates" : "Timestamp or Date"}
             </span>
           </div>
 
@@ -79,15 +84,16 @@ export const CompactLayout: React.FC<WorkspaceProps> = ({
         </div>
 
         {/* Input Field */}
-        <div className="relative">
+        {customWorkspace || <div className="relative">
           <input
+            aria-label="Timestamp or ISO date"
             type="text"
             value={input}
             onChange={(e) => onInputChange(e.target.value)}
             placeholder={inputPlaceholder}
             className="w-full px-4 py-3 bg-slate-50/70 dark:bg-slate-950/40 rounded-xl border border-slate-200/70 dark:border-slate-800/80 text-slate-900 dark:text-slate-100 placeholder-slate-400/90 dark:placeholder-slate-500 font-mono text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all shadow-2xs"
           />
-        </div>
+        </div>}
       </div>
 
       {/* 3. Breakdown & Calculation Results */}
@@ -104,14 +110,14 @@ export const CompactLayout: React.FC<WorkspaceProps> = ({
             <button
               type="button"
               onClick={handleDownload}
-              disabled={!output}
+              disabled={!canExport}
               aria-label="Download calculation report"
               className="min-w-10 min-h-10 flex items-center justify-center p-2 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white hover:bg-white dark:hover:bg-slate-800 border border-transparent hover:border-slate-200/80 dark:hover:border-slate-700/80 disabled:opacity-30 rounded-xl transition-all cursor-pointer active:scale-[0.96]"
               title="Download report"
             >
               <Download size={16} />
             </button>
-            <CopyButton text={output} />
+            <CopyButton text={output} disabled={!canExport} allowEmpty={canExport} />
           </div>
         </div>
 

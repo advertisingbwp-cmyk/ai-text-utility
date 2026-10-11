@@ -1,5 +1,6 @@
 "use client";
 
+import { markdownPreviewHtml } from "@/lib/tools/markdownPreview";
 import React, { useState } from "react";
 import {
   FileText,
@@ -20,16 +21,20 @@ export const SplitPreviewLayout: React.FC<WorkspaceProps> = ({
   onDownload,
   customPreview,
   inputPlaceholder = "Type or paste Markdown here...",
+  resultReady = output !== "",
+  isLoading = false,
+  error = null,
 }) => {
+  const canExport = resultReady && !isLoading && !error;
   const [viewMode, setViewMode] = useState<"rendered" | "source">("rendered");
 
   const handleDownload = () => {
+    if (!canExport) return;
     if (onDownload) {
       onDownload();
       return;
     }
-    const content = output || input;
-    if (!content) return;
+    const content = output;
     const blob = new Blob([content], { type: "text/html;charset=utf-8" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
@@ -38,7 +43,7 @@ export const SplitPreviewLayout: React.FC<WorkspaceProps> = ({
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
-    URL.revokeObjectURL(url);
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
   };
 
   return (
@@ -102,6 +107,7 @@ export const SplitPreviewLayout: React.FC<WorkspaceProps> = ({
               <button
                 type="button"
                 onClick={() => setViewMode("rendered")}
+                aria-pressed={viewMode === "rendered"}
                 className={`flex items-center gap-1.5 px-3 py-1 rounded-lg transition-all cursor-pointer ${
                   viewMode === "rendered"
                     ? "bg-white dark:bg-slate-900 text-slate-900 dark:text-white shadow-xs"
@@ -114,6 +120,7 @@ export const SplitPreviewLayout: React.FC<WorkspaceProps> = ({
               <button
                 type="button"
                 onClick={() => setViewMode("source")}
+                aria-pressed={viewMode === "source"}
                 className={`flex items-center gap-1.5 px-3 py-1 rounded-lg transition-all cursor-pointer ${
                   viewMode === "source"
                     ? "bg-white dark:bg-slate-900 text-slate-900 dark:text-white shadow-xs"
@@ -129,14 +136,14 @@ export const SplitPreviewLayout: React.FC<WorkspaceProps> = ({
               <button
                 type="button"
                 onClick={handleDownload}
-                disabled={!output}
+                disabled={!canExport}
                 aria-label="Download HTML file"
                 className="min-w-10 min-h-10 flex items-center justify-center p-2 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white hover:bg-white dark:hover:bg-slate-800 border border-transparent hover:border-slate-200/80 dark:hover:border-slate-700/80 disabled:opacity-30 rounded-xl transition-all cursor-pointer active:scale-[0.96]"
                 title="Download HTML"
               >
                 <Download size={16} />
               </button>
-              <CopyButton text={output} label="Copy HTML" />
+              <CopyButton text={output} disabled={!canExport} allowEmpty={canExport} label="Copy HTML" />
             </div>
           </div>
 
@@ -147,7 +154,7 @@ export const SplitPreviewLayout: React.FC<WorkspaceProps> = ({
               ) : (
                 <div
                   className="prose dark:prose-invert max-w-none text-sm sm:text-base"
-                  dangerouslySetInnerHTML={{ __html: output || "<p class='text-slate-400 italic'>Preview will render here live...</p>" }}
+                  dangerouslySetInnerHTML={{ __html: markdownPreviewHtml(output) || "<p class='text-slate-400 italic'>Preview will render here live...</p>" }}
                 />
               )
             ) : (

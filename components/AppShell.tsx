@@ -12,6 +12,7 @@ export const AppShell: React.FC<{ children: React.ReactNode }> = ({ children }) 
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.defaultPrevented || e.isComposing || document.querySelector("dialog[open]")) return;
       if ((e.key === "k" || e.key === "K") && (e.metaKey || e.ctrlKey)) {
         e.preventDefault();
         setPaletteOpen((prev) => !prev);
@@ -64,8 +65,9 @@ export const AppShell: React.FC<{ children: React.ReactNode }> = ({ children }) 
 
       {/* Main App Content Stack */}
       <div className="relative z-10 flex flex-col flex-1">
+        <a className="skip-link" href="#main-content">Skip to main content</a>
         <Navbar onOpenCommandPalette={() => setPaletteOpen(true)} />
-        <main className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 pb-12 sm:pt-6 sm:pb-16">
+        <main id="main-content" tabIndex={-1} className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 pb-12 sm:pt-6 sm:pb-16">
           {children}
         </main>
         <Footer />

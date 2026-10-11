@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import { Modal } from "@/components/Modal";
 import { useRouter } from "next/navigation";
 import { Command } from "cmdk";
 import { Search, Sparkles, X } from "lucide-react";
@@ -25,6 +26,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
   const setIsOpen = externalOnOpenChange || setInternalOpen;
 
   useEffect(() => {
+    if (externalOpen !== undefined) return;
     const down = (e: KeyboardEvent) => {
       if ((e.key === "k" || e.key === "K") && (e.metaKey || e.ctrlKey)) {
         e.preventDefault();
@@ -37,7 +39,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
 
     document.addEventListener("keydown", down);
     return () => document.removeEventListener("keydown", down);
-  }, [isOpen, setIsOpen]);
+  }, [isOpen, setIsOpen, externalOpen]);
 
   if (!isOpen) return null;
 
@@ -52,19 +54,21 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
       : TOOLS_REGISTRY.filter((t) => t.category === selectedCategory);
 
   return (
-    <div
-      className="fixed inset-0 z-50 flex items-start justify-center pt-16 sm:pt-24 px-4 bg-slate-900/40 dark:bg-black/75 backdrop-blur-md animate-in fade-in duration-200"
-      onClick={() => setIsOpen(false)}
-    >
+    <Modal label="Search tools" onClose={() => setIsOpen(false)} className="items-start pt-8 sm:pt-20">
       <div
         className="w-full max-w-2xl overflow-hidden rounded-2xl border border-white/70 dark:border-slate-800 bg-white/85 dark:bg-slate-900/90 shadow-[0_25px_60px_rgba(55,95,180,0.14)] text-slate-900 dark:text-slate-100 backdrop-blur-xl animate-in zoom-in-95 duration-200"
         onClick={(e) => e.stopPropagation()}
       >
-        <Command label="Command Palette" className="w-full">
+        <Command label="Search tools" className="w-full" filter={(value, search) => {
+          const query = search.trim().toLowerCase();
+          const text = value.toLowerCase();
+          if (!query || text.includes(query)) return 1;
+          return query.split(/\s+/).every(word => text.includes(word)) ? 0.5 : 0;
+        }}>
           <div className="flex items-center border-b border-[rgba(100,120,160,0.12)] dark:border-slate-800 px-4 py-3.5 bg-white/70 dark:bg-slate-900/70 backdrop-blur-md">
             <Search className="mr-3 h-5 w-5 shrink-0 text-brand-600 dark:text-brand-400" />
             <Command.Input
-              autoFocus
+              aria-label="Search tools"
               placeholder={`Search all ${TOOLS_REGISTRY.length} utilities by name, category, or task...`}
               className="w-full bg-transparent text-sm sm:text-base text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 outline-none"
             />
@@ -83,6 +87,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
             <button
               type="button"
               onClick={() => setSelectedCategory("ALL")}
+              aria-pressed={selectedCategory === "ALL"}
               className={`px-2.5 py-1 rounded-lg text-[11px] font-semibold transition-all whitespace-nowrap cursor-pointer ${
                 selectedCategory === "ALL"
                   ? "bg-slate-900 text-white dark:bg-brand-600 dark:text-white shadow-xs"
@@ -96,6 +101,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
                 key={cat.name}
                 type="button"
                 onClick={() => setSelectedCategory(cat.name)}
+                aria-pressed={selectedCategory === cat.name}
                 className={`px-2.5 py-1 rounded-lg text-[11px] font-semibold transition-all whitespace-nowrap cursor-pointer ${
                   selectedCategory === cat.name
                     ? "bg-slate-900 text-white dark:bg-brand-600 dark:text-white shadow-xs"
@@ -172,6 +178,6 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
           </div>
         </Command>
       </div>
-    </div>
+    </Modal>
   );
 };

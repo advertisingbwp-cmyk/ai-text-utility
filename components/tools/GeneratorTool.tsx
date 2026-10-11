@@ -20,6 +20,10 @@ export const GeneratorTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
   const [output, setOutput] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+  const generation = useRef(0);
+  const [completed, setCompleted] = useState<{ input: string; run: (value: string) => void } | null>(null);
+  useEffect(() => () => { generation.current++; }, []);
+
 
   // Password Generator State
   const [passwordResult, setPasswordResult] = useState<PasswordResult | null>(null);
@@ -48,7 +52,9 @@ export const GeneratorTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
   const [allHashes, setAllHashes] = useState<{ [algo: string]: string }>({});
 
   const executeTool = useCallback(
-    (currentInput: string) => {
+    (currentInput: string): void => {
+      const version = ++generation.current;
+      setCompleted(null);
       setError(null);
 
       try {
@@ -89,10 +95,14 @@ export const GeneratorTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
 
           case "hash-generator": {
             if (!currentInput) {
+              setIsLoading(false);
               setOutput("");
               setAllHashes({});
               return;
             }
+            setOutput("");
+            setAllHashes({});
+            setIsLoading(true);
             const algos: HashAlgorithm[] = ["SHA-256", "SHA-384", "SHA-512", "SHA-1"];
             Promise.all(
               algos.map((algo) =>
@@ -103,20 +113,28 @@ export const GeneratorTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
               )
             )
               .then((results) => {
+                if (generation.current !== version) return;
                 const map: { [algo: string]: string } = {};
                 results.forEach((r) => {
                   map[r.algo] = r.hash;
                 });
+                setCompleted({ input: currentInput, run: executeTool });
                 setAllHashes(map);
                 setOutput(map[hashAlgo] || results[0]?.hash || "");
               })
               .catch((err) => {
+                if (generation.current !== version) return;
+                setOutput("");
+                setAllHashes({});
                 setError(err instanceof Error ? err.message : "Hashing failed");
-              });
+              }).finally(() => { if (generation.current === version) setIsLoading(false); });
             break;
           }
         }
+        if (tool.slug !== "hash-generator") setCompleted({ input: currentInput, run: executeTool });
       } catch (err) {
+        setOutput("");
+        setAllHashes({});
         if (tool.slug === "password-generator") setPasswordResult(null);
         setError(err instanceof Error ? err.message : "Error generating content");
       }
@@ -150,6 +168,7 @@ export const GeneratorTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
       lastPasswordAutoRun.current = null;
     }
     executeTool(input);
+    return () => { generation.current++; };
   }, [input, executeTool, tool.slug]);
 
   const handleRun = () => {
@@ -160,10 +179,14 @@ export const GeneratorTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
       inputLength: input.length,
     });
     executeTool(input);
-    setIsLoading(false);
+    if (tool.slug !== "hash-generator") setIsLoading(false);
   };
 
   const handleClear = () => {
+    generation.current++;
+    setCompleted(null);
+    setAllHashes({});
+    setIsLoading(false);
     setInput("");
     setOutput("");
     setPasswordResult(null);
@@ -181,6 +204,7 @@ export const GeneratorTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
                 type="number"
                 min={4}
                 max={128}
+                aria-label="Password length"
                 value={pwLength}
                 onChange={(e) => setPwLength(Math.max(4, parseInt(e.target.value) || 16))}
                 className="w-16 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2 py-1 text-slate-800 dark:text-slate-200 text-center font-mono focus:outline-none focus:border-brand-500 shadow-2xs"
@@ -192,6 +216,7 @@ export const GeneratorTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
                 type="number"
                 min={1}
                 max={50}
+                aria-label="Password count"
                 value={pwCount}
                 onChange={(e) => setPwCount(Math.max(1, parseInt(e.target.value) || 1))}
                 className="w-14 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2 py-1 text-slate-800 dark:text-slate-200 text-center font-mono focus:outline-none focus:border-brand-500 shadow-2xs"
@@ -261,6 +286,7 @@ export const GeneratorTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
                 type="number"
                 min={1}
                 max={100}
+                aria-label="UUID count"
                 value={uuidCount}
                 onChange={(e) => setUuidCount(Math.max(1, parseInt(e.target.value) || 5))}
                 className="w-16 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2 py-1 text-slate-800 dark:text-slate-200 text-center font-mono focus:outline-none focus:border-brand-500 shadow-2xs"
@@ -303,11 +329,13 @@ export const GeneratorTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
                 type="number"
                 min={1}
                 max={50}
+                aria-label="Lorem ipsum amount"
                 value={loremCount}
                 onChange={(e) => setLoremCount(Math.max(1, parseInt(e.target.value) || 3))}
                 className="w-14 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2 py-1 text-slate-800 dark:text-slate-200 text-center font-mono focus:outline-none focus:border-brand-500 shadow-2xs"
               />
               <select
+                aria-label="Lorem ipsum unit"
                 value={loremUnit}
                 onChange={(e) => setLoremUnit(e.target.value as LoremUnit)}
                 className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1 text-slate-800 dark:text-slate-200 focus:outline-none focus:border-brand-500 shadow-2xs capitalize"
@@ -345,6 +373,7 @@ export const GeneratorTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
                   key={algo}
                   type="button"
                   onClick={() => setHashAlgo(algo)}
+                aria-pressed={hashAlgo === algo}
                   className={`px-2.5 py-1 rounded-lg font-medium transition-colors cursor-pointer ${
                     hashAlgo === algo
                       ? algo === "SHA-1"
@@ -495,7 +524,15 @@ export const GeneratorTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
       tool={tool}
       input={input}
       output={tool.slug === "password-generator" ? passwordResult?.passwords.join("\n") ?? "" : output}
-      onInputChange={setInput}
+      resultReady={completed?.input === input && completed?.run === executeTool}
+      onInputChange={value => {
+        generation.current++;
+        setCompleted(null);
+        setOutput("");
+        setAllHashes({});
+        setIsLoading(false);
+        setInput(value);
+      }}
       onRun={handleRun}
       onClear={handleClear}
       isLoading={isLoading}

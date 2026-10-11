@@ -61,7 +61,7 @@ export const GalleryLayout: React.FC<WorkspaceProps> = ({
         </div>
 
         <div className="p-4 sm:p-5 bg-transparent">
-          <textarea
+          <textarea aria-label="Text to style"
             value={input}
             onChange={(e) => onInputChange(e.target.value)}
             placeholder={inputPlaceholder}

@@ -6,7 +6,7 @@ import { ArrowLeft, ShieldCheck, Lock, EyeOff, Server } from "lucide-react";
 export const metadata: Metadata = {
   title: "Privacy Policy | AI Text Utility",
   description:
-    "Learn how AI Text Utility protects your privacy with browser-native client-side processing, zero-logging AI transformations, and minimal data collection.",
+    "Learn how AI Text Utility protects your privacy with browser-native client-side processing, external AI processing, and minimal data collection.",
   alternates: {
     canonical: "/privacy",
   },
@@ -57,7 +57,7 @@ export default function PrivacyPage() {
           </div>
           <h2 className="text-sm font-semibold text-slate-900 dark:text-white">Secure AI Processing</h2>
           <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-            AI text requests are encrypted in transit via HTTPS and handled via Google Gemini API.
+            AI text requests are encrypted in transit via HTTPS and sent to an external AI provider.
           </p>
         </div>
 
@@ -91,12 +91,12 @@ export default function PrivacyPage() {
           <p>
             When you deliberately use our AI-powered features (such as Grammar Fixer, AI Summarizer, or Paraphraser),
             your input text is securely transmitted via HTTPS to our serverless backend endpoint (<code>/api/ai</code>), which
-            proxies your request to the upstream AI provider (Google Gemini API).
+            proxies your request to the configured upstream AI provider.
           </p>
           <ul className="list-disc list-inside space-y-1.5 text-slate-500 dark:text-slate-400 pl-2">
             <li>AI requests are transmitted over TLS-encrypted HTTPS connections.</li>
             <li>Our application backend does not store or persist your raw text inputs or generated outputs in any database.</li>
-            <li>For paid Gemini API usage, Google states that prompts and responses are not used to improve its products by default; limited retention may still occur for service operation and abuse monitoring.</li>
+            <li>Provider retention and training practices depend on the service and account settings. We cannot guarantee zero retention; avoid submitting confidential information.</li>
           </ul>
         </section>
 

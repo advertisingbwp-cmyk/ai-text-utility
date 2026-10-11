@@ -136,8 +136,7 @@ export const ToolSeoContent: React.FC<ToolSeoContentProps> = ({ tool }) => {
             About {tool.name}
           </h2>
           <p className="text-sm text-slate-600 dark:text-slate-400 mt-2 leading-relaxed max-w-3xl">
-            {tool.description} Designed for software developers, content writers, students, and data
-            professionals who value accuracy, speed, and privacy.
+            {tool.description}
           </p>
         </div>
 

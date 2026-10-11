@@ -1,12 +1,14 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Copy, Check } from "lucide-react";
 import { trackEvent } from "@/lib/analytics";
 import { cn } from "@/lib/utils";
 
 interface CopyButtonProps {
   text: string;
+  disabled?: boolean;
+  allowEmpty?: boolean;
   className?: string;
   variant?: "default" | "outline" | "ghost";
   label?: string;
@@ -14,14 +16,24 @@ interface CopyButtonProps {
 
 export const CopyButton: React.FC<CopyButtonProps> = ({
   text,
+  disabled = false,
+  allowEmpty = false,
   className = "",
   variant = "outline",
   label = "Copy",
 }) => {
   const [copied, setCopied] = useState(false);
 
+  const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const version = useRef(0);
+  useEffect(() => {
+    version.current++;
+    setCopied(false);
+    return () => { version.current++; if (timer.current) clearTimeout(timer.current); };
+  }, [text, disabled]);
   const handleCopy = async () => {
-    if (!text) return;
+    if (disabled || (!text && !allowEmpty)) return;
+    const current = version.current;
     try {
       if (navigator.clipboard && window.isSecureContext) {
         await navigator.clipboard.writeText(text);
@@ -33,12 +45,15 @@ export const CopyButton: React.FC<CopyButtonProps> = ({
         document.body.appendChild(textarea);
         textarea.focus();
         textarea.select();
-        document.execCommand("copy");
-        document.body.removeChild(textarea);
+        try {
+          if (!document.execCommand("copy")) throw new Error("Copy failed");
+        } finally { document.body.removeChild(textarea); }
       }
+      if (current !== version.current) return;
       setCopied(true);
       trackEvent("tool_copied", { toolSlug: "clipboard", outputLength: text.length });
-      setTimeout(() => setCopied(false), 2000);
+      if (timer.current) clearTimeout(timer.current);
+      timer.current = setTimeout(() => setCopied(false), 2000);
     } catch {
       // Fallback
     }
@@ -48,7 +63,7 @@ export const CopyButton: React.FC<CopyButtonProps> = ({
     <button
       type="button"
       onClick={handleCopy}
-      disabled={!text}
+      disabled={disabled || (!text && !allowEmpty)}
       aria-label={copied ? "Copied to clipboard" : label}
       className={cn(
         "inline-flex items-center justify-center gap-1.5 min-h-10 min-w-10 px-3.5 py-2 rounded-xl text-xs font-semibold transition-all duration-150 disabled:opacity-40 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-brand-500/30 active:scale-[0.97] cursor-pointer",

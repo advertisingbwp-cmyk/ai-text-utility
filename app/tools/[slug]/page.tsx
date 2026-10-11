@@ -1,3 +1,4 @@
+import { serializeStructuredData } from "@/lib/structuredData";
 import { Metadata } from "next";
 import { notFound, permanentRedirect } from "next/navigation";
 import { TOOLS_REGISTRY, getToolBySlug } from "@/data/toolsRegistry";
@@ -38,7 +39,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const baseUrl =
     process.env.NEXT_PUBLIC_SITE_URL || "https://ai-text-utility.vercel.app";
 
-  const canonicalUrl = `${baseUrl}/tools/${tool.slug}`;
+  const canonicalUrl = `${baseUrl.replace(/\/+$/, "")}/tools/${tool.slug}`;
 
   const blueprint = getToolSeoBlueprint(tool.slug);
   if (blueprint) {
@@ -63,9 +64,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
         url: canonicalUrl,
         type: "website",
         siteName: "AI Text Utility",
+        images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "AI Text Utility" }],
       },
       twitter: {
         card: "summary_large_image",
+        images: ["/og-image.png"],
         title: blueprint.title,
         description: blueprint.metaDescription,
       },
@@ -91,9 +94,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       url: canonicalUrl,
       type: "website",
       siteName: "AI Text Utility",
+        images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "AI Text Utility" }],
     },
     twitter: {
       card: "summary_large_image",
+        images: ["/og-image.png"],
       title: `${tool.name} | Free Online Text Utility`,
       description: tool.description,
     },
@@ -115,7 +120,7 @@ export default async function ToolPage({ params }: PageProps) {
 
   const baseUrl =
     process.env.NEXT_PUBLIC_SITE_URL || "https://ai-text-utility.vercel.app";
-  const toolUrl = `${baseUrl}/tools/${tool.slug}`;
+  const toolUrl = `${baseUrl.replace(/\/+$/, "")}/tools/${tool.slug}`;
   const content = getToolEducationalContent(tool.category, tool.slug, tool.name);
   const blueprint = getToolSeoBlueprint(tool.slug);
 
@@ -172,15 +177,15 @@ export default async function ToolPage({ params }: PageProps) {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppSchema) }}
+        dangerouslySetInnerHTML={{ __html: serializeStructuredData(webAppSchema) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+        dangerouslySetInnerHTML={{ __html: serializeStructuredData(breadcrumbSchema) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        dangerouslySetInnerHTML={{ __html: serializeStructuredData(faqSchema) }}
       />
 
       <article>

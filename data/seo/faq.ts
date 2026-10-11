@@ -1159,7 +1159,7 @@ export const TOOL_SPECIFIC_CONTENT: Record<
 
   "json-to-csv": {
     howToSteps: [
-      "Paste or type your JSON array of objects into the Source Input field (or click 'Load Sample').",
+      "Paste a nonempty JSON array of objects or a single object, or import a UTF-8 .json file (up to 5 MiB).",
       "Choose your preferred delimiter: Comma (`,`), Semicolon (`;`), Tab (`\\t`), or Pipe (`|`).",
       "Optionally toggle 'Quote All Fields' if your target spreadsheet or database requires strict quotes on every cell.",
       "Review the live generated CSV output and click 'Copy' to copy to clipboard or 'Download' to save as a file.",
@@ -1169,7 +1169,7 @@ export const TOOL_SPECIFIC_CONTENT: Record<
       "Automatically extracts the union of all unique keys across records to build complete column headers",
       "RFC 4180 escaping: automatically quotes cells containing delimiters, newlines, or quotes, escaping internal quotes as `\"\"`",
       "Configurable delimiters (Comma, Semicolon, Tab, Pipe) and optional 'Quote All Fields' mode",
-      "Preserves nested objects and arrays as serialized JSON strings within individual table cells",
+      "Nested objects/arrays become JSON strings in cells; null and missing values become empty fields",
       "100% Client-side execution in browser memory with zero network uploads for complete privacy",
     ],
     faqs: [
@@ -1186,7 +1186,7 @@ export const TOOL_SPECIFIC_CONTENT: Record<
       {
         question: "Can CSV represent nested JSON data?",
         answer:
-          "CSV is fundamentally a flat two-dimensional format, so it cannot natively represent multi-level hierarchies without flattening trade-offs. In this converter, nested objects and nested arrays are safely serialized as JSON strings within their respective table cell (e.g. `\"{\"city\":\"Seattle\"}\"`). This preserves the complete structured data without generating unpredictable, sprawling column names.",
+          "CSV is fundamentally a flat two-dimensional format, so it cannot natively represent multi-level hierarchies without flattening trade-offs. In this converter, nested objects and nested arrays are safely serialized as JSON strings within their respective table cell (e.g. `\"{\"city\":\"Seattle\"}\"`). Quote identifiers and precision-sensitive numbers as JSON strings: unsafe integers are rejected, and decimal numbers use JavaScript numeric precision.",
       },
       {
         question: "How are commas and quotes handled in CSV?",
@@ -1213,18 +1213,18 @@ export const TOOL_SPECIFIC_CONTENT: Record<
 
   "csv-to-json": {
     howToSteps: [
-      "Paste or type your CSV or TSV text into the Source Input field (or click 'Load Sample').",
+      "Paste CSV/TSV or import a UTF-8 .csv/.tsv file (up to 5 MiB). Tables are limited to 1,000,000 cells.",
       "Select your delimiter: Comma (`,`), Semicolon (`;`), Tab (`\\t`), or Pipe (`|`).",
       "Toggle 'First Row as Headers' depending on whether your data includes a header row.",
-      "Toggle 'Parse Numbers & Booleans' if you want numeric strings and booleans converted into native JSON types.",
+      "Values remain strings by default. Enable 'Infer safe integers, booleans & null' only if you want conservative type conversion.",
       "Review the live generated JSON output and click 'Copy' to copy to clipboard or 'Download' to save as a file.",
     ],
     features: [
       "Converts delimited CSV and TSV spreadsheet rows into structured JSON arrays of objects",
       "Configurable delimiters: Comma (`,`), Semicolon (`;`), Tab (`\\t`), and Pipe (`|`)",
-      "Full RFC 4180 parsing: safely handles double-quoted fields, escaped internal quotes (`\"\"`), and embedded newlines",
-      "Smart type conversion: parses numbers, booleans, and nulls while safely preserving leading zeros on codes and IDs",
-      "Header fallback: automatically names empty or missing header columns (e.g. `col_1`, `col_2`)",
+      "RFC-style quoted-field parsing: safely handles double-quoted fields, escaped internal quotes (`\"\"`), and embedded newlines",
+      "Optional inference converts safe integers and exact true/false/null values; decimals, exponents, unsafe integers and leading-zero IDs remain strings",
+      "Header fallback: automatically names empty or missing header columns (e.g. `column_1`, `column_2`)",
       "100% Client-side execution in your browser memory with zero network uploads for complete privacy",
     ],
     faqs: [
@@ -1236,17 +1236,17 @@ export const TOOL_SPECIFIC_CONTENT: Record<
       {
         question: "How are CSV headers converted into JSON keys?",
         answer:
-          "When the 'First Row as Headers' option is enabled (default), the parser uses values from the first row as object keys for every subsequent row. If a header is blank or missing, the converter automatically assigns a fallback key (e.g. `col_1`, `col_2`). If duplicate headers exist in the CSV, later columns will overwrite earlier values for that key.",
+          "When the 'First Row as Headers' option is enabled (default), the parser uses values from the first row as object keys for every subsequent row. If a header is blank or missing, the converter automatically assigns a fallback key (e.g. `column_1`, `column_2`). Duplicate headers receive unique suffixes such as name_2. Existing header names are reserved so values are not overwritten; missing cells become empty strings.",
       },
       {
         question: "Are CSV numbers converted into JSON numbers?",
         answer:
-          "Yes, when 'Parse Numbers & Booleans' is enabled (default), numeric values (like `28` or `-15.5`) are converted into native JSON numbers, and `'true'`/`'false'`/`'null'` strings are converted into their respective JSON primitives. Crucially, numeric strings with leading zeros (such as postal codes `'01234'` or ID codes `'007'`) are preserved as strings to prevent loss of leading zeros. If you disable type parsing, all values remain raw strings.",
+          "No. Values remain strings by default. Optional inference converts safe integers, true, false and null. Decimals, exponent notation, leading-zero identifiers and integers outside the safe range remain strings.",
       },
       {
         question: "Can quoted CSV fields contain commas?",
         answer:
-          "Yes. The parser strictly adheres to RFC 4180 standards. Any field wrapped in double quotes can safely contain delimiter characters (like commas or semicolons) and line breaks without splitting the row. Internal double quotes that are escaped by doubling them (`\"\"`) are correctly restored as a single quotation mark (`\"`).",
+          "Yes. The parser supports RFC-style quoting and rejects malformed quotes. Any field wrapped in double quotes can safely contain delimiter characters (like commas or semicolons) and line breaks without splitting the row. Internal double quotes that are escaped by doubling them (`\"\"`) are correctly restored as a single quotation mark (`\"`).",
       },
       {
         question: "Can I convert Excel CSV files into JSON?",
@@ -1269,21 +1269,21 @@ export const TOOL_SPECIFIC_CONTENT: Record<
   "add-line-numbers": {
     howToSteps: [
       "Paste your code snippet, text list, or log file into the input box.",
-      "Set your desired starting line number (e.g. 1) and step increment.",
+      "Set your starting line number (e.g. 1); numbering increases by one per line.",
       "Configure your number format, zero-padding (e.g. `01`, `02`), and delimiter (e.g. `. `, `: `, ` | `).",
       "Copy the neatly numbered output.",
     ],
     features: [
-      "Customizable starting index and line step increments",
+      "Customizable nonnegative starting number",
       "Configurable zero-padding to keep wide lists perfectly aligned",
       "Custom separators between line numbers and content",
-      "Option to skip numbering empty lines",
+      "Numbers every line, including empty lines",
     ],
     faqs: [
       {
         question: "Can I start numbering from a specific number other than 1?",
         answer:
-          "Yes. You can specify any positive, negative, or custom starting integer. This is helpful when referencing code snippets extracted from the middle of a large source file.",
+          "Use a nonnegative starting integer; negative values are clamped to zero. This is helpful when referencing code snippets extracted from the middle of a large source file.",
       },
       {
         question: "What is zero-padding and why should I use it?",
@@ -1293,7 +1293,7 @@ export const TOOL_SPECIFIC_CONTENT: Record<
       {
         question: "Can I skip numbering empty lines?",
         answer:
-          "Yes. You can choose whether empty lines receive numbers or remain blank while maintaining overall vertical document structure.",
+          "The current controls number every line, including empty lines. To exclude blank lines, use Remove Empty Lines before adding numbers.",
       },
     ],
   },
@@ -1341,7 +1341,7 @@ export const TOOL_SPECIFIC_CONTENT: Record<
       {
         question: "Is the generated HTML sanitized against security vulnerabilities?",
         answer:
-          "Yes, automated protections are built in: raw HTML tags are converted to text entities, and destination URLs for links and images are strictly filtered. The converter only permits safe protocols (`http:`, `https:`, `mailto:`, relative paths, and anchor links). Unsafe protocols like `javascript:` or embedded SVG data URIs are automatically replaced with `#unsafe-url`. If you intend to render untrusted user-submitted Markdown in sensitive production environments, we recommend applying a dedicated DOM sanitizer like DOMPurify before DOM injection.",
+          "Yes, automated protections are built in: raw HTML tags are converted to text entities, and destination URLs for links and images are strictly filtered. The converter only permits safe protocols (`http:`, `https:`, `mailto:`, relative paths, and anchor links). Unsafe protocols like `javascript:` or data URIs are removed from link and image destinations. If you intend to render untrusted user-submitted Markdown in sensitive production environments, we recommend applying a dedicated DOM sanitizer like DOMPurify before DOM injection.",
       },
       {
         question: "Does conversion happen in my browser?",
@@ -1355,12 +1355,12 @@ export const TOOL_SPECIFIC_CONTENT: Record<
   "html-minifier": {
     howToSteps: [
       "Paste your HTML code into the input editor or click 'Load Sample' to test with an example template.",
-      "Configure your preferences: toggle 'Strip Comments' to remove HTML comments and 'Collapse Whitespace' to eliminate redundant spacing.",
+      "Configure your preferences: toggle 'Strip Comments' to remove HTML comments and 'Compact Attribute Gaps' to reduce spacing between attributes.",
       "The tool minifies markup in real time as you type, calculating byte reduction and percentage saved.",
       "Click 'Copy' to copy the minified HTML to your clipboard, or click 'Download' to save the output as an `.html` file.",
     ],
     features: [
-      "Collapses redundant inter-tag whitespace, multi-space attribute gaps, and repeated spacing in text nodes",
+      "Compacts attribute gaps while preserving text whitespace, inline word separation and attribute values",
       "Strips standard HTML comments while preserving conditional comments (`<!--[if ...]>`)",
       "Protects whitespace and formatting inside `<pre>`, `<textarea>`, `<script>`, and `<style>` blocks verbatim",
       "Live size calculation displaying original bytes, minified bytes, and exact percentage saved",
@@ -1375,12 +1375,12 @@ export const TOOL_SPECIFIC_CONTENT: Record<
       {
         question: "What does this HTML minifier remove?",
         answer:
-          "When both options are enabled, this tool strips standard HTML comments (`<!-- ... -->`), eliminates whitespace between adjacent tags (`> <` becomes `><`), collapses multiple spaces within opening tag attributes to a single space, and reduces consecutive spaces in text nodes to single spaces. It also trims leading and trailing document whitespace.",
+          "With both options enabled, the tool removes standard comments and compacts whitespace between attributes. It preserves all text-node whitespace, leading/trailing text and attribute values because CSS and inline layout can depend on them. Disable comment stripping for framework templates that use comment markers.",
       },
       {
         question: "Does HTML minification change how a web page looks?",
         answer:
-          "In well-structured HTML, minification does not alter visual rendering because web browsers naturally collapse multiple adjacent whitespace characters in the DOM. However, if your CSS relies on whitespace sensitivity (such as `white-space: pre` or inline-block spacing), you should preview the minified output to ensure visual formatting remains as intended.",
+          "This tool preserves text whitespace and attribute values. Review output in your target application; removing comments can affect templates or frameworks that use comment markers. Disable Strip Comments for those inputs.",
       },
       {
         question: "Are HTML comments removed, and what about conditional comments?",
@@ -1390,7 +1390,7 @@ export const TOOL_SPECIFIC_CONTENT: Record<
       {
         question: "Is whitespace inside <pre>, <textarea>, <script>, and <style> preserved?",
         answer:
-          "Yes. The minifier isolates `<pre>`, `<textarea>`, `<script>`, and `<style>` blocks during processing and restores them verbatim. Formatting, indentation, code strings, and line breaks inside these tags remain untouched.",
+          "The minifier preserves text whitespace, attribute values, and raw script/style content. Standard HTML comments can still be removed inside elements such as pre; it does not sanitize HTML or minify JavaScript/CSS.",
       },
       {
         question: "What is the difference between HTML minification and gzip or Brotli compression?",
@@ -1699,7 +1699,7 @@ export const TOOL_SPECIFIC_CONTENT: Record<
       {
         question: "Is Unix time measured in seconds or milliseconds?",
         answer:
-          "Standard Unix timestamps in operating systems, databases, and APIs (such as JWT tokens or POSIX systems) are measured in whole seconds (commonly 10 digits for current dates). However, high-precision programming runtimes like JavaScript and Java record epoch timestamps in milliseconds (13 digits). This converter automatically detects whether a numeric input represents seconds or milliseconds based on digit count and magnitude, while also offering manual unit overrides.",
+          "Standard Unix timestamps in operating systems, databases, and APIs (such as JWT tokens or POSIX systems) are measured in whole seconds (commonly 10 digits for current dates). However, high-precision programming runtimes like JavaScript and Java record epoch timestamps in milliseconds (13 digits). This converter automatically detects whether a numeric input represents seconds or milliseconds based on integer digit count and magnitude (fractional digits are ignored). Auto-detection is a heuristic; select seconds or milliseconds explicitly when the unit is known.",
       },
       {
         question: "How do I convert a Unix timestamp to a human-readable date?",
@@ -1709,7 +1709,7 @@ export const TOOL_SPECIFIC_CONTENT: Record<
       {
         question: "How do I convert a calendar date back to a Unix timestamp?",
         answer:
-          "Type or paste any standard date string into the input box—such as an ISO 8601 string (`2026-09-30T12:00:00Z`), a standard date (`2026-09-30`), or a date-time format. The converter automatically switches to date-to-timestamp mode and outputs the equivalent epoch value in both seconds and milliseconds with one-click copy buttons.",
+          "Type or paste YYYY-MM-DD or an ISO date-time into the input box—such as an ISO 8601 string (`2026-09-30T12:00:00Z`), a standard date (`2026-09-30`), or `2026-09-30T12:00:00`. Dates without an offset use the selected timezone; an explicit Z or offset wins. Invalid calendar dates and ambiguous or nonexistent local times are rejected. The converter automatically switches to date-to-timestamp mode and outputs the equivalent epoch value in both seconds and milliseconds with one-click copy buttons.",
       },
       {
         question: "Does a Unix timestamp include timezone information?",
@@ -1719,12 +1719,12 @@ export const TOOL_SPECIFIC_CONTENT: Record<
       {
         question: "Can this tool convert negative or pre-1970 Unix timestamps?",
         answer:
-          "Yes. Timestamps representing dates before January 1, 1970 are represented as negative numbers (for example, `-315619200` corresponds to January 1, 1960 UTC). This tool supports negative values across the Gregorian calendar range back to Year 0001.",
+          "Yes. Timestamps representing dates before January 1, 1970 are represented as negative numbers (for example, `-315619200` corresponds to January 1, 1960 UTC). This tool supports negative values across the Gregorian calendar range from Year 0000 through 9999.",
       },
       {
         question: "Is my timestamp or date input transmitted to any server?",
         answer:
-          "No. All timestamp and date calculations are executed entirely on the client side using your browser's native JavaScript `Date` and `Intl.DateTimeFormat` APIs. Your timestamps, dates, and query parameters remain in local browser memory and are never submitted to our application servers or any backend conversion API.",
+          "No. All timestamp and date calculations are executed entirely on the client side using your browser's local date parsing and formatting libraries. Your timestamps, dates, and query parameters remain in local browser memory and are never submitted to our application servers or any backend conversion API.",
       },
     ],
   },
@@ -1739,7 +1739,7 @@ export const TOOL_SPECIFIC_CONTENT: Record<
     features: [
       "Precise interval calculation in years, months, weeks, days, hours, and minutes",
       "Inclusive or exclusive end-day calculation toggle",
-      "Timezone-safe UTC calculations preventing daylight saving time hour drift",
+      "Exact elapsed duration with strict date validation; calendar breakdown uses UTC and clamped whole months",
       "Works with historical past dates and distant future dates",
     ],
     faqs: [
@@ -1751,12 +1751,12 @@ export const TOOL_SPECIFIC_CONTENT: Record<
       {
         question: "Are daylight saving time (DST) shifts accounted for?",
         answer:
-          "Yes. By calculating calendar date differences using UTC milliseconds, 23-hour and 25-hour daylight saving clock change days do not distort day or week totals.",
+          "Elapsed hours reflect timezone offsets and DST transitions. Total days are complete 24-hour periods, not local calendar days. Inclusive counting adds 24 elapsed hours to the absolute duration in either direction. Ambiguous or nonexistent local times require an explicit offset.",
       },
       {
         question: "Does this calculator handle leap years correctly?",
         answer:
-          "Yes. Calendar arithmetic accurately accounts for February 29th during leap years when calculating year, month, and day totals.",
+          "Leap years are supported. The calendar breakdown uses clamped whole UTC months, then remaining days: January 31 to March 1, 2026 is 1 month and 1 day. Total days measure complete 24-hour periods.",
       },
     ],
   },
@@ -1767,14 +1767,14 @@ export const TOOL_SPECIFIC_CONTENT: Record<
   "ai-grammar": {
     howToSteps: [
       "Paste your rough draft, essay, email, or message into the text area.",
-      "Click 'Run AI Tool' to submit your text to our secure serverless AI engine.",
-      "Google Gemini reviews syntax, spelling, punctuation, and phrasing in seconds.",
+      "Click 'Process with AI' to submit your text to our secure serverless AI engine.",
+      "The AI reviews syntax, spelling, punctuation, and phrasing; check its suggestions before use.",
       "Review the corrected version and copy the polished text to your clipboard.",
     ],
     features: [
-      "Advanced grammar, spelling, punctuation, and syntax correction powered by Google Gemini",
+      "Advanced grammar, spelling, punctuation, and syntax correction using AI",
       "Preserves your natural writing voice and original intended meaning",
-      "Encrypted HTTPS serverless API proxy with strict zero-logging policy",
+      "Submitted text is processed by an external AI provider; review its data practices",
       "Processes up to 10,000 characters per request",
     ],
     faqs: [
@@ -1786,12 +1786,12 @@ export const TOOL_SPECIFIC_CONTENT: Record<
       {
         question: "Is my text sent to an external server?",
         answer:
-          "Yes. AI tools securely send text via encrypted HTTPS to our serverless API proxy connecting to Google Gemini. The request is processed ephemerally in memory and is never logged to disk or used for model training.",
+          "Your text is sent through our server endpoint to an AI provider. The application does not save submitted text in its own database. Provider retention and training practices depend on the service and account settings; zero retention is not guaranteed. Avoid submitting confidential information and review generated text before use.",
       },
       {
         question: "Will the AI alter my unique tone or writing style?",
         answer:
-          "No. The AI is instructed to correct grammatical, typographical, and punctuation errors while strictly preserving your personal voice, tone, and intended message.",
+          "The AI can make mistakes. Review its output; it is instructed to correct grammatical, typographical, and punctuation errors while strictly preserving your personal voice, tone, and intended message.",
       },
     ],
   },
@@ -1799,15 +1799,15 @@ export const TOOL_SPECIFIC_CONTENT: Record<
   "ai-professional": {
     howToSteps: [
       "Paste your casual draft, bullet points, or informal message into the input field.",
-      "Click 'Run AI Tool' to initiate the tone rewrite.",
+      "Click 'Process with AI' to initiate the tone rewrite.",
       "The AI refines your draft into polished, authoritative, executive business prose.",
       "Copy the professional text directly into your email client or document.",
     ],
     features: [
       "Transforms informal or blunt drafts into articulate, diplomatic executive prose",
       "Ideal for business proposals, client emails, performance reviews, and formal correspondence",
-      "Powered by Google Gemini via secure serverless API",
-      "Encrypted transit with strict zero-logging and zero-training guarantees",
+      "AI processing through the application server",
+      "Submitted text is processed by an external AI provider; review its data practices",
     ],
     faqs: [
       {
@@ -1818,12 +1818,12 @@ export const TOOL_SPECIFIC_CONTENT: Record<
       {
         question: "Does this tool store my confidential business emails?",
         answer:
-          "No. Your text is transmitted over an encrypted HTTPS connection to our secure serverless endpoint. Data is processed in memory and discarded immediately after generation; nothing is saved, logged, or used for AI training.",
+          "Your text is sent through our server endpoint to an AI provider. The application does not save submitted text in its own database. Provider retention and training practices depend on the service and account settings; zero retention is not guaranteed. Avoid submitting confidential information and review generated text before use.",
       },
       {
         question: "Does the rewritten text sound robotic or overly stiff?",
         answer:
-          "No. The model produces balanced, contemporary professional business English that sounds natural, respectful, and authoritative without archaic or robotic phrasing.",
+          "The model aims to produce balanced, contemporary professional business English that sounds natural, respectful, and authoritative without archaic or robotic phrasing.",
       },
     ],
   },
@@ -1876,7 +1876,7 @@ export const TOOL_SPECIFIC_CONTENT: Record<
       {
         question: "Is my text processed by an AI server?",
         answer:
-          "Yes. Your text is transmitted over an encrypted HTTPS connection through the application's server-side AI endpoint to the configured AI provider for processing. API credentials remain server-side. The application code does not intentionally store submitted text in its own database.",
+          "Your text is sent through our server endpoint to an AI provider. The application does not save submitted text in its own database. Provider retention and training practices depend on the service and account settings; zero retention is not guaranteed. Avoid submitting confidential information and review generated text before use.",
       },
     ],
   },
@@ -1884,14 +1884,14 @@ export const TOOL_SPECIFIC_CONTENT: Record<
   "ai-summarize": {
     howToSteps: [
       "Paste an article, report, meeting notes, or long document into the text area.",
-      "Click 'Run AI Tool' to generate an executive summary.",
+      "Click 'Process with AI' to generate an executive summary.",
       "The AI distills the document into concise key takeaways and prioritized bullet points.",
       "Review the summary and copy to clipboard.",
     ],
     features: [
       "Condenses lengthy documents into actionable executive summaries and bullet points",
       "Highlights critical decisions, statistics, and conclusions",
-      "Powered by Google Gemini via enterprise serverless API",
+      "AI processing through the application server",
       "Supports input texts up to 10,000 characters per request",
     ],
     faqs: [
@@ -1903,12 +1903,12 @@ export const TOOL_SPECIFIC_CONTENT: Record<
       {
         question: "Does the AI summarize using bullet points or paragraphs?",
         answer:
-          "The summarizer delivers structured executive takeaways, combining an overarching overview paragraph with prioritized bullet points highlighting key decisions and facts.",
+          "The summarizer is instructed to return concise bullet points followed by a one-sentence core takeaway. Review the summary for omissions or errors.",
       },
       {
         question: "Is my source document saved or used to train AI models?",
         answer:
-          "No. All requests are processed ephemerally via enterprise serverless API connections with zero data retention and zero training on user prompts.",
+          "Your text is sent through our server endpoint to an AI provider. The application does not save submitted text in its own database. Provider retention and training practices depend on the service and account settings; zero retention is not guaranteed. Avoid submitting confidential information and review generated text before use.",
       },
     ],
   },
@@ -1916,21 +1916,21 @@ export const TOOL_SPECIFIC_CONTENT: Record<
   "ai-paraphrase": {
     howToSteps: [
       "Paste the sentence or paragraph you wish to rephrase into the text box.",
-      "Click 'Run AI Tool' to generate a fresh variation.",
+      "Click 'Process with AI' to generate a fresh variation.",
       "The AI rephrases your content using rich vocabulary and varied sentence structures.",
       "Copy the newly rephrased text with one click.",
     ],
     features: [
-      "Rewords text with fresh vocabulary while preserving 100% of original meaning",
+      "Rewords text with fresh vocabulary; verify that facts and meaning remain accurate",
       "Eliminates awkward syntax and improves readability and rhythm",
-      "Powered by Google Gemini via secure serverless API",
-      "Zero prompt logging and zero AI training",
+      "AI processing through the application server",
+      "Submitted text is processed by an external AI provider; review its data practices",
     ],
     faqs: [
       {
         question: "Does paraphrasing alter the original meaning of the text?",
         answer:
-          "No. The AI is specifically prompted to preserve all facts, arguments, and core intentions while varying sentence structures and vocabulary for better fluency.",
+          "The AI is instructed, but cannot guarantee, to preserve meaning. Review its output. It is specifically prompted to preserve all facts, arguments, and core intentions while varying sentence structures and vocabulary for better fluency.",
       },
       {
         question: "Can I use this tool to overcome writer's block?",
@@ -1940,7 +1940,7 @@ export const TOOL_SPECIFIC_CONTENT: Record<
       {
         question: "How is my text processed?",
         answer:
-          "Your text is securely transmitted via HTTPS to our serverless proxy executing Google Gemini. Data is never cached, logged, or used for model training.",
+          "Your text is sent through our server endpoint to an AI provider. The application does not save submitted text in its own database. Provider retention and training practices depend on the service and account settings; zero retention is not guaranteed. Avoid submitting confidential information and review generated text before use.",
       },
     ],
   },
@@ -1948,15 +1948,15 @@ export const TOOL_SPECIFIC_CONTENT: Record<
   "ai-expand": {
     howToSteps: [
       "Enter a brief outline, bullet points, or a short premise into the input box.",
-      "Click 'Run AI Tool' to expand the idea.",
+      "Click 'Process with AI' to expand the idea.",
       "The AI elaborates with descriptive context, supportive examples, and smooth transitions.",
       "Review the expanded draft and copy to your clipboard.",
     ],
     features: [
       "Transforms rough outlines into comprehensive, well-structured prose",
       "Adds logical supporting arguments, descriptive context, and clear transitions",
-      "Powered by Google Gemini via enterprise serverless infrastructure",
-      "Ephemeral memory processing with zero data storage",
+      "AI processing through the application server",
+      "Submitted text is processed by an external AI provider; review its data practices",
     ],
     faqs: [
       {
@@ -1972,7 +1972,7 @@ export const TOOL_SPECIFIC_CONTENT: Record<
       {
         question: "Is my draft text kept private?",
         answer:
-          "Yes. All text is transmitted over encrypted HTTPS to our serverless endpoint and is discarded immediately after generating the response. We maintain a strict zero-logging policy.",
+          "Your text is sent through our server endpoint to an AI provider. The application does not save submitted text in its own database. Provider retention and training practices depend on the service and account settings; zero retention is not guaranteed. Avoid submitting confidential information and review generated text before use.",
       },
     ],
   },

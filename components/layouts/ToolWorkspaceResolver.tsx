@@ -22,32 +22,35 @@ export interface ToolWorkspaceResolverProps extends WorkspaceProps {
 export const ToolWorkspaceResolver: React.FC<ToolWorkspaceResolverProps> = (props) => {
   const { tool, error, onClear, onRun, headerExtra } = props;
 
+  const ready = (props.resultReady ?? props.output !== "") && !props.error && !props.isLoading;
+  const currentProps = { ...props, resultReady: !!ready, output: ready ? props.output : "",
+    customPreview: ready || (!props.output && !props.isLoading && !props.error) ? props.customPreview : undefined };
   const renderLayout = () => {
     switch (tool.layout) {
       case "transform":
-        return <TransformLayout {...props} />;
+        return <TransformLayout {...currentProps} />;
       case "generator":
-        return <GeneratorLayout {...props} />;
+        return <GeneratorLayout {...currentProps} />;
       case "dashboard":
-        return <DashboardLayout {...props} />;
+        return <DashboardLayout {...currentProps} />;
       case "table":
-        return <TableLayout {...props} />;
+        return <TableLayout {...currentProps} />;
       case "twoWay":
-        return <TwoWayLayout {...props} />;
+        return <TwoWayLayout {...currentProps} />;
       case "validator":
-        return <ValidatorLayout {...props} />;
+        return <ValidatorLayout {...currentProps} />;
       case "highlight":
-        return <HighlightLayout {...props} />;
+        return <HighlightLayout {...currentProps} />;
       case "splitPreview":
-        return <SplitPreviewLayout {...props} />;
+        return <SplitPreviewLayout {...currentProps} />;
       case "gallery":
-        return <GalleryLayout {...props} />;
+        return <GalleryLayout {...currentProps} />;
       case "compact":
-        return <CompactLayout {...props} />;
+        return <CompactLayout {...currentProps} />;
       case "ai":
-        return <AILayout {...props} />;
+        return <AILayout {...currentProps} />;
       default:
-        return <TransformLayout {...props} />;
+        return <TransformLayout {...currentProps} />;
     }
   };
 
@@ -56,9 +59,13 @@ export const ToolWorkspaceResolver: React.FC<ToolWorkspaceResolverProps> = (prop
       tool={tool}
       error={error}
       onClear={onClear}
-      onRun={onRun}
+      onRun={props.isLoading ? undefined : onRun}
       headerExtra={headerExtra}
     >
+      {props.resultReady && !props.output && !error && !props.isLoading && (
+        <p role="status" className="text-sm text-slate-500">Completed: the result is empty.</p>
+      )}
+      <p className="sr-only" role="status" aria-live="polite" aria-atomic="true">{props.isLoading ? "Processing. Please wait." : ready ? "Result ready." : ""}</p>
       {renderLayout()}
     </ToolShell>
   );

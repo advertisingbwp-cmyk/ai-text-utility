@@ -1,3 +1,4 @@
+import { CSV_GUIDE_EXAMPLE, HTML_GUIDE_EXAMPLE } from "@/data/seo/examples";
 import React from "react";
 import Link from "next/link";
 import {
@@ -1298,9 +1299,7 @@ export const JsonToCsvEditorial: React.FC = () => {
                 Resulting CSV Output (Tabular Grid)
               </span>
               <pre className="p-3 rounded-lg bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 text-[11px] font-mono text-slate-800 dark:text-slate-200 overflow-x-auto">
-{`name,age
-Alice,28
-Bob,31`}
+{CSV_GUIDE_EXAMPLE.input}
               </pre>
             </div>
           </div>
@@ -1676,32 +1675,21 @@ export const CsvToJsonEditorial: React.FC = () => {
                 Source CSV Input (Delimited Grid)
               </span>
               <pre className="p-3 rounded-lg bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 text-[11px] font-mono text-slate-800 dark:text-slate-200 overflow-x-auto">
-{`name,age
-Alice,28
-Bob,31`}
+{CSV_GUIDE_EXAMPLE.input}
               </pre>
             </div>
 
             <div className="p-4 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-slate-50/70 dark:bg-slate-950/40 space-y-2">
               <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">
-                Resulting JSON Output (Typed Object Array)
+                Resulting JSON Output (Default String Values)
               </span>
               <pre className="p-3 rounded-lg bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 text-[11px] font-mono text-slate-800 dark:text-slate-200 overflow-x-auto">
-{`[
-  {
-    "name": "Alice",
-    "age": 28
-  },
-  {
-    "name": "Bob",
-    "age": 31
-  }
-]`}
+{CSV_GUIDE_EXAMPLE.output}
               </pre>
             </div>
           </div>
           <p className="text-[11px] text-slate-500 dark:text-slate-400 italic">
-            * Note: With the default &quot;Parse Numbers &amp; Booleans&quot; setting enabled, numeric strings like <code className="font-mono text-[11px]">&quot;28&quot;</code> and <code className="font-mono text-[11px]">&quot;31&quot;</code> are automatically coerced into JavaScript numbers. Disabling this option preserves them as literal strings.
+            * Values stay strings by default. Enable &quot;Infer safe integers, booleans &amp; null&quot; to convert safe whole numbers and exact true/false/null values. Decimals, exponents, unsafe integers and leading-zero IDs remain strings.
           </p>
         </div>
       </section>
@@ -1752,7 +1740,7 @@ Bob,31`}
               Configure Headers &amp; Types
             </span>
             <p className="text-xs text-slate-600 dark:text-slate-400">
-              Toggle &apos;First Row as Headers&apos; and &apos;Parse Numbers &amp; Booleans&apos; according to your desired JSON structure.
+              Toggle &apos;First Row as Headers&apos; and &apos;Infer safe integers, booleans &amp; null&apos; according to your desired JSON structure.
             </p>
           </div>
 
@@ -1794,7 +1782,7 @@ Bob,31`}
                 1. Header Rows &amp; Key Naming
               </h3>
               <p className="text-xs text-slate-600 dark:text-slate-400">
-                When <strong>First Row as Headers</strong> is enabled, the first line defines object property keys. If a header column is empty, the parser automatically assigns fallback identifiers (<code className="font-mono text-[11px]">col_1</code>, <code className="font-mono text-[11px]">col_2</code>). If header names are duplicated, subsequent columns overwrite earlier keys. Disabling this option generates a 2D array of rows (<code className="font-mono text-[11px]">[[&quot;Alice&quot;, 28], ...]</code>).
+                When <strong>First Row as Headers</strong> is enabled, the first line defines object property keys. If a header column is empty, the parser automatically assigns fallback identifiers (<code className="font-mono text-[11px]">column_1</code>, <code className="font-mono text-[11px]">column_2</code>). Duplicate headers receive unique suffixes without overwriting existing columns. Disabling this option generates a 2D array of rows (<code className="font-mono text-[11px]">[[&quot;Alice&quot;, &quot;28&quot;], ...]</code>).
               </p>
             </div>
 
@@ -1812,7 +1800,7 @@ Bob,31`}
                 3. Type Coercion &amp; Leading Zeros
               </h3>
               <p className="text-xs text-slate-600 dark:text-slate-400">
-                When enabled, strings like <code className="font-mono text-[11px]">&quot;true&quot;</code>, <code className="font-mono text-[11px]">&quot;false&quot;</code>, and <code className="font-mono text-[11px]">&quot;null&quot;</code> convert to native types, and numeric strings convert to numbers. Crucially, values with leading zeros (e.g., postal codes <code className="font-mono text-[11px]">&quot;01234&quot;</code> or identifiers <code className="font-mono text-[11px]">&quot;007&quot;</code>) remain strings to prevent loss of leading zeros.
+                When enabled, strings like <code className="font-mono text-[11px]">&quot;true&quot;</code>, <code className="font-mono text-[11px]">&quot;false&quot;</code>, and <code className="font-mono text-[11px]">&quot;null&quot;</code> convert to native types, and safe integer strings convert to numbers; decimals, exponents and unsafe integers remain strings. Crucially, values with leading zeros (e.g., postal codes <code className="font-mono text-[11px]">&quot;01234&quot;</code> or identifiers <code className="font-mono text-[11px]">&quot;007&quot;</code>) remain strings to prevent loss of leading zeros.
               </p>
             </div>
           </div>
@@ -1840,7 +1828,7 @@ Bob,31`}
 
         <div className="p-6 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-4 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
           <p>
-            Real-world CSV files frequently contain punctuation, line breaks, or special characters inside cell contents. Our parser strictly implements the RFC 4180 standard to guarantee zero data loss:
+            Real-world CSV files frequently contain punctuation, line breaks, or special characters inside cell contents. The parser supports RFC-style quoted fields and rejects malformed quotes. Input is limited to 5 MiB and tables to 1,000,000 cells:
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-1">
@@ -2252,18 +2240,18 @@ export const MarkdownToHtmlEditorial: React.FC = () => {
               <tr>
                 <td className="py-2.5 px-4 font-sans font-medium text-slate-900 dark:text-white">Link</td>
                 <td className="py-2.5 px-4 text-brand-600 dark:text-brand-400">[OpenAI](https://openai.com)</td>
-                <td className="py-2.5 px-4">&lt;a href=&quot;https://openai.com&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;OpenAI&lt;/a&gt;</td>
+                <td className="py-2.5 px-4">&lt;a href=&quot;https://openai.com&quot;&gt;OpenAI&lt;/a&gt;</td>
               </tr>
               <tr>
                 <td className="py-2.5 px-4 font-sans font-medium text-slate-900 dark:text-white">Image</td>
                 <td className="py-2.5 px-4 text-brand-600 dark:text-brand-400">![Alt](https://example.com/pic.png)</td>
-                <td className="py-2.5 px-4">&lt;img src=&quot;https://example.com/pic.png&quot; alt=&quot;Alt&quot; loading=&quot;lazy&quot; /&gt;</td>
+                <td className="py-2.5 px-4">&lt;img src=&quot;https://example.com/pic.png&quot; alt=&quot;Alt&quot; /&gt;</td>
               </tr>
             </tbody>
           </table>
         </div>
         <p className="text-[11px] text-slate-500 dark:text-slate-400 italic">
-          * Note: Complex GitHub Flavored Markdown (GFM) extensions such as tabular pipe grids (<code className="font-mono text-[11px]">| col |</code>) and interactive task checklists (<code className="font-mono text-[11px]">- [ ]</code>) are not parsed as table or checkbox elements by this converter; they render as standard paragraph lines.
+          * Note: Complex GitHub Flavored Markdown (GFM) extensions such as tabular pipe grids (<code className="font-mono text-[11px]">| col |</code>) and interactive task checklists (<code className="font-mono text-[11px]">- [ ]</code>) are not parsed as table or checkbox elements by this converter; they remain ordinary text or list items.
         </p>
       </section>
 
@@ -2311,7 +2299,7 @@ export const MarkdownToHtmlEditorial: React.FC = () => {
                 3. Links &amp; Safe Image References
               </h3>
               <p className="text-xs text-slate-600 dark:text-slate-400">
-                Hyperlinks (<code className="font-mono text-[11px]">[Title](URL)</code>) automatically output with <code className="font-mono text-[11px]">target=&quot;_blank&quot;</code> and <code className="font-mono text-[11px]">rel=&quot;noopener noreferrer&quot;</code> for external security. Images (<code className="font-mono text-[11px]">![Alt](URL)</code>) render with an alt attribute and <code className="font-mono text-[11px]">loading=&quot;lazy&quot;</code> for optimized web page performance.
+                Links preserve their destinations and images preserve alt text. Standard links open in the current browsing context. Raw HTML is escaped and unsafe URL schemes are blocked.
               </p>
             </div>
 
@@ -2366,7 +2354,7 @@ export const MarkdownToHtmlEditorial: React.FC = () => {
                 <span className="text-emerald-600">●</span> Protocol Whitelisting
               </span>
               <p className="text-xs text-slate-600 dark:text-slate-400">
-                Links and images are strictly filtered. The parser permits only standard protocols (<code className="font-mono text-[11px]">https:</code>, <code className="font-mono text-[11px]">http:</code>, <code className="font-mono text-[11px]">mailto:</code>, relative paths, and anchor fragments). Dangerous schemes such as <code className="font-mono text-[11px]">javascript:</code> or SVG data URIs are replaced with <code className="font-mono text-[11px]">#unsafe-url</code>.
+                Links and images are strictly filtered. The parser permits only standard protocols (<code className="font-mono text-[11px]">https:</code>, <code className="font-mono text-[11px]">http:</code>, <code className="font-mono text-[11px]">mailto:</code>, relative paths, and anchor fragments). Dangerous schemes such as <code className="font-mono text-[11px]">javascript:</code> or SVG data URIs have their destinations removed. All data URIs, including raster images, are blocked.
               </p>
             </div>
           </div>
@@ -2429,7 +2417,7 @@ export const MarkdownToHtmlEditorial: React.FC = () => {
               className="text-brand-600 dark:text-brand-400 font-semibold underline underline-offset-2 hover:text-brand-700 dark:hover:text-brand-300"
             >
               HTML Minifier
-            </Link>. Minifying removes redundant whitespace, blank lines, and unnecessary formatting to compress file size and enhance page load speeds.
+            </Link>. This minifier removes standard comments and compacts attribute gaps while preserving text whitespace.
           </p>
           <p>
             Conversely, if you have existing HTML documents and need to extract pure plain text without tags for word counting, search indexing, or copy editing, use our dedicated{" "}
@@ -2481,7 +2469,7 @@ export const MarkdownToHtmlEditorial: React.FC = () => {
               <span className="text-[11px] font-mono text-brand-600 dark:text-brand-400">Compress</span>
             </div>
             <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-              Compress generated HTML by stripping redundant whitespace and comments to accelerate web page loading speeds.
+              Compact attribute gaps and remove standard comments from generated HTML while preserving text whitespace.
             </p>
           </div>
 
@@ -2555,7 +2543,7 @@ export const HtmlMinifierEditorial: React.FC = () => {
               What is HTML Minification &amp; How Does It Work?
             </h2>
             <p className="text-xs text-slate-500 dark:text-slate-400">
-              Reducing markup size by removing redundant whitespace, line breaks, and unnecessary source comments
+              Reduce attribute gaps and standard comments while preserving text whitespace
             </p>
           </div>
         </div>
@@ -2565,7 +2553,7 @@ export const HtmlMinifierEditorial: React.FC = () => {
             <strong className="text-slate-900 dark:text-white font-semibold">HTML minification</strong> is the process of stripping characters from HTML source code that web browsers do not require to correctly construct the Document Object Model (DOM) and display the page. During development, programmers use tab indents, blank lines, extra spacing, and explanatory comments to make code human-readable. Minification eliminates this overhead before deployment.
           </p>
           <p>
-            Our <strong className="text-slate-900 dark:text-white font-semibold">Free Online HTML Minifier</strong> collapses whitespace between tags, normalizes multi-space attribute gaps, strips standard comments, and preserves sensitive code blocks verbatim:
+            Our <strong className="text-slate-900 dark:text-white font-semibold">Free Online HTML Minifier</strong> preserves whitespace between tags and in text, compacts attribute gaps, and removes standard comments:
           </p>
 
           {/* Side-by-side Visual Code Example */}
@@ -2575,11 +2563,7 @@ export const HtmlMinifierEditorial: React.FC = () => {
                 Unminified Source HTML Input
               </span>
               <pre className="p-3 rounded-lg bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 text-[11px] font-mono text-slate-800 dark:text-slate-200 overflow-x-auto">
-{`<div   class="container"   id="main"  >
-  <!-- Main Heading Comment -->
-  <h1>   Welcome to AI Text Utility   </h1>
-  <p>Fast, private text tools.</p>
-</div>`}
+{HTML_GUIDE_EXAMPLE.input}
               </pre>
             </div>
 
@@ -2588,7 +2572,7 @@ export const HtmlMinifierEditorial: React.FC = () => {
                 Minified HTML Output
               </span>
               <pre className="p-3 rounded-lg bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 text-[11px] font-mono text-slate-800 dark:text-slate-200 overflow-x-auto">
-{`<div class="container" id="main"><h1> Welcome to AI Text Utility </h1><p>Fast, private text tools.</p></div>`}
+{HTML_GUIDE_EXAMPLE.output}
               </pre>
             </div>
           </div>
@@ -2631,7 +2615,7 @@ export const HtmlMinifierEditorial: React.FC = () => {
               Configure Options
             </span>
             <p className="text-xs text-slate-600 dark:text-slate-400">
-              Toggle &apos;Strip Comments&apos; to remove comments and &apos;Collapse Whitespace&apos; to remove redundant gaps.
+              Toggle &apos;Strip Comments&apos; to remove comments and &apos;Compact Attribute Gaps&apos; to reduce attribute separators.
             </p>
           </div>
 
@@ -2683,7 +2667,7 @@ export const HtmlMinifierEditorial: React.FC = () => {
                 1. Inter-Tag Whitespace
               </h3>
               <p className="text-xs text-slate-600 dark:text-slate-400">
-                Whitespace between closing and opening tags (<code className="font-mono text-[11px]">&gt;   &lt;</code>) is completely eliminated, joining elements directly (<code className="font-mono text-[11px]">&gt;&lt;</code>). This removes indentation spaces and blank line gaps between markup blocks.
+                Whitespace between tags is preserved, including inline word separation and indentation. CSS may make these spaces significant.
               </p>
             </div>
 
@@ -2692,7 +2676,7 @@ export const HtmlMinifierEditorial: React.FC = () => {
                 2. Attribute Gaps
               </h3>
               <p className="text-xs text-slate-600 dark:text-slate-400">
-                Excess spaces inside opening tags (such as <code className="font-mono text-[11px]">&lt;div    class=&quot;box&quot;   &gt;</code>) are collapsed into a single space (<code className="font-mono text-[11px]">&lt;div class=&quot;box&quot;&gt;</code>) while strictly preserving quoted attribute values.
+                Excess spaces inside opening tags (such as <code className="font-mono text-[11px]">&lt;div    class=&quot;box&quot;   &gt;</code>) are collapsed into a single space (<code className="font-mono text-[11px]">&lt;div class=&quot;box&quot; &gt;</code>) while strictly preserving quoted attribute values.
               </p>
             </div>
 
@@ -2701,7 +2685,7 @@ export const HtmlMinifierEditorial: React.FC = () => {
                 3. Text-Node Spacing
               </h3>
               <p className="text-xs text-slate-600 dark:text-slate-400">
-                Multiple consecutive spaces within regular paragraph and text nodes are reduced to single spaces (<code className="font-mono text-[11px]">\s&#123;2,&#125;</code> &rarr; <code className="font-mono text-[11px]">&quot; &quot;</code>), mirroring how browser layout engines render inline text.
+                Text-node spaces and line breaks remain unchanged, including content styled with white-space: pre. Only attribute separators are compacted.
               </p>
             </div>
           </div>
@@ -2757,7 +2741,7 @@ export const HtmlMinifierEditorial: React.FC = () => {
             Verbatim Preservation of Sensitive Elements
           </h3>
           <p>
-            Certain HTML tags rely strictly on whitespace and newline formatting to function correctly. Our minifier isolates these blocks with temporary placeholders prior to processing and restores them verbatim:
+            Certain HTML tags rely strictly on whitespace and newline formatting to function correctly. This minifier makes source edits without reserializing the document. Text whitespace and raw script/style content remain unchanged; standard comments inside normal elements can still be removed:
           </p>
           <ul className="space-y-2 text-xs list-disc list-inside text-slate-600 dark:text-slate-400">
             <li><strong className="text-slate-800 dark:text-slate-200">&lt;pre&gt; and &lt;textarea&gt;:</strong> Indentation, ASCII art, preformatted code, and line breaks are fully preserved. Compacting whitespace inside these elements would disrupt their visual presentation and form input values.</li>
@@ -2773,10 +2757,10 @@ export const HtmlMinifierEditorial: React.FC = () => {
             Does HTML Minification Change Page Appearance?
           </h3>
           <p>
-            In standard, standards-compliant HTML, minification does not alter how the page looks to your users. Web browsers naturally collapse multiple adjacent whitespace characters into a single space during layout calculation.
+            This tool deliberately preserves text whitespace, including spaces and newlines between tags, because CSS can make that whitespace significant.
           </p>
           <p>
-            However, if your stylesheet utilizes whitespace-sensitive layout techniques—such as relying on the exact space gap between inline-block elements (<code className="font-mono text-[11px]">display: inline-block</code>) or custom <code className="font-mono text-[11px]">white-space: pre-wrap</code> rules—removing whitespace between tags can alter element spacing. We recommend testing your minified HTML in your browser to confirm layout fidelity.
+            Review the output in your target application. Comment removal can affect systems that use comments as template or hydration markers; disable Strip Comments for those inputs. This tool does not sanitize unsafe HTML.
           </p>
         </div>
       </section>
