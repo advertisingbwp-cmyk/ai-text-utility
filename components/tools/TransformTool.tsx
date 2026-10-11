@@ -33,6 +33,7 @@ export const TransformTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
   const [output, setOutput] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+  const [completed, setCompleted] = useState<{ input: string; run: (value: string) => void } | null>(null);
 
   // Specific transform options
   const [tabDir, setTabDir] = useState<"tabs-to-spaces" | "spaces-to-tabs">("tabs-to-spaces");
@@ -69,7 +70,8 @@ export const TransformTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
   const [urlScope, setUrlScope] = useState<"component" | "full">("component");
 
   const executeTool = useCallback(
-    (currentInput: string) => {
+    (currentInput: string): void => {
+      setCompleted({ input: currentInput, run: executeTool });
       setError(null);
       if (!currentInput) {
         setOutput("");
@@ -214,6 +216,7 @@ export const TransformTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
             break;
         }
       } catch (err) {
+        setOutput("");
         setError(err instanceof Error ? err.message : "Error executing tool");
       }
     },
@@ -275,6 +278,7 @@ export const TransformTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
   };
 
   const handleClear = () => {
+    setCompleted(null);
     setInput("");
     setOutput("");
     setError(null);
@@ -295,6 +299,7 @@ export const TransformTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
             <div className="flex items-center gap-2">
               <span className="text-slate-700 dark:text-slate-300 font-medium">Direction:</span>
               <select
+                aria-label="Conversion direction"
                 value={tabDir}
                 onChange={(e) => setTabDir(e.target.value as "tabs-to-spaces" | "spaces-to-tabs")}
                 className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1 text-slate-800 dark:text-slate-200 focus:outline-none focus:border-brand-500 shadow-2xs"
@@ -310,6 +315,7 @@ export const TransformTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
                 type="number"
                 min={1}
                 max={8}
+                aria-label="Spaces per tab"
                 value={tabWidth}
                 onChange={(e) => setTabWidth(Math.max(1, Math.min(8, parseInt(e.target.value) || 2)))}
                 className="w-14 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2 py-1 text-slate-800 dark:text-slate-200 font-mono text-center focus:outline-none focus:border-brand-500 shadow-2xs"
@@ -324,6 +330,7 @@ export const TransformTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
             <div className="flex items-center gap-2">
               <span className="text-slate-700 dark:text-slate-300 font-medium">Separator:</span>
               <select
+                aria-label="Slug separator"
                 value={slugSep}
                 onChange={(e) => setSlugSep(e.target.value)}
                 className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1 text-slate-800 dark:text-slate-200 focus:outline-none focus:border-brand-500 shadow-2xs"
@@ -353,6 +360,7 @@ export const TransformTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
               <span className="text-slate-700 dark:text-slate-300 font-medium">Start At:</span>
               <input
                 type="number"
+                aria-label="Starting line number"
                 value={lineNumStart}
                 onChange={(e) => setLineNumStart(parseInt(e.target.value) || 1)}
                 className="w-16 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2 py-1 text-slate-800 dark:text-slate-200 font-mono text-center focus:outline-none focus:border-brand-500 shadow-2xs"
@@ -362,6 +370,7 @@ export const TransformTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
             <div className="flex items-center gap-2">
               <span className="text-slate-700 dark:text-slate-300 font-medium">Delimiter:</span>
               <select
+                aria-label="Line number separator"
                 value={lineNumDelim}
                 onChange={(e) => setLineNumDelim(e.target.value)}
                 className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1 text-slate-800 dark:text-slate-200 focus:outline-none focus:border-brand-500 shadow-2xs"
@@ -419,6 +428,7 @@ export const TransformTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
               <button
                 type="button"
                 onClick={() => setEmptyLinesMode("remove-all")}
+                aria-pressed={emptyLinesMode === "remove-all"}
                 className={`px-2.5 py-1 rounded-lg font-medium transition-colors cursor-pointer ${
                   emptyLinesMode === "remove-all"
                     ? "bg-brand-600 text-white"
@@ -430,6 +440,7 @@ export const TransformTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
               <button
                 type="button"
                 onClick={() => setEmptyLinesMode("preserve-paragraphs")}
+                aria-pressed={emptyLinesMode === "preserve-paragraphs"}
                 className={`px-2.5 py-1 rounded-lg font-medium transition-colors cursor-pointer ${
                   emptyLinesMode === "preserve-paragraphs"
                     ? "bg-brand-600 text-white"
@@ -448,6 +459,7 @@ export const TransformTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
             <div className="flex items-center gap-2">
               <span className="text-slate-700 dark:text-slate-300 font-medium">Trim Position:</span>
               <select
+                aria-label="Trim mode"
                 value={trimMode}
                 onChange={(e) => setTrimMode(e.target.value as "both" | "leading" | "trailing")}
                 className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1 text-slate-800 dark:text-slate-200 focus:outline-none focus:border-brand-500 shadow-2xs"
@@ -478,6 +490,7 @@ export const TransformTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
               <button
                 type="button"
                 onClick={() => setSpacesMode("spaces-only")}
+                aria-pressed={spacesMode === "spaces-only"}
                 className={`px-2.5 py-1 rounded-lg font-medium transition-colors cursor-pointer ${
                   spacesMode === "spaces-only"
                     ? "bg-brand-600 text-white"
@@ -489,6 +502,7 @@ export const TransformTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
               <button
                 type="button"
                 onClick={() => setSpacesMode("all-whitespace")}
+                aria-pressed={spacesMode === "all-whitespace"}
                 className={`px-2.5 py-1 rounded-lg font-medium transition-colors cursor-pointer ${
                   spacesMode === "all-whitespace"
                     ? "bg-brand-600 text-white"
@@ -532,6 +546,7 @@ export const TransformTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
             <div className="flex items-center gap-2">
               <span className="text-slate-700 dark:text-slate-300 font-medium">Replace With:</span>
               <select
+                aria-label="Replace line breaks with"
                 value={lineBreaksSep}
                 onChange={(e) => setLineBreaksSep(e.target.value)}
                 className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1 text-slate-800 dark:text-slate-200 focus:outline-none focus:border-brand-500 shadow-2xs"
@@ -561,6 +576,7 @@ export const TransformTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
             <div className="flex items-center gap-2">
               <span className="text-slate-700 dark:text-slate-300 font-medium">Filter Mode:</span>
               <select
+                aria-label="Filter mode"
                 value={specialCharsMode}
                 onChange={(e) =>
                   setSpecialCharsMode(e.target.value as "alphanumeric-only" | "keep-punctuation" | "custom")
@@ -607,6 +623,7 @@ export const TransformTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
                 key={item.id}
                 type="button"
                 onClick={() => setCaseMode(item.id)}
+                aria-pressed={caseMode === item.id}
                 className={`px-3 py-1.5 rounded-xl font-medium transition-all cursor-pointer ${
                   caseMode === item.id
                     ? "bg-slate-900 text-white dark:bg-brand-600 dark:text-white shadow-xs"
@@ -625,6 +642,7 @@ export const TransformTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
             <div className="flex items-center gap-2">
               <span className="text-slate-700 dark:text-slate-300 font-medium">Order:</span>
               <select
+                aria-label="Sort order"
                 value={sortOrder}
                 onChange={(e) => setSortOrder(e.target.value as SortOrder)}
                 className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1 text-slate-800 dark:text-slate-200 focus:outline-none focus:border-brand-500 shadow-2xs"
@@ -676,6 +694,7 @@ export const TransformTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
                   key={item.id}
                   type="button"
                   onClick={() => setReverseMode(item.id)}
+                aria-pressed={reverseMode === item.id}
                   className={`px-3 py-1.5 rounded-xl font-medium transition-all cursor-pointer ${
                     reverseMode === item.id
                       ? "bg-slate-900 text-white dark:bg-brand-600 dark:text-white shadow-xs"
@@ -696,6 +715,7 @@ export const TransformTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
               <button
                 type="button"
                 onClick={() => setBase64Mode("encode")}
+                aria-pressed={base64Mode === "encode"}
                 className={`px-3 py-1 rounded-lg font-medium transition-colors cursor-pointer ${
                   base64Mode === "encode"
                     ? "bg-brand-600 text-white"
@@ -707,6 +727,7 @@ export const TransformTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
               <button
                 type="button"
                 onClick={() => setBase64Mode("decode")}
+                aria-pressed={base64Mode === "decode"}
                 className={`px-3 py-1 rounded-lg font-medium transition-colors cursor-pointer ${
                   base64Mode === "decode"
                     ? "bg-brand-600 text-white"
@@ -736,6 +757,7 @@ export const TransformTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
               <button
                 type="button"
                 onClick={() => setUrlMode("encode")}
+                aria-pressed={urlMode === "encode"}
                 className={`px-3 py-1 rounded-lg font-medium transition-colors cursor-pointer ${
                   urlMode === "encode"
                     ? "bg-brand-600 text-white"
@@ -747,6 +769,7 @@ export const TransformTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
               <button
                 type="button"
                 onClick={() => setUrlMode("decode")}
+                aria-pressed={urlMode === "decode"}
                 className={`px-3 py-1 rounded-lg font-medium transition-colors cursor-pointer ${
                   urlMode === "decode"
                     ? "bg-brand-600 text-white"
@@ -759,6 +782,7 @@ export const TransformTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
             <div className="flex items-center gap-2">
               <span className="text-slate-700 dark:text-slate-300 font-medium">Encoding Scope:</span>
               <select
+                aria-label="URL encoding scope"
                 value={urlScope}
                 onChange={(e) => setUrlScope(e.target.value as "component" | "full")}
                 className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1 text-slate-800 dark:text-slate-200 focus:outline-none focus:border-brand-500 shadow-2xs"
@@ -810,6 +834,7 @@ export const TransformTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
       tool={tool}
       input={input}
       output={output}
+      resultReady={!!input && completed?.input === input && completed?.run === executeTool}
       onInputChange={setInput}
       onRun={handleRun}
       onClear={handleClear}

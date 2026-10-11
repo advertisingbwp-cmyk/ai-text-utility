@@ -21,6 +21,7 @@ export const TableTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
   const [output, setOutput] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+  const [completed, setCompleted] = useState<{ input: string; run: (value: string) => void } | null>(null);
 
   // Character Frequency State
   const [charSort, setCharSort] = useState<"frequency" | "alphabetical">("frequency");
@@ -33,7 +34,8 @@ export const TableTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
   const [wordIgnoreCaps, setWordIgnoreCaps] = useState<boolean>(true);
 
   const executeTool = useCallback(
-    (currentInput: string) => {
+    (currentInput: string): void => {
+      setCompleted({ input: currentInput, run: executeTool });
       setError(null);
       if (!currentInput) {
         setOutput("");
@@ -75,6 +77,7 @@ export const TableTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
           }
         }
       } catch (err) {
+        setOutput("");
         setError(err instanceof Error ? err.message : "Error executing analysis");
       }
     },
@@ -106,6 +109,7 @@ export const TableTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
   };
 
   const handleClear = () => {
+    setCompleted(null);
     setInput("");
     setOutput("");
     setError(null);
@@ -119,6 +123,7 @@ export const TableTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
             <div className="flex items-center gap-2">
               <span className="text-slate-700 dark:text-slate-300 font-medium">Sort By:</span>
               <select
+                aria-label="Character sort order"
                 value={charSort}
                 onChange={(e) => setCharSort(e.target.value as "frequency" | "alphabetical")}
                 className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1 text-slate-800 dark:text-slate-200 focus:outline-none focus:border-brand-500 shadow-2xs"
@@ -156,6 +161,7 @@ export const TableTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
             <div className="flex items-center gap-2">
               <span className="text-slate-700 dark:text-slate-300 font-medium">Sort By:</span>
               <select
+                aria-label="Word sort order"
                 value={wordSort}
                 onChange={(e) => setWordSort(e.target.value as "frequency" | "alphabetical")}
                 className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1 text-slate-800 dark:text-slate-200 focus:outline-none focus:border-brand-500 shadow-2xs"
@@ -171,6 +177,7 @@ export const TableTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
                 type="number"
                 min={1}
                 max={20}
+                aria-label="Minimum word length"
                 value={wordMinLen}
                 onChange={(e) => setWordMinLen(Math.max(1, parseInt(e.target.value) || 1))}
                 className="w-14 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2 py-1 text-slate-800 dark:text-slate-200 font-mono text-center focus:outline-none focus:border-brand-500 shadow-2xs"
@@ -276,14 +283,14 @@ export const TableTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
             <span>Ranked by {charSort === "frequency" ? "Frequency" : "Alphabetical"}</span>
           </div>
           <div className="overflow-x-auto rounded-xl border border-slate-200/90 dark:border-slate-800">
-            <table className="w-full text-left text-xs font-mono">
+            <table aria-label={`${tool.name} results`} className="w-full text-left text-xs font-mono">
               <thead className="bg-slate-50/90 dark:bg-slate-950/80 text-slate-500 dark:text-slate-400 border-b border-slate-200/80 dark:border-slate-800">
                 <tr>
-                  <th className="p-3">#</th>
-                  <th className="p-3">Character</th>
-                  <th className="p-3">Count</th>
-                  <th className="p-3">Percentage</th>
-                  <th className="p-3 w-1/3">Distribution</th>
+                  <th scope="col" className="p-3">#</th>
+                  <th scope="col" className="p-3">Character</th>
+                  <th scope="col" className="p-3">Count</th>
+                  <th scope="col" className="p-3">Percentage</th>
+                  <th scope="col" className="p-3 w-1/3">Distribution</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100 dark:divide-slate-800/60">
@@ -334,14 +341,14 @@ export const TableTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
             <span>Ranked by {wordSort === "frequency" ? "Frequency" : "Alphabetical"}</span>
           </div>
           <div className="overflow-x-auto rounded-xl border border-slate-200/90 dark:border-slate-800">
-            <table className="w-full text-left text-xs font-mono">
+            <table aria-label={`${tool.name} results`} className="w-full text-left text-xs font-mono">
               <thead className="bg-slate-50/90 dark:bg-slate-950/80 text-slate-500 dark:text-slate-400 border-b border-slate-200/80 dark:border-slate-800">
                 <tr>
-                  <th className="p-3">#</th>
-                  <th className="p-3">Word</th>
-                  <th className="p-3">Count</th>
-                  <th className="p-3">Percentage</th>
-                  <th className="p-3 w-1/3">Distribution</th>
+                  <th scope="col" className="p-3">#</th>
+                  <th scope="col" className="p-3">Word</th>
+                  <th scope="col" className="p-3">Count</th>
+                  <th scope="col" className="p-3">Percentage</th>
+                  <th scope="col" className="p-3 w-1/3">Distribution</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100 dark:divide-slate-800/60">
@@ -437,6 +444,7 @@ export const TableTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
       tool={tool}
       input={input}
       output={output}
+      resultReady={!!input && completed?.input === input && completed?.run === executeTool}
       onInputChange={setInput}
       onRun={handleRun}
       onClear={handleClear}

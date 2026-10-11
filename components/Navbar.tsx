@@ -18,7 +18,8 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCommandPalette }) => {
   const [pastHero, setPastHero] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
-  const isMac = typeof navigator !== 'undefined' && /Mac|iPhone|iPod|iPad/.test(navigator.platform);
+  const [isMac, setIsMac] = useState(false);
+  useEffect(() => { setIsMac(/Mac|iPhone|iPod|iPad/.test(navigator.platform)); }, []);
 
   useEffect(() => {
     const updateFav = () => {

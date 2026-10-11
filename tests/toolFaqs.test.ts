@@ -104,8 +104,8 @@ test("Tool FAQs - Strict Security & Anti-Mismatch Audit", () => {
       ].join(" ").toLowerCase();
 
       assert.ok(
-        allText.includes("serverless") || allText.includes("gemini") || allText.includes("https"),
-        `AI tool '${tool.slug}' must accurately explain serverless/AI architecture`
+        allText.includes("server") && allText.includes("ai provider"),
+        `AI tool '${tool.slug}' must disclose server and external AI provider processing`
       );
       assert.ok(
         !allText.includes("100% client-side") && !allText.includes("purely within your browser"),

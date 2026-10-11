@@ -17,6 +17,7 @@ export const DateTimeTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
   const [output, setOutput] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+  const [completed, setCompleted] = useState<{ input: string; run: (value: string) => void } | null>(null);
 
   // Tool Specific Options
   const [unixUnit, setUnixUnit] = useState<"auto" | "seconds" | "milliseconds">("auto");
@@ -25,7 +26,8 @@ export const DateTimeTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
   const [dateDiffTz, setDateDiffTz] = useState<string>("UTC");
 
   const executeTool = useCallback(
-    (currentInput: string) => {
+    (currentInput: string): void => {
+      setCompleted({ input: currentInput, run: executeTool });
       setError(null);
       if (!currentInput) {
         setOutput("");
@@ -54,6 +56,7 @@ export const DateTimeTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
           setOutput(res.formattedReport);
         }
       } catch (err) {
+        setOutput("");
         setError(err instanceof Error ? err.message : "Error executing date calculation");
       }
     },
@@ -78,31 +81,37 @@ export const DateTimeTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
   };
 
   const handleClear = () => {
+    setCompleted(null);
     setInput("");
     setOutput("");
     setError(null);
   };
 
+  const dateInputHelp = <details className="w-full text-xs"><summary className="cursor-pointer py-2 font-medium">Date input formats and timezone rules</summary><p className="w-full text-xs text-slate-500 dark:text-slate-400">Use YYYY-MM-DD or ISO date-time. The selected timezone applies when no offset is supplied. Invalid dates and ambiguous daylight-saving times are rejected; supply an explicit offset to resolve them. Duration days are 24 hours; calendar breakdown uses UTC.</p></details>;
+
   const customControls = useMemo(() => {
     if (tool.slug === "unix-timestamp") {
       return (
         <div className="flex flex-wrap items-center gap-4 text-xs">
+          {dateInputHelp}
           <div className="flex items-center gap-2">
             <span className="text-slate-700 dark:text-slate-300 font-medium">Unit:</span>
             <select
-              value={unixUnit}
+              aria-label="Timestamp unit"
+                value={unixUnit}
               onChange={(e) => setUnixUnit(e.target.value as "auto" | "seconds" | "milliseconds")}
               className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1 text-slate-800 dark:text-slate-200 focus:outline-none focus:border-brand-500 shadow-2xs"
             >
-              <option value="auto">Auto-Detect (10 vs 13 digits)</option>
-              <option value="seconds">Seconds (10 digits)</option>
-              <option value="milliseconds">Milliseconds (13 digits)</option>
+              <option value="auto">Auto-Detect (magnitude / integer digits)</option>
+              <option value="seconds">Seconds</option>
+              <option value="milliseconds">Milliseconds</option>
             </select>
           </div>
           <div className="flex items-center gap-2">
-            <span className="text-slate-700 dark:text-slate-300 font-medium">Display Timezone:</span>
+            <span className="text-slate-700 dark:text-slate-300 font-medium">Input / Display Timezone:</span>
             <select
-              value={unixTz}
+              aria-label="Timestamp timezone"
+                value={unixTz}
               onChange={(e) => setUnixTz(e.target.value)}
               className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1 text-slate-800 dark:text-slate-200 focus:outline-none focus:border-brand-500 shadow-2xs"
             >
@@ -131,14 +140,16 @@ export const DateTimeTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
     if (tool.slug === "date-difference") {
       return (
         <div className="flex flex-wrap items-center gap-4 text-xs">
+          {dateInputHelp}
           <div className="flex items-center gap-2">
-            <span className="text-slate-700 dark:text-slate-300 font-medium">Calculation Timezone:</span>
+            <span className="text-slate-700 dark:text-slate-300 font-medium">Input Timezone:</span>
             <select
-              value={dateDiffTz}
+              aria-label="Date difference timezone"
+                value={dateDiffTz}
               onChange={(e) => setDateDiffTz(e.target.value)}
               className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1 text-slate-800 dark:text-slate-200 focus:outline-none focus:border-brand-500 shadow-2xs"
             >
-              <option value="UTC">UTC / GMT (Zero Drift)</option>
+              <option value="UTC">UTC / GMT</option>
               <option value="local">Browser Local Time</option>
             </select>
           </div>
@@ -149,7 +160,7 @@ export const DateTimeTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
               onChange={(e) => setDateDiffIncludeEnd(e.target.checked)}
               className="rounded border-slate-300 dark:border-slate-700 text-brand-600 bg-white dark:bg-slate-800"
             />
-            <span>Include End Date (+1 Full Day)</span>
+            <span>Include End Date (+24 elapsed hours)</span>
           </label>
           <div className="flex items-center gap-1.5 text-[11px] text-slate-400">
             <span>Presets:</span>
@@ -286,16 +297,31 @@ export const DateTimeTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
     return null;
   }, [tool.slug, input, unixUnit, unixTz, dateDiffTz, dateDiffIncludeEnd]);
 
+  const dates = input.includes("\n") ? {start: input.split("\n")[0], end: input.split("\n")[1] || ""} : parseDualDateString(input);
+  const dateFields = tool.slug === "date-difference" ? (
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+      {(["start", "end"] as const).map(which => <label key={which} className="text-sm font-medium space-y-2">
+        <span>{which === "start" ? "Start date" : "End date"}</span>
+        <input type="text" value={dates[which]} placeholder="YYYY-MM-DD or ISO date-time"
+          aria-invalid={!!error} aria-describedby={error ? "tool-error" : undefined}
+          className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 p-3 font-mono"
+          onChange={e => setInput(which === "start" ? `${e.target.value}\n${dates.end}` : `${dates.start}\n${e.target.value}`)} />
+      </label>)}
+    </div>
+  ) : undefined;
+
   return (
     <ToolWorkspaceResolver
       tool={tool}
       input={input}
       output={output}
+      resultReady={!!input && completed?.input === input && completed?.run === executeTool}
       onInputChange={setInput}
       onRun={handleRun}
       onClear={handleClear}
       isLoading={isLoading}
       error={error}
+      customWorkspace={dateFields}
       customControls={customControls}
       customPreview={customPreview}
     />

@@ -215,18 +215,19 @@ test("Edge Cases 5: Security & XSS Sanitization", () => {
   const mdJs = "[Click Me](javascript:alert('XSS'))";
   const htmlJs = convertMarkdownToHtml(mdJs);
   assert.ok(!htmlJs.includes("javascript:alert"));
-  assert.ok(htmlJs.includes("#unsafe-url"));
+  assert.ok(htmlJs.includes('href=""'));
 
   // XSS vector in Markdown to HTML: SVG data URI
   const mdSvg = "![Malicious SVG](data:image/svg+xml;base64,PHNjcmlwdD5hbGVydCgxKTwvc2NyaXB0Pg==)";
   const htmlSvg = convertMarkdownToHtml(mdSvg);
   assert.ok(!htmlSvg.includes("data:image/svg+xml"));
-  assert.ok(htmlSvg.includes("#unsafe-url"));
+  assert.ok(htmlSvg.includes('src=""'));
 
-  // Safe raster image data URI should be allowed
+  // All data URIs are blocked consistently, including raster images.
   const mdPng = "![Safe PNG](data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==)";
   const htmlPng = convertMarkdownToHtml(mdPng);
-  assert.ok(htmlPng.includes("data:image/png;base64"));
+  assert.ok(!htmlPng.includes("data:image/png;base64"));
+  assert.ok(htmlPng.includes('src=""'));
 
   // HTML entity decoding with supplementary plane (code point > 65535, e.g. emoji &#128512;)
   const entityEmoji = stripHtmlTags("Hello &#128512; &#x1F600; world!");

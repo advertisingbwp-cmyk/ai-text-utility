@@ -156,6 +156,7 @@ export const RegexTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
                 key={mode}
                 type="button"
                 onClick={() => setQueryView(mode)}
+                aria-pressed={queryView === mode}
                 className={`px-2.5 py-1 rounded-lg text-xs font-medium capitalize transition-colors cursor-pointer ${
                   queryView === mode
                     ? "bg-brand-600 text-white"

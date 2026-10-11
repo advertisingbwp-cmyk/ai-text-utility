@@ -5,6 +5,8 @@ export interface WorkspaceProps {
   tool: ToolDefinition;
   input: string;
   output: string;
+  /** True only for a completed current result, including a valid empty string. */
+  resultReady?: boolean;
   onInputChange: (val: string) => void;
   onRun?: () => void;
   onClear?: () => void;

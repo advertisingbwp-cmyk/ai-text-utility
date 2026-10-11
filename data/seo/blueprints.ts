@@ -472,10 +472,10 @@ export const SEO_BLUEPRINT_MAP: Record<string, ToolSeoBlueprint> = {
     slug: "html-minifier",
     title: "HTML Minifier – Minify HTML Code Online Free",
     metaDescription:
-      "Minify HTML online instantly. Remove unnecessary whitespace and reduce HTML markup size for cleaner, smaller code directly in your browser.",
+      "Minify HTML online: remove standard comments and compact attribute gaps while preserving text whitespace. Process markup locally in your browser.",
     h1: "HTML Minifier",
     aboveTheFoldIntro:
-      "Minify HTML code instantly by removing unnecessary formatting and whitespace. Produce smaller, cleaner HTML for websites, templates and development workflows.",
+      "Remove standard HTML comments and compact attribute gaps. Text whitespace and attribute values stay intact; review comment-dependent templates before using the output.",
     primaryKeyword: "html minifier",
     secondaryKeywords: [
       "html minifier",

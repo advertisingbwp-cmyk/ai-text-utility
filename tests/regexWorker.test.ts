@@ -87,9 +87,24 @@ test("worker initialization, runtime, transfer failures and empty pattern settle
 test("actual worker terminates catastrophic regex at deadline while main thread ticks", async () => {
   const workers: Worker[] = [];
   const terminations: Promise<number>[] = [];
+  // Prestart each test worker so CI process-startup contention is not mistaken
+  // for slow regex execution. Separate unit tests cover initialization failures.
+  const prepareWorker = async () => {
+    const worker = new Worker(new URL("./fixtures/regex-worker.mjs", import.meta.url), { execArgv: ["--experimental-strip-types"] });
+    workers.push(worker);
+    await new Promise<void>((resolve, reject) => {
+      const timer = setTimeout(() => { cleanup(); reject(new Error("Fixture worker startup exceeded 10 seconds")); }, 10000);
+      const cleanup = () => { clearTimeout(timer); worker.off("message", ready); worker.off("error", failed); worker.off("exit", exited); };
+      const ready = (data: { fixtureReady?: boolean }) => { if (data.fixtureReady) { cleanup(); resolve(); } };
+      const failed = (err: Error) => { cleanup(); reject(err); };
+      const exited = (code: number) => failed(new Error("Fixture exited before ready: " + code));
+      worker.on("message", ready); worker.on("error", failed); worker.on("exit", exited);
+    });
+    return worker;
+  };
+  let prepared: Worker;
   const runner = new RegexTaskRunner(() => {
-    const nodeWorker = new Worker(new URL("./fixtures/regex-worker.mjs", import.meta.url), { execArgv: ["--experimental-strip-types"] });
-    workers.push(nodeWorker);
+    const nodeWorker = prepared;
     const port = new FakeWorker();
     port.postMessage = task => nodeWorker.postMessage(task);
     port.terminate = () => { terminations.push(nodeWorker.terminate()); };
@@ -100,6 +115,8 @@ test("actual worker terminates catastrophic regex at deadline while main thread 
   let ticks = 0;
   const heartbeat = setInterval(() => ticks++, 20);
   try {
+    prepared = await prepareWorker();
+    ticks = 0;
     const started = performance.now();
     const result = await runner.run({ input: "a".repeat(27) + "!", pattern: "^(a+)+$", flags: "g" });
     const elapsed = performance.now() - started;
@@ -109,8 +126,12 @@ test("actual worker terminates catastrophic regex at deadline while main thread 
     assert.ok(ticks >= 10, "main event loop stays responsive");
     assert.equal(terminations.length, 1);
     await Promise.all(terminations);
+    prepared = await prepareWorker();
     const next = await runner.run({ input: "user_id_42", pattern: DEFAULT_REGEX_PATTERN, flags: "g" });
-    assert.equal(next!.matches[0].groups[0].value, "42");
+    assert.ok(next, "recovery task must settle with a result");
+    assert.equal(next.isValid, true, next.error);
+    assert.equal(next.matchCount, 1, "fresh worker must find the recovery match");
+    assert.equal(next.matches[0].groups[0].value, "42");
     assert.equal(terminations.length, 2);
     await Promise.all(terminations);
   } finally {

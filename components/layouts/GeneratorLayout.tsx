@@ -14,13 +14,16 @@ export const GeneratorLayout: React.FC<WorkspaceProps> = ({
   customControls,
   customPreview,
   outputPlaceholder = "Generated output will appear here...",
+  resultReady = output !== "",
+  error = null,
 }) => {
+  const canExport = resultReady && !isLoading && !error;
   const handleDownload = () => {
+    if (!canExport) return;
     if (onDownload) {
       onDownload();
       return;
     }
-    if (!output) return;
     const blob = new Blob([output], { type: "text/plain;charset=utf-8" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
@@ -29,7 +32,7 @@ export const GeneratorLayout: React.FC<WorkspaceProps> = ({
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
-    URL.revokeObjectURL(url);
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
   };
 
   return (
@@ -80,14 +83,14 @@ export const GeneratorLayout: React.FC<WorkspaceProps> = ({
             <button
               type="button"
               onClick={handleDownload}
-              disabled={!output}
+              disabled={!canExport}
               aria-label="Download generated output"
               className="min-w-10 min-h-10 flex items-center justify-center p-2 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white hover:bg-white dark:hover:bg-slate-800 border border-transparent hover:border-slate-200/80 dark:hover:border-slate-700/80 disabled:opacity-30 rounded-xl transition-all cursor-pointer active:scale-[0.96]"
               title="Download as .txt"
             >
               <Download size={16} />
             </button>
-            <CopyButton text={output} />
+            <CopyButton text={output} disabled={!canExport} allowEmpty={canExport} />
           </div>
         </div>
 

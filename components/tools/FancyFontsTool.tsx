@@ -98,7 +98,7 @@ export const FancyFontsTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
         </div>
 
         <div className="p-4 bg-white/50 dark:bg-slate-950/20">
-          <textarea
+          <textarea aria-label="Text to style"
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="Type your text here (e.g. your name, bio, gaming nickname, or message)..."
@@ -125,6 +125,7 @@ export const FancyFontsTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
               key={cat.id}
               type="button"
               onClick={() => setFancyCategoryFilter(cat.id)}
+                aria-pressed={fancyCategoryFilter === cat.id}
               className={`px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all cursor-pointer ${
                 fancyCategoryFilter === cat.id
                   ? "bg-slate-900 text-white dark:bg-brand-600 dark:text-white shadow-xs"

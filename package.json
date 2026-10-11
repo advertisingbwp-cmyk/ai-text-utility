@@ -32,10 +32,14 @@
         "typescript": "^7.0.2"
     },
     "dependencies": {
+        "@js-temporal/polyfill": "^0.5.1",
         "clsx": "^2.1.1",
         "cmdk": "^1.1.1",
         "lucide-react": "^1.42.0",
+        "micromark": "^4.0.3",
+        "micromark-extension-gfm-strikethrough": "^2.1.0",
         "next": "^16.3.4",
+        "parse5": "^8.0.1",
         "react": "^19.2.8",
         "react-dom": "^19.2.8",
         "tailwind-merge": "^3.6.0"

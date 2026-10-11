@@ -1,3 +1,4 @@
+import { serializeStructuredData } from "@/lib/structuredData";
 import React from "react";
 import { Metadata } from "next";
 import Link from "next/link";
@@ -23,7 +24,7 @@ export default function AboutPage() {
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeStructuredData(breadcrumbSchema) }} />
       <div className="max-w-4xl mx-auto py-10 px-4 sm:px-6 space-y-10 text-slate-600 dark:text-slate-300">
         <Link href="/" className="inline-flex items-center gap-1.5 text-xs font-medium text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white transition-colors">
           <ArrowLeft size={14} /> Back to All Tools

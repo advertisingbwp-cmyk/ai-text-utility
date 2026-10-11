@@ -1,5 +1,6 @@
 "use client";
 
+import { markdownPreviewHtml } from "@/lib/tools/markdownPreview";
 import React, { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import { ToolDefinition } from "@/data/toolsRegistry";
 import { ToolWorkspaceResolver } from "@/components/layouts";
@@ -20,6 +21,7 @@ export const JsonTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
   const [output, setOutput] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+  const [completed, setCompleted] = useState<{ input: string; run: (value: string) => void } | null>(null);
 
   // Format Tools State
   const [jsonIndent, setJsonIndent] = useState<2 | 4 | "minify">(2);
@@ -80,7 +82,8 @@ export const JsonTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
   };
 
   const executeTool = useCallback(
-    (currentInput: string) => {
+    (currentInput: string): void => {
+      setCompleted({ input: currentInput, run: executeTool });
       setError(null);
       if (!currentInput) {
         if (isCsvConversion) setError("Enter CSV or JSON content to convert.");
@@ -155,7 +158,7 @@ export const JsonTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
           }
         }
       } catch (err) {
-        if (isCsvConversion) setOutput("");
+        setOutput("");
         setError(err instanceof Error ? err.message : "Error executing format/validator tool");
       }
     },
@@ -192,6 +195,7 @@ export const JsonTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
   };
 
   const handleClear = () => {
+    setCompleted(null);
     importVersion.current++;
     setInput("");
     setOutput("");
@@ -216,6 +220,7 @@ export const JsonTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
               <select
                 id="json-indentation"
                 name="jsonIndentation"
+                aria-label="JSON indentation"
                 value={jsonIndent}
                 onChange={(e) =>
                   setJsonIndent(
@@ -330,6 +335,7 @@ export const JsonTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
               <button
                 type="button"
                 onClick={() => setMarkdownView("source")}
+                aria-pressed={markdownView === "source"}
                 className={`px-2.5 py-1 rounded-lg text-xs font-medium transition-colors cursor-pointer ${
                   markdownView === "source"
                     ? "bg-brand-600 text-white"
@@ -341,6 +347,7 @@ export const JsonTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
               <button
                 type="button"
                 onClick={() => setMarkdownView("preview")}
+                aria-pressed={markdownView === "preview"}
                 className={`px-2.5 py-1 rounded-lg text-xs font-medium transition-colors cursor-pointer ${
                   markdownView === "preview"
                     ? "bg-brand-600 text-white"
@@ -378,7 +385,7 @@ export const JsonTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
                   onChange={(e) => setHtmlMinifyWs(e.target.checked)}
                   className="rounded border-slate-300 dark:border-slate-700 text-brand-600 focus:ring-brand-500 bg-white dark:bg-slate-800"
                 />
-                <span>Collapse Whitespace</span>
+                <span>Compact Attribute Gaps</span>
               </label>
             </div>
 
@@ -403,6 +410,7 @@ export const JsonTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
               <button
                 type="button"
                 onClick={() => setJwtView("visual")}
+                aria-pressed={jwtView === "visual"}
                 className={`px-2.5 py-1 rounded-lg text-xs font-medium transition-colors cursor-pointer ${
                   jwtView === "visual"
                     ? "bg-brand-600 text-white"
@@ -414,6 +422,7 @@ export const JsonTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
               <button
                 type="button"
                 onClick={() => setJwtView("raw")}
+                aria-pressed={jwtView === "raw"}
                 className={`px-2.5 py-1 rounded-lg text-xs font-medium transition-colors cursor-pointer ${
                   jwtView === "raw"
                     ? "bg-brand-600 text-white"
@@ -450,7 +459,7 @@ export const JsonTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
       const html = convertMarkdownToHtml(input);
       return (
         <div className="prose dark:prose-invert max-w-none text-xs sm:text-sm text-slate-800 dark:text-slate-200 leading-relaxed space-y-3 p-2">
-          <div dangerouslySetInnerHTML={{ __html: html }} />
+          <div dangerouslySetInnerHTML={{ __html: markdownPreviewHtml(html) }} />
         </div>
       );
     }
@@ -547,6 +556,7 @@ export const JsonTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
       tool={tool}
       input={input}
       output={output}
+      resultReady={isCsvConversion ? !!output && !error : !!input && completed?.input === input && completed?.run === executeTool}
       onInputChange={isCsvConversion ? changeInput : setInput}
       onRun={handleRun}
       onClear={handleClear}

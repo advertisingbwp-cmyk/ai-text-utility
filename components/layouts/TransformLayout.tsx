@@ -26,7 +26,11 @@ export const TransformLayout: React.FC<WorkspaceProps> = ({
   outputPlaceholder = "Transformed text will appear here automatically...",
   canSwap = true,
   canDownload = true,
+  resultReady = output !== "",
+  isLoading = false,
+  error = null,
 }) => {
+  const canExport = resultReady && !isLoading && !error;
   // Live input stats
   const stats = useMemo(() => {
     const chars = input.length;
@@ -38,12 +42,12 @@ export const TransformLayout: React.FC<WorkspaceProps> = ({
   }, [input]);
 
   const handleDownload = () => {
+    if (!canExport) return;
     if (onDownload) {
       onDownload();
       return;
     }
-    const content = output || input;
-    if (!content) return;
+    const content = output;
     const blob = new Blob([content], { type: "text/plain;charset=utf-8" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
@@ -52,7 +56,7 @@ export const TransformLayout: React.FC<WorkspaceProps> = ({
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
-    URL.revokeObjectURL(url);
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
   };
 
   return (
@@ -154,7 +158,7 @@ export const TransformLayout: React.FC<WorkspaceProps> = ({
                 <button
                   type="button"
                   onClick={handleDownload}
-                  disabled={!output && !input}
+                  disabled={!canExport}
                   aria-label="Download result as text file"
                   className="btn-icon text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white disabled:opacity-30 cursor-pointer active:scale-[0.96]"
                   title={downloadTitle}
@@ -162,7 +166,7 @@ export const TransformLayout: React.FC<WorkspaceProps> = ({
                   <Download size={15} />
                 </button>
               )}
-              <CopyButton text={output} />
+              <CopyButton text={output} disabled={!canExport} allowEmpty={canExport} />
             </div>
           </div>
 

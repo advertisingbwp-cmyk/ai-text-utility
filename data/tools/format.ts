@@ -93,7 +93,7 @@ export const FORMAT_TOOLS: ToolDefinition[] = [
     slug: "html-minifier",
     category: "Format",
     layout: "transform",
-    description: "Minify HTML markup by removing whitespace, comments, and redundant tags.",
+    description: "Reduce HTML size by removing standard comments and compacting attribute gaps while preserving text whitespace.",
     icon: "Minimize2",
     keywords: ["minify html", "compress html", "html optimizer", "reduce html size"],
     featured: false,

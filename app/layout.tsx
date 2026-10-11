@@ -1,3 +1,4 @@
+import { serializeStructuredData } from "@/lib/structuredData";
 import type { Metadata } from "next";
 import "./globals.css";
 import { AppShell } from "@/components/AppShell";
@@ -107,11 +108,11 @@ export default function RootLayout({
         {/* Global WebSite & Organization JSON-LD */}
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
+          dangerouslySetInnerHTML={{ __html: serializeStructuredData(websiteSchema) }}
         />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+          dangerouslySetInnerHTML={{ __html: serializeStructuredData(organizationSchema) }}
         />
 
       </head>

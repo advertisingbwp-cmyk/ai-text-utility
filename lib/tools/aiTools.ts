@@ -14,9 +14,10 @@ export const SLUG_TO_AI_MODE: Record<string, AiMode> = {
   "ai-expand": "expand",
 };
 
-export async function requestAiTool(mode: AiMode, text: string): Promise<string> {
+export async function requestAiTool(mode: AiMode, text: string, signal?: AbortSignal): Promise<string> {
   const response = await fetch("/api/ai", {
     method: "POST",
+    signal,
     headers: {
       "Content-Type": "application/json",
     },
@@ -28,9 +29,10 @@ export async function requestAiTool(mode: AiMode, text: string): Promise<string>
     error: `HTTP ${response.status}: Failed to parse response from server.`,
   }));
 
-  if (!data.success) {
-    throw new Error(data.error || "AI transformation failed.");
+  if (!response.ok || !data.success) {
+    throw new Error((!data.success && data.error) || "AI transformation failed.");
   }
 
+  if (typeof data.result !== "string") throw new Error("Invalid AI response.");
   return data.result;
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import { Modal } from "@/components/Modal";
 import Link from "next/link";
 import { ArrowLeft, HelpCircle, X, AlertCircle } from "lucide-react";
 import { ToolDefinition } from "@/data/toolsRegistry";
@@ -39,6 +40,7 @@ export const ToolShell: React.FC<ToolShellProps> = ({
   // Global Keyboard Shortcuts
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.defaultPrevented || e.isComposing || document.querySelector("dialog[open]")) return;
       // Ctrl+/ = Help
       if ((e.ctrlKey || e.metaKey) && e.key === "/") {
         e.preventDefault();
@@ -70,7 +72,7 @@ export const ToolShell: React.FC<ToolShellProps> = ({
   }, [onRun, onClear]);
 
   return (
-    <div className="max-w-6xl mx-auto space-y-6 pb-16">
+    <div className="tool-shell max-w-6xl mx-auto space-y-4 sm:space-y-6 pb-10 sm:pb-16">
       {/* Breadcrumb & Navigation */}
       <nav aria-label="Breadcrumb" className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
         <div className="flex items-center gap-2 flex-wrap">
@@ -107,11 +109,11 @@ export const ToolShell: React.FC<ToolShellProps> = ({
       </nav>
 
       {/* Tool Header Card - Modern Aurora Glass */}
-      <div className="rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white/70 dark:bg-slate-900/50 p-6 shadow-xs">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-5">
-          <div className="flex items-start gap-4">
+      <div className="rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white/70 dark:bg-slate-900/50 p-3 sm:p-6 shadow-xs">
+        <div className="flex items-start sm:items-center justify-between gap-2 sm:gap-5">
+          <div className="flex min-w-0 items-start gap-2 sm:gap-4">
             <div
-              className={`w-12 h-12 sm:w-14 sm:h-14 rounded-2xl flex items-center justify-center shrink-0 border ${theme.bg} ${theme.border} shadow-xs transition-transform`}
+              className={`hidden sm:flex w-12 h-12 sm:w-14 sm:h-14 rounded-2xl flex items-center justify-center shrink-0 border ${theme.bg} ${theme.border} shadow-xs transition-transform`}
               aria-hidden="true"
             >
               <DynamicIcon name={tool.icon} size={24} className={theme.text} />
@@ -119,7 +121,7 @@ export const ToolShell: React.FC<ToolShellProps> = ({
 
             <div>
               <div className="flex items-center gap-2.5 flex-wrap">
-                <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+                <h1 className="text-xl sm:text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white">
                   {blueprint?.h1 || tool.name}
                 </h1>
                 <span
@@ -137,8 +139,8 @@ export const ToolShell: React.FC<ToolShellProps> = ({
                   </span>
                 )}
               </div>
-              <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 mt-1 max-w-3xl leading-relaxed">
-                {blueprint?.aboveTheFoldIntro || tool.description}
+              <p className="text-xs sm:text-base text-slate-600 dark:text-slate-300 mt-1 max-w-3xl leading-relaxed">
+                {tool.description}
               </p>
             </div>
           </div>
@@ -164,7 +166,7 @@ export const ToolShell: React.FC<ToolShellProps> = ({
       {/* Error Alert State */}
       {error && (
         <div
-          role="alert"
+          id="tool-error" role="alert"
           className="flex items-start gap-3 p-4 rounded-xl border border-rose-200 dark:border-rose-900/50 bg-rose-50 dark:bg-rose-950/20 text-rose-700 dark:text-rose-300 text-xs animate-in fade-in"
         >
           <AlertCircle size={18} className="text-rose-500 shrink-0 mt-0.5" />
@@ -176,14 +178,11 @@ export const ToolShell: React.FC<ToolShellProps> = ({
       )}
 
       {/* Main Workspace */}
-      {children}
+      <section id="tool-workspace" aria-label={`${tool.name} workspace`} tabIndex={-1}>{children}</section>
 
       {/* Keyboard Shortcuts Modal */}
       {showShortcutsHelp && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 dark:bg-black/75 backdrop-blur-sm animate-in fade-in"
-          onClick={() => setShowShortcutsHelp(false)}
-        >
+        <Modal label="Keyboard Shortcuts" onClose={() => setShowShortcutsHelp(false)}>
           <div
             className="w-full max-w-md rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md p-6 shadow-2xl text-slate-900 dark:text-slate-100 animate-in zoom-in-95"
             onClick={(e) => e.stopPropagation()}
@@ -243,7 +242,7 @@ export const ToolShell: React.FC<ToolShellProps> = ({
               </button>
             </div>
           </div>
-        </div>
+        </Modal>
       )}
     </div>
   );
