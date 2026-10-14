@@ -3,7 +3,7 @@
 import React, { useEffect, useState, use } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Trophy, MessageCircle, ArrowRight, Sparkles, RefreshCw } from "lucide-react";
+import { Trophy, MessageCircle, RefreshCw, Sparkles, AlertCircle } from "lucide-react";
 import { quizAudio } from "@/lib/quiz/audio";
 import { triggerConfetti } from "@/lib/quiz/confetti";
 
@@ -23,21 +23,24 @@ export default function QuizResultPage({
   } | null>(null);
 
   const [dialogueStep, setDialogueStep] = useState(0);
+  const [hasCheckedSession, setHasCheckedSession] = useState(false);
 
   useEffect(() => {
-    const raw = sessionStorage.getItem("quiz_result");
+    // Read scoped session result
+    const raw = sessionStorage.getItem(`quiz_result_${quizId}`);
     if (raw) {
       try {
         const parsed = JSON.parse(raw);
         setResult(parsed);
       } catch {
-        // Fallback
+        // Corrupt session data
       }
     }
-  }, []);
+    setHasCheckedSession(true);
+  }, [quizId]);
 
-  // Animate dialogue progression
   useEffect(() => {
+    if (!result) return;
     if (dialogueStep < 4) {
       const timer = setTimeout(() => {
         quizAudio.playPop();
@@ -48,7 +51,35 @@ export default function QuizResultPage({
       triggerConfetti();
       quizAudio.playCelebration();
     }
-  }, [dialogueStep]);
+  }, [dialogueStep, result]);
+
+  if (hasCheckedSession && !result) {
+    return (
+      <div className="min-h-screen bg-sky-50 flex items-center justify-center p-4">
+        <div className="max-w-md w-full bg-white rounded-3xl p-6 border-4 border-slate-900 text-center shadow-xl">
+          <AlertCircle size={40} className="text-amber-500 mx-auto mb-2" />
+          <h2 className="text-xl font-black text-slate-900 mb-1">No Active Result Found</h2>
+          <p className="text-xs text-slate-600 mb-4">
+            Aapne shayad abhi tak yeh quiz complete nahi kiya ya session expire ho chuka hai.
+          </p>
+          <div className="flex flex-col gap-2">
+            <Link
+              href={`/quiz/play/${quizId}`}
+              className="py-3 px-6 bg-sky-400 hover:bg-sky-500 text-slate-950 font-black rounded-2xl border-2 border-slate-900 text-xs sm:text-sm uppercase tracking-wider"
+            >
+              Play Challenge Now
+            </Link>
+            <Link
+              href="/quiz"
+              className="py-3 px-6 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-2xl border border-slate-300 text-xs sm:text-sm uppercase"
+            >
+              Create My Own Quiz
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   const score = result?.score ?? 0;
   const total = result?.totalQuestions ?? 10;
@@ -185,7 +216,6 @@ export default function QuizResultPage({
 
             {/* Action Buttons */}
             <div className="mt-6 space-y-3">
-              {/* WhatsApp Share Result */}
               <button
                 type="button"
                 onClick={handleShareResultWhatsApp}
@@ -195,7 +225,6 @@ export default function QuizResultPage({
                 <span>Share Score on WhatsApp</span>
               </button>
 
-              {/* Check Scoreboard */}
               <Link
                 href={`/quiz/scoreboard/${quizId}`}
                 className="w-full py-3 px-6 bg-slate-100 hover:bg-slate-200 text-slate-900 font-extrabold text-xs sm:text-sm rounded-2xl border-2 border-slate-900 shadow-[0_3px_0_#0f172a] active:translate-y-0.5 transition-all flex items-center justify-center gap-2 cursor-pointer uppercase tracking-wider"
@@ -204,7 +233,6 @@ export default function QuizResultPage({
                 <span>See Leaderboard ({creatorName})</span>
               </Link>
 
-              {/* The Vital Viral Loop CTA */}
               <div className="pt-2">
                 <Link
                   href="/quiz"

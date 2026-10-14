@@ -3,9 +3,9 @@
 import React, { useEffect, useState, use } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Trophy, Share2, Trash2, Eye, X, RefreshCw, AlertCircle, Sparkles, MessageCircle } from "lucide-react";
+import { Trophy, Share2, Trash2, Eye, X, RefreshCw, AlertCircle, Sparkles, MessageCircle, Lock } from "lucide-react";
 import { quizAudio } from "@/lib/quiz/audio";
-import { ScoreboardEntry } from "@/lib/quiz/types";
+import { ScoreboardEntry, ScoreboardDetailEntry } from "@/lib/quiz/types";
 
 export default function QuizScoreboardPage({
   params,
@@ -18,12 +18,15 @@ export default function QuizScoreboardPage({
   const [creatorName, setCreatorName] = useState("Friend");
   const [scoreboard, setScoreboard] = useState<ScoreboardEntry[]>([]);
   const [loading, setLoading] = useState(true);
-  const [selectedEntry, setSelectedEntry] = useState<ScoreboardEntry | null>(null);
-  const [pinPrompt, setPinPrompt] = useState<{ open: boolean; attemptId: string }>({ open: false, attemptId: "" });
+  const [selectedEntry, setSelectedEntry] = useState<ScoreboardDetailEntry | null>(null);
+  const [showAuthModal, setShowAuthModal] = useState(false);
+  const [targetDetailId, setTargetDetailId] = useState<string | null>(null);
   const [enteredPin, setEnteredPin] = useState("");
+  const [pinPrompt, setPinPrompt] = useState<{ open: boolean; attemptId: string }>({ open: false, attemptId: "" });
   const [deleting, setDeleting] = useState(false);
+  const [authError, setAuthError] = useState("");
 
-  const fetchScoreboard = () => {
+  const fetchPublicScoreboard = () => {
     setLoading(true);
     fetch(`/api/quiz/${quizId}/scoreboard`)
       .then((res) => res.json())
@@ -38,19 +41,83 @@ export default function QuizScoreboardPage({
   };
 
   useEffect(() => {
-    fetchScoreboard();
+    fetchPublicScoreboard();
   }, [quizId]);
+
+  // Request detailed answers with authorization (creatorToken or PIN)
+  const handleOpenAnswers = async (entry: ScoreboardEntry) => {
+    const creatorToken = localStorage.getItem(`creator_token_${quizId}`);
+
+    // If local creatorToken exists, try automatic unlock
+    if (creatorToken) {
+      try {
+        const res = await fetch(`/api/quiz/${quizId}/scoreboard`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ creatorToken }),
+        });
+        const data = await res.json();
+        if (data.success && data.scoreboard) {
+          const detail = data.scoreboard.find((s: ScoreboardDetailEntry) => s.id === entry.id);
+          if (detail) {
+            setSelectedEntry(detail);
+            quizAudio.playPop();
+            return;
+          }
+        }
+      } catch {
+        // Fall back to manual PIN modal
+      }
+    }
+
+    // Open PIN prompt
+    setTargetDetailId(entry.id);
+    setShowAuthModal(true);
+  };
+
+  const handleVerifyPinForAnswers = async () => {
+    if (!enteredPin.trim()) return;
+    setAuthError("");
+
+    try {
+      const res = await fetch(`/api/quiz/${quizId}/scoreboard`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ pin: enteredPin.trim() }),
+      });
+      const data = await res.json();
+      if (data.success && data.scoreboard) {
+        const detail = data.scoreboard.find((s: ScoreboardDetailEntry) => s.id === targetDetailId);
+        if (detail) {
+          setSelectedEntry(detail);
+          setShowAuthModal(false);
+          setEnteredPin("");
+          quizAudio.playCorrect();
+        } else {
+          setAuthError("Player record not found.");
+        }
+      } else {
+        setAuthError(data.error || "Incorrect Secret PIN.");
+        quizAudio.playWrong();
+      }
+    } catch {
+      setAuthError("Network error.");
+    }
+  };
 
   const handleDeleteAttempt = async () => {
     if (!pinPrompt.attemptId) return;
     setDeleting(true);
+    const creatorToken = localStorage.getItem(`creator_token_${quizId}`);
+
     try {
       const res = await fetch(`/api/quiz/${quizId}/scoreboard`, {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           attemptId: pinPrompt.attemptId,
-          pin: enteredPin || "1234",
+          pin: enteredPin.trim(),
+          creatorToken: creatorToken || undefined,
         }),
       });
       const data = await res.json();
@@ -141,7 +208,7 @@ export default function QuizScoreboardPage({
             </button>
             <button
               type="button"
-              onClick={fetchScoreboard}
+              onClick={fetchPublicScoreboard}
               className="p-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl border-2 border-slate-900 shadow-[0_2px_0_#0f172a] active:translate-y-0.5 transition-all cursor-pointer"
               title="Refresh"
             >
@@ -150,10 +217,10 @@ export default function QuizScoreboardPage({
           </div>
         </div>
 
-        {/* Score List */}
+        {/* Score List (Ranked Highest Score First) */}
         <div className="w-full bg-white rounded-3xl p-5 border-4 border-slate-900 shadow-lg">
           <h2 className="text-xs font-black uppercase text-slate-500 tracking-wider mb-3">
-            Ranked Players
+            Ranked Players (Highest Score First)
           </h2>
 
           {loading ? (
@@ -220,12 +287,12 @@ export default function QuizScoreboardPage({
                         <span className="text-xs font-bold text-slate-400">/{entry.totalQuestions}</span>
                       </div>
 
-                      {/* View answers button */}
+                      {/* View answers button with auth protection */}
                       <button
                         type="button"
-                        onClick={() => setSelectedEntry(entry)}
-                        className="p-1.5 text-slate-600 hover:text-slate-900 hover:bg-slate-200 rounded-lg transition-colors"
-                        title="View Answers"
+                        onClick={() => handleOpenAnswers(entry)}
+                        className="p-1.5 text-slate-600 hover:text-slate-900 hover:bg-slate-200 rounded-lg transition-colors cursor-pointer"
+                        title="View Answers (Creator Only)"
                       >
                         <Eye size={16} />
                       </button>
@@ -234,7 +301,7 @@ export default function QuizScoreboardPage({
                       <button
                         type="button"
                         onClick={() => setPinPrompt({ open: true, attemptId: entry.id })}
-                        className="p-1.5 text-red-500 hover:text-red-700 hover:bg-red-100 rounded-lg transition-colors"
+                        className="p-1.5 text-red-500 hover:text-red-700 hover:bg-red-100 rounded-lg transition-colors cursor-pointer"
                         title="Delete Player"
                       >
                         <Trash2 size={16} />
@@ -248,7 +315,53 @@ export default function QuizScoreboardPage({
         </div>
       </main>
 
-      {/* View Answers Modal */}
+      {/* Creator PIN Unlock Modal for Detailed Answers */}
+      {showAuthModal && (
+        <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="w-full max-w-sm bg-white rounded-3xl p-6 border-4 border-slate-900 shadow-2xl text-center">
+            <Lock size={32} className="text-amber-500 mx-auto mb-2" />
+            <h3 className="font-black text-lg text-slate-900">Creator Verification</h3>
+            <p className="text-xs text-slate-600 mt-1 mb-4">
+              Enter your Creator Secret PIN to view {creatorName}&apos;s friends answers:
+            </p>
+            <input
+              type="password"
+              inputMode="numeric"
+              maxLength={6}
+              value={enteredPin}
+              onChange={(e) => {
+                setEnteredPin(e.target.value);
+                if (authError) setAuthError("");
+              }}
+              placeholder="Enter PIN (e.g. 7890)"
+              className="w-full py-3 text-center text-xl font-bold bg-slate-50 border-2 border-slate-900 rounded-2xl mb-2 focus:outline-none"
+            />
+            {authError && <p className="text-xs font-bold text-red-600 mb-3">{authError}</p>}
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={() => {
+                  setShowAuthModal(false);
+                  setEnteredPin("");
+                  setAuthError("");
+                }}
+                className="flex-1 py-3 bg-slate-100 font-bold text-xs rounded-xl border border-slate-300 text-slate-700"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                onClick={handleVerifyPinForAnswers}
+                className="flex-1 py-3 bg-emerald-400 hover:bg-emerald-500 font-black text-xs rounded-xl text-slate-950 border-2 border-slate-900 uppercase tracking-wider"
+              >
+                Unlock
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* View Answers Modal (Authorized) */}
       {selectedEntry && (
         <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
           <div className="w-full max-w-md bg-white rounded-3xl p-6 border-4 border-slate-900 shadow-2xl max-h-[85vh] flex flex-col">
@@ -264,7 +377,7 @@ export default function QuizScoreboardPage({
               <button
                 type="button"
                 onClick={() => setSelectedEntry(null)}
-                className="p-1 text-slate-400 hover:text-slate-900 rounded-lg"
+                className="p-1 text-slate-400 hover:text-slate-900 rounded-lg cursor-pointer"
               >
                 <X size={20} />
               </button>
@@ -310,13 +423,15 @@ export default function QuizScoreboardPage({
             <AlertCircle size={32} className="text-red-500 mx-auto mb-2" />
             <h3 className="font-black text-base text-slate-900">Delete this player?</h3>
             <p className="text-xs text-slate-600 mt-1 mb-3">
-              Enter your Creator Secret PIN to confirm deletion:
+              Enter Creator PIN to confirm deletion:
             </p>
             <input
               type="password"
+              inputMode="numeric"
+              maxLength={6}
               value={enteredPin}
               onChange={(e) => setEnteredPin(e.target.value)}
-              placeholder="e.g. 1234"
+              placeholder="PIN (e.g. 7890)"
               className="w-full py-2.5 text-center text-xl font-bold bg-slate-50 border-2 border-slate-900 rounded-xl mb-3 focus:outline-none"
             />
             <div className="flex items-center gap-2">

@@ -13,11 +13,6 @@ export interface QuizQuestion {
   options: QuizQuestionOption[];
 }
 
-export interface CreatorQuestionAnswer {
-  questionId: string;
-  selectedOptionId: number;
-}
-
 export interface QuizData {
   id: string;
   slug: string;
@@ -25,7 +20,8 @@ export interface QuizData {
   gender: Gender;
   country: string;
   theme: string;
-  secretPin: string;
+  pinHash: string;
+  creatorToken: string;
   createdAt: number;
   questions: Array<{
     questionId: string;
@@ -74,7 +70,10 @@ export interface ScoreboardEntry {
   totalQuestions: number;
   createdAt: number;
   statusBadge: "bestie" | "friend" | "fake";
-  answers?: Array<{
+}
+
+export interface ScoreboardDetailEntry extends ScoreboardEntry {
+  answers: Array<{
     questionId: string;
     question: string;
     theirAnswer: string;

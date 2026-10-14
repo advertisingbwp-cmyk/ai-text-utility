@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { Sparkles, ArrowRight, ShieldCheck, Share2, HelpCircle } from "lucide-react";
+import { Sparkles, ArrowRight, HelpCircle, Shield, Award, Users } from "lucide-react";
 import { quizAudio } from "@/lib/quiz/audio";
 
 export default function QuizLandingPage() {
@@ -23,7 +23,6 @@ export default function QuizLandingPage() {
     setError("");
     quizAudio.playPop();
 
-    // Save creator info to session and proceed to question creator
     sessionStorage.setItem("creator_name", name.trim());
     sessionStorage.setItem("creator_gender", gender);
     router.push("/quiz/create");
@@ -67,16 +66,19 @@ export default function QuizLandingPage() {
       {/* Main Container */}
       <main className="relative z-10 flex-1 max-w-xl mx-auto w-full px-4 py-6 flex flex-col items-center">
         {/* Hero Card */}
-        <div className="w-full bg-white rounded-3xl p-6 sm:p-8 shadow-[0_12px_30px_rgba(56,189,248,0.15)] border-4 border-slate-900 relative mt-2">
-          {/* Top Floating Badge */}
-          <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-amber-300 text-slate-950 font-black text-xs uppercase px-4 py-1 rounded-full border-2 border-slate-900 shadow-[0_2px_0_#0f172a] tracking-wider flex items-center gap-1.5">
-            <Sparkles size={14} className="text-amber-700 animate-spin" />
-            2026 Viral Friendship Challenge
+        <div className="w-full bg-white rounded-3xl p-6 sm:p-8 shadow-[0_12px_30px_rgba(56,189,248,0.15)] border-4 border-slate-900 relative">
+          
+          {/* Top Non-overlapping Badge */}
+          <div className="mb-4 flex justify-center">
+            <span className="bg-amber-300 text-slate-950 font-black text-xs uppercase px-4 py-1.5 rounded-full border-2 border-slate-900 shadow-[0_2px_0_#0f172a] tracking-wider inline-flex items-center gap-1.5">
+              <Sparkles size={14} className="text-amber-700 animate-spin" />
+              2026 Viral Friendship Challenge
+            </span>
           </div>
 
-          <div className="text-center mt-2 mb-6">
+          <div className="text-center mb-6">
             <h1 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight leading-snug">
-              Find your <span className="line-through decoration-red-500 decoration-4">Fake</span> Friends &{" "}
+              Find your <span className="line-through decoration-red-500 decoration-4">Fake</span> Friends &amp;{" "}
               <span className="text-sky-600 inline-block bg-sky-100 px-2 rounded-lg">Block</span> Them! 🚫📱
             </h1>
             <p className="text-slate-600 text-sm mt-2 font-medium">
@@ -109,9 +111,11 @@ export default function QuizLandingPage() {
               <span className="block text-xs font-black uppercase text-slate-700 tracking-wider mb-1.5">
                 Choose your Gender:
               </span>
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-2 gap-3" role="radiogroup" aria-label="Gender selection">
                 <button
                   type="button"
+                  role="radio"
+                  aria-checked={gender === "male"}
                   onClick={() => {
                     quizAudio.playPop();
                     setGender("male");
@@ -122,10 +126,12 @@ export default function QuizLandingPage() {
                       : "bg-slate-100 text-slate-700 hover:bg-slate-200"
                   }`}
                 >
-                  <span>👦</span> Male
+                  <span aria-hidden="true">👦</span> Male
                 </button>
                 <button
                   type="button"
+                  role="radio"
+                  aria-checked={gender === "female"}
                   onClick={() => {
                     quizAudio.playPop();
                     setGender("female");
@@ -136,7 +142,7 @@ export default function QuizLandingPage() {
                       : "bg-slate-100 text-slate-700 hover:bg-slate-200"
                   }`}
                 >
-                  <span>👧</span> Female
+                  <span aria-hidden="true">👧</span> Female
                 </button>
               </div>
             </div>
@@ -152,8 +158,8 @@ export default function QuizLandingPage() {
         </div>
 
         {/* How It Works Section */}
-        <div className="w-full mt-8 bg-white/70 backdrop-blur-md rounded-3xl p-6 border-2 border-slate-200 shadow-sm">
-          <h2 className="text-base font-black text-slate-900 uppercase tracking-wider mb-4 flex items-center gap-2">
+        <section aria-labelledby="how-to-play-heading" className="w-full mt-8 bg-white/70 backdrop-blur-md rounded-3xl p-6 border-2 border-slate-200 shadow-sm">
+          <h2 id="how-to-play-heading" className="text-base font-black text-slate-900 uppercase tracking-wider mb-4 flex items-center gap-2">
             <HelpCircle size={18} className="text-sky-600" />
             How to play?
           </h2>
@@ -188,18 +194,22 @@ export default function QuizLandingPage() {
                 3
               </span>
               <div>
-                <h3 className="text-xs font-black text-slate-900 uppercase">3. Find Fake Friends & Block!</h3>
+                <h3 className="text-xs font-black text-slate-900 uppercase">3. Find Fake Friends &amp; Block!</h3>
                 <p className="text-xs text-slate-600 mt-0.5">
                   Check your live scoreboard to see who got high scores and who needs to be blocked! 😂
                 </p>
               </div>
             </div>
           </div>
-        </div>
+        </section>
 
-        {/* Footer Note */}
-        <div className="mt-8 text-center text-xs text-slate-500 font-medium">
-          <p>100% Free &amp; Instant • No registration or login needed</p>
+        {/* Privacy & Entertainment Notice */}
+        <div className="mt-6 text-center text-xs text-slate-500 font-medium max-w-sm">
+          <p className="flex items-center justify-center gap-1.5 mb-1">
+            <Shield size={14} className="text-emerald-600" />
+            <span>100% Free &amp; Private Entertainment Quiz</span>
+          </p>
+          <p>We do not store passwords or personal identity data. Made just for fun with friends!</p>
         </div>
       </main>
     </div>
