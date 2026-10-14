@@ -22,25 +22,18 @@ export default function QuizPlayPage({
   const [playerName, setPlayerName] = useState("");
   const [isStarted, setIsStarted] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [selectedAnswersMap, setSelectedAnswersMap] = useState<Record<string, number>>({});
+  const [selectedAnswers, setSelectedAnswers] = useState<Array<{ questionId: string; selectedOptionId: number }>>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
 
   useEffect(() => {
-    const searchParams = new URLSearchParams(window.location.search);
-    const dataToken = searchParams.get("data");
-
-    const endpoint = dataToken
-      ? `/api/quiz/${quizId}?data=${encodeURIComponent(dataToken)}`
-      : `/api/quiz/${quizId}`;
-
-    fetch(endpoint)
+    fetch(`/api/quiz/${quizId}`)
       .then((res) => res.json())
       .then((data) => {
         if (data.success && data.quiz) {
           setQuiz(data.quiz);
         } else {
-          setError(data.error || "Quiz not found or has been deleted.");
+          setError(data.error || "Quiz not found.");
         }
         setLoading(false);
       })
@@ -67,28 +60,25 @@ export default function QuizPlayPage({
     quizAudio.playPop();
 
     const currentQ = quiz.questions[currentIndex];
-    const updatedMap = {
-      ...selectedAnswersMap,
-      [currentQ.questionId]: optionId,
-    };
-    setSelectedAnswersMap(updatedMap);
+    const newAnswers = [
+      ...selectedAnswers,
+      { questionId: currentQ.questionId, selectedOptionId: optionId },
+    ];
+    setSelectedAnswers(newAnswers);
 
     if (currentIndex + 1 < quiz.questions.length) {
       setCurrentIndex((prev) => prev + 1);
     } else {
-      // All questions completed, submit map
-      submitAttempt(updatedMap);
+      // Last question answered, submit attempt!
+      submitAttempt(newAnswers);
     }
   };
 
-  const submitAttempt = async (map: Record<string, number>) => {
+  const submitAttempt = async (
+    finalAnswers: Array<{ questionId: string; selectedOptionId: number }>
+  ) => {
     setIsSubmitting(true);
     quizAudio.playCelebration();
-
-    const formattedAnswers = Object.entries(map).map(([questionId, selectedOptionId]) => ({
-      questionId,
-      selectedOptionId,
-    }));
 
     try {
       const res = await fetch(`/api/quiz/${quizId}/attempt`, {
@@ -96,14 +86,13 @@ export default function QuizPlayPage({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           playerName: playerName.trim(),
-          answers: formattedAnswers,
+          answers: finalAnswers,
         }),
       });
 
       const data = await res.json();
       if (data.success) {
-        // Scoped key prevents collision with other quizzes
-        sessionStorage.setItem(`quiz_result_${quizId}`, JSON.stringify(data));
+        sessionStorage.setItem("quiz_result", JSON.stringify(data));
         router.push(`/quiz/result/${quizId}`);
       } else {
         alert(data.error || "Failed to submit. Try again.");
@@ -223,12 +212,14 @@ export default function QuizPlayPage({
             </form>
           </div>
         ) : isSubmitting ? (
+          /* Loading & Calculating Score */
           <div className="w-full bg-white rounded-3xl p-8 border-4 border-slate-900 text-center shadow-xl">
             <Loader2 size={36} className="animate-spin text-sky-600 mx-auto mb-3" />
             <h2 className="text-xl font-black text-slate-900">Calculating your score...</h2>
             <p className="text-xs text-slate-500 mt-1">Dekhein {creatorName} aapko block karta hai ya nahi! 😂</p>
           </div>
         ) : (
+          /* Step 2: Friend Answering Questions */
           <div>
             {/* Progress Bar */}
             <div className="w-full bg-slate-200 h-3 rounded-full border-2 border-slate-900 overflow-hidden mb-4 p-0.5 shadow-inner">
@@ -261,7 +252,7 @@ export default function QuizPlayPage({
                     className="w-full text-left p-4 rounded-2xl border-2 border-slate-900 font-bold text-sm sm:text-base bg-slate-50 hover:bg-amber-300 text-slate-900 shadow-[0_3px_0_#0f172a] active:translate-y-1 transition-all flex items-center justify-between cursor-pointer"
                   >
                     <span>{option.text}</span>
-                    <span className="text-xs font-black uppercase text-slate-400">
+                    <span className="text-xs font-black uppercase text-slate-400 group-hover:text-slate-900">
                       Tap
                     </span>
                   </button>

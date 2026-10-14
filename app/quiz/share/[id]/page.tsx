@@ -3,7 +3,7 @@
 import React, { useEffect, useState, use } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Share2, Copy, Check, Trophy, ExternalLink, Sparkles, MessageCircle, AlertCircle } from "lucide-react";
+import { Share2, Copy, Check, Trophy, ExternalLink, Sparkles, MessageCircle } from "lucide-react";
 import { quizAudio } from "@/lib/quiz/audio";
 import { triggerConfetti } from "@/lib/quiz/confetti";
 import { QuizPublicData } from "@/lib/quiz/types";
@@ -18,40 +18,36 @@ export default function QuizSharePage({
 
   const [quiz, setQuiz] = useState<QuizPublicData | null>(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
   const [copied, setCopied] = useState(false);
   const [shareUrl, setShareUrl] = useState("");
 
   useEffect(() => {
-    // Check if URL has ?data= query param to preserve it in share link
-    const searchParams = new URLSearchParams(window.location.search);
-    const dataToken = searchParams.get("data");
+    // Generate full URL
+    if (typeof window !== "undefined") {
+      const fullUrl = `${window.location.origin}/quiz/play/${quizId}`;
+      setShareUrl(fullUrl);
+    }
 
-    const endpoint = dataToken
-      ? `/api/quiz/${quizId}?data=${encodeURIComponent(dataToken)}`
-      : `/api/quiz/${quizId}`;
+    triggerConfetti();
+    quizAudio.playCelebration();
 
-    fetch(endpoint)
+    fetch(`/api/quiz/${quizId}`)
       .then((res) => res.json())
       .then((data) => {
         if (data.success && data.quiz) {
           setQuiz(data.quiz);
-          triggerConfetti();
-          quizAudio.playCelebration();
-        } else {
-          setError(data.error || "Quiz not found.");
         }
         setLoading(false);
       })
-      .catch(() => {
-        setError("Network error loading quiz.");
-        setLoading(false);
-      });
-
-    // Share URL points directly to play page with backup token if available
-    const playBase = `${window.location.origin}/quiz/play/${quizId}`;
-    setShareUrl(dataToken ? `${playBase}?data=${encodeURIComponent(dataToken)}` : playBase);
+      .catch(() => setLoading(false));
   }, [quizId]);
+
+  const creatorName = quiz?.creatorName || "Your Friend";
+  const pronoun = quiz?.gender === "female" ? "her" : "his";
+  const pronounSubject = quiz?.gender === "female" ? "she" : "he";
+
+  // Exact viral WhatsApp message template found in block.youtest.me
+  const whatsappText = `🎭\n\n${creatorName} is *blocking* 🚫📱 ${pronoun} _fake_ friends!\n\nWill ${pronounSubject} *block* you as well? 😂\n\nLet's see 👇\n${shareUrl}`;
 
   const handleCopyLink = () => {
     quizAudio.playPop();
@@ -60,15 +56,10 @@ export default function QuizSharePage({
     setTimeout(() => setCopied(false), 2500);
   };
 
-  const creatorName = quiz?.creatorName || "Your Friend";
-  const pronoun = quiz?.gender === "female" ? "her" : "his";
-  const pronounSubject = quiz?.gender === "female" ? "she" : "he";
-
-  const whatsappText = `🎭\n\n${creatorName} is *blocking* 🚫📱 ${pronoun} _fake_ friends!\n\nWill ${pronounSubject} *block* you as well? 😂\n\nLet's see 👇\n${shareUrl}`;
-
   const handleWhatsAppShare = () => {
     quizAudio.playPop();
-    window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(whatsappText)}`, "_blank");
+    const encoded = encodeURIComponent(whatsappText);
+    window.open(`https://api.whatsapp.com/send?text=${encoded}`, "_blank");
   };
 
   if (loading) {
@@ -76,24 +67,6 @@ export default function QuizSharePage({
       <div className="min-h-screen bg-sky-50 flex items-center justify-center p-4">
         <div className="text-center font-black text-slate-800 text-lg animate-pulse">
           Loading your quiz link... 🚀
-        </div>
-      </div>
-    );
-  }
-
-  if (error || !quiz) {
-    return (
-      <div className="min-h-screen bg-sky-50 flex items-center justify-center p-4">
-        <div className="max-w-md w-full bg-white rounded-3xl p-6 border-4 border-slate-900 text-center shadow-xl">
-          <AlertCircle size={40} className="text-red-500 mx-auto mb-2" />
-          <h2 className="text-xl font-black text-slate-900 mb-1">Quiz Link Error</h2>
-          <p className="text-xs text-slate-600 mb-4">{error || "Could not retrieve quiz details."}</p>
-          <Link
-            href="/quiz"
-            className="inline-block py-3 px-6 bg-emerald-400 text-slate-950 font-black rounded-2xl border-2 border-slate-900 text-sm uppercase"
-          >
-            Create New Quiz
-          </Link>
         </div>
       </div>
     );
@@ -170,6 +143,7 @@ export default function QuizSharePage({
 
           {/* Social Share Buttons */}
           <div className="mt-5 space-y-3">
+            {/* Primary WhatsApp CTA */}
             <button
               type="button"
               onClick={handleWhatsAppShare}
@@ -179,6 +153,7 @@ export default function QuizSharePage({
               <span>Share on WhatsApp</span>
             </button>
 
+            {/* View Scoreboard Button */}
             <Link
               href={`/quiz/scoreboard/${quizId}`}
               className="w-full py-3.5 px-6 bg-amber-300 hover:bg-amber-400 text-slate-950 font-black text-sm sm:text-base rounded-2xl border-2 border-slate-900 shadow-[0_4px_0_#0f172a] active:translate-y-1 transition-all flex items-center justify-center gap-2 cursor-pointer uppercase tracking-wider"
@@ -187,8 +162,9 @@ export default function QuizSharePage({
               <span>Check Friends Scoreboard</span>
             </Link>
 
+            {/* Test Play Link */}
             <Link
-              href={shareUrl}
+              href={`/quiz/play/${quizId}`}
               className="inline-flex items-center gap-1 text-xs font-bold text-sky-600 hover:underline pt-2"
             >
               <span>Test Play your own quiz</span>
@@ -197,8 +173,9 @@ export default function QuizSharePage({
           </div>
         </div>
 
+        {/* Tip Box */}
         <div className="w-full mt-6 bg-sky-100/70 rounded-2xl p-4 border border-sky-300 text-center text-xs font-medium text-sky-900">
-          💡 <strong>Pro Tip:</strong> WhatsApp Status ya Instagram Story par yeh link lagayein taake sabhi dost test de sakein!
+          💡 <strong>Pro Tip:</strong> Apne WhatsApp Status ya Instagram Story par yeh link lagayein taake zyada se zyada dost test de sakein!
         </div>
       </main>
     </div>

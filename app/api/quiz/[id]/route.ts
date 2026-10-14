@@ -1,7 +1,5 @@
 import { NextResponse } from "next/server";
-import { getQuizPublicData, getQuizById, deleteQuiz, saveQuiz } from "@/lib/quiz/storage";
-import { verifyPin, checkPinRateLimit, decodeQuizPayload } from "@/lib/quiz/security";
-import { QuizPublicData, QuizData } from "@/lib/quiz/types";
+import { getQuizPublicData, getQuizById, deleteQuiz } from "@/lib/quiz/storage";
 
 export const dynamic = "force-dynamic";
 
@@ -11,18 +9,7 @@ export async function GET(
 ) {
   try {
     const { id } = await params;
-    const url = new URL(req.url);
-    const dataToken = url.searchParams.get("data");
-
-    let publicData = await getQuizPublicData(id);
-
-    // If not found in primary storage (e.g. cold lambda instance without Redis), hydrate from verified backup payload
-    if (!publicData && dataToken) {
-      const decoded = decodeQuizPayload<QuizPublicData>(dataToken);
-      if (decoded && decoded.id === id) {
-        publicData = decoded;
-      }
-    }
+    const publicData = await getQuizPublicData(id);
 
     if (!publicData) {
       return NextResponse.json(
@@ -51,7 +38,7 @@ export async function DELETE(
   try {
     const { id } = await params;
     const body = await req.json().catch(() => ({}));
-    const { pin, creatorToken } = body;
+    const { pin } = body;
 
     const quiz = await getQuizById(id);
     if (!quiz) {
@@ -61,22 +48,10 @@ export async function DELETE(
       );
     }
 
-    // Rate limit brute-force attempts
-    const clientIp = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "127.0.0.1";
-    if (!checkPinRateLimit(clientIp)) {
+    // Verify PIN if creator configured one
+    if (quiz.secretPin && quiz.secretPin !== pin) {
       return NextResponse.json(
-        { success: false, error: "Too many attempts. Please try again in 10 minutes." },
-        { status: 429 }
-      );
-    }
-
-    // Authenticate via creatorToken OR hashed PIN
-    const isTokenMatch = creatorToken && typeof creatorToken === "string" && creatorToken === quiz.creatorToken;
-    const isPinMatch = pin && typeof pin === "string" && verifyPin(pin, quiz.pinHash);
-
-    if (!isTokenMatch && !isPinMatch) {
-      return NextResponse.json(
-        { success: false, error: "Incorrect Secret PIN or authorization token." },
+        { success: false, error: "Incorrect Secret PIN." },
         { status: 403 }
       );
     }

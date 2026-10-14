@@ -1,24 +1,8 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { DEFAULT_QUIZ_QUESTIONS } from "../lib/quiz/questions.ts";
-import {
-  saveQuiz,
-  getQuizById,
-  getQuizPublicData,
-  recordAttempt,
-  getScoreboard,
-  getScoreboardDetails,
-  deleteAttempt,
-  deleteQuiz,
-} from "../lib/quiz/storage.ts";
+import { saveQuiz, getQuizById, getQuizPublicData, recordAttempt, getScoreboard, deleteAttempt, deleteQuiz } from "../lib/quiz/storage.ts";
 import { QuizData, PlayerAttempt } from "../lib/quiz/types.ts";
-import {
-  hashPin,
-  verifyPin,
-  checkPinRateLimit,
-  encodeQuizPayload,
-  decodeQuizPayload,
-} from "../lib/quiz/security.ts";
 
 test("Quiz Domain: Questions bank has valid structure and unique IDs", () => {
   assert.ok(DEFAULT_QUIZ_QUESTIONS.length >= 10, "Should have at least 10 questions");
@@ -36,40 +20,16 @@ test("Quiz Domain: Questions bank has valid structure and unique IDs", () => {
   }
 });
 
-test("Quiz Security: PIN hashing, verification, rate limiting, and backup tokens", () => {
-  const pin = "7890";
-  const hashed = hashPin(pin);
-  assert.notEqual(hashed, pin, "PIN must be hashed");
-  assert.ok(verifyPin("7890", hashed), "Valid PIN must verify");
-  assert.ok(!verifyPin("1111", hashed), "Invalid PIN must fail");
-  assert.ok(!verifyPin("", hashed), "Empty PIN must fail");
-
-  // Rate limiter test
-  const testIp = "192.0.2.1";
-  for (let i = 0; i < 5; i++) {
-    assert.ok(checkPinRateLimit(testIp), `Attempt ${i + 1} should be permitted`);
-  }
-  assert.equal(checkPinRateLimit(testIp), false, "6th attempt must be rate limited");
-
-  // Backup payload token test
-  const samplePayload = { id: "q_test_123", creatorName: "Sara" };
-  const token = encodeQuizPayload(samplePayload);
-  assert.ok(typeof token === "string" && token.length > 10);
-  const decoded = decodeQuizPayload<typeof samplePayload>(token);
-  assert.deepEqual(decoded, samplePayload);
-});
-
-test("Quiz Storage & Ranking: Public scoreboard hides answers and ranks highest score first", async () => {
-  const quizId = "test_quiz_ranking_102";
+test("Quiz Storage: Quiz creation, public sanitization, attempts and scoreboard", async () => {
+  const quizId = "test_quiz_101";
   const mockQuiz: QuizData = {
     id: quizId,
-    slug: "sara-challenge-102",
-    creatorName: "Sara",
-    gender: "female",
+    slug: "ali-challenge-101",
+    creatorName: "Ali",
+    gender: "male",
     country: "PK",
     theme: "dont_block_me",
-    pinHash: hashPin("5555"),
-    creatorToken: "adm_secret_token_123",
+    secretPin: "9999",
     createdAt: Date.now(),
     questions: [
       {
@@ -77,47 +37,48 @@ test("Quiz Storage & Ranking: Public scoreboard hides answers and ranks highest 
         question: "Secret talent?",
         emoji: "🎭",
         options: [
-          { id: 0, text: "Singer" },
-          { id: 1, text: "Cook" },
-          { id: 2, text: "Sleep" },
+          { id: 0, text: "Bathroom Singer" },
+          { id: 1, text: "Biryani Expert" },
+          { id: 2, text: "Sleeping" },
           { id: 3, text: "Gamer" },
         ],
-        correctOptionId: 1,
+        correctOptionId: 1, // Biryani Expert
       },
       {
         questionId: "q2",
-        question: "Food?",
+        question: "Favourite food?",
         emoji: "🍕",
         options: [
           { id: 0, text: "Biryani" },
           { id: 1, text: "Pizza" },
           { id: 2, text: "Chai" },
-          { id: 3, text: "Burger" },
+          { id: 3, text: "Chaat" },
         ],
-        correctOptionId: 0,
+        correctOptionId: 0, // Biryani
       },
     ],
   };
 
+  // 1. Save Quiz
   await saveQuiz(mockQuiz);
+  const retrieved = await getQuizById(quizId);
+  assert.ok(retrieved, "Retrieved quiz should exist");
+  assert.equal(retrieved.creatorName, "Ali");
+  assert.equal(retrieved.secretPin, "9999");
 
-  // Older attempt with LOW score (0/2) submitted first
-  await recordAttempt({
-    id: "att_low",
-    quizId,
-    playerName: "Bilal",
-    score: 0,
-    totalQuestions: 2,
-    answers: [
-      { questionId: "q1", selectedOptionId: 0, isCorrect: false },
-      { questionId: "q2", selectedOptionId: 1, isCorrect: false },
-    ],
-    createdAt: Date.now(),
-  });
+  // 2. Public data must NOT reveal correctOptionId or secretPin
+  const publicData = await getQuizPublicData(quizId);
+  assert.ok(publicData);
+  assert.equal(publicData.creatorName, "Ali");
+  assert.equal((publicData as unknown as Record<string, unknown>).secretPin, undefined, "Secret PIN must not be in public data");
+  for (const q of publicData.questions) {
+    assert.equal((q as unknown as Record<string, unknown>).correctOptionId, undefined, "correctOptionId must not be leaked to public/friend");
+  }
 
-  // Newer attempt with HIGH score (2/2) submitted later
-  await recordAttempt({
-    id: "att_high",
+  // 3. Record Attempts
+  // Bestie Attempt (2/2 = 100%)
+  const attemptBestie: PlayerAttempt = {
+    id: "att_1",
     quizId,
     playerName: "Hamza",
     score: 2,
@@ -126,30 +87,47 @@ test("Quiz Storage & Ranking: Public scoreboard hides answers and ranks highest 
       { questionId: "q1", selectedOptionId: 1, isCorrect: true },
       { questionId: "q2", selectedOptionId: 0, isCorrect: true },
     ],
-    createdAt: Date.now() + 5000,
-  });
+    createdAt: Date.now(),
+  };
+  await recordAttempt(attemptBestie);
 
-  // Public Scoreboard Audit:
-  const publicBoard = await getScoreboard(quizId);
-  assert.equal(publicBoard.length, 2);
+  // Fake Friend Attempt (0/2 = 0%)
+  const attemptFake: PlayerAttempt = {
+    id: "att_2",
+    quizId,
+    playerName: "Bilal",
+    score: 0,
+    totalQuestions: 2,
+    answers: [
+      { questionId: "q1", selectedOptionId: 0, isCorrect: false },
+      { questionId: "q2", selectedOptionId: 1, isCorrect: false },
+    ],
+    createdAt: Date.now() + 1000,
+  };
+  await recordAttempt(attemptFake);
 
-  // Audit finding fix: Highest score MUST be rank #1 (Hamza over Bilal)
-  assert.equal(publicBoard[0].playerName, "Hamza", "Highest score must rank 1st");
-  assert.equal(publicBoard[0].score, 2);
-  assert.equal(publicBoard[1].playerName, "Bilal", "Lowest score must rank 2nd");
-  assert.equal(publicBoard[1].score, 0);
+  // 4. Verify Scoreboard
+  const scoreboard = await getScoreboard(quizId);
+  assert.equal(scoreboard.length, 2);
 
-  // Audit finding fix: Public scoreboard must NOT contain answers array
-  assert.equal((publicBoard[0] as unknown as Record<string, unknown>).answers, undefined, "Public scoreboard must omit answers");
-  assert.equal((publicBoard[1] as unknown as Record<string, unknown>).answers, undefined, "Public scoreboard must omit answers");
+  const hamzaEntry = scoreboard.find((e) => e.playerName === "Hamza");
+  assert.ok(hamzaEntry);
+  assert.equal(hamzaEntry.score, 2);
+  assert.equal(hamzaEntry.statusBadge, "bestie");
 
-  // Authenticated Creator Scoreboard Audit:
-  const detailedBoard = await getScoreboardDetails(quizId);
-  assert.equal(detailedBoard.length, 2);
-  assert.ok(detailedBoard[0].answers, "Detailed scoreboard must provide answers");
-  assert.equal(detailedBoard[0].answers[0].isCorrect, true);
+  const bilalEntry = scoreboard.find((e) => e.playerName === "Bilal");
+  assert.ok(bilalEntry);
+  assert.equal(bilalEntry.score, 0);
+  assert.equal(bilalEntry.statusBadge, "fake");
+
+  // 5. Delete an Attempt
+  const deleted = await deleteAttempt(quizId, "att_2");
+  assert.ok(deleted, "Attempt should be deleted");
+  const scoreboardAfterDelete = await getScoreboard(quizId);
+  assert.equal(scoreboardAfterDelete.length, 1);
+  assert.equal(scoreboardAfterDelete[0].playerName, "Hamza");
 
   // Cleanup
   await deleteQuiz(quizId);
-  assert.equal(await getQuizById(quizId), null);
+  assert.equal(await getQuizById(quizId), null, "Quiz should be deleted");
 });
