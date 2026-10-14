@@ -97,7 +97,7 @@ export const TerminalHero: React.FC = () => {
           {/* Primary H1 (Figma Proportions: ~15-20% reduced) */}
           <h1 className="text-3xl sm:text-4xl lg:text-[44px] font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.14]">
             Your All-in-One{" "}
-            <span className="block sm:inline bg-gradient-to-r from-blue-600 via-indigo-600 to-fuchsia-500 bg-clip-text text-transparent dark:from-brand-400 dark:via-indigo-300 dark:to-fuchsia-400">
+            <span className="block sm:inline bg-linear-to-r from-blue-600 via-indigo-600 to-fuchsia-500 bg-clip-text text-transparent dark:from-brand-400 dark:via-indigo-300 dark:to-fuchsia-400">
               Text Utility Suite
             </span>
           </h1>
@@ -145,7 +145,7 @@ export const TerminalHero: React.FC = () => {
         <div className="lg:col-span-6 w-full min-w-0">
           <div className="relative group">
             {/* Ambient 3D Aurora Backlight */}
-            <div className="hero-parallax-ambient absolute -inset-2 bg-gradient-to-tr from-cyan-400/35 via-indigo-500/25 to-pink-500/35 rounded-[32px] blur-xl opacity-75 group-hover:opacity-100 transition duration-500 -z-10" />
+            <div className="hero-parallax-ambient absolute -inset-2 bg-linear-to-tr from-cyan-400/35 via-indigo-500/25 to-pink-500/35 rounded-[32px] blur-xl opacity-75 group-hover:opacity-100 transition duration-500 -z-10" />
 
             <div className="relative rounded-2xl sm:rounded-3xl border border-white/80 dark:border-slate-800/90 bg-white/80 dark:bg-slate-900/80 hero-card-3d overflow-hidden transition-all backdrop-blur-xl">
               {/* Top Bar / App Card Chrome */}
@@ -176,7 +176,7 @@ export const TerminalHero: React.FC = () => {
                       type="button"
                       onClick={() => setActivePreset(preset)}
                       onKeyDown={(e) => handleKeyDown(e, index)}
-                      className={`h-7 px-2.5 rounded-lg text-xs transition-all cursor-pointer whitespace-nowrap flex items-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/50 ${
+                      className={`h-7 px-2.5 rounded-lg text-xs transition-all cursor-pointer whitespace-nowrap flex items-center gap-1.5 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-brand-500/50 ${
                         activePreset.id === preset.id
                           ? "bg-white/95 dark:bg-slate-800 text-slate-900 dark:text-white shadow-[0_2px_6px_rgba(0,0,0,0.06),inset_0_1px_0_rgba(255,255,255,1)] font-bold border border-white/80 dark:border-slate-700/80 scale-[1.02]"
                           : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-white/40 dark:hover:bg-slate-800/40 font-medium"
@@ -230,13 +230,13 @@ export const TerminalHero: React.FC = () => {
                         type="button"
                         onClick={handleCopy}
                         aria-label="Copy demo output"
-                        className="btn-secondary h-6 px-2 text-[11px] font-medium inline-flex items-center gap-1 cursor-pointer transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40"
+                        className="btn-secondary h-6 px-2 text-[11px] font-medium inline-flex items-center gap-1 cursor-pointer transition-all focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-brand-500/40"
                       >
                         {copied ? <Check size={11} className="text-emerald-500" /> : <RefreshCw size={11} />}
                         <span>{copied ? "Copied" : "Copy"}</span>
                       </button>
                     </div>
-                    <div className="p-3 rounded-xl bg-gradient-to-br from-emerald-50/70 via-teal-50/40 to-white/90 dark:from-emerald-950/30 dark:via-teal-950/20 dark:to-slate-900/90 border border-emerald-300/60 dark:border-emerald-700/50 shadow-[inset_0_1px_0_rgba(255,255,255,1),0_4px_14px_-2px_rgba(16,185,129,0.12)] font-mono text-xs text-slate-800 dark:text-slate-200 whitespace-pre-wrap break-all min-h-[96px] leading-relaxed">
+                    <div className="p-3 rounded-xl bg-linear-to-br from-emerald-50/70 via-teal-50/40 to-white/90 dark:from-emerald-950/30 dark:via-teal-950/20 dark:to-slate-900/90 border border-emerald-300/60 dark:border-emerald-700/50 shadow-[inset_0_1px_0_rgba(255,255,255,1),0_4px_14px_-2px_rgba(16,185,129,0.12)] font-mono text-xs text-slate-800 dark:text-slate-200 whitespace-pre-wrap break-all min-h-[96px] leading-relaxed">
                       {activePreset.output}
                     </div>
                   </div>

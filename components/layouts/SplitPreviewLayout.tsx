@@ -51,7 +51,7 @@ export const SplitPreviewLayout: React.FC<WorkspaceProps> = ({
       {/* 2-Column Split Workspace */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 items-stretch">
         {/* Left Column: Markdown Source Editor */}
-        <div className="flex flex-col rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white/90 dark:bg-slate-900/70 overflow-hidden shadow-xs focus-within:border-brand-500/40 focus-within:ring-2 focus-within:ring-brand-500/10 transition-all duration-150">
+        <div className="flex flex-col rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white/90 dark:bg-slate-900/70 overflow-hidden shadow-2xs focus-within:border-brand-500/40 focus-within:ring-2 focus-within:ring-brand-500/10 transition-all duration-150">
           <div className="flex items-center justify-between px-4 py-3 border-b border-slate-200/70 dark:border-slate-800/80 bg-slate-50/70 dark:bg-slate-950/40">
             <span className="text-xs font-bold text-slate-800 dark:text-slate-200 flex items-center gap-2 tracking-tight">
               <FileText size={14} className="text-brand-600 dark:text-brand-400" />
@@ -90,7 +90,7 @@ export const SplitPreviewLayout: React.FC<WorkspaceProps> = ({
             placeholder={inputPlaceholder}
             aria-label="Markdown text input"
             rows={16}
-            className="w-full flex-1 p-4 sm:p-5 bg-transparent text-slate-900 dark:text-slate-100 placeholder-slate-400/90 dark:placeholder-slate-500 font-mono text-sm sm:text-base resize-y focus:outline-none leading-relaxed min-h-[260px]"
+            className="w-full flex-1 p-4 sm:p-5 bg-transparent text-slate-900 dark:text-slate-100 placeholder-slate-400/90 dark:placeholder-slate-500 font-mono text-sm sm:text-base resize-y focus:outline-hidden leading-relaxed min-h-[260px]"
           />
 
           <div className="flex items-center justify-between px-4 py-2.5 border-t border-slate-200/70 dark:border-slate-800/80 bg-slate-50/60 dark:bg-slate-950/60 text-xs text-slate-500 dark:text-slate-400 font-mono">
@@ -100,7 +100,7 @@ export const SplitPreviewLayout: React.FC<WorkspaceProps> = ({
         </div>
 
         {/* Right Column: Live Rendered Preview / HTML Source */}
-        <div className="flex flex-col rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-slate-50/60 dark:bg-slate-950/40 overflow-hidden shadow-xs transition-all duration-150">
+        <div className="flex flex-col rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-slate-50/60 dark:bg-slate-950/40 overflow-hidden shadow-2xs transition-all duration-150">
           <div className="flex items-center justify-between px-4 py-3 border-b border-slate-200/70 dark:border-slate-800/80 bg-slate-50/80 dark:bg-slate-950/60">
             {/* View Mode Switch */}
             <div className="flex items-center bg-slate-200/70 dark:bg-slate-800 p-0.5 rounded-xl text-xs font-semibold">
@@ -110,7 +110,7 @@ export const SplitPreviewLayout: React.FC<WorkspaceProps> = ({
                 aria-pressed={viewMode === "rendered"}
                 className={`flex items-center gap-1.5 px-3 py-1 rounded-lg transition-all cursor-pointer ${
                   viewMode === "rendered"
-                    ? "bg-white dark:bg-slate-900 text-slate-900 dark:text-white shadow-xs"
+                    ? "bg-white dark:bg-slate-900 text-slate-900 dark:text-white shadow-2xs"
                     : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
                 }`}
               >
@@ -123,7 +123,7 @@ export const SplitPreviewLayout: React.FC<WorkspaceProps> = ({
                 aria-pressed={viewMode === "source"}
                 className={`flex items-center gap-1.5 px-3 py-1 rounded-lg transition-all cursor-pointer ${
                   viewMode === "source"
-                    ? "bg-white dark:bg-slate-900 text-slate-900 dark:text-white shadow-xs"
+                    ? "bg-white dark:bg-slate-900 text-slate-900 dark:text-white shadow-2xs"
                     : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
                 }`}
               >
@@ -165,7 +165,7 @@ export const SplitPreviewLayout: React.FC<WorkspaceProps> = ({
                 value={output}
                 aria-label="Raw HTML output"
                 rows={16}
-                className="w-full h-full p-2 bg-transparent text-slate-900 dark:text-slate-100 font-mono text-sm sm:text-base focus:outline-none leading-relaxed resize-none cursor-default"
+                className="w-full h-full p-2 bg-transparent text-slate-900 dark:text-slate-100 font-mono text-sm sm:text-base focus:outline-hidden leading-relaxed resize-none cursor-default"
               />
             )}
           </div>

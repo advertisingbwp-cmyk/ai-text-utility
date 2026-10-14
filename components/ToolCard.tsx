@@ -34,7 +34,7 @@ export const ToolCard: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
         <h3 className="text-xs sm:text-sm font-bold text-slate-900 dark:text-slate-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors mb-1 line-clamp-1">
           <Link
             href={`/tools/${tool.slug}`}
-            className="focus:outline-none focus:underline after:content-[''] after:absolute after:inset-0 after:rounded-2xl after:z-0"
+            className="focus:outline-hidden focus:underline after:content-[''] after:absolute after:inset-0 after:rounded-2xl after:z-0"
           >
             {tool.name}
           </Link>
@@ -49,7 +49,7 @@ export const ToolCard: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
           {tool.category}
         </span>
         <span
-          className="relative z-10 w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-white/70 dark:bg-slate-800/70 border border-white/80 dark:border-slate-700/60 text-slate-500 dark:text-slate-400 group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:to-indigo-600 group-hover:text-white group-hover:border-transparent group-hover:shadow-[0_4px_10px_rgba(37,99,235,0.30)] flex items-center justify-center transition-all shrink-0 shadow-2xs"
+          className="relative z-10 w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-white/70 dark:bg-slate-800/70 border border-white/80 dark:border-slate-700/60 text-slate-500 dark:text-slate-400 group-hover:bg-linear-to-r group-hover:from-blue-600 group-hover:to-indigo-600 group-hover:text-white group-hover:border-transparent group-hover:shadow-[0_4px_10px_rgba(37,99,235,0.30)] flex items-center justify-center transition-all shrink-0 shadow-2xs"
           aria-hidden="true"
         >
           <ArrowRight size={12} className="transition-transform duration-200 group-hover:translate-x-0.5" />

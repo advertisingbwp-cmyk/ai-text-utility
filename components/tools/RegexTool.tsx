@@ -107,7 +107,7 @@ export const RegexTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
                 onChange={(e) => { cancelRegex(); setRegexResult(null); setRegexPattern(e.target.value); }}
                 aria-label="Regex pattern"
                 placeholder="Enter regex pattern..."
-                className="flex-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-1.5 text-slate-900 dark:text-slate-100 font-mono text-xs focus:outline-none focus:border-brand-500 shadow-2xs"
+                className="flex-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-1.5 text-slate-900 dark:text-slate-100 font-mono text-xs focus:outline-hidden focus:border-brand-500 shadow-2xs"
               />
               <span className="font-mono text-slate-400 text-sm">/</span>
             </div>
@@ -260,7 +260,7 @@ export const RegexTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
                       idx {m.start}..{m.end}
                     </span>
                   </div>
-                  <div className="p-1.5 rounded bg-emerald-500/10 border border-emerald-500/20 text-emerald-700 dark:text-emerald-300 break-all font-semibold">
+                  <div className="p-1.5 rounded-sm bg-emerald-500/10 border border-emerald-500/20 text-emerald-700 dark:text-emerald-300 break-all font-semibold">
                     {input.slice(m.start, m.end) || "(zero-length match)"}
                   </div>
                   {m.groups.length > 0 && (

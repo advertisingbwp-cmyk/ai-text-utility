@@ -100,7 +100,7 @@ export const DateTimeTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
               aria-label="Timestamp unit"
                 value={unixUnit}
               onChange={(e) => setUnixUnit(e.target.value as "auto" | "seconds" | "milliseconds")}
-              className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1 text-slate-800 dark:text-slate-200 focus:outline-none focus:border-brand-500 shadow-2xs"
+              className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1 text-slate-800 dark:text-slate-200 focus:outline-hidden focus:border-brand-500 shadow-2xs"
             >
               <option value="auto">Auto-Detect (magnitude / integer digits)</option>
               <option value="seconds">Seconds</option>
@@ -113,7 +113,7 @@ export const DateTimeTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
               aria-label="Timestamp timezone"
                 value={unixTz}
               onChange={(e) => setUnixTz(e.target.value)}
-              className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1 text-slate-800 dark:text-slate-200 focus:outline-none focus:border-brand-500 shadow-2xs"
+              className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1 text-slate-800 dark:text-slate-200 focus:outline-hidden focus:border-brand-500 shadow-2xs"
             >
               <option value="local">Local Timezone</option>
               <option value="UTC">UTC / GMT</option>
@@ -147,7 +147,7 @@ export const DateTimeTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
               aria-label="Date difference timezone"
                 value={dateDiffTz}
               onChange={(e) => setDateDiffTz(e.target.value)}
-              className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1 text-slate-800 dark:text-slate-200 focus:outline-none focus:border-brand-500 shadow-2xs"
+              className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1 text-slate-800 dark:text-slate-200 focus:outline-hidden focus:border-brand-500 shadow-2xs"
             >
               <option value="UTC">UTC / GMT</option>
               <option value="local">Browser Local Time</option>
@@ -158,7 +158,7 @@ export const DateTimeTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
               type="checkbox"
               checked={dateDiffIncludeEnd}
               onChange={(e) => setDateDiffIncludeEnd(e.target.checked)}
-              className="rounded border-slate-300 dark:border-slate-700 text-brand-600 bg-white dark:bg-slate-800"
+              className="rounded-sm border-slate-300 dark:border-slate-700 text-brand-600 bg-white dark:bg-slate-800"
             />
             <span>Include End Date (+24 elapsed hours)</span>
           </label>
@@ -167,14 +167,14 @@ export const DateTimeTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
             <button
               type="button"
               onClick={() => setInput("2026-01-01 to 2026-12-31")}
-              className="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 transition-colors cursor-pointer"
+              className="px-2 py-0.5 rounded-sm bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 transition-colors cursor-pointer"
             >
               Year 2026
             </button>
             <button
               type="button"
               onClick={() => setInput("2026-09-07 to 2026-12-25")}
-              className="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 transition-colors cursor-pointer"
+              className="px-2 py-0.5 rounded-sm bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 transition-colors cursor-pointer"
             >
               Christmas 2026
             </button>

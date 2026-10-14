@@ -40,7 +40,7 @@ export const TableLayout: React.FC<WorkspaceProps> = ({
   return (
     <div className="space-y-6">
       {/* 1. Input Panel & Controls */}
-      <div className="flex flex-col rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white/90 dark:bg-slate-900/70 overflow-hidden shadow-xs focus-within:border-brand-500/40 focus-within:ring-2 focus-within:ring-brand-500/10 transition-all duration-150">
+      <div className="flex flex-col rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white/90 dark:bg-slate-900/70 overflow-hidden shadow-2xs focus-within:border-brand-500/40 focus-within:ring-2 focus-within:ring-brand-500/10 transition-all duration-150">
         <div className="flex items-center justify-between px-4 py-3 border-b border-slate-200/70 dark:border-slate-800/80 bg-slate-50/70 dark:bg-slate-950/40">
           <span className="text-xs font-bold text-slate-800 dark:text-slate-200 flex items-center gap-2 tracking-tight">
             <FileText size={14} className="text-brand-600 dark:text-brand-400" />
@@ -77,7 +77,7 @@ export const TableLayout: React.FC<WorkspaceProps> = ({
           placeholder={inputPlaceholder}
           aria-label="Table source text input"
           rows={7}
-          className="w-full p-4 sm:p-5 bg-transparent text-slate-900 dark:text-slate-100 placeholder-slate-400/90 dark:placeholder-slate-500 font-mono text-sm sm:text-base resize-y focus:outline-none leading-relaxed min-h-[160px]"
+          className="w-full p-4 sm:p-5 bg-transparent text-slate-900 dark:text-slate-100 placeholder-slate-400/90 dark:placeholder-slate-500 font-mono text-sm sm:text-base resize-y focus:outline-hidden leading-relaxed min-h-[160px]"
         />
 
         {/* Custom Controls Embedded inside Input footer if available */}
@@ -89,7 +89,7 @@ export const TableLayout: React.FC<WorkspaceProps> = ({
       </div>
 
       {/* 2. Structured Table / Card Results */}
-      <div className="rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-slate-50/60 dark:bg-slate-950/40 overflow-hidden shadow-xs transition-all duration-150">
+      <div className="rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-slate-50/60 dark:bg-slate-950/40 overflow-hidden shadow-2xs transition-all duration-150">
         <div className="flex items-center justify-between px-4 py-3 border-b border-slate-200/70 dark:border-slate-800/80 bg-slate-50/80 dark:bg-slate-950/60">
           <div className="flex items-center gap-2">
             <TableIcon size={14} className="text-brand-600 dark:text-brand-400" />

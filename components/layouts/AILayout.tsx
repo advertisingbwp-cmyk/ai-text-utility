@@ -49,13 +49,13 @@ export const AILayout: React.FC<WorkspaceProps> = ({
     <div className="space-y-6">
       {/* 1. AI Options & Model Bar */}
       {customControls && (
-        <div className="p-4 sm:p-5 rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white/70 dark:bg-slate-900/60 shadow-xs">
+        <div className="p-4 sm:p-5 rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white/70 dark:bg-slate-900/60 shadow-2xs">
           {customControls}
         </div>
       )}
 
       {/* 2. Source Text Input Card */}
-      <div className="flex flex-col rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white/90 dark:bg-slate-900/70 overflow-hidden shadow-xs focus-within:border-brand-500/40 focus-within:ring-2 focus-within:ring-brand-500/10 transition-all duration-150">
+      <div className="flex flex-col rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white/90 dark:bg-slate-900/70 overflow-hidden shadow-2xs focus-within:border-brand-500/40 focus-within:ring-2 focus-within:ring-brand-500/10 transition-all duration-150">
         <div className="flex items-center justify-between px-4 py-3 border-b border-slate-200/70 dark:border-slate-800/80 bg-slate-50/70 dark:bg-slate-950/40">
           <span className="text-xs font-bold text-slate-800 dark:text-slate-200 flex items-center gap-2 tracking-tight">
             <FileText size={14} className="text-brand-600 dark:text-brand-400" />
@@ -92,7 +92,7 @@ export const AILayout: React.FC<WorkspaceProps> = ({
           placeholder={inputPlaceholder}
           aria-label="AI text input"
           rows={8}
-          className="w-full p-4 sm:p-5 bg-transparent text-slate-900 dark:text-slate-100 placeholder-slate-400/90 dark:placeholder-slate-500 font-mono text-sm sm:text-base resize-y focus:outline-none leading-relaxed min-h-[180px]"
+          className="w-full p-4 sm:p-5 bg-transparent text-slate-900 dark:text-slate-100 placeholder-slate-400/90 dark:placeholder-slate-500 font-mono text-sm sm:text-base resize-y focus:outline-hidden leading-relaxed min-h-[180px]"
         />
 
         <div className="flex items-center justify-between px-4 py-2.5 border-t border-slate-200/70 dark:border-slate-800/80 bg-slate-50/60 dark:bg-slate-950/60 text-xs text-slate-500 dark:text-slate-400 font-mono">
@@ -104,7 +104,7 @@ export const AILayout: React.FC<WorkspaceProps> = ({
       </div>
 
       {/* 3. Primary AI Action Trigger Bar */}
-      <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 p-4 sm:p-5 rounded-2xl border border-violet-500/20 dark:border-violet-500/20 bg-gradient-to-r from-violet-500/5 via-brand-500/5 to-cyan-500/5 dark:from-violet-950/20 dark:via-brand-950/20 dark:to-cyan-950/20 shadow-xs">
+      <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 p-4 sm:p-5 rounded-2xl border border-violet-500/20 dark:border-violet-500/20 bg-linear-to-r from-violet-500/5 via-brand-500/5 to-cyan-500/5 dark:from-violet-950/20 dark:via-brand-950/20 dark:to-cyan-950/20 shadow-2xs">
         <div className="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-400">
           <Sparkles size={15} className="text-violet-500 shrink-0" />
           <span>AI requests are sent through the application&apos;s server-side AI endpoint to the configured AI provider.</span>
@@ -116,7 +116,7 @@ export const AILayout: React.FC<WorkspaceProps> = ({
               type="button"
               onClick={onRun}
               disabled={isLoading || !input.trim() || isOverLimit}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-xl text-xs font-bold text-white transition-all shadow-md bg-gradient-to-r from-brand-600 via-indigo-600 to-violet-600 hover:from-brand-500 hover:to-violet-500 disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer active:scale-[0.98]"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-xl text-xs font-bold text-white transition-all shadow-md bg-linear-to-r from-brand-600 via-indigo-600 to-violet-600 hover:from-brand-500 hover:to-violet-500 disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer active:scale-[0.98]"
             >
               {isLoading ? (
                 <>
@@ -135,7 +135,7 @@ export const AILayout: React.FC<WorkspaceProps> = ({
       </div>
 
       {/* 4. AI Result Card */}
-      <div className="flex flex-col rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-slate-50/60 dark:bg-slate-950/40 overflow-hidden shadow-xs transition-all duration-150">
+      <div className="flex flex-col rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-slate-50/60 dark:bg-slate-950/40 overflow-hidden shadow-2xs transition-all duration-150">
         <div className="flex items-center justify-between px-4 py-3 border-b border-slate-200/70 dark:border-slate-800/80 bg-slate-50/80 dark:bg-slate-950/60">
           <div className="flex items-center gap-2">
             <Sparkles size={14} className="text-violet-500" />
@@ -161,10 +161,10 @@ export const AILayout: React.FC<WorkspaceProps> = ({
 
         {isLoading ? (
           <div className="p-6 space-y-3 animate-pulse">
-            <div className="h-4 bg-slate-200 dark:bg-slate-800 rounded w-3/4" />
-            <div className="h-4 bg-slate-200 dark:bg-slate-800 rounded w-5/6" />
-            <div className="h-4 bg-slate-200 dark:bg-slate-800 rounded w-2/3" />
-            <div className="h-4 bg-slate-200 dark:bg-slate-800 rounded w-4/5" />
+            <div className="h-4 bg-slate-200 dark:bg-slate-800 rounded-sm w-3/4" />
+            <div className="h-4 bg-slate-200 dark:bg-slate-800 rounded-sm w-5/6" />
+            <div className="h-4 bg-slate-200 dark:bg-slate-800 rounded-sm w-2/3" />
+            <div className="h-4 bg-slate-200 dark:bg-slate-800 rounded-sm w-4/5" />
           </div>
         ) : (
           <textarea
@@ -173,7 +173,7 @@ export const AILayout: React.FC<WorkspaceProps> = ({
             placeholder="AI result will appear here after clicking 'Process with AI'..."
             aria-label="AI result output"
             rows={8}
-            className="w-full p-4 sm:p-5 bg-transparent text-slate-900 dark:text-slate-100 placeholder-slate-400/90 dark:placeholder-slate-500 font-mono text-sm sm:text-base resize-y focus:outline-none leading-relaxed min-h-[180px] cursor-default"
+            className="w-full p-4 sm:p-5 bg-transparent text-slate-900 dark:text-slate-100 placeholder-slate-400/90 dark:placeholder-slate-500 font-mono text-sm sm:text-base resize-y focus:outline-hidden leading-relaxed min-h-[180px] cursor-default"
           />
         )}
 

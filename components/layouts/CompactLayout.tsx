@@ -43,13 +43,13 @@ export const CompactLayout: React.FC<WorkspaceProps> = ({
     <div className="max-w-4xl mx-auto space-y-6">
       {/* 1. Compact Controls Toolbar */}
       {customControls && (
-        <div className="p-4 sm:p-5 rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white/70 dark:bg-slate-900/60 shadow-xs">
+        <div className="p-4 sm:p-5 rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white/70 dark:bg-slate-900/60 shadow-2xs">
           {customControls}
         </div>
       )}
 
       {/* 2. Compact Primary Converter Card */}
-      <div className="rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white/90 dark:bg-slate-900/70 p-5 shadow-xs focus-within:border-brand-500/40 focus-within:ring-2 focus-within:ring-brand-500/10 transition-all duration-150">
+      <div className="rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white/90 dark:bg-slate-900/70 p-5 shadow-2xs focus-within:border-brand-500/40 focus-within:ring-2 focus-within:ring-brand-500/10 transition-all duration-150">
         <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800/80 mb-4">
           <div className="flex items-center gap-2">
             <Calendar size={15} className="text-brand-600 dark:text-brand-400" />
@@ -91,13 +91,13 @@ export const CompactLayout: React.FC<WorkspaceProps> = ({
             value={input}
             onChange={(e) => onInputChange(e.target.value)}
             placeholder={inputPlaceholder}
-            className="w-full px-4 py-3 bg-slate-50/70 dark:bg-slate-950/40 rounded-xl border border-slate-200/70 dark:border-slate-800/80 text-slate-900 dark:text-slate-100 placeholder-slate-400/90 dark:placeholder-slate-500 font-mono text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all shadow-2xs"
+            className="w-full px-4 py-3 bg-slate-50/70 dark:bg-slate-950/40 rounded-xl border border-slate-200/70 dark:border-slate-800/80 text-slate-900 dark:text-slate-100 placeholder-slate-400/90 dark:placeholder-slate-500 font-mono text-sm sm:text-base focus:outline-hidden focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all shadow-2xs"
           />
         </div>}
       </div>
 
       {/* 3. Breakdown & Calculation Results */}
-      <div className="rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-slate-50/60 dark:bg-slate-950/40 overflow-hidden shadow-xs transition-all duration-150">
+      <div className="rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-slate-50/60 dark:bg-slate-950/40 overflow-hidden shadow-2xs transition-all duration-150">
         <div className="flex items-center justify-between px-4 py-3 border-b border-slate-200/70 dark:border-slate-800/80 bg-slate-50/80 dark:bg-slate-950/60">
           <div className="flex items-center gap-2">
             <Clock size={14} className="text-amber-500" />
@@ -131,7 +131,7 @@ export const CompactLayout: React.FC<WorkspaceProps> = ({
               placeholder="Result will compute automatically..."
               aria-label="Calculation output"
               rows={6}
-              className="w-full p-4 bg-white/70 dark:bg-slate-900/50 rounded-xl border border-slate-200/70 dark:border-slate-800/80 text-slate-900 dark:text-slate-100 placeholder-slate-400/90 dark:placeholder-slate-500 font-mono text-sm sm:text-base resize-y focus:outline-none leading-relaxed min-h-[140px] cursor-default"
+              className="w-full p-4 bg-white/70 dark:bg-slate-900/50 rounded-xl border border-slate-200/70 dark:border-slate-800/80 text-slate-900 dark:text-slate-100 placeholder-slate-400/90 dark:placeholder-slate-500 font-mono text-sm sm:text-base resize-y focus:outline-hidden leading-relaxed min-h-[140px] cursor-default"
             />
           )}
         </div>
