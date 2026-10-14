@@ -61,3 +61,36 @@ export function decodeQuizPayload<T>(token: string): T | null {
     return null;
   }
 }
+
+/**
+ * AES-256-GCM authenticated encryption for private quiz answer validation.
+ * Enables zero-dependency scoring on stateless serverless lambdas.
+ */
+const QUIZ_ENCRYPTION_SECRET = process.env.QUIZ_SECRET_KEY || "quiz_aes_secret_key_32bytes_2026_safe";
+const DERIVED_KEY = crypto.createHash("sha256").update(QUIZ_ENCRYPTION_SECRET).digest();
+
+export function encryptPayload(data: unknown): string {
+  const iv = crypto.randomBytes(12);
+  const cipher = crypto.createCipheriv("aes-256-gcm", DERIVED_KEY, iv);
+  const json = JSON.stringify(data);
+  const encrypted = Buffer.concat([cipher.update(json, "utf8"), cipher.final()]);
+  const tag = cipher.getAuthTag();
+  return Buffer.concat([iv, tag, encrypted]).toString("base64url");
+}
+
+export function decryptPayload<T>(ciphertext: string): T | null {
+  try {
+    const buf = Buffer.from(ciphertext, "base64url");
+    if (buf.length < 28) return null; // 12 bytes IV + 16 bytes auth tag
+    const iv = buf.subarray(0, 12);
+    const tag = buf.subarray(12, 28);
+    const encrypted = buf.subarray(28);
+    const decipher = crypto.createDecipheriv("aes-256-gcm", DERIVED_KEY, iv);
+    decipher.setAuthTag(tag);
+    const decrypted = Buffer.concat([decipher.update(encrypted), decipher.final()]);
+    return JSON.parse(decrypted.toString("utf8")) as T;
+  } catch {
+    return null;
+  }
+}
+

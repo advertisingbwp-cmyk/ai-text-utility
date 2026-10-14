@@ -18,6 +18,8 @@ import {
   checkPinRateLimit,
   encodeQuizPayload,
   decodeQuizPayload,
+  encryptPayload,
+  decryptPayload,
 } from "../lib/quiz/security.ts";
 
 test("Quiz Domain: Questions bank has valid structure and unique IDs", () => {
@@ -57,6 +59,14 @@ test("Quiz Security: PIN hashing, verification, rate limiting, and backup tokens
   assert.ok(typeof token === "string" && token.length > 10);
   const decoded = decodeQuizPayload<typeof samplePayload>(token);
   assert.deepEqual(decoded, samplePayload);
+
+  // Authenticated encryption test
+  const secretData = { quizId: "q_123", answers: { q1: 2, q2: 0 } };
+  const encrypted = encryptPayload(secretData);
+  assert.ok(typeof encrypted === "string" && encrypted.length > 20);
+  const decrypted = decryptPayload<typeof secretData>(encrypted);
+  assert.deepEqual(decrypted, secretData);
+  assert.equal(decryptPayload("invalid_tampered_token"), null);
 });
 
 test("Quiz Storage & Ranking: Public scoreboard hides answers and ranks highest score first", async () => {
