@@ -201,6 +201,23 @@ export const TOOL_SPECIFIC_CONTENT: Record<
   // ==========================================
   // TRANSFORM (12 Tools)
   // ==========================================
+  "diff-checker": {
+    howToSteps: [
+      "Paste the original and revised text, or upload a .txt file into either panel.",
+      "Choose word or line comparison and optionally ignore case or extra spaces.",
+      "Select Compare texts, review highlighted changes, then copy or download the report.",
+    ],
+    features: [
+      "Side-by-side text comparison with stacked panels on smaller screens.",
+      "Word and line modes with navigation between added and removed sections.",
+      "Local comparison with readable text report exports and no sign-up.",
+    ],
+    faqs: [
+      { question: "What do the colors mean?", answer: "Red underlined sections were removed from the original. Green underlined sections were added in the revised version. The report also labels each section as REMOVED, ADDED or UNCHANGED." },
+      { question: "What happens when I ignore case or spaces?", answer: "Ignore case compares lowercase text. Ignore extra spaces collapses spaces and tabs and trims each line, preserving line breaks. Results and reports show this normalized text; your inputs remain unchanged." },
+      { question: "Can I compare PDFs or Word documents?", answer: "This version accepts pasted text and plain .txt files. Copy text out of other documents first. It does not compare document formatting or detect plagiarism." },
+    ],
+  },
   "case-converter": {
     howToSteps: [
       "Paste or type your source text into the input field.",

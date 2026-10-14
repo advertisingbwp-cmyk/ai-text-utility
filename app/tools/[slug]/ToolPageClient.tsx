@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { DiffCheckerTool } from "@/components/tools/DiffCheckerTool";
 import { ToolDefinition } from "@/data/toolsRegistry";
 import {
   AiTool,
@@ -14,6 +15,7 @@ import {
 } from "@/components/tools";
 
 export const ToolPageClient: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
+  if (tool.slug === "diff-checker") return <DiffCheckerTool tool={tool} />;
   // 1. AI Magic Tools (6 tools)
   if (tool.category === "AI Magic") {
     return <AiTool tool={tool} />;

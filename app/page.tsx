@@ -3,7 +3,7 @@ import { HomeToolsClient } from "@/components/HomeToolsClient";
 import { HomeSeoContent } from "@/components/HomeSeoContent";
 
 const title = "Free Online Text Tools & AI Writing | AI Text Utility";
-const description = "Count words, clean text, generate URL slugs and format JSON with 43 online tools. Standard tools run in your browser; AI writing tools use an AI provider.";
+const description = "Compare texts, count words, clean text and format JSON with 44 online tools. Standard tools run in your browser; AI writing tools use an AI provider.";
 export const metadata: Metadata = {
   title: { absolute: title }, description,
   alternates: { canonical: "/" },
