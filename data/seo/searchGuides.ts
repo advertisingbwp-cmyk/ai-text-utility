@@ -13,6 +13,16 @@ export interface SearchGuide {
 }
 
 export const SEARCH_GUIDES: Record<string, SearchGuide> = {
+  "diff-checker": {
+    title: "Online Diff Checker – Compare Two Texts Free",
+    description: "Compare two texts side by side with this free online diff checker. Highlight added and removed words or lines, ignore case or extra spaces, and export a report.",
+    heading: "See what changed between two versions",
+    useCase: "Compare an edited draft, a revised email or a plain-text file. Paste the original and revised versions, choose word or line mode, then select Compare texts.",
+    example: { input: "Original: The quick brown fox.\nRevised: The quick red fox.", output: "Removed: brown\nAdded: red", note: "Word comparison highlights the replacement while keeping the surrounding text unchanged." },
+    limitation: "This compares text, not meaning or plagiarism. Limit: 30,000 characters and 2,000 comparison units per panel for differing texts. Word mode counts whitespace and punctuation as units too. Try line mode for longer passages. CRLF and CR line endings are treated as LF.",
+    related: ["remove-extra-spaces", "remove-duplicate-lines", "word-counter"],
+    faq: { question: "Is my comparison text uploaded or saved?", answer: "The comparison runs in your browser without uploading or saving the text. You can copy or download a report yourself. Closing or refreshing the page clears the workspace." },
+  },
   "slug-generator": {
     title: "Slug Generator – Convert Text to URL Slugs",
     description: "Convert a title to a URL slug online. Choose a separator, preserve case if needed, and copy the result. Runs locally without AI or a sign-up.",

@@ -2,6 +2,13 @@ import type { ToolDefinition } from "./types.ts";
 
 export const TEXT_TOOLS: ToolDefinition[] = [
   {
+    id: "diff-checker", slug: "diff-checker", name: "Online Diff Checker",
+    category: "Text", layout: "splitPreview", icon: "FileText", featured: true,
+    description: "Compare two texts side by side. Highlight added and removed words or lines locally in your browser.",
+    keywords: ["diff checker", "text compare", "compare two texts", "text difference", "side by side comparison"],
+    supportsLiveMode: false, requiresAI: false,
+  },
+  {
     id: "word-counter",
     name: "Word Counter",
     slug: "word-counter",
