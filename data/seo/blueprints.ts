@@ -1,4 +1,5 @@
 import { SUPPLEMENTAL_GUIDES } from "./supplementalGuides.ts";
+import { SEARCH_GUIDES } from "./searchGuides.ts";
 
 export interface ToolSeoBlueprint {
   slug: string;
@@ -675,6 +676,21 @@ export const SEO_BLUEPRINT_MAP: Record<string, ToolSeoBlueprint> = {
 import { getToolBySlug } from "../tools/index.ts";
 
 export function getToolSeoBlueprint(slug: string): ToolSeoBlueprint | undefined {
+  const canonicalSlug = getToolBySlug(slug)?.slug || slug;
+  const searchGuide = SEARCH_GUIDES[canonicalSlug];
+  if (searchGuide) {
+    const original = SEO_BLUEPRINT_MAP[canonicalSlug];
+    return {
+      slug: canonicalSlug, title: searchGuide.title,
+      metaDescription: searchGuide.description,
+      h1: searchGuide.title.split(" – ")[0],
+      aboveTheFoldIntro: searchGuide.description,
+      primaryKeyword: original?.primaryKeyword || searchGuide.title.split(" – ")[0].toLowerCase(),
+      secondaryKeywords: original?.secondaryKeywords || [],
+      popularAnchor: searchGuide.title.split(" – ")[0],
+      clusterSlugs: searchGuide.related,
+    };
+  }
   if (SEO_BLUEPRINT_MAP[slug]) return SEO_BLUEPRINT_MAP[slug];
   const tool = getToolBySlug(slug);
   if (tool && SEO_BLUEPRINT_MAP[tool.slug]) {

@@ -3,7 +3,7 @@ import { TOOLS_REGISTRY } from "@/data/toolsRegistry";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl =
-    process.env.NEXT_PUBLIC_SITE_URL || "https://ai-text-utility.vercel.app";
+    (process.env.NEXT_PUBLIC_SITE_URL || "https://ai-text-utility.vercel.app").replace(/\/+$/, "");
 
   const staticRoutes: MetadataRoute.Sitemap = [
     {
