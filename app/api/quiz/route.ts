@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { saveQuiz } from "@/lib/quiz/storage";
 import { QuizData, Gender } from "@/lib/quiz/types";
-import { hashPin, generateCreatorToken, encodeQuizPayload, encryptPayload } from "@/lib/quiz/security";
+import { hashPin, generateCreatorToken, encodeQuizPayload } from "@/lib/quiz/security";
 import { DEFAULT_QUIZ_QUESTIONS } from "@/lib/quiz/questions";
 
 export const dynamic = "force-dynamic";
@@ -109,23 +109,10 @@ export async function POST(req: Request) {
     await saveQuiz(quiz);
 
     // 6. Generate Self-Contained URL Payload (resilient backup to prevent any "Quiz Not Found")
-    const answersMap: Record<string, number> = {};
-    for (const q of quiz.questions) {
-      answersMap[q.questionId] = q.correctOptionId;
-    }
-    const encryptedKey = encryptPayload({
-      id: quiz.id,
-      creatorName: quiz.creatorName,
-      gender: quiz.gender,
-      pinHash: quiz.pinHash,
-      answers: answersMap,
-    });
-
     const publicPayload = {
       id: quiz.id,
       creatorName: quiz.creatorName,
       gender: quiz.gender,
-      sec: encryptedKey,
       questions: quiz.questions.map((q) => ({
         questionId: q.questionId,
         question: q.question,

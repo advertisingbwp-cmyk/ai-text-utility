@@ -26,12 +26,9 @@ export default function QuizPlayPage({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
 
-  const [token, setToken] = useState<string | null>(null);
-
   useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search);
     const dataToken = searchParams.get("data");
-    if (dataToken) setToken(dataToken);
 
     const endpoint = dataToken
       ? `/api/quiz/${quizId}?data=${encodeURIComponent(dataToken)}`
@@ -100,7 +97,6 @@ export default function QuizPlayPage({
         body: JSON.stringify({
           playerName: playerName.trim(),
           answers: formattedAnswers,
-          data: token,
         }),
       });
 
@@ -108,10 +104,7 @@ export default function QuizPlayPage({
       if (data.success) {
         // Scoped key prevents collision with other quizzes
         sessionStorage.setItem(`quiz_result_${quizId}`, JSON.stringify(data));
-        const redirectUrl = token
-          ? `/quiz/result/${quizId}?data=${encodeURIComponent(token)}`
-          : `/quiz/result/${quizId}`;
-        router.push(redirectUrl);
+        router.push(`/quiz/result/${quizId}`);
       } else {
         alert(data.error || "Failed to submit. Try again.");
         setIsSubmitting(false);
