@@ -168,7 +168,7 @@ export default async function ToolPage({ params }: PageProps) {
       name: faq.question,
       acceptedAnswer: {
         "@type": "Answer",
-        text: faq.answer.replace(/\[([^\]]+)\]\([^)]+\)/g, "$1"),
+        text: faq.answer.replace(/\[([^\]]+)\]\(((?:\/(?!\/)|https?:\/\/)[^)]+)\)/g, "$1"),
       },
     })),
   };

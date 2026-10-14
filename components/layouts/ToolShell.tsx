@@ -140,7 +140,7 @@ export const ToolShell: React.FC<ToolShellProps> = ({
                 )}
               </div>
               <p className="text-xs sm:text-base text-slate-600 dark:text-slate-300 mt-1 max-w-3xl leading-relaxed">
-                {tool.description}
+                {blueprint?.aboveTheFoldIntro || tool.description}
               </p>
             </div>
           </div>

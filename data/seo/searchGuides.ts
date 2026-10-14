@@ -1,0 +1,156 @@
+/** Search-intent improvements informed by the 2026-10-14 GSC export.
+ * Metrics stay in the audit report, never in visitor-facing copy.
+ */
+export interface SearchGuide {
+  title: string;
+  description: string;
+  heading: string;
+  useCase: string;
+  example: { input: string; output: string; note: string };
+  limitation: string;
+  related: string[];
+  faq: { question: string; answer: string };
+}
+
+export const SEARCH_GUIDES: Record<string, SearchGuide> = {
+  "slug-generator": {
+    title: "Slug Generator – Convert Text to URL Slugs",
+    description: "Convert a title to a URL slug online. Choose a separator, preserve case if needed, and copy the result. Runs locally without AI or a sign-up.",
+    heading: "Turn a page title into a readable URL slug",
+    useCase: "Use a slug for a blog post, product or documentation page. Keep the useful words, then check that your publishing system has not already used the same slug.",
+    example: { input: "Café & Travel Tips", output: "cafe-and-travel-tips", note: "Default lowercase and hyphen separator." },
+    limitation: "This formats the words you supply; it does not research keywords, invent titles or check URL availability. Changing an existing published URL may require a redirect.",
+    related: ["remove-accents", "case-converter", "url-encoder", "remove-special-chars"],
+    faq: { question: "Is this an AI slug generator?", answer: "No. This text-to-slug converter uses local rules in your browser. It formats your existing title without sending it to an AI provider or generating new wording." },
+  },
+  "lorem-ipsum": {
+    title: "Lorem Ipsum Generator – Placeholder Text Online",
+    description: "Generate Lorem Ipsum placeholder text by paragraphs, sentences or words. Set the amount, generate a sample and copy it into your design or mockup.",
+    heading: "Fill a mockup with placeholder text",
+    useCase: "Choose paragraphs for a page layout, sentences for a card, or words for a short text block. Replace the dummy content with real copy before publishing.",
+    example: { input: "Choose a text unit and amount, then select Generate", output: "Lorem ipsum dolor sit amet…", note: "Illustrative placeholder excerpt; generated text varies with your options." },
+    limitation: "Lorem Ipsum is layout filler, not a translation service or finished article. It cannot predict how your final copy will wrap at every screen size.",
+    related: ["word-counter", "character-frequency", "case-converter"],
+    faq: { question: "Does this translate Lorem Ipsum into English?", answer: "No. It generates placeholder text for designs. For meaningful English copy, write the actual content instead of treating Latin-style filler as a translation." },
+  },
+  "ai-professional": {
+    title: "Professional Text Rewriter – AI Email & Message Editor",
+    description: "Rewrite emails and messages professionally with an AI provider. Compare the draft and check names, dates and commitments before sending.",
+    heading: "Make a work message more professional",
+    useCase: "Start with your actual message, including the request and any agreed deadline. Compare the rewrite with your original before copying it into an email or chat.",
+    example: { input: "hey, can you send the report today?", output: "Could you please send the report today?", note: "Illustrative rewrite, not a guaranteed AI response." },
+    limitation: "Text is sent to an AI provider. Rewrites may change tone or add details; check facts and avoid confidential input. Availability depends on the provider and request limits.",
+    related: ["ai-friendly", "ai-grammar", "ai-paraphrase", "word-counter"],
+    faq: { question: "Can I make an email professional without changing its request?", answer: "That is the intended use, but AI can change meaning. Compare the request, names, dates and promises with your draft and edit any unwanted changes before sending." },
+  },
+  "ai-paraphrase": {
+    title: "AI Paraphrasing Tool – Rephrase Sentences & Paragraphs",
+    description: "Rephrase sentences and paragraphs with an AI provider. Compare the new wording with your source and preserve important details before copying.",
+    heading: "Try a different way to express the same idea",
+    useCase: "Paste a passage you understand and review the proposed wording sentence by sentence. Preserve specialist terms and keep citations when the ideas come from another source.",
+    example: { input: "We need more time to finish the project.", output: "We need additional time to complete the project.", note: "Illustrative rewrite; actual AI output varies." },
+    limitation: "AI can alter emphasis or facts. Rephrasing does not establish originality, remove citation obligations or guarantee a plagiarism score. Input is sent to an AI provider.",
+    related: ["ai-grammar", "ai-professional", "ai-summarize", "word-counter"],
+    faq: { question: "Does paraphrasing guarantee plagiarism-free writing?", answer: "No. Changing wording does not change who originated an idea. Keep appropriate citations and review both accuracy and attribution yourself." },
+  },
+  "ai-expand": {
+    title: "AI Text Expander – Expand Sentences & Paragraphs",
+    description: "Expand sentences, paragraphs or outlines with an AI provider. Add context, review new details and copy the expanded draft after checking it.",
+    heading: "Expand a short idea into a fuller draft",
+    useCase: "Provide the point you want to explain and the facts the expansion should retain. Keep useful elaboration and remove repetition or invented details.",
+    example: { input: "Our team needs a shared task list.", output: "A shared task list can help our team see what needs to be done and who is responsible for each item.", note: "Illustrative expansion; the model may produce a different draft." },
+    limitation: "This expands writing, not keyboard shortcuts or saved snippets. There is no exact target word-count control. Requests use an external AI provider and may be rate-limited.",
+    related: ["word-counter", "ai-summarize", "ai-grammar", "ai-professional"],
+    faq: { question: "Is this a text expander for keyboard shortcuts?", answer: "No. This AI text expander develops short writing into a longer draft. It does not install shortcuts or replace typed abbreviations across other apps." },
+  },
+  "ai-friendly": {
+    title: "Friendly Tone Rewriter – Make Text Sound Warmer",
+    description: "Make emails and messages sound warmer with an AI provider. Keep your intended request, compare both versions and review the rewrite before sending.",
+    heading: "Make a message warmer without losing its purpose",
+    useCase: "Use this for a draft that feels too abrupt. Keep necessary boundaries and deadlines; a warmer tone should not introduce promises you did not intend to make.",
+    example: { input: "Send me your feedback.", output: "Could you share your feedback when you have a moment?", note: "Illustrative tone change; AI output varies." },
+    limitation: "Friendly is subjective. This is a tone rewriter, not a tool for making pages machine-readable or bypassing AI detectors. Text is processed by an AI provider.",
+    related: ["ai-professional", "ai-paraphrase", "ai-grammar"],
+    faq: { question: "What does AI friendly mean on this page?", answer: "Here it means using AI to rewrite a message in a warmer, more conversational tone. It does not mean optimizing a website for AI crawlers or detecting AI-written text." },
+  },
+  "ai-grammar": {
+    title: "AI Proofreader – Grammar & Spelling Checker Online",
+    description: "Check grammar, spelling and punctuation with an AI provider. Review the proofread draft and compare suggested corrections with your original text.",
+    heading: "Proofread before you send or publish",
+    useCase: "Paste a draft and review the corrected version. Pay particular attention to names, quoted language and terminology that the model may mistakenly rewrite.",
+    example: { input: "She go to work every day.", output: "She goes to work every day.", note: "Illustrative correction; actual suggestions vary." },
+    limitation: "This produces a revised draft, not a tracked-changes report or certified proofreading. It may miss errors. Text leaves your browser for AI processing.",
+    related: ["ai-paraphrase", "ai-professional", "word-counter"],
+    faq: { question: "Can an online AI proofreader find every mistake?", answer: "No. Review the suggestions yourself, especially proper names, technical wording and facts. A fluent sentence can still be inaccurate." },
+  },
+  "remove-special-chars": {
+    title: "Remove Special Characters from Text Online",
+    description: "Remove unwanted symbols from text while keeping letters and numbers. Choose punctuation and spacing options, preview the result and copy it locally.",
+    heading: "Remove symbols while keeping useful text",
+    useCase: "Clean copied labels or lists for a destination that rejects particular symbols. Choose the appropriate mode before processing and review international names carefully.",
+    example: { input: "Hello@ World# 2026!", output: "Hello World 2026", note: "Default alphanumeric mode with spaces preserved." },
+    limitation: "Letters and numbers are Unicode-aware, not restricted to English. Combining marks and removed symbols can affect meaning. This is text cleanup, not HTML sanitization or input validation for a database.",
+    related: ["remove-emojis", "remove-accents", "remove-extra-spaces", "slug-generator"],
+    faq: { question: "Will the special character remover delete all non-English letters?", answer: "No. The default mode retains Unicode letters and numbers. Check the result for combining accents and symbols, which may be removed; keep an original copy when cleaning names." },
+  },
+  "remove-extra-spaces": {
+    title: "Remove Extra Spaces from Text – Whitespace Cleaner",
+    description: "Collapse repeated spaces in pasted text. Preserve line breaks with spaces-only mode, or collapse all whitespace into single spaces. Preview and copy locally.",
+    heading: "Choose which whitespace to clean",
+    useCase: "Use spaces-only mode for a list whose lines should stay separate. Use all-whitespace mode when you want one continuous paragraph with single spaces between words.",
+    example: { input: "Hello   world", output: "Hello world", note: "Default spaces-only mode." },
+    limitation: "This collapses extra whitespace rather than removing every space. Default mode preserves tabs and line breaks; all-whitespace mode removes their structure. Do not use it blindly on indentation-sensitive code.",
+    related: ["trim-lines", "remove-line-breaks", "remove-empty-lines", "tabs-to-spaces"],
+    faq: { question: "Does this remove all spaces between words?", answer: "No. It reduces repeated spaces to one. All-whitespace mode also turns tabs and line breaks into single spaces; it does not join every word together." },
+  },
+  "remove-duplicate-lines": {
+    title: "Duplicate Line Remover – Remove Repeated Lines Online",
+    description: "Remove duplicate lines from a pasted list while keeping the first occurrence. Choose case and whitespace comparison options, then copy the unique lines.",
+    heading: "Deduplicate a list without sorting it",
+    useCase: "Paste one item per line, decide whether letter case and surrounding whitespace should matter, and keep the first occurrence of each matching line.",
+    example: { input: "apple\nbanana\napple", output: "apple\nbanana", note: "Default case-sensitive comparison." },
+    limitation: "This compares whole lines, not similar sentences or duplicate words within a paragraph. Different spellings remain separate. Review settings before deduplicating identifiers.",
+    related: ["sort-lines", "trim-lines", "remove-empty-lines", "word-frequency"],
+    faq: { question: "Does the duplicate line remover keep the original order?", answer: "Yes. It keeps the first occurrence in input order. Use Sort Lines separately if you also want alphabetical ordering." },
+  },
+  "strip-html-tags": {
+    title: "Strip HTML Tags – Convert HTML to Plain Text",
+    description: "Remove HTML tags from pasted markup and extract plain text. Choose line-break and entity-decoding options, then review and copy the result.",
+    heading: "Extract readable text from pasted HTML",
+    useCase: "Paste markup from a document or template to get a plain-text version. Keep line breaks for paragraphs or flatten the output when preparing one-line fields.",
+    example: { input: "<p>Hello <strong>world</strong> &amp; friends</p>", output: "Hello world & friends", note: "Default entity decoding enabled." },
+    limitation: "This does not fetch a URL or preserve rendered browser layout. It uses text-based matching, so malformed markup needs checking. Do not use its output as trusted HTML or as a security sanitizer.",
+    related: ["html-minifier", "markdown-to-html", "remove-extra-spaces", "remove-line-breaks"],
+    faq: { question: "Is stripping HTML the same as minifying HTML?", answer: "No. Stripping tags produces plain text. Minifying HTML keeps markup while reducing parts of its source formatting. Choose the tool that matches your destination." },
+  },
+  "html-minifier": {
+    title: "HTML Minifier – Compact HTML Source Online",
+    description: "Compact HTML tag formatting and optionally remove comments. Preserve text-node whitespace, preview the source and copy the result in your browser.",
+    heading: "Minify HTML without flattening its visible text",
+    useCase: "Use this for HTML source, then test the result in the destination page. It compacts tag formatting conservatively instead of deleting whitespace throughout a document.",
+    example: { input: '<div   class="note" >Hello world</div>', output: '<div class="note" >Hello world</div>', note: "Tag-spacing example; visible text is retained." },
+    limitation: "This is an HTML minifier, not a general text minifier, JavaScript optimizer or sanitizer. Text whitespace is preserved, so savings depend on the input. Use whitespace cleanup for ordinary prose.",
+    related: ["strip-html-tags", "remove-extra-spaces", "json-formatter", "markdown-to-html"],
+    faq: { question: "Can I minify ordinary text with this tool?", answer: "For plain text, use Remove Extra Spaces or Remove Line Breaks. This tool targets HTML tag formatting and intentionally preserves text-node whitespace." },
+  },
+  "hash-generator": {
+    title: "Text Hash Generator – SHA-256, SHA-384 & SHA-512",
+    description: "Generate SHA hashes from text in your browser. Select an algorithm and copy the digest for comparison. Hashing is one-way; this tool does not decode hashes.",
+    heading: "Generate a digest for exact text comparison",
+    useCase: "Use the same algorithm and exactly the same input when comparing digests. A changed newline, space or letter produces a different result.",
+    example: { input: "hello", output: "2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824", note: "SHA-256, lowercase hello without a trailing newline." },
+    limitation: "A hash is not reversible encryption. This tool cannot recover text or passwords from a digest. Raw SHA hashes are not a complete password-storage scheme.",
+    related: ["base64", "url-encoder", "password-generator"],
+    faq: { question: "Can this convert a hash back to text?", answer: "No. It generates a digest from text. Hashing is one-way, so there is no decode operation that recovers the original text or password." },
+  },
+  "regex-tester": {
+    title: "Regex Tester – Test JavaScript Regular Expressions",
+    description: "Test a regular expression against sample text, inspect matches and adjust flags. Uses JavaScript regex syntax; this tool does not generate patterns with AI.",
+    heading: "Check a pattern against matching and nonmatching text",
+    useCase: "Enter your regex and a small representative sample. Include cases that should match and cases that should not, then inspect the highlighted results.",
+    example: { input: "Pattern: [0-9]+  |  Text: Order 123", output: "123", note: "Illustrative match for a run of digits." },
+    limitation: "This tests JavaScript regex syntax, which differs from some other engines. A worker deadline limits expensive matches. It does not turn natural-language requests into regex patterns.",
+    related: ["extract-emails-urls", "remove-special-chars", "json-formatter"],
+    faq: { question: "Is this an automatic regex generator?", answer: "No. You supply the pattern and sample text. The tool tests the pattern and shows matches; it does not generate regular expressions from a description." },
+  },
+};

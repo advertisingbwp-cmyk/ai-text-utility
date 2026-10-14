@@ -8,6 +8,25 @@ import { AdsterraResponsiveBanner, AdsterraNativeBanner } from "@/components/ads
 export function HomeSeoContent() {
   return (
     <>
+      <section aria-labelledby="workflows-heading" className="max-w-4xl mx-auto space-y-4">
+        <h2 id="workflows-heading" className="scroll-mt-24 text-xl font-bold text-slate-900 dark:text-white">Start with the task you need to finish</h2>
+        <div className="grid gap-4 sm:grid-cols-2">
+          {[
+            { title: "Prepare a page for publishing", text: "Format its URL, check the length and fill design mockups.", slugs: ["slug-generator", "word-counter", "lorem-ipsum"] },
+            { title: "Clean a pasted list", text: "Remove repeated entries, unwanted symbols and extra whitespace.", slugs: ["remove-duplicate-lines", "remove-special-chars", "remove-extra-spaces"] },
+            { title: "Polish a message", text: "Choose professional tone, warmer wording or proofreading. AI tools send text to an AI provider.", slugs: ["ai-professional", "ai-friendly", "ai-grammar"] },
+            { title: "Develop or rephrase a draft", text: "Expand an idea, try different wording or shorten a passage. Check AI output against your source.", slugs: ["ai-expand", "ai-paraphrase", "ai-summarize"] },
+          ].map((workflow) => (
+            <div key={workflow.title} className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/65 dark:bg-slate-900/60 p-5 space-y-3">
+              <h3 className="font-semibold text-slate-900 dark:text-white">{workflow.title}</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300">{workflow.text}</p>
+              <ul className="space-y-2 text-sm">
+                {workflow.slugs.map((slug) => <li key={slug}><Link className="text-brand-600 dark:text-brand-400 underline underline-offset-2" href={`/tools/${slug}`}>{getToolSeoBlueprint(slug)?.popularAnchor || getToolBySlug(slug)?.name}</Link></li>)}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </section>
       {/* Factual Information & Guidance Card (Moved down to preserve first viewport) */}
       <section className="max-w-4xl mx-auto rounded-2xl border border-white/70 dark:border-slate-800/80 bg-white/65 dark:bg-slate-900/60 backdrop-blur-md p-6 sm:p-8 space-y-3.5 shadow-2xs" aria-labelledby="intro-heading">
         <h2 id="intro-heading" className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white tracking-tight">Free online text tools for everyday work</h2>

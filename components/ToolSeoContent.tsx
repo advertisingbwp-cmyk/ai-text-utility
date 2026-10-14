@@ -1,5 +1,6 @@
 import React from "react";
 import { SUPPLEMENTAL_GUIDES } from "@/data/seo/supplementalGuides";
+import { SEARCH_GUIDES } from "@/data/seo/searchGuides";
 import Link from "next/link";
 import { ToolDefinition, getToolsByCategory, getFeaturedTools, getToolBySlug } from "@/data/toolsRegistry";
 import { getToolEducationalContent } from "@/data/toolFaqs";
@@ -42,7 +43,7 @@ export interface ToolSeoContentProps {
 // Helper to render markdown-style links [text](url) inside FAQ answers
 function renderAnswerWithLinks(text: string): React.ReactNode {
   const parts: React.ReactNode[] = [];
-  const regex = /\[([^\]]+)\]\(([^)]+)\)/g;
+  const regex = /\[([^\]]+)\]\(((?:\/(?!\/)|https?:\/\/)[^)]+)\)/g;
   let lastIndex = 0;
   let match: RegExpExecArray | null;
 
@@ -99,6 +100,7 @@ export const ToolSeoContent: React.FC<ToolSeoContentProps> = ({ tool }) => {
   const blueprint = getToolSeoBlueprint(tool.slug);
   const EditorialComponent = EDITORIAL_MAP[tool.slug];
   const guide = SUPPLEMENTAL_GUIDES[tool.slug];
+  const searchGuide = SEARCH_GUIDES[tool.slug];
 
   // Prioritize cluster slugs from SEO blueprint if available
   let fallbackTools: ToolDefinition[] = [];
@@ -189,8 +191,25 @@ export const ToolSeoContent: React.FC<ToolSeoContentProps> = ({ tool }) => {
       </section>
 
       {/* Dedicated Deep Editorial Guide */}
-      {EditorialComponent && <EditorialComponent />}
-      {guide && (
+      {searchGuide && (
+        <section aria-labelledby="search-guide-heading" className="space-y-5 rounded-2xl border border-slate-200 dark:border-slate-800 p-6">
+          <h2 id="search-guide-heading" className="scroll-mt-24 text-xl font-bold text-slate-900 dark:text-white">{searchGuide.heading}</h2>
+          <p className="text-sm leading-relaxed">{searchGuide.useCase}</p>
+          <div className="grid gap-4 md:grid-cols-2">
+            {[["Example input", searchGuide.example.input], ["Example result", searchGuide.example.output]].map(([label, value]) => (
+              <div key={label} className="min-w-0">
+                <h3 className="mb-2 text-sm font-semibold">{label}</h3>
+                <pre className="whitespace-pre-wrap break-all rounded-xl bg-slate-100 p-4 text-sm dark:bg-slate-900">{value}</pre>
+              </div>
+            ))}
+          </div>
+          <p className="text-xs">{searchGuide.example.note}</p>
+          <h3 className="font-semibold text-slate-900 dark:text-white">What this tool does and does not do</h3>
+          <p className="text-sm leading-relaxed">{searchGuide.limitation}</p>
+        </section>
+      )}
+      {!searchGuide && EditorialComponent && <EditorialComponent />}
+      {!searchGuide && guide && (
         <section aria-labelledby="practical-guide-heading" className="space-y-4 rounded-2xl border border-slate-200 dark:border-slate-800 p-6">
           <h2 id="practical-guide-heading" className="text-xl font-bold text-slate-900 dark:text-white">{guide.heading}</h2>
           <p className="text-sm leading-relaxed">{guide.example}</p>

@@ -1567,7 +1567,7 @@ export const TOOL_SPECIFIC_CONTENT: Record<
       "Strips all HTML/XML tags, comments, and markup attributes",
       "Thoroughly removes `<script>` and `<style>` tags and their enclosed code",
       "Decodes common HTML entities (e.g. `&amp;` → `&`, `&lt;` → `<`, `&nbsp;` → space)",
-      "100% Local browser sanitization with zero data transmission",
+      "Local plain-text extraction in your browser; not a security sanitizer",
     ],
     faqs: [
       {
@@ -1962,12 +1962,12 @@ export const TOOL_SPECIFIC_CONTENT: Record<
       {
         question: "How does the AI expand content without adding fluff?",
         answer:
-          "The model develops your core ideas by introducing logical supporting arguments, practical examples, and clear transitions rather than just padding word count with empty filler.",
+          "The model is prompted to develop the supplied ideas, but it can add repetition or unsupported details. Compare the draft with your source and keep only useful, accurate additions.",
       },
       {
         question: "Can I expand bullet points into full paragraphs?",
         answer:
-          "Yes. Paste your rough bullet points and the AI will synthesize them into cohesive, narrative paragraphs ready for publication or presentation.",
+          "Yes. Paste your bullet points to request a longer draft. Review any new details, remove repetition and check facts before publishing or presenting it.",
       },
       {
         question: "Is my draft text kept private?",
@@ -1979,6 +1979,7 @@ export const TOOL_SPECIFIC_CONTENT: Record<
 };
 
 import { getToolBySlug } from "../tools/index.ts";
+import { SEARCH_GUIDES } from "./searchGuides.ts";
 
 export function getToolEducationalContent(
   category: string,
@@ -1994,7 +1995,9 @@ export function getToolEducationalContent(
       slug: normalizedSlug,
       howToSteps: specific.howToSteps,
       features: specific.features,
-      faqs: specific.faqs,
+      faqs: SEARCH_GUIDES[normalizedSlug]
+        ? [SEARCH_GUIDES[normalizedSlug].faq, ...specific.faqs.filter((faq) => faq.question !== SEARCH_GUIDES[normalizedSlug].faq.question)]
+        : specific.faqs,
     };
   }
 

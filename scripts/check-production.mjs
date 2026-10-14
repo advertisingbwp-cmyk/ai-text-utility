@@ -2,11 +2,13 @@ import {spawn} from 'node:child_process';
 import assert from 'node:assert/strict';
 import {JSDOM} from 'jsdom';
 import {TOOLS_REGISTRY} from '../data/toolsRegistry.ts';
+import {SEARCH_GUIDES} from '../data/seo/searchGuides.ts';
 const origin = 'http://127.0.0.1:3001';
 const server=spawn('node',['node_modules/next/dist/bin/next','start','--hostname','127.0.0.1','--port','3001'],{stdio:['ignore','pipe','pipe']});
 const normalize = value => value.replace(/\s+/g, ' ').trim();
 let canonicalOrigin;
 const titles = new Set();
+const canonicalPaths = new Set(['/', '/about', '/contact', '/privacy', '/terms', ...TOOLS_REGISTRY.map(tool => `/tools/${tool.slug}`)]);
 async function inspect(path) {
  const res = await fetch(origin + path);
  assert.equal(res.status, 200, path);
@@ -31,6 +33,17 @@ async function inspect(path) {
    assert.ok(named, `${path}: unnamed ${el.tagName} ${el.id}`);
   }
   assert.ok(doc.querySelector('a[href="#main-content"]'), `${path}: skip link`);
+  for (const anchor of doc.querySelectorAll('a[href]')) {
+   const target = new URL(anchor.getAttribute('href'), canonical.href);
+   if (target.origin === canonicalOrigin && target.pathname.startsWith('/tools/')) {
+    assert.ok(canonicalPaths.has(target.pathname), `${path}: broken or noncanonical tool link ${target.pathname}`);
+   }
+  }
+  const searchGuide = SEARCH_GUIDES[path.replace('/tools/', '')];
+  if (searchGuide) {
+   assert.ok(doc.querySelector('#search-guide-heading'), `${path}: server-rendered practical guide`);
+   assert.ok(doc.body.textContent.includes(searchGuide.example.output), `${path}: published example`);
+  }
   const schemas = [...doc.querySelectorAll('script[type="application/ld+json"]')].map(el => JSON.parse(el.textContent));
   if (path.startsWith('/tools/')) {
    assert.ok(schemas.some(s => s['@type'] === 'WebApplication'), `${path}: application schema`);
@@ -66,7 +79,15 @@ try {
  missingDom.window.close();
  const robots = await (await fetch(origin + '/robots.txt')).text();
  assert.ok(!robots.includes('Disallow: /_next/'));
+ assert.ok(robots.includes(`Sitemap: ${canonicalOrigin}/sitemap.xml`), 'canonical sitemap discovery');
+ const sitemapResponse = await fetch(origin + '/sitemap.xml');
+ assert.equal(sitemapResponse.status, 200);
+ const sitemapDom = new JSDOM(await sitemapResponse.text(), {contentType: 'text/xml'});
+ const urls = [...sitemapDom.window.document.querySelectorAll('loc')].map(node => node.textContent);
+ assert.deepEqual(new Set(urls), new Set([...canonicalPaths].map(path => canonicalOrigin + path)), 'sitemap contains exactly the canonical pages');
+ assert.equal(urls.length, canonicalPaths.size, 'no duplicate sitemap entries');
+ sitemapDom.window.close();
  const image = await fetch(origin + '/og-image.png');
  assert.equal(image.status, 200);
- console.log(`PASS: ${TOOLS_REGISTRY.length + 5} canonical pages, unique titles, descriptions, one H1, social images, visible FAQ/schema parity, aliases, 404/noindex crawlable assets and named controls`);
+ console.log(`PASS: ${TOOLS_REGISTRY.length + 5} canonical pages, titles, descriptions, H1s, social images, FAQ/schema parity, aliases, 404/noindex, named controls, internal tool links, practical guides and canonical sitemap`);
 } finally { server.kill(); }
