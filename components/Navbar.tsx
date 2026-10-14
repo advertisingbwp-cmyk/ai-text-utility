@@ -91,17 +91,6 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCommandPalette }) => {
             Home
           </Link>
           <Link
-            href="/quiz"
-            className={`px-3 py-1.5 rounded-full text-xs font-bold ${
-              pathname?.startsWith('/quiz')
-                ? 'bg-amber-400 text-slate-950 shadow-xs'
-                : 'text-amber-600 dark:text-amber-400 bg-amber-400/15 hover:bg-amber-400/25 border border-amber-400/30'
-            } transition-all flex items-center gap-1.5`}
-          >
-            <span>😈</span>
-            <span>Don&apos;t Block Me!</span>
-          </Link>
-          <Link
             href="/about"
             className={`px-3 py-1.5 rounded-full text-xs font-medium ${pathname === '/about' ? 'text-brand-600' : 'text-slate-600 dark:text-slate-300'} hover:text-slate-900 dark:hover:text-white hover:bg-white/60 dark:hover:bg-slate-800/70 transition-colors`}
           >

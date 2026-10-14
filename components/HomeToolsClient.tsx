@@ -171,35 +171,6 @@ export function HomeToolsClient({ children }: { children: React.ReactNode }) {
     <div className="w-full max-w-7xl mx-auto space-y-6 sm:space-y-8 pb-16">
       <TerminalHero />
 
-      {/* Viral Challenge Banner */}
-      <div className="w-full max-w-3xl mx-auto px-4 -mt-2 sm:-mt-3">
-        <Link
-          href="/quiz"
-          className="group block relative overflow-hidden rounded-2xl bg-gradient-to-r from-amber-400 via-orange-400 to-pink-500 p-0.5 shadow-md hover:shadow-lg transition-all"
-        >
-          <div className="bg-white dark:bg-slate-900 rounded-[14px] px-4 py-3 flex items-center justify-between gap-3">
-            <div className="flex items-center gap-3">
-              <span className="text-2xl animate-bounce">😈</span>
-              <div>
-                <span className="inline-block text-[10px] font-black uppercase tracking-wider bg-red-100 text-red-700 dark:bg-red-950 dark:text-red-300 px-2 py-0.5 rounded-full mr-2">
-                  Viral Challenge
-                </span>
-                <span className="font-extrabold text-sm text-slate-900 dark:text-white">
-                  Don&apos;t Block Me: Find Your Fake Friends!
-                </span>
-                <p className="text-xs text-slate-500 dark:text-slate-400 font-medium hidden sm:block">
-                  Create your 10-question dare quiz &amp; test your friends on WhatsApp!
-                </p>
-              </div>
-            </div>
-            <span className="px-3 py-1.5 rounded-xl bg-amber-400 text-slate-950 font-black text-xs shrink-0 flex items-center gap-1 group-hover:translate-x-0.5 transition-transform">
-              <span>Play Now</span>
-              <ArrowRight size={13} />
-            </span>
-          </div>
-        </Link>
-      </div>
-
       {/* Floating Search Bar (Balanced SaaS Capsule) */}
       <div className="relative group w-full max-w-xl mx-auto -mt-2 sm:-mt-3">
         {/* Subtle Outer Ambient Glows: Soft Blue & Violet Accent */}
