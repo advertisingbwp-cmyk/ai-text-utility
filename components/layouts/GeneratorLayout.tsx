@@ -39,7 +39,7 @@ export const GeneratorLayout: React.FC<WorkspaceProps> = ({
     <div className="space-y-6">
       {/* 1. Options & Configuration Card */}
       {customControls && (
-        <div className="rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white/70 dark:bg-slate-900/60 p-5 shadow-xs">
+        <div className="rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white/70 dark:bg-slate-900/60 p-5 shadow-2xs">
           <div className="flex items-center gap-2 text-xs font-bold text-slate-800 dark:text-slate-200 uppercase tracking-wider pb-3 border-b border-slate-100 dark:border-slate-800/80 mb-4">
             <Sliders size={14} className="text-brand-600 dark:text-brand-400" />
             <span>Generation Parameters</span>
@@ -49,7 +49,7 @@ export const GeneratorLayout: React.FC<WorkspaceProps> = ({
       )}
 
       {/* 2. Primary Action Bar */}
-      <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 p-4 sm:p-5 rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/60 shadow-xs">
+      <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 p-4 sm:p-5 rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/60 shadow-2xs">
         <div className="text-xs text-slate-500 dark:text-slate-400">
           Generated in browser according to selected parameters
         </div>
@@ -70,7 +70,7 @@ export const GeneratorLayout: React.FC<WorkspaceProps> = ({
       </div>
 
       {/* 3. Prominent Generated Result Display */}
-      <div className="rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-slate-50/60 dark:bg-slate-950/40 overflow-hidden shadow-xs transition-all duration-150">
+      <div className="rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-slate-50/60 dark:bg-slate-950/40 overflow-hidden shadow-2xs transition-all duration-150">
         <div className="flex items-center justify-between px-4 py-3 border-b border-slate-200/70 dark:border-slate-800/80 bg-slate-50/80 dark:bg-slate-950/60">
           <div className="flex items-center gap-2">
             <Sparkles size={14} className="text-amber-500" />
@@ -105,7 +105,7 @@ export const GeneratorLayout: React.FC<WorkspaceProps> = ({
               placeholder={outputPlaceholder}
               aria-label="Generated output text"
               rows={8}
-              className="w-full p-4 bg-white/70 dark:bg-slate-900/50 rounded-xl border border-slate-200/70 dark:border-slate-800/80 text-slate-900 dark:text-slate-100 placeholder-slate-400/90 dark:placeholder-slate-500 font-mono text-sm sm:text-base resize-y focus:outline-none leading-relaxed min-h-[160px] cursor-default"
+              className="w-full p-4 bg-white/70 dark:bg-slate-900/50 rounded-xl border border-slate-200/70 dark:border-slate-800/80 text-slate-900 dark:text-slate-100 placeholder-slate-400/90 dark:placeholder-slate-500 font-mono text-sm sm:text-base resize-y focus:outline-hidden leading-relaxed min-h-[160px] cursor-default"
             />
           </div>
         )}

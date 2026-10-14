@@ -69,7 +69,7 @@ export default function ContactPage() {
 
         {/* Contact Channels Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <div className="p-5 rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white/70 dark:bg-slate-900/40 backdrop-blur-sm shadow-subtle space-y-3 flex flex-col justify-between">
+          <div className="p-5 rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white/70 dark:bg-slate-900/40 backdrop-blur-xs shadow-subtle space-y-3 flex flex-col justify-between">
             <div className="space-y-3">
               <div className="w-9 h-9 rounded-xl bg-brand-500/10 flex items-center justify-center text-brand-600 dark:text-brand-400">
                 <Mail size={18} />
@@ -87,7 +87,7 @@ export default function ContactPage() {
             </a>
           </div>
 
-          <div className="p-5 rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white/70 dark:bg-slate-900/40 backdrop-blur-sm shadow-subtle space-y-3 flex flex-col justify-between">
+          <div className="p-5 rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white/70 dark:bg-slate-900/40 backdrop-blur-xs shadow-subtle space-y-3 flex flex-col justify-between">
             <div className="space-y-3">
               <div className="w-9 h-9 rounded-xl bg-rose-500/10 flex items-center justify-center text-rose-600 dark:text-rose-400">
                 <Bug size={18} />
@@ -105,7 +105,7 @@ export default function ContactPage() {
             </a>
           </div>
 
-          <div className="p-5 rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white/70 dark:bg-slate-900/40 backdrop-blur-sm shadow-subtle space-y-3 flex flex-col justify-between">
+          <div className="p-5 rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white/70 dark:bg-slate-900/40 backdrop-blur-xs shadow-subtle space-y-3 flex flex-col justify-between">
             <div className="space-y-3">
               <div className="w-9 h-9 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-600 dark:text-emerald-400">
                 <Sparkles size={18} />

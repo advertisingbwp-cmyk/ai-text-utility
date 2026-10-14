@@ -79,12 +79,12 @@ export const AiTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
           Text is sent to an AI provider. Review results before use.
         </span>
         {input.length > 10000 ? (
-          <span className="flex items-center gap-1 text-rose-400 bg-rose-500/10 border border-rose-500/20 px-2.5 py-0.5 rounded">
+          <span className="flex items-center gap-1 text-rose-400 bg-rose-500/10 border border-rose-500/20 px-2.5 py-0.5 rounded-sm">
             <AlertTriangle size={13} />
             Input exceeds limit ({input.length.toLocaleString()} / 10,000 chars)
           </span>
         ) : input.length > 8000 ? (
-          <span className="flex items-center gap-1 text-amber-400 bg-amber-500/10 border border-amber-500/20 px-2.5 py-0.5 rounded">
+          <span className="flex items-center gap-1 text-amber-400 bg-amber-500/10 border border-amber-500/20 px-2.5 py-0.5 rounded-sm">
             <AlertTriangle size={13} />
             Approaching limit ({input.length.toLocaleString()} / 10,000 chars)
           </span>

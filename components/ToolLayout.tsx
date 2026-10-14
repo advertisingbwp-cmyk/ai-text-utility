@@ -186,7 +186,7 @@ export const ToolLayout: React.FC<ToolLayoutProps> = ({
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="flex items-start gap-4">
             <div
-              className={`w-12 h-12 rounded-xl flex items-center justify-center shrink-0 shadow-xs border ${theme.bg} ${theme.border} icon-3d`}
+              className={`w-12 h-12 rounded-xl flex items-center justify-center shrink-0 shadow-2xs border ${theme.bg} ${theme.border} icon-3d`}
             >
               <span className="text-2xl select-none" role="img" aria-hidden="true">
                 {theme.emoji}
@@ -297,7 +297,7 @@ export const ToolLayout: React.FC<ToolLayoutProps> = ({
                 placeholder={inputPlaceholder}
                 aria-label="Text input"
                 rows={12}
-                className="w-full p-4 bg-transparent text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 font-mono text-xs sm:text-sm resize-y focus:outline-none leading-relaxed"
+                className="w-full p-4 bg-transparent text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 font-mono text-xs sm:text-sm resize-y focus:outline-hidden leading-relaxed"
               />
 
               {/* Input Live Stats Bar */}
@@ -362,7 +362,7 @@ export const ToolLayout: React.FC<ToolLayoutProps> = ({
                   placeholder={outputPlaceholder}
                   aria-label="Text output"
                   rows={12}
-                  className="w-full p-4 bg-transparent text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 font-mono text-xs sm:text-sm resize-y focus:outline-none leading-relaxed"
+                  className="w-full p-4 bg-transparent text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 font-mono text-xs sm:text-sm resize-y focus:outline-hidden leading-relaxed"
                 />
               )}
 
@@ -380,7 +380,7 @@ export const ToolLayout: React.FC<ToolLayoutProps> = ({
         <div className="flex items-center justify-between gap-3 p-4 rounded-2xl border border-white/70 dark:border-slate-800/80 bg-white/68 dark:bg-slate-900/50 shadow-[0_12px_35px_rgba(55,95,180,0.08),inset_0_1px_0_rgba(255,255,255,0.85)] backdrop-blur-md">
           <div className="text-xs text-slate-500 dark:text-slate-400 hidden sm:block">
             Press{" "}
-            <kbd className="font-mono bg-white/70 dark:bg-slate-800 px-1.5 py-0.5 rounded border border-white/80 dark:border-slate-700 text-slate-700 dark:text-slate-300 shadow-2xs">
+            <kbd className="font-mono bg-white/70 dark:bg-slate-800 px-1.5 py-0.5 rounded-sm border border-white/80 dark:border-slate-700 text-slate-700 dark:text-slate-300 shadow-2xs">
               Ctrl+Enter
             </kbd>{" "}
             to run
@@ -449,28 +449,28 @@ export const ToolLayout: React.FC<ToolLayoutProps> = ({
             <div className="mt-4 space-y-3 text-xs">
               <div className="flex items-center justify-between py-1.5 border-b border-slate-100 dark:border-slate-800/60">
                 <span className="text-slate-600 dark:text-slate-300">Run Active Tool</span>
-                <kbd className="font-mono px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200">
+                <kbd className="font-mono px-2 py-0.5 rounded-sm bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200">
                   Ctrl + Enter
                 </kbd>
               </div>
 
               <div className="flex items-center justify-between py-1.5 border-b border-slate-100 dark:border-slate-800/60">
                 <span className="text-slate-600 dark:text-slate-300">Clear Input & Output</span>
-                <kbd className="font-mono px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200">
+                <kbd className="font-mono px-2 py-0.5 rounded-sm bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200">
                   Ctrl + Shift + X
                 </kbd>
               </div>
 
               <div className="flex items-center justify-between py-1.5 border-b border-slate-100 dark:border-slate-800/60">
                 <span className="text-slate-600 dark:text-slate-300">Open Command Palette</span>
-                <kbd className="font-mono px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200">
+                <kbd className="font-mono px-2 py-0.5 rounded-sm bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200">
                   Ctrl + K
                 </kbd>
               </div>
 
               <div className="flex items-center justify-between py-1.5">
                 <span className="text-slate-600 dark:text-slate-300">Show / Hide Shortcuts</span>
-                <kbd className="font-mono px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200">
+                <kbd className="font-mono px-2 py-0.5 rounded-sm bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200">
                   Ctrl + /
                 </kbd>
               </div>
@@ -480,7 +480,7 @@ export const ToolLayout: React.FC<ToolLayoutProps> = ({
               <button
                 type="button"
                 onClick={() => setShowShortcutsHelp(false)}
-                className="px-4 py-1.5 rounded-lg bg-brand-600 hover:bg-brand-500 text-white text-xs font-semibold shadow-xs"
+                className="px-4 py-1.5 rounded-lg bg-brand-600 hover:bg-brand-500 text-white text-xs font-semibold shadow-2xs"
               >
                 Got it
               </button>

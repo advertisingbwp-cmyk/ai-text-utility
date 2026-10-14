@@ -35,7 +35,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ onOpenCommandPalette }) => {
         <Link
           href="/"
           onClick={closeMobile}
-          className="flex items-center gap-2.5 group focus:outline-none focus:ring-2 focus:ring-brand-500/50 rounded-lg p-0.5"
+          className="flex items-center gap-2.5 group focus:outline-hidden focus:ring-2 focus:ring-brand-500/50 rounded-lg p-0.5"
           aria-label="AI Text Utility home"
         >
           <BrandLogo size="md" showSubtitle={true} />
@@ -68,7 +68,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ onOpenCommandPalette }) => {
             <CommandIcon size={14} className="group-hover:text-brand-400" />
             Quick search...
           </span>
-          <kbd className="text-xs font-mono px-1.5 py-0.5 rounded border border-slate-700 bg-slate-800 text-slate-400">
+          <kbd className="text-xs font-mono px-1.5 py-0.5 rounded-sm border border-slate-700 bg-slate-800 text-slate-400">
             Ctrl+K
           </kbd>
         </button>
@@ -217,7 +217,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ onOpenCommandPalette }) => {
       {mobileOpen && (
         <div className="md:hidden fixed inset-0 z-50 flex">
           <div
-            className="fixed inset-0 bg-black/70 backdrop-blur-sm animate-in fade-in"
+            className="fixed inset-0 bg-black/70 backdrop-blur-xs animate-in fade-in"
             onClick={() => setMobileOpen(false)}
           />
           <div className="relative w-4/5 max-w-xs h-full bg-slate-950 shadow-2xl z-10 animate-in slide-in-from-left duration-200">

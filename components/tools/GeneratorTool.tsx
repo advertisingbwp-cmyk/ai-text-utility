@@ -207,7 +207,7 @@ export const GeneratorTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
                 aria-label="Password length"
                 value={pwLength}
                 onChange={(e) => setPwLength(Math.max(4, parseInt(e.target.value) || 16))}
-                className="w-16 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2 py-1 text-slate-800 dark:text-slate-200 text-center font-mono focus:outline-none focus:border-brand-500 shadow-2xs"
+                className="w-16 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2 py-1 text-slate-800 dark:text-slate-200 text-center font-mono focus:outline-hidden focus:border-brand-500 shadow-2xs"
               />
             </div>
             <div className="flex items-center gap-2">
@@ -219,7 +219,7 @@ export const GeneratorTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
                 aria-label="Password count"
                 value={pwCount}
                 onChange={(e) => setPwCount(Math.max(1, parseInt(e.target.value) || 1))}
-                className="w-14 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2 py-1 text-slate-800 dark:text-slate-200 text-center font-mono focus:outline-none focus:border-brand-500 shadow-2xs"
+                className="w-14 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2 py-1 text-slate-800 dark:text-slate-200 text-center font-mono focus:outline-hidden focus:border-brand-500 shadow-2xs"
               />
             </div>
             <label className="flex items-center gap-1.5 cursor-pointer text-slate-700 dark:text-slate-300">
@@ -227,7 +227,7 @@ export const GeneratorTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
                 type="checkbox"
                 checked={pwUpper}
                 onChange={(e) => setPwUpper(e.target.checked)}
-                className="rounded border-slate-300 dark:border-slate-700 text-brand-600 bg-white dark:bg-slate-800"
+                className="rounded-sm border-slate-300 dark:border-slate-700 text-brand-600 bg-white dark:bg-slate-800"
               />
               <span>A-Z</span>
             </label>
@@ -236,7 +236,7 @@ export const GeneratorTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
                 type="checkbox"
                 checked={pwLower}
                 onChange={(e) => setPwLower(e.target.checked)}
-                className="rounded border-slate-300 dark:border-slate-700 text-brand-600 bg-white dark:bg-slate-800"
+                className="rounded-sm border-slate-300 dark:border-slate-700 text-brand-600 bg-white dark:bg-slate-800"
               />
               <span>a-z</span>
             </label>
@@ -245,7 +245,7 @@ export const GeneratorTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
                 type="checkbox"
                 checked={pwNumbers}
                 onChange={(e) => setPwNumbers(e.target.checked)}
-                className="rounded border-slate-300 dark:border-slate-700 text-brand-600 bg-white dark:bg-slate-800"
+                className="rounded-sm border-slate-300 dark:border-slate-700 text-brand-600 bg-white dark:bg-slate-800"
               />
               <span>0-9</span>
             </label>
@@ -254,7 +254,7 @@ export const GeneratorTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
                 type="checkbox"
                 checked={pwSymbols}
                 onChange={(e) => setPwSymbols(e.target.checked)}
-                className="rounded border-slate-300 dark:border-slate-700 text-brand-600 bg-white dark:bg-slate-800"
+                className="rounded-sm border-slate-300 dark:border-slate-700 text-brand-600 bg-white dark:bg-slate-800"
               />
               <span>!@#$</span>
             </label>
@@ -263,7 +263,7 @@ export const GeneratorTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
                 type="checkbox"
                 checked={pwExcludeAmbiguous}
                 onChange={(e) => setPwExcludeAmbiguous(e.target.checked)}
-                className="rounded border-slate-300 dark:border-slate-700 text-brand-600 bg-white dark:bg-slate-800"
+                className="rounded-sm border-slate-300 dark:border-slate-700 text-brand-600 bg-white dark:bg-slate-800"
               />
               <span>No Ambiguous (il1Lo0O)</span>
             </label>
@@ -289,7 +289,7 @@ export const GeneratorTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
                 aria-label="UUID count"
                 value={uuidCount}
                 onChange={(e) => setUuidCount(Math.max(1, parseInt(e.target.value) || 5))}
-                className="w-16 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2 py-1 text-slate-800 dark:text-slate-200 text-center font-mono focus:outline-none focus:border-brand-500 shadow-2xs"
+                className="w-16 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2 py-1 text-slate-800 dark:text-slate-200 text-center font-mono focus:outline-hidden focus:border-brand-500 shadow-2xs"
               />
             </div>
             <label className="flex items-center gap-1.5 cursor-pointer text-slate-700 dark:text-slate-300">
@@ -297,7 +297,7 @@ export const GeneratorTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
                 type="checkbox"
                 checked={uuidUpper}
                 onChange={(e) => setUuidUpper(e.target.checked)}
-                className="rounded border-slate-300 dark:border-slate-700 text-brand-600 bg-white dark:bg-slate-800"
+                className="rounded-sm border-slate-300 dark:border-slate-700 text-brand-600 bg-white dark:bg-slate-800"
               />
               <span>UPPERCASE</span>
             </label>
@@ -306,7 +306,7 @@ export const GeneratorTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
                 type="checkbox"
                 checked={uuidNoHyphens}
                 onChange={(e) => setUuidNoHyphens(e.target.checked)}
-                className="rounded border-slate-300 dark:border-slate-700 text-brand-600 bg-white dark:bg-slate-800"
+                className="rounded-sm border-slate-300 dark:border-slate-700 text-brand-600 bg-white dark:bg-slate-800"
               />
               <span>Remove Hyphens</span>
             </label>
@@ -332,13 +332,13 @@ export const GeneratorTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
                 aria-label="Lorem ipsum amount"
                 value={loremCount}
                 onChange={(e) => setLoremCount(Math.max(1, parseInt(e.target.value) || 3))}
-                className="w-14 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2 py-1 text-slate-800 dark:text-slate-200 text-center font-mono focus:outline-none focus:border-brand-500 shadow-2xs"
+                className="w-14 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2 py-1 text-slate-800 dark:text-slate-200 text-center font-mono focus:outline-hidden focus:border-brand-500 shadow-2xs"
               />
               <select
                 aria-label="Lorem ipsum unit"
                 value={loremUnit}
                 onChange={(e) => setLoremUnit(e.target.value as LoremUnit)}
-                className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1 text-slate-800 dark:text-slate-200 focus:outline-none focus:border-brand-500 shadow-2xs capitalize"
+                className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1 text-slate-800 dark:text-slate-200 focus:outline-hidden focus:border-brand-500 shadow-2xs capitalize"
               >
                 <option value="paragraphs">Paragraphs</option>
                 <option value="sentences">Sentences</option>
@@ -350,7 +350,7 @@ export const GeneratorTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
                 type="checkbox"
                 checked={loremStartWith}
                 onChange={(e) => setLoremStartWith(e.target.checked)}
-                className="rounded border-slate-300 dark:border-slate-700 text-brand-600 bg-white dark:bg-slate-800"
+                className="rounded-sm border-slate-300 dark:border-slate-700 text-brand-600 bg-white dark:bg-slate-800"
               />
               <span>Start with &quot;Lorem ipsum...&quot;</span>
             </label>
@@ -391,12 +391,12 @@ export const GeneratorTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
                 type="checkbox"
                 checked={hashUpper}
                 onChange={(e) => setHashUpper(e.target.checked)}
-                className="rounded border-slate-300 dark:border-slate-700 text-brand-600 focus:ring-brand-500 bg-white dark:bg-slate-800"
+                className="rounded-sm border-slate-300 dark:border-slate-700 text-brand-600 focus:ring-brand-500 bg-white dark:bg-slate-800"
               />
               <span>UPPERCASE Hex</span>
             </label>
             {hashAlgo === "SHA-1" && (
-              <span className="text-[11px] text-amber-400 bg-amber-500/10 border border-amber-500/20 px-2 py-0.5 rounded">
+              <span className="text-[11px] text-amber-400 bg-amber-500/10 border border-amber-500/20 px-2 py-0.5 rounded-sm">
                 ⚠️ Legacy: SHA-1 is weak for security
               </span>
             )}

@@ -47,7 +47,7 @@ export const TwoWayLayout: React.FC<WorkspaceProps> = ({
   return (
     <div className="space-y-6">
       {/* 1. Bidirectional Direction Selector & Options */}
-      <div className="p-4 sm:p-5 rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white/70 dark:bg-slate-900/60 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="p-4 sm:p-5 rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white/70 dark:bg-slate-900/60 shadow-2xs flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div className="flex items-center gap-2">
           <ArrowLeftRight size={16} className="text-brand-600 dark:text-brand-400" />
           <span className="text-xs font-bold text-slate-800 dark:text-slate-200 uppercase tracking-wider">
@@ -65,7 +65,7 @@ export const TwoWayLayout: React.FC<WorkspaceProps> = ({
       {/* 2. Side-by-Side Synced Workspaces */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 relative">
         {/* Source Workspace - Editable Surface */}
-        <div className="flex flex-col rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white/90 dark:bg-slate-900/70 overflow-hidden shadow-xs focus-within:border-brand-500/40 focus-within:ring-2 focus-within:ring-brand-500/10 transition-all duration-150">
+        <div className="flex flex-col rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white/90 dark:bg-slate-900/70 overflow-hidden shadow-2xs focus-within:border-brand-500/40 focus-within:ring-2 focus-within:ring-brand-500/10 transition-all duration-150">
           <div className="flex items-center justify-between px-4 py-3 border-b border-slate-200/70 dark:border-slate-800/80 bg-slate-50/70 dark:bg-slate-950/40">
             <span className="text-xs font-bold text-slate-800 dark:text-slate-200 flex items-center gap-2 tracking-tight">
               <FileCode size={14} className="text-brand-600 dark:text-brand-400" />
@@ -104,7 +104,7 @@ export const TwoWayLayout: React.FC<WorkspaceProps> = ({
             placeholder={inputPlaceholder}
             aria-label="Source text input"
             rows={12}
-            className="w-full p-4 sm:p-5 bg-transparent text-slate-900 dark:text-slate-100 placeholder-slate-400/90 dark:placeholder-slate-500 font-mono text-sm sm:text-base resize-y focus:outline-none leading-relaxed min-h-[220px]"
+            className="w-full p-4 sm:p-5 bg-transparent text-slate-900 dark:text-slate-100 placeholder-slate-400/90 dark:placeholder-slate-500 font-mono text-sm sm:text-base resize-y focus:outline-hidden leading-relaxed min-h-[220px]"
           />
 
           <div className="flex items-center justify-between px-4 py-2.5 border-t border-slate-200/70 dark:border-slate-800/80 bg-slate-50/60 dark:bg-slate-950/60 text-xs text-slate-500 dark:text-slate-400 font-mono">
@@ -114,7 +114,7 @@ export const TwoWayLayout: React.FC<WorkspaceProps> = ({
         </div>
 
         {/* Target Converted Workspace - Read-Only Surface */}
-        <div className="flex flex-col rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-slate-50/60 dark:bg-slate-950/40 overflow-hidden shadow-xs transition-all duration-150">
+        <div className="flex flex-col rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-slate-50/60 dark:bg-slate-950/40 overflow-hidden shadow-2xs transition-all duration-150">
           <div className="flex items-center justify-between px-4 py-3 border-b border-slate-200/70 dark:border-slate-800/80 bg-slate-50/80 dark:bg-slate-950/60">
             <div className="flex items-center gap-2">
               <span className="text-xs font-bold text-slate-800 dark:text-slate-200 tracking-tight">
@@ -158,7 +158,7 @@ export const TwoWayLayout: React.FC<WorkspaceProps> = ({
             placeholder={outputPlaceholder}
             aria-label="Converted output"
             rows={12}
-            className="w-full p-4 sm:p-5 bg-transparent text-slate-900 dark:text-slate-100 placeholder-slate-400/90 dark:placeholder-slate-500 font-mono text-sm sm:text-base resize-y focus:outline-none leading-relaxed min-h-[220px] cursor-default"
+            className="w-full p-4 sm:p-5 bg-transparent text-slate-900 dark:text-slate-100 placeholder-slate-400/90 dark:placeholder-slate-500 font-mono text-sm sm:text-base resize-y focus:outline-hidden leading-relaxed min-h-[220px] cursor-default"
           />
 
           <div className="flex items-center justify-between px-4 py-2.5 border-t border-slate-200/70 dark:border-slate-800/80 bg-slate-50/60 dark:bg-slate-950/60 text-xs text-slate-500 dark:text-slate-400 font-mono">

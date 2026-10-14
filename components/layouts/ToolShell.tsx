@@ -109,11 +109,11 @@ export const ToolShell: React.FC<ToolShellProps> = ({
       </nav>
 
       {/* Tool Header Card - Modern Aurora Glass */}
-      <div className="rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white/70 dark:bg-slate-900/50 p-3 sm:p-6 shadow-xs">
+      <div className="rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white/70 dark:bg-slate-900/50 p-3 sm:p-6 shadow-2xs">
         <div className="flex items-start sm:items-center justify-between gap-2 sm:gap-5">
           <div className="flex min-w-0 items-start gap-2 sm:gap-4">
             <div
-              className={`hidden sm:flex w-12 h-12 sm:w-14 sm:h-14 rounded-2xl flex items-center justify-center shrink-0 border ${theme.bg} ${theme.border} shadow-xs transition-transform`}
+              className={`hidden sm:flex w-12 h-12 sm:w-14 sm:h-14 rounded-2xl flex items-center justify-center shrink-0 border ${theme.bg} ${theme.border} shadow-2xs transition-transform`}
               aria-hidden="true"
             >
               <DynamicIcon name={tool.icon} size={24} className={theme.text} />
@@ -236,7 +236,7 @@ export const ToolShell: React.FC<ToolShellProps> = ({
               <button
                 type="button"
                 onClick={() => setShowShortcutsHelp(false)}
-                className="px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white dark:bg-brand-600 dark:hover:bg-brand-500 text-xs font-semibold shadow-xs transition-colors cursor-pointer active:scale-[0.98]"
+                className="px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white dark:bg-brand-600 dark:hover:bg-brand-500 text-xs font-semibold shadow-2xs transition-colors cursor-pointer active:scale-[0.98]"
               >
                 Got it
               </button>

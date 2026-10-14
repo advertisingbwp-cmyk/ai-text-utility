@@ -67,7 +67,7 @@ const RecentToolCard: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
 
   return (
     <div
-      className={`card-3d group relative flex flex-col justify-between rounded-2xl bg-gradient-to-br ${recentTheme.cardBg} ${recentTheme.border} p-3.5 sm:p-4 active:scale-[0.99]`}
+      className={`card-3d group relative flex flex-col justify-between rounded-2xl bg-linear-to-br ${recentTheme.cardBg} ${recentTheme.border} p-3.5 sm:p-4 active:scale-[0.99]`}
     >
       <div>
         <div className="flex items-center justify-between gap-2 mb-2 sm:mb-2.5">
@@ -90,7 +90,7 @@ const RecentToolCard: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
         <h3 className="text-xs sm:text-sm font-bold text-slate-900 dark:text-slate-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors mb-1 line-clamp-1">
           <Link
             href={`/tools/${tool.slug}`}
-            className="focus:outline-none focus:underline after:content-[''] after:absolute after:inset-0 after:rounded-2xl after:z-0"
+            className="focus:outline-hidden focus:underline after:content-[''] after:absolute after:inset-0 after:rounded-2xl after:z-0"
           >
             {tool.name}
           </Link>
@@ -105,12 +105,12 @@ const RecentToolCard: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
           <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-md border truncate ${recentTheme.badge} shadow-2xs backdrop-blur-xs`}>
             {tool.category}
           </span>
-          <span className="text-[9px] font-medium px-1.5 py-0.2 rounded bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20 shrink-0">
+          <span className="text-[9px] font-medium px-1.5 py-0.2 rounded-sm bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20 shrink-0">
             Recent
           </span>
         </div>
         <span
-          className="relative z-10 w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-white/70 dark:bg-slate-800/70 border border-white/80 dark:border-slate-700/60 text-slate-500 dark:text-slate-400 group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:to-indigo-600 group-hover:text-white group-hover:border-transparent group-hover:shadow-[0_4px_10px_rgba(37,99,235,0.30)] flex items-center justify-center transition-all shadow-2xs shrink-0"
+          className="relative z-10 w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-white/70 dark:bg-slate-800/70 border border-white/80 dark:border-slate-700/60 text-slate-500 dark:text-slate-400 group-hover:bg-linear-to-r group-hover:from-blue-600 group-hover:to-indigo-600 group-hover:text-white group-hover:border-transparent group-hover:shadow-[0_4px_10px_rgba(37,99,235,0.30)] flex items-center justify-center transition-all shadow-2xs shrink-0"
           aria-hidden="true"
         >
           <ArrowRight size={12} className="transition-transform duration-200 group-hover:translate-x-0.5" />
@@ -174,7 +174,7 @@ export function HomeToolsClient({ children }: { children: React.ReactNode }) {
       {/* Floating Search Bar (Balanced SaaS Capsule) */}
       <div className="relative group w-full max-w-xl mx-auto -mt-2 sm:-mt-3">
         {/* Subtle Outer Ambient Glows: Soft Blue & Violet Accent */}
-        <div className="absolute -inset-1 bg-gradient-to-r from-blue-500/15 via-sky-400/10 to-purple-500/20 rounded-full blur-xs opacity-30 group-hover:opacity-60 transition duration-300 -z-10" />
+        <div className="absolute -inset-1 bg-linear-to-r from-blue-500/15 via-sky-400/10 to-purple-500/20 rounded-full blur-xs opacity-30 group-hover:opacity-60 transition duration-300 -z-10" />
         
         <button
           type="button"
@@ -190,7 +190,7 @@ export function HomeToolsClient({ children }: { children: React.ReactNode }) {
           </div>
           <div className="flex items-center shrink-0">
             <div className="relative">
-              <div className="relative w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 text-white flex items-center justify-center shadow-3d-button group-hover:scale-105 active:scale-95 transition-all">
+              <div className="relative w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-linear-to-r from-blue-600 via-indigo-600 to-violet-600 text-white flex items-center justify-center shadow-3d-button group-hover:scale-105 active:scale-95 transition-all">
                 <ArrowRight size={13} />
               </div>
             </div>
@@ -219,7 +219,7 @@ export function HomeToolsClient({ children }: { children: React.ReactNode }) {
             onClick={() => { setOnlyFavorites((prev) => !prev); if (!onlyFavorites) setSelectedCategory("ALL"); }}
             className={`pill-3d inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold whitespace-nowrap cursor-pointer ${
               onlyFavorites
-                ? "bg-amber-500/15 text-amber-700 dark:text-amber-300 border border-amber-500/40 shadow-xs backdrop-blur-md"
+                ? "bg-amber-500/15 text-amber-700 dark:text-amber-300 border border-amber-500/40 shadow-2xs backdrop-blur-md"
                 : "pill-glass-inactive"
             }`}
           >
@@ -262,7 +262,7 @@ export function HomeToolsClient({ children }: { children: React.ReactNode }) {
         <section id="recent" aria-labelledby="recent-heading" className="space-y-3.5">
           <div className="flex items-center justify-between pb-1">
             <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-full bg-blue-500/10 text-brand-600 dark:text-brand-400 flex items-center justify-center border border-blue-500/20 backdrop-blur-sm shadow-2xs">
+              <div className="w-8 h-8 rounded-full bg-blue-500/10 text-brand-600 dark:text-brand-400 flex items-center justify-center border border-blue-500/20 backdrop-blur-xs shadow-2xs">
                 <Clock size={16} />
               </div>
               <div>
@@ -306,7 +306,7 @@ export function HomeToolsClient({ children }: { children: React.ReactNode }) {
               >
                 <div className="flex items-center justify-between border-b border-[rgba(100,120,160,0.12)] dark:border-slate-800/80 pb-2.5">
                   <div className="flex items-center gap-3">
-                    <div className={`w-9 h-9 rounded-xl flex items-center justify-center border shadow-xs ${catTheme.bg} ${catTheme.border} icon-3d`}>
+                    <div className={`w-9 h-9 rounded-xl flex items-center justify-center border shadow-2xs ${catTheme.bg} ${catTheme.border} icon-3d`}>
                       <DynamicIcon name={cat.icon} size={18} className={catTheme.text} />
                     </div>
                     <div>

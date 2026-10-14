@@ -70,7 +70,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
             <Command.Input
               aria-label="Search tools"
               placeholder={`Search all ${TOOLS_REGISTRY.length} utilities by name, category, or task...`}
-              className="w-full bg-transparent text-sm sm:text-base text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 outline-none"
+              className="w-full bg-transparent text-sm sm:text-base text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 outline-hidden"
             />
             <button
               type="button"
@@ -90,7 +90,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
               aria-pressed={selectedCategory === "ALL"}
               className={`px-2.5 py-1 rounded-lg text-[11px] font-semibold transition-all whitespace-nowrap cursor-pointer ${
                 selectedCategory === "ALL"
-                  ? "bg-slate-900 text-white dark:bg-brand-600 dark:text-white shadow-xs"
+                  ? "bg-slate-900 text-white dark:bg-brand-600 dark:text-white shadow-2xs"
                   : "bg-white/70 dark:bg-slate-800 border border-white/70 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
               }`}
             >
@@ -104,7 +104,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
                 aria-pressed={selectedCategory === cat.name}
                 className={`px-2.5 py-1 rounded-lg text-[11px] font-semibold transition-all whitespace-nowrap cursor-pointer ${
                   selectedCategory === cat.name
-                    ? "bg-slate-900 text-white dark:bg-brand-600 dark:text-white shadow-xs"
+                    ? "bg-slate-900 text-white dark:bg-brand-600 dark:text-white shadow-2xs"
                     : "bg-white/70 dark:bg-slate-800 border border-white/70 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
                 }`}
               >
@@ -148,7 +148,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
                               {tool.name}
                             </span>
                             {tool.category === "AI Magic" && (
-                              <span className="inline-flex items-center gap-0.5 text-[10px] font-bold px-1.5 py-0.2 rounded bg-brand-500/10 text-brand-600 dark:text-brand-400">
+                              <span className="inline-flex items-center gap-0.5 text-[10px] font-bold px-1.5 py-0.2 rounded-sm bg-brand-500/10 text-brand-600 dark:text-brand-400">
                                 <Sparkles size={10} /> AI
                               </span>
                             )}
@@ -170,10 +170,10 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
 
           <div className="flex items-center justify-between border-t border-[rgba(100,120,160,0.12)] dark:border-slate-800 px-4 py-2.5 bg-white/60 dark:bg-slate-950/60 text-xs text-slate-500 dark:text-slate-400 font-mono backdrop-blur-xs">
             <span>
-              Use <kbd className="bg-white/80 dark:bg-slate-800 px-1.5 py-0.5 rounded border border-white/80 dark:border-slate-700 text-slate-700 dark:text-slate-300 shadow-2xs">↑</kbd> <kbd className="bg-white/80 dark:bg-slate-800 px-1.5 py-0.5 rounded border border-white/80 dark:border-slate-700 text-slate-700 dark:text-slate-300 shadow-2xs">↓</kbd> to navigate
+              Use <kbd className="bg-white/80 dark:bg-slate-800 px-1.5 py-0.5 rounded-sm border border-white/80 dark:border-slate-700 text-slate-700 dark:text-slate-300 shadow-2xs">↑</kbd> <kbd className="bg-white/80 dark:bg-slate-800 px-1.5 py-0.5 rounded-sm border border-white/80 dark:border-slate-700 text-slate-700 dark:text-slate-300 shadow-2xs">↓</kbd> to navigate
             </span>
             <span>
-              <kbd className="bg-white/80 dark:bg-slate-800 px-1.5 py-0.5 rounded border border-white/80 dark:border-slate-700 text-slate-700 dark:text-slate-300 shadow-2xs">Esc</kbd> to close
+              <kbd className="bg-white/80 dark:bg-slate-800 px-1.5 py-0.5 rounded-sm border border-white/80 dark:border-slate-700 text-slate-700 dark:text-slate-300 shadow-2xs">Esc</kbd> to close
             </span>
           </div>
         </Command>

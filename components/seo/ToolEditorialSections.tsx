@@ -317,7 +317,7 @@ export const PasswordGeneratorEditorial: React.FC = () => {
             According to industry cybersecurity reports, over 80% of data breaches stem from stolen, reused, or easily guessed passwords. Predictable patterns such as replacing &apos;e&apos; with &apos;3&apos; or appending an exclamation mark are systematically tested by automated cracking software within fractions of a second.
           </p>
           <p>
-            Our <strong className="text-slate-900 dark:text-white font-semibold">Strong Password Generator</strong> uses your operating system&apos;s cryptographically secure pseudo-random number generator (<code className="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 font-mono text-xs">crypto.getRandomValues()</code>) to guarantee high mathematical entropy, rendering brute-force attacks computationally infeasible.
+            Our <strong className="text-slate-900 dark:text-white font-semibold">Strong Password Generator</strong> uses your operating system&apos;s cryptographically secure pseudo-random number generator (<code className="px-1.5 py-0.5 rounded-sm bg-slate-100 dark:bg-slate-800 font-mono text-xs">crypto.getRandomValues()</code>) to guarantee high mathematical entropy, rendering brute-force attacks computationally infeasible.
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
@@ -530,13 +530,13 @@ export const RegexTesterEditorial: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="p-4 rounded-xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-2">
             <span className="text-xs font-semibold text-slate-900 dark:text-white">Standard Email Address Validation</span>
-            <div className="p-2 rounded bg-slate-100 dark:bg-slate-800/80 font-mono text-[11px] text-slate-800 dark:text-slate-200 overflow-x-auto">
+            <div className="p-2 rounded-sm bg-slate-100 dark:bg-slate-800/80 font-mono text-[11px] text-slate-800 dark:text-slate-200 overflow-x-auto">
               ^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]&#123;2,&#125;$
             </div>
           </div>
           <div className="p-4 rounded-xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-2">
             <span className="text-xs font-semibold text-slate-900 dark:text-white">HTTP / HTTPS URL Matching</span>
-            <div className="p-2 rounded bg-slate-100 dark:bg-slate-800/80 font-mono text-[11px] text-slate-800 dark:text-slate-200 overflow-x-auto">
+            <div className="p-2 rounded-sm bg-slate-100 dark:bg-slate-800/80 font-mono text-[11px] text-slate-800 dark:text-slate-200 overflow-x-auto">
               https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]&#123;1,256&#125;\.[a-zA-Z0-9()]&#123;1,6&#125;\b([-a-zA-Z0-9()@:%_+.~#?&amp;//=]*)
             </div>
           </div>
@@ -911,7 +911,7 @@ export const SlugGeneratorEditorial: React.FC = () => {
 
         <div className="p-6 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-4 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
           <p>
-            A <strong className="text-slate-900 dark:text-white font-semibold">URL slug</strong> is the human-readable, identifying portion at the end of a web address that specifies a particular page or post. For instance, in the URL <code className="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 font-mono text-xs text-brand-600 dark:text-brand-400">https://example.com/blog/how-to-improve-website-seo</code>, the slug is <code className="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 font-mono text-xs">how-to-improve-website-seo</code>. Slugs provide visitors and search engine crawlers with an immediate, clear preview of the topic before the page even loads.
+            A <strong className="text-slate-900 dark:text-white font-semibold">URL slug</strong> is the human-readable, identifying portion at the end of a web address that specifies a particular page or post. For instance, in the URL <code className="px-1.5 py-0.5 rounded-sm bg-slate-100 dark:bg-slate-800 font-mono text-xs text-brand-600 dark:text-brand-400">https://example.com/blog/how-to-improve-website-seo</code>, the slug is <code className="px-1.5 py-0.5 rounded-sm bg-slate-100 dark:bg-slate-800 font-mono text-xs">how-to-improve-website-seo</code>. Slugs provide visitors and search engine crawlers with an immediate, clear preview of the topic before the page even loads.
           </p>
           <p>
             A <strong className="text-slate-900 dark:text-white font-semibold">slug generator</strong> automates the transition from editorial headlines to web-ready permalinks. Human titles naturally contain spaces, capital letters, punctuation marks, and special symbols that are either illegal in URLs or cause messy percent-encoded sequences (such as <code className="font-mono text-xs">%20</code> for spaces). The generator sanitizes, normalizes, and converts arbitrary text into a standardized, kebab-case string instantly.
@@ -3528,7 +3528,7 @@ export const UnixTimestampEditorial: React.FC = () => {
                 <span className="font-bold text-slate-900 dark:text-white text-xs uppercase tracking-wider">
                   Epoch Seconds (10 Digits)
                 </span>
-                <span className="text-[11px] font-mono text-brand-600 dark:text-brand-400 bg-brand-50 dark:bg-brand-950/60 px-2 py-0.5 rounded border border-brand-200 dark:border-brand-800">
+                <span className="text-[11px] font-mono text-brand-600 dark:text-brand-400 bg-brand-50 dark:bg-brand-950/60 px-2 py-0.5 rounded-sm border border-brand-200 dark:border-brand-800">
                   Standard Unix / APIs
                 </span>
               </div>
@@ -3542,7 +3542,7 @@ export const UnixTimestampEditorial: React.FC = () => {
                 <span className="font-bold text-slate-900 dark:text-white text-xs uppercase tracking-wider">
                   Epoch Milliseconds (13 Digits)
                 </span>
-                <span className="text-[11px] font-mono text-purple-600 dark:text-purple-400 bg-purple-50 dark:bg-purple-950/60 px-2 py-0.5 rounded border border-purple-200 dark:border-purple-800">
+                <span className="text-[11px] font-mono text-purple-600 dark:text-purple-400 bg-purple-50 dark:bg-purple-950/60 px-2 py-0.5 rounded-sm border border-purple-200 dark:border-purple-800">
                   JavaScript / Java
                 </span>
               </div>
@@ -3934,7 +3934,7 @@ export const FancyFontsEditorial: React.FC = () => {
 
         <div className="p-6 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-4 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
           <p>
-            A <strong className="text-slate-900 dark:text-white font-semibold">fancy font generator</strong> is a free web-based typography utility that converts standard alphanumeric text into eye-catching decorative styles, gothic blackletter, handwritten cursive, aesthetic symbols, and Kaomoji wings. Unlike word processors where changing typography requires selecting and installing true font files (<code className="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 font-mono text-xs">.ttf</code> or <code className="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 font-mono text-xs">.otf</code>), this generator utilizes international Unicode characters that can be copied and pasted anywhere plain text is accepted.
+            A <strong className="text-slate-900 dark:text-white font-semibold">fancy font generator</strong> is a free web-based typography utility that converts standard alphanumeric text into eye-catching decorative styles, gothic blackletter, handwritten cursive, aesthetic symbols, and Kaomoji wings. Unlike word processors where changing typography requires selecting and installing true font files (<code className="px-1.5 py-0.5 rounded-sm bg-slate-100 dark:bg-slate-800 font-mono text-xs">.ttf</code> or <code className="px-1.5 py-0.5 rounded-sm bg-slate-100 dark:bg-slate-800 font-mono text-xs">.otf</code>), this generator utilizes international Unicode characters that can be copied and pasted anywhere plain text is accepted.
           </p>
           <p>
             Whether you are crafting an aesthetic bio for Instagram, formatting TikTok video captions, styling Discord channel categories and server roles, or customizing gamer tags for Free Fire and Roblox, the generator provides instant browser-based generation directly in your browser with zero software downloads and local client-side processing.
@@ -4003,8 +4003,8 @@ export const FancyFontsEditorial: React.FC = () => {
         <div className="p-6 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-900/40 shadow-subtle space-y-4 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
           <p>
             When you type in Microsoft Word or Adobe Photoshop, changing the typography involves selecting a
-            font file—such as a TrueType (<code className="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 font-mono text-xs">.ttf</code>)
-            or OpenType (<code className="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 font-mono text-xs">.otf</code>) asset.
+            font file—such as a TrueType (<code className="px-1.5 py-0.5 rounded-sm bg-slate-100 dark:bg-slate-800 font-mono text-xs">.ttf</code>)
+            or OpenType (<code className="px-1.5 py-0.5 rounded-sm bg-slate-100 dark:bg-slate-800 font-mono text-xs">.otf</code>) asset.
             However, social networks like Instagram, TikTok, Twitter/X, and Discord restrict input fields to pure plain text strings,
             stripping away external CSS font styling.
           </p>
@@ -4597,7 +4597,7 @@ export const AiFriendlyEditorial: React.FC = () => {
                 <span className="text-xs font-bold text-rose-700 dark:text-rose-400 uppercase tracking-wider">
                   Before: Direct / Blunt Draft
                 </span>
-                <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-rose-100 dark:bg-rose-900/40 text-rose-700 dark:text-rose-300">
+                <span className="text-[11px] font-mono px-2 py-0.5 rounded-sm bg-rose-100 dark:bg-rose-900/40 text-rose-700 dark:text-rose-300">
                   Curt &amp; Demanding
                 </span>
               </div>
@@ -4616,7 +4616,7 @@ export const AiFriendlyEditorial: React.FC = () => {
                 <span className="text-xs font-bold text-emerald-700 dark:text-emerald-400 uppercase tracking-wider">
                   After: Representative Friendly Rewrite
                 </span>
-                <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300">
+                <span className="text-[11px] font-mono px-2 py-0.5 rounded-sm bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300">
                   Warm &amp; Approachable
                 </span>
               </div>
@@ -5008,7 +5008,7 @@ export const RemoveSpecialCharsEditorial: React.FC = () => {
             When importing raw data, copying text from PDF documents, or preparing text for database queries and URL slugs, strings frequently contain unwanted symbols, stray punctuation, currency signs, and non-printable control characters. Manually deleting these characters is tedious, error-prone, and impractical for large datasets.
           </p>
           <p>
-            The <strong>Remove Special Characters</strong> tool provides instant, client-side text filtering. By leveraging modern Unicode regular expressions (specifically the Unicode letter property <code className="text-brand-600 dark:text-brand-400 bg-slate-100 dark:bg-slate-800 px-1 py-0.5 rounded font-mono text-[11px]">\p&#123;L&#125;</code> and number property <code className="text-brand-600 dark:text-brand-400 bg-slate-100 dark:bg-slate-800 px-1 py-0.5 rounded font-mono text-[11px]">\p&#123;N&#125;</code>), the tool accurately distinguishes between valid multilingual letters, numbers, and intrusive non-alphanumeric noise.
+            The <strong>Remove Special Characters</strong> tool provides instant, client-side text filtering. By leveraging modern Unicode regular expressions (specifically the Unicode letter property <code className="text-brand-600 dark:text-brand-400 bg-slate-100 dark:bg-slate-800 px-1 py-0.5 rounded-sm font-mono text-[11px]">\p&#123;L&#125;</code> and number property <code className="text-brand-600 dark:text-brand-400 bg-slate-100 dark:bg-slate-800 px-1 py-0.5 rounded-sm font-mono text-[11px]">\p&#123;N&#125;</code>), the tool accurately distinguishes between valid multilingual letters, numbers, and intrusive non-alphanumeric noise.
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
             <div className="p-3.5 rounded-xl border border-slate-200/80 dark:border-slate-800 bg-slate-50 dark:bg-slate-950/60 space-y-1">
@@ -5153,7 +5153,7 @@ export const RemoveSpecialCharsEditorial: React.FC = () => {
               1. Alphanumeric Only (A-Z, 0-9, and Spaces)
             </h3>
             <p className="leading-relaxed">
-              This is the strictest filtering mode. Under the hood, it constructs the pattern <code className="text-brand-600 dark:text-brand-400 bg-slate-100 dark:bg-slate-800 px-1 py-0.5 rounded font-mono text-[11px]">/[^\p&#123;L&#125;\p&#123;N&#125; \r\n\t]/gu</code>. Any character that is not a Unicode letter or a Unicode number is permanently removed. This is the optimal mode when generating alphanumeric serials, cleaning input tokens for natural language processing, or stripping all punctuation marks from raw prose.
+              This is the strictest filtering mode. Under the hood, it constructs the pattern <code className="text-brand-600 dark:text-brand-400 bg-slate-100 dark:bg-slate-800 px-1 py-0.5 rounded-sm font-mono text-[11px]">/[^\p&#123;L&#125;\p&#123;N&#125; \r\n\t]/gu</code>. Any character that is not a Unicode letter or a Unicode number is permanently removed. This is the optimal mode when generating alphanumeric serials, cleaning input tokens for natural language processing, or stripping all punctuation marks from raw prose.
             </p>
           </div>
 
@@ -5166,16 +5166,16 @@ export const RemoveSpecialCharsEditorial: React.FC = () => {
               In writing and editorial workflows, you often want to strip bizarre non-printable symbols, math operators (<code className="text-[11px] font-mono">+ = &lt; &gt; ^ ~</code>), and currency signs (<code className="text-[11px] font-mono">$ € £ ¥</code>) without destroying sentence structure. The <strong>Keep Standard Punctuation</strong> mode preserves exactly these characters:
             </p>
             <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-950/60 border border-slate-200/80 dark:border-slate-800/80 font-mono text-xs text-slate-800 dark:text-slate-200 flex flex-wrap gap-2">
-              <span className="px-2 py-0.5 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">. Period</span>
-              <span className="px-2 py-0.5 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">, Comma</span>
-              <span className="px-2 py-0.5 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">! Exclamation</span>
-              <span className="px-2 py-0.5 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">? Question</span>
-              <span className="px-2 py-0.5 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">&apos; Single Quote</span>
-              <span className="px-2 py-0.5 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">&quot; Double Quote</span>
-              <span className="px-2 py-0.5 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">- Hyphen</span>
-              <span className="px-2 py-0.5 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">: Colon</span>
-              <span className="px-2 py-0.5 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">; Semicolon</span>
-              <span className="px-2 py-0.5 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">( ) Parentheses</span>
+              <span className="px-2 py-0.5 rounded-sm bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">. Period</span>
+              <span className="px-2 py-0.5 rounded-sm bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">, Comma</span>
+              <span className="px-2 py-0.5 rounded-sm bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">! Exclamation</span>
+              <span className="px-2 py-0.5 rounded-sm bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">? Question</span>
+              <span className="px-2 py-0.5 rounded-sm bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">&apos; Single Quote</span>
+              <span className="px-2 py-0.5 rounded-sm bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">&quot; Double Quote</span>
+              <span className="px-2 py-0.5 rounded-sm bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">- Hyphen</span>
+              <span className="px-2 py-0.5 rounded-sm bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">: Colon</span>
+              <span className="px-2 py-0.5 rounded-sm bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">; Semicolon</span>
+              <span className="px-2 py-0.5 rounded-sm bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">( ) Parentheses</span>
             </div>
             <p className="text-xs text-slate-500 dark:text-slate-400">
               Everything outside this whitelist—including hashtags, asterisks, brackets, and emojis—is safely removed.
@@ -5511,7 +5511,7 @@ export const RemoveExtraSpacesEditorial: React.FC = () => {
             Irregular spacing is one of the most common text formatting headaches. Double spaces after periods, errant spacebar hits between words, erratic gaps pasted from PDF files or tables, and invisible trailing spaces at the ends of lines can ruin the appearance of professional copy, break programming scripts, and cause search indexing anomalies.
           </p>
           <p>
-            The <strong>Remove Extra Spaces</strong> tool fixes erratic spacing instantly and safely. It provides two purpose-built modes: a layout-preserving <strong>Spaces Only</strong> mode that collapses repeated ASCII spaces (<code className="text-brand-600 dark:text-brand-400 bg-slate-100 dark:bg-slate-800 px-1 py-0.5 rounded font-mono text-[11px]">U+0020</code>) while keeping tab indentations and line breaks intact, and an <strong>All Whitespace</strong> mode that flattens any sequence of whitespace characters into a single-line, trimmed string.
+            The <strong>Remove Extra Spaces</strong> tool fixes erratic spacing instantly and safely. It provides two purpose-built modes: a layout-preserving <strong>Spaces Only</strong> mode that collapses repeated ASCII spaces (<code className="text-brand-600 dark:text-brand-400 bg-slate-100 dark:bg-slate-800 px-1 py-0.5 rounded-sm font-mono text-[11px]">U+0020</code>) while keeping tab indentations and line breaks intact, and an <strong>All Whitespace</strong> mode that flattens any sequence of whitespace characters into a single-line, trimmed string.
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
             <div className="p-3.5 rounded-xl border border-slate-200/80 dark:border-slate-800 bg-slate-50 dark:bg-slate-950/60 space-y-1">

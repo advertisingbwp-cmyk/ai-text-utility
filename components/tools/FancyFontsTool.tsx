@@ -78,7 +78,7 @@ export const FancyFontsTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
             <button
               type="button"
               onClick={() => setInput("Stylish Text 2026")}
-              className="inline-flex items-center justify-center min-h-[36px] sm:min-h-[40px] px-3 py-1.5 text-xs font-semibold text-slate-700 dark:text-slate-200 bg-white dark:bg-slate-800/90 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-700/80 rounded-xl transition-all shadow-xs focus:outline-none focus:ring-2 focus:ring-brand-500/40 cursor-pointer"
+              className="inline-flex items-center justify-center min-h-[36px] sm:min-h-[40px] px-3 py-1.5 text-xs font-semibold text-slate-700 dark:text-slate-200 bg-white dark:bg-slate-800/90 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-700/80 rounded-xl transition-all shadow-2xs focus:outline-hidden focus:ring-2 focus:ring-brand-500/40 cursor-pointer"
             >
               Load Sample
             </button>
@@ -89,7 +89,7 @@ export const FancyFontsTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
                 setOutput("");
               }}
               disabled={!input}
-              className="inline-flex items-center justify-center min-h-[36px] sm:min-h-[40px] px-3 py-1.5 text-xs font-semibold text-slate-600 dark:text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/20 border border-slate-200 dark:border-slate-700/80 disabled:opacity-40 disabled:pointer-events-none rounded-xl transition-all shadow-xs focus:outline-none focus:ring-2 focus:ring-rose-400/40 cursor-pointer"
+              className="inline-flex items-center justify-center min-h-[36px] sm:min-h-[40px] px-3 py-1.5 text-xs font-semibold text-slate-600 dark:text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/20 border border-slate-200 dark:border-slate-700/80 disabled:opacity-40 disabled:pointer-events-none rounded-xl transition-all shadow-2xs focus:outline-hidden focus:ring-2 focus:ring-rose-400/40 cursor-pointer"
               title="Clear text"
             >
               Clear
@@ -103,7 +103,7 @@ export const FancyFontsTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
             onChange={(e) => setInput(e.target.value)}
             placeholder="Type your text here (e.g. your name, bio, gaming nickname, or message)..."
             rows={3}
-            className="w-full bg-transparent text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 font-sans text-base sm:text-lg resize-y focus:outline-none leading-relaxed"
+            className="w-full bg-transparent text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 font-sans text-base sm:text-lg resize-y focus:outline-hidden leading-relaxed"
           />
         </div>
 
@@ -128,7 +128,7 @@ export const FancyFontsTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
                 aria-pressed={fancyCategoryFilter === cat.id}
               className={`px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all cursor-pointer ${
                 fancyCategoryFilter === cat.id
-                  ? "bg-slate-900 text-white dark:bg-brand-600 dark:text-white shadow-xs"
+                  ? "bg-slate-900 text-white dark:bg-brand-600 dark:text-white shadow-2xs"
                   : "bg-white dark:bg-slate-800/80 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 border border-slate-200/90 dark:border-slate-700/80"
               }`}
             >
@@ -144,7 +144,7 @@ export const FancyFontsTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
             aria-label="Filter font styles"
             value={fancySearch}
             onChange={(e) => setFancySearch(e.target.value)}
-            className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 rounded-xl pl-3.5 pr-8 py-2 text-xs text-slate-900 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none transition-all shadow-xs"
+            className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 rounded-xl pl-3.5 pr-8 py-2 text-xs text-slate-900 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-hidden transition-all shadow-2xs"
           />
           {fancySearch && (
             <button
@@ -169,7 +169,7 @@ export const FancyFontsTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
           {filteredStyles.map((item) => (
             <div
               key={item.id}
-              className="p-3.5 sm:p-4 rounded-xl border border-slate-200/90 dark:border-slate-800/90 bg-white/80 dark:bg-slate-900/50 hover:bg-white dark:hover:bg-slate-900/80 hover:border-slate-300 dark:hover:border-slate-700 transition-all flex flex-col justify-between gap-2.5 group shadow-xs hover:shadow-cardHover"
+              className="p-3.5 sm:p-4 rounded-xl border border-slate-200/90 dark:border-slate-800/90 bg-white/80 dark:bg-slate-900/50 hover:bg-white dark:hover:bg-slate-900/80 hover:border-slate-300 dark:hover:border-slate-700 transition-all flex flex-col justify-between gap-2.5 group shadow-2xs hover:shadow-cardHover"
             >
               <div className="flex items-center justify-between gap-2 border-b border-slate-100 dark:border-slate-800/80 pb-2">
                 <span className="text-xs font-semibold text-slate-600 dark:text-slate-400 truncate tracking-normal">
@@ -177,7 +177,7 @@ export const FancyFontsTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => 
                 </span>
                 <CopyButton text={item.preview} />
               </div>
-              <div className="text-base sm:text-lg font-medium text-slate-900 dark:text-slate-100 break-words select-all leading-normal py-0.5 min-h-[38px] flex items-center font-sans">
+              <div className="text-base sm:text-lg font-medium text-slate-900 dark:text-slate-100 wrap-break-word select-all leading-normal py-0.5 min-h-[38px] flex items-center font-sans">
                 {item.preview}
               </div>
             </div>

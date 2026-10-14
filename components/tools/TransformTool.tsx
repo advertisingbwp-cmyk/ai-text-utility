@@ -302,7 +302,7 @@ export const TransformTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
                 aria-label="Conversion direction"
                 value={tabDir}
                 onChange={(e) => setTabDir(e.target.value as "tabs-to-spaces" | "spaces-to-tabs")}
-                className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1 text-slate-800 dark:text-slate-200 focus:outline-none focus:border-brand-500 shadow-2xs"
+                className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1 text-slate-800 dark:text-slate-200 focus:outline-hidden focus:border-brand-500 shadow-2xs"
               >
                 <option value="tabs-to-spaces">Tabs → Spaces</option>
                 <option value="spaces-to-tabs">Spaces → Tabs</option>
@@ -318,7 +318,7 @@ export const TransformTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
                 aria-label="Spaces per tab"
                 value={tabWidth}
                 onChange={(e) => setTabWidth(Math.max(1, Math.min(8, parseInt(e.target.value) || 2)))}
-                className="w-14 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2 py-1 text-slate-800 dark:text-slate-200 font-mono text-center focus:outline-none focus:border-brand-500 shadow-2xs"
+                className="w-14 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2 py-1 text-slate-800 dark:text-slate-200 font-mono text-center focus:outline-hidden focus:border-brand-500 shadow-2xs"
               />
             </div>
           </div>
@@ -333,7 +333,7 @@ export const TransformTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
                 aria-label="Slug separator"
                 value={slugSep}
                 onChange={(e) => setSlugSep(e.target.value)}
-                className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1 text-slate-800 dark:text-slate-200 focus:outline-none focus:border-brand-500 shadow-2xs"
+                className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1 text-slate-800 dark:text-slate-200 focus:outline-hidden focus:border-brand-500 shadow-2xs"
               >
                 <option value="-">Hyphen (-)</option>
                 <option value="_">Underscore (_)</option>
@@ -346,7 +346,7 @@ export const TransformTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
                 type="checkbox"
                 checked={slugLower}
                 onChange={(e) => setSlugLower(e.target.checked)}
-                className="rounded border-slate-300 dark:border-slate-700 text-brand-600 focus:ring-brand-500 bg-white dark:bg-slate-800"
+                className="rounded-sm border-slate-300 dark:border-slate-700 text-brand-600 focus:ring-brand-500 bg-white dark:bg-slate-800"
               />
               <span>Lowercase Output</span>
             </label>
@@ -363,7 +363,7 @@ export const TransformTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
                 aria-label="Starting line number"
                 value={lineNumStart}
                 onChange={(e) => setLineNumStart(parseInt(e.target.value) || 1)}
-                className="w-16 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2 py-1 text-slate-800 dark:text-slate-200 font-mono text-center focus:outline-none focus:border-brand-500 shadow-2xs"
+                className="w-16 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2 py-1 text-slate-800 dark:text-slate-200 font-mono text-center focus:outline-hidden focus:border-brand-500 shadow-2xs"
               />
             </div>
 
@@ -373,7 +373,7 @@ export const TransformTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
                 aria-label="Line number separator"
                 value={lineNumDelim}
                 onChange={(e) => setLineNumDelim(e.target.value)}
-                className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1 text-slate-800 dark:text-slate-200 focus:outline-none focus:border-brand-500 shadow-2xs"
+                className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1 text-slate-800 dark:text-slate-200 focus:outline-hidden focus:border-brand-500 shadow-2xs"
               >
                 <option value=". ">Dot & Space (1. )</option>
                 <option value=") ">Parenthesis & Space (1) )</option>
@@ -388,7 +388,7 @@ export const TransformTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
                 type="checkbox"
                 checked={lineNumPadZeros}
                 onChange={(e) => setLineNumPadZeros(e.target.checked)}
-                className="rounded border-slate-300 dark:border-slate-700 text-brand-600 focus:ring-brand-500 bg-white dark:bg-slate-800"
+                className="rounded-sm border-slate-300 dark:border-slate-700 text-brand-600 focus:ring-brand-500 bg-white dark:bg-slate-800"
               />
               <span>Pad with Leading Zeros (01, 02)</span>
             </label>
@@ -403,7 +403,7 @@ export const TransformTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
                 type="checkbox"
                 checked={dedupeCase}
                 onChange={(e) => setDedupeCase(e.target.checked)}
-                className="rounded border-slate-300 dark:border-slate-700 text-brand-600 focus:ring-brand-500 bg-white dark:bg-slate-800"
+                className="rounded-sm border-slate-300 dark:border-slate-700 text-brand-600 focus:ring-brand-500 bg-white dark:bg-slate-800"
               />
               <span>Case Sensitive Match</span>
             </label>
@@ -413,7 +413,7 @@ export const TransformTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
                 type="checkbox"
                 checked={dedupeTrim}
                 onChange={(e) => setDedupeTrim(e.target.checked)}
-                className="rounded border-slate-300 dark:border-slate-700 text-brand-600 focus:ring-brand-500 bg-white dark:bg-slate-800"
+                className="rounded-sm border-slate-300 dark:border-slate-700 text-brand-600 focus:ring-brand-500 bg-white dark:bg-slate-800"
               />
               <span>Trim Whitespace Before Compare</span>
             </label>
@@ -462,7 +462,7 @@ export const TransformTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
                 aria-label="Trim mode"
                 value={trimMode}
                 onChange={(e) => setTrimMode(e.target.value as "both" | "leading" | "trailing")}
-                className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1 text-slate-800 dark:text-slate-200 focus:outline-none focus:border-brand-500 shadow-2xs"
+                className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1 text-slate-800 dark:text-slate-200 focus:outline-hidden focus:border-brand-500 shadow-2xs"
               >
                 <option value="both">Both Ends (Start & End)</option>
                 <option value="leading">Leading (Start Only)</option>
@@ -475,7 +475,7 @@ export const TransformTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
                 type="checkbox"
                 checked={trimRemoveEmpty}
                 onChange={(e) => setTrimRemoveEmpty(e.target.checked)}
-                className="rounded border-slate-300 dark:border-slate-700 text-brand-600 focus:ring-brand-500 bg-white dark:bg-slate-800"
+                className="rounded-sm border-slate-300 dark:border-slate-700 text-brand-600 focus:ring-brand-500 bg-white dark:bg-slate-800"
               />
               <span>Remove Empty Lines Resulting from Trim</span>
             </label>
@@ -523,7 +523,7 @@ export const TransformTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
                 type="checkbox"
                 checked={stripHtmlBreaks}
                 onChange={(e) => setStripHtmlBreaks(e.target.checked)}
-                className="rounded border-slate-300 dark:border-slate-700 text-brand-600 focus:ring-brand-500 bg-white dark:bg-slate-800"
+                className="rounded-sm border-slate-300 dark:border-slate-700 text-brand-600 focus:ring-brand-500 bg-white dark:bg-slate-800"
               />
               <span>Convert &lt;br&gt; and &lt;p&gt; into Newlines</span>
             </label>
@@ -533,7 +533,7 @@ export const TransformTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
                 type="checkbox"
                 checked={stripHtmlEntities}
                 onChange={(e) => setStripHtmlEntities(e.target.checked)}
-                className="rounded border-slate-300 dark:border-slate-700 text-brand-600 focus:ring-brand-500 bg-white dark:bg-slate-800"
+                className="rounded-sm border-slate-300 dark:border-slate-700 text-brand-600 focus:ring-brand-500 bg-white dark:bg-slate-800"
               />
               <span>Decode HTML Entities (&amp;amp; → &amp;)</span>
             </label>
@@ -549,7 +549,7 @@ export const TransformTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
                 aria-label="Replace line breaks with"
                 value={lineBreaksSep}
                 onChange={(e) => setLineBreaksSep(e.target.value)}
-                className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1 text-slate-800 dark:text-slate-200 focus:outline-none focus:border-brand-500 shadow-2xs"
+                className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1 text-slate-800 dark:text-slate-200 focus:outline-hidden focus:border-brand-500 shadow-2xs"
               >
                 <option value=" ">Single Space (&quot; &quot;)</option>
                 <option value=", ">Comma & Space (&quot;, &quot;)</option>
@@ -563,7 +563,7 @@ export const TransformTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
                 type="checkbox"
                 checked={lineBreaksParagraphs}
                 onChange={(e) => setLineBreaksParagraphs(e.target.checked)}
-                className="rounded border-slate-300 dark:border-slate-700 text-brand-600 focus:ring-brand-500 bg-white dark:bg-slate-800"
+                className="rounded-sm border-slate-300 dark:border-slate-700 text-brand-600 focus:ring-brand-500 bg-white dark:bg-slate-800"
               />
               <span>Preserve Double Line Breaks (Paragraphs)</span>
             </label>
@@ -581,7 +581,7 @@ export const TransformTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
                 onChange={(e) =>
                   setSpecialCharsMode(e.target.value as "alphanumeric-only" | "keep-punctuation" | "custom")
                 }
-                className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1 text-slate-800 dark:text-slate-200 focus:outline-none focus:border-brand-500 shadow-2xs"
+                className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1 text-slate-800 dark:text-slate-200 focus:outline-hidden focus:border-brand-500 shadow-2xs"
               >
                 <option value="alphanumeric-only">Alphanumeric Only (A-Z, 0-9, spaces)</option>
                 <option value="keep-punctuation">Keep Standard Punctuation (. , ! ? &apos; &quot; - : ; ( ))</option>
@@ -597,7 +597,7 @@ export const TransformTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
                   placeholder="@#$%^&*"
                   value={specialCharsCustom}
                   onChange={(e) => setSpecialCharsCustom(e.target.value)}
-                  className="w-32 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1 text-slate-800 dark:text-slate-200 font-mono focus:outline-none focus:border-brand-500 shadow-2xs"
+                  className="w-32 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1 text-slate-800 dark:text-slate-200 font-mono focus:outline-hidden focus:border-brand-500 shadow-2xs"
                 />
               </div>
             )}
@@ -626,7 +626,7 @@ export const TransformTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
                 aria-pressed={caseMode === item.id}
                 className={`px-3 py-1.5 rounded-xl font-medium transition-all cursor-pointer ${
                   caseMode === item.id
-                    ? "bg-slate-900 text-white dark:bg-brand-600 dark:text-white shadow-xs"
+                    ? "bg-slate-900 text-white dark:bg-brand-600 dark:text-white shadow-2xs"
                     : "bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white border border-slate-200 dark:border-slate-700"
                 }`}
               >
@@ -645,7 +645,7 @@ export const TransformTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
                 aria-label="Sort order"
                 value={sortOrder}
                 onChange={(e) => setSortOrder(e.target.value as SortOrder)}
-                className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1 text-slate-800 dark:text-slate-200 focus:outline-none focus:border-brand-500 shadow-2xs"
+                className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1 text-slate-800 dark:text-slate-200 focus:outline-hidden focus:border-brand-500 shadow-2xs"
               >
                 <option value="az">A → Z (Alphabetical)</option>
                 <option value="za">Z → A (Reverse)</option>
@@ -661,7 +661,7 @@ export const TransformTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
                 type="checkbox"
                 checked={sortCase}
                 onChange={(e) => setSortCase(e.target.checked)}
-                className="rounded border-slate-300 dark:border-slate-700 text-brand-600 focus:ring-brand-500 bg-white dark:bg-slate-800"
+                className="rounded-sm border-slate-300 dark:border-slate-700 text-brand-600 focus:ring-brand-500 bg-white dark:bg-slate-800"
               />
               <span>Case Sensitive</span>
             </label>
@@ -671,7 +671,7 @@ export const TransformTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
                 type="checkbox"
                 checked={sortPreserveDups}
                 onChange={(e) => setSortPreserveDups(e.target.checked)}
-                className="rounded border-slate-300 dark:border-slate-700 text-brand-600 focus:ring-brand-500 bg-white dark:bg-slate-800"
+                className="rounded-sm border-slate-300 dark:border-slate-700 text-brand-600 focus:ring-brand-500 bg-white dark:bg-slate-800"
               />
               <span>Preserve Duplicate Lines</span>
             </label>
@@ -697,7 +697,7 @@ export const TransformTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
                 aria-pressed={reverseMode === item.id}
                   className={`px-3 py-1.5 rounded-xl font-medium transition-all cursor-pointer ${
                     reverseMode === item.id
-                      ? "bg-slate-900 text-white dark:bg-brand-600 dark:text-white shadow-xs"
+                      ? "bg-slate-900 text-white dark:bg-brand-600 dark:text-white shadow-2xs"
                       : "bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white border border-slate-200 dark:border-slate-700"
                   }`}
                 >
@@ -743,7 +743,7 @@ export const TransformTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
                 type="checkbox"
                 checked={base64UrlSafe}
                 onChange={(e) => setBase64UrlSafe(e.target.checked)}
-                className="rounded border-slate-300 dark:border-slate-700 text-brand-600 focus:ring-brand-500 bg-white dark:bg-slate-800"
+                className="rounded-sm border-slate-300 dark:border-slate-700 text-brand-600 focus:ring-brand-500 bg-white dark:bg-slate-800"
               />
               <span>URL-Safe Base64 (- and _)</span>
             </label>
@@ -785,7 +785,7 @@ export const TransformTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
                 aria-label="URL encoding scope"
                 value={urlScope}
                 onChange={(e) => setUrlScope(e.target.value as "component" | "full")}
-                className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1 text-slate-800 dark:text-slate-200 focus:outline-none focus:border-brand-500 shadow-2xs"
+                className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1 text-slate-800 dark:text-slate-200 focus:outline-hidden focus:border-brand-500 shadow-2xs"
               >
                 <option value="component">Component (encodeURIComponent - converts ?, &, =)</option>
                 <option value="full">Full URI (encodeURI - preserves URL structure)</option>

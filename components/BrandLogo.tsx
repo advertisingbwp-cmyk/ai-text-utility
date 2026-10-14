@@ -141,7 +141,7 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({
       <div className="flex flex-col justify-center">
         <div className="flex items-center">
           <span className={`font-extrabold tracking-tight text-slate-900 dark:text-white leading-tight flex items-center gap-1.5 ${textClasses}`}>
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 via-sky-500 to-blue-600 dark:from-cyan-400 dark:via-sky-400 dark:to-blue-400 font-black">
+            <span className="text-transparent bg-clip-text bg-linear-to-r from-cyan-500 via-sky-500 to-blue-600 dark:from-cyan-400 dark:via-sky-400 dark:to-blue-400 font-black">
               AI
             </span>
             <span className="text-slate-900 dark:text-white">Text Utility</span>

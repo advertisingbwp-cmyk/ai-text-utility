@@ -40,7 +40,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
         aria-label="Search tools"
-        className="w-full pl-12 pr-28 py-3.5 rounded-2xl border border-slate-200 dark:border-slate-800/90 bg-white dark:bg-slate-900/80 text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 text-sm sm:text-base focus:outline-none focus:border-brand-500 focus:ring-4 focus:ring-brand-500/15 transition-all shadow-card hover:shadow-cardHover"
+        className="w-full pl-12 pr-28 py-3.5 rounded-2xl border border-slate-200 dark:border-slate-800/90 bg-white dark:bg-slate-900/80 text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 text-sm sm:text-base focus:outline-hidden focus:border-brand-500 focus:ring-4 focus:ring-brand-500/15 transition-all shadow-card hover:shadow-cardHover"
       />
 
       <div className="absolute right-3.5 flex items-center gap-2">
@@ -55,7 +55,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
           </button>
         ) : (
           <kbd
-            className="hidden sm:inline-flex items-center gap-1 px-2 py-1 rounded-lg border border-slate-200 dark:border-slate-700/80 bg-slate-100/90 dark:bg-slate-800/80 text-xs font-mono text-slate-500 dark:text-slate-400 select-none shadow-xs"
+            className="hidden sm:inline-flex items-center gap-1 px-2 py-1 rounded-lg border border-slate-200 dark:border-slate-700/80 bg-slate-100/90 dark:bg-slate-800/80 text-xs font-mono text-slate-500 dark:text-slate-400 select-none shadow-2xs"
             title="Press to quick search"
           >
             {isMac ? "⌘K" : "Ctrl K"}

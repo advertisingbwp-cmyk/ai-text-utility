@@ -1,6 +1,53 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  --color-brand-50: #eff6ff;
+  --color-brand-100: #dbeafe;
+  --color-brand-200: #bfdbfe;
+  --color-brand-300: #93c5fd;
+  --color-brand-400: #60a5fa;
+  --color-brand-500: #3b82f6;
+  --color-brand-600: #2563eb;
+  --color-brand-700: #1d4ed8;
+  --color-brand-800: #1e40af;
+  --color-brand-900: #1e3a8a;
+  --color-brand-950: #0f172a;
+
+  --shadow-subtle: 0 1px 2px 0 rgba(0, 0, 0, 0.04);
+  --shadow-card:
+    0 1px 3px 0 rgba(0, 0, 0, 0.04), 0 1px 2px -1px rgba(0, 0, 0, 0.03);
+  --shadow-cardHover:
+    0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+  --shadow-glass:
+    0 4px 20px -2px rgba(15, 23, 42, 0.05),
+    0 0 1px 1px rgba(255, 255, 255, 0.6) inset;
+  --shadow-glassHover:
+    0 12px 30px -4px rgba(37, 99, 235, 0.12),
+    0 0 1px 1px rgba(255, 255, 255, 0.8) inset;
+  --shadow-navScrolled: 0 10px 30px -10px rgba(0, 0, 0, 0.08);
+
+  --ease-aurora: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+}
 
 :root {
   --background: #f8fafc;
@@ -29,11 +76,11 @@
   --glass-nav-border: rgba(100, 130, 180, 0.10);
 
   /* Controlled Radius System */
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 16px;
-  --radius-xl: 20px;
-  --radius-pill: 9999px;
+  --ui-radius-sm: 8px;
+  --ui-radius-md: 12px;
+  --ui-radius-lg: 16px;
+  --ui-radius-xl: 20px;
+  --ui-radius-pill: 9999px;
 
   /* Standard Semantic Text Colors */
   --text-primary: #0F172A;
@@ -71,11 +118,11 @@
   --glass-nav-border: rgba(255, 255, 255, 0.08);
 
   /* Controlled Radius System (Inherits root) */
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 16px;
-  --radius-xl: 20px;
-  --radius-pill: 9999px;
+  --ui-radius-sm: 8px;
+  --ui-radius-md: 12px;
+  --ui-radius-lg: 16px;
+  --ui-radius-xl: 20px;
+  --ui-radius-pill: 9999px;
 
   /* Standard Semantic Text Colors (Dark) */
   --text-primary: #F8FAFC;
@@ -894,7 +941,7 @@ body {
   gap: 0.5rem;
   height: 2.5rem;
   padding: 0 1.25rem;
-  border-radius: var(--radius-md);
+  border-radius: var(--ui-radius-md);
   font-size: 0.8125rem;
   font-weight: 600;
   color: #ffffff;
@@ -926,7 +973,7 @@ body {
   gap: 0.5rem;
   height: 2.25rem;
   padding: 0 0.875rem;
-  border-radius: var(--radius-md);
+  border-radius: var(--ui-radius-md);
   font-size: 0.75rem;
   font-weight: 600;
   color: var(--text-secondary);
@@ -960,7 +1007,7 @@ body {
   justify-content: center;
   width: 2.25rem;
   height: 2.25rem;
-  border-radius: var(--radius-md);
+  border-radius: var(--ui-radius-md);
   color: var(--text-muted);
   background: var(--glass-bg);
   border: 1px solid var(--glass-border);

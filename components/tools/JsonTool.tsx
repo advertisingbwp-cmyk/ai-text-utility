@@ -227,7 +227,7 @@ export const JsonTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
                     e.target.value === "minify" ? "minify" : (parseInt(e.target.value) as 2 | 4)
                   )
                 }
-                className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1 text-slate-800 dark:text-slate-200 focus:outline-none focus:border-brand-500 shadow-2xs"
+                className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1 text-slate-800 dark:text-slate-200 focus:outline-hidden focus:border-brand-500 shadow-2xs"
               >
                 <option value="2">2 Spaces</option>
                 <option value="4">4 Spaces</option>
@@ -242,7 +242,7 @@ export const JsonTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
                 type="checkbox"
                 checked={jsonSortKeys}
                 onChange={(e) => setJsonSortKeys(e.target.checked)}
-                className="rounded border-slate-300 dark:border-slate-700 text-brand-600 focus:ring-brand-500 bg-white dark:bg-slate-800"
+                className="rounded-sm border-slate-300 dark:border-slate-700 text-brand-600 focus:ring-brand-500 bg-white dark:bg-slate-800"
               />
               <span>Sort Keys A-Z</span>
             </label>
@@ -259,7 +259,7 @@ export const JsonTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
                 name="jsonToCsvDelimiter"
                 value={jsonToCsvDelim}
                 onChange={(e) => { importVersion.current++; setOutput(""); setJsonToCsvDelim(e.target.value); }}
-                className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1 text-slate-800 dark:text-slate-200 focus:outline-none focus:border-brand-500 shadow-2xs"
+                className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1 text-slate-800 dark:text-slate-200 focus:outline-hidden focus:border-brand-500 shadow-2xs"
               >
                 <option value=",">Comma (,)</option>
                 <option value=";">Semicolon (;)</option>
@@ -275,7 +275,7 @@ export const JsonTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
                 type="checkbox"
                 checked={jsonToCsvQuoteAll}
                 onChange={(e) => { importVersion.current++; setOutput(""); setJsonToCsvQuoteAll(e.target.checked); }}
-                className="rounded border-slate-300 dark:border-slate-700 text-brand-600 focus:ring-brand-500 bg-white dark:bg-slate-800"
+                className="rounded-sm border-slate-300 dark:border-slate-700 text-brand-600 focus:ring-brand-500 bg-white dark:bg-slate-800"
               />
               <span>Quote All Fields</span>
             </label>
@@ -292,7 +292,7 @@ export const JsonTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
                 name="csvToJsonDelimiter"
                 value={csvToJsonDelim}
                 onChange={(e) => { importVersion.current++; setOutput(""); setCsvToJsonDelim(e.target.value); }}
-                className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1 text-slate-800 dark:text-slate-200 focus:outline-none focus:border-brand-500 shadow-2xs"
+                className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1 text-slate-800 dark:text-slate-200 focus:outline-hidden focus:border-brand-500 shadow-2xs"
               >
                 <option value=",">Comma (,)</option>
                 <option value=";">Semicolon (;)</option>
@@ -308,7 +308,7 @@ export const JsonTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
                 type="checkbox"
                 checked={csvToJsonHeaders}
                 onChange={(e) => { importVersion.current++; setOutput(""); setCsvToJsonHeaders(e.target.checked); }}
-                className="rounded border-slate-300 dark:border-slate-700 text-brand-600 focus:ring-brand-500 bg-white dark:bg-slate-800"
+                className="rounded-sm border-slate-300 dark:border-slate-700 text-brand-600 focus:ring-brand-500 bg-white dark:bg-slate-800"
               />
               <span>First Row as Headers</span>
             </label>
@@ -320,7 +320,7 @@ export const JsonTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
                 type="checkbox"
                 checked={csvToJsonParseTypes}
                 onChange={(e) => { importVersion.current++; setOutput(""); setCsvToJsonParseTypes(e.target.checked); }}
-                className="rounded border-slate-300 dark:border-slate-700 text-brand-600 focus:ring-brand-500 bg-white dark:bg-slate-800"
+                className="rounded-sm border-slate-300 dark:border-slate-700 text-brand-600 focus:ring-brand-500 bg-white dark:bg-slate-800"
               />
               <span>Infer safe integers, booleans &amp; null</span>
             </label>
@@ -371,7 +371,7 @@ export const JsonTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
                   type="checkbox"
                   checked={htmlMinifyComments}
                   onChange={(e) => setHtmlMinifyComments(e.target.checked)}
-                  className="rounded border-slate-300 dark:border-slate-700 text-brand-600 focus:ring-brand-500 bg-white dark:bg-slate-800"
+                  className="rounded-sm border-slate-300 dark:border-slate-700 text-brand-600 focus:ring-brand-500 bg-white dark:bg-slate-800"
                 />
                 <span>Strip Comments</span>
               </label>
@@ -383,7 +383,7 @@ export const JsonTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
                   type="checkbox"
                   checked={htmlMinifyWs}
                   onChange={(e) => setHtmlMinifyWs(e.target.checked)}
-                  className="rounded border-slate-300 dark:border-slate-700 text-brand-600 focus:ring-brand-500 bg-white dark:bg-slate-800"
+                  className="rounded-sm border-slate-300 dark:border-slate-700 text-brand-600 focus:ring-brand-500 bg-white dark:bg-slate-800"
                 />
                 <span>Compact Attribute Gaps</span>
               </label>

@@ -126,7 +126,7 @@ export const TableTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
                 aria-label="Character sort order"
                 value={charSort}
                 onChange={(e) => setCharSort(e.target.value as "frequency" | "alphabetical")}
-                className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1 text-slate-800 dark:text-slate-200 focus:outline-none focus:border-brand-500 shadow-2xs"
+                className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1 text-slate-800 dark:text-slate-200 focus:outline-hidden focus:border-brand-500 shadow-2xs"
               >
                 <option value="frequency">Highest Frequency</option>
                 <option value="alphabetical">Alphabetical Order</option>
@@ -138,7 +138,7 @@ export const TableTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
                 type="checkbox"
                 checked={charIgnoreWs}
                 onChange={(e) => setCharIgnoreWs(e.target.checked)}
-                className="rounded border-slate-300 dark:border-slate-700 text-brand-600 focus:ring-brand-500 bg-white dark:bg-slate-800"
+                className="rounded-sm border-slate-300 dark:border-slate-700 text-brand-600 focus:ring-brand-500 bg-white dark:bg-slate-800"
               />
               <span>Ignore Whitespace</span>
             </label>
@@ -148,7 +148,7 @@ export const TableTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
                 type="checkbox"
                 checked={charIgnoreCaps}
                 onChange={(e) => setCharIgnoreCaps(e.target.checked)}
-                className="rounded border-slate-300 dark:border-slate-700 text-brand-600 focus:ring-brand-500 bg-white dark:bg-slate-800"
+                className="rounded-sm border-slate-300 dark:border-slate-700 text-brand-600 focus:ring-brand-500 bg-white dark:bg-slate-800"
               />
               <span>Ignore Case</span>
             </label>
@@ -164,7 +164,7 @@ export const TableTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
                 aria-label="Word sort order"
                 value={wordSort}
                 onChange={(e) => setWordSort(e.target.value as "frequency" | "alphabetical")}
-                className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1 text-slate-800 dark:text-slate-200 focus:outline-none focus:border-brand-500 shadow-2xs"
+                className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1 text-slate-800 dark:text-slate-200 focus:outline-hidden focus:border-brand-500 shadow-2xs"
               >
                 <option value="frequency">Highest Frequency</option>
                 <option value="alphabetical">Alphabetical Order</option>
@@ -180,7 +180,7 @@ export const TableTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
                 aria-label="Minimum word length"
                 value={wordMinLen}
                 onChange={(e) => setWordMinLen(Math.max(1, parseInt(e.target.value) || 1))}
-                className="w-14 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2 py-1 text-slate-800 dark:text-slate-200 font-mono text-center focus:outline-none focus:border-brand-500 shadow-2xs"
+                className="w-14 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2 py-1 text-slate-800 dark:text-slate-200 font-mono text-center focus:outline-hidden focus:border-brand-500 shadow-2xs"
               />
             </div>
 
@@ -189,7 +189,7 @@ export const TableTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
                 type="checkbox"
                 checked={wordIgnoreCaps}
                 onChange={(e) => setWordIgnoreCaps(e.target.checked)}
-                className="rounded border-slate-300 dark:border-slate-700 text-brand-600 focus:ring-brand-500 bg-white dark:bg-slate-800"
+                className="rounded-sm border-slate-300 dark:border-slate-700 text-brand-600 focus:ring-brand-500 bg-white dark:bg-slate-800"
               />
               <span>Case Insensitive</span>
             </label>
@@ -298,7 +298,7 @@ export const TableTool: React.FC<{ tool: ToolDefinition }> = ({ tool }) => {
                   <tr key={idx} className="hover:bg-slate-50/60 dark:hover:bg-slate-800/40 transition-colors">
                     <td className="p-3 text-slate-400">{idx + 1}</td>
                     <td className="p-3 font-bold text-brand-600 dark:text-brand-400 text-sm">
-                      <span className="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+                      <span className="px-2 py-0.5 rounded-sm bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
                         {item.displayCharacter}
                       </span>
                     </td>

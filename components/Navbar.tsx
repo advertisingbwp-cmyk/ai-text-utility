@@ -76,7 +76,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCommandPalette }) => {
         {/* Brand Logo */}
         <Link
           href="/"
-          className="focus:outline-none focus:ring-2 focus:ring-brand-500/30 rounded-xl p-1 -ml-1 group shrink-0 transition-transform active:scale-[0.98]"
+          className="focus:outline-hidden focus:ring-2 focus:ring-brand-500/30 rounded-xl p-1 -ml-1 group shrink-0 transition-transform active:scale-[0.98]"
           aria-label="AI Text Utility home"
         >
           <BrandLogo size="md" showSubtitle={true} />
@@ -111,7 +111,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCommandPalette }) => {
             type="button"
             onClick={onOpenCommandPalette}
             aria-label={`Search tools (Press ${isMac ? '⌘K' : 'Ctrl K'})`}
-            className="hidden sm:flex items-center justify-between gap-2.5 px-3 py-1.5 rounded-full border border-white/70 dark:border-slate-800 bg-white/60 dark:bg-slate-900/50 hover:bg-white/90 dark:hover:bg-slate-900 hover:border-brand-500/40 dark:hover:border-brand-500/40 text-xs text-slate-500 dark:text-slate-400 transition-all shadow-2xs hover:shadow-xs group cursor-pointer backdrop-blur-sm"
+            className="hidden sm:flex items-center justify-between gap-2.5 px-3 py-1.5 rounded-full border border-white/70 dark:border-slate-800 bg-white/60 dark:bg-slate-900/50 hover:bg-white/90 dark:hover:bg-slate-900 hover:border-brand-500/40 dark:hover:border-brand-500/40 text-xs text-slate-500 dark:text-slate-400 transition-all shadow-2xs hover:shadow-2xs group cursor-pointer backdrop-blur-xs"
           >
             <div className="flex items-center gap-1.5">
               <Search size={13} className="text-slate-400 dark:text-slate-500 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors" />

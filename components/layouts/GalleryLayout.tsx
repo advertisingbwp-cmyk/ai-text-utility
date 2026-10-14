@@ -22,7 +22,7 @@ export const GalleryLayout: React.FC<WorkspaceProps> = ({
   return (
     <div className="space-y-6">
       {/* 1. Full-Width Top Input Box */}
-      <div className="rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white/90 dark:bg-slate-900/70 overflow-hidden shadow-xs focus-within:border-brand-500/40 focus-within:ring-2 focus-within:ring-brand-500/10 transition-all duration-150">
+      <div className="rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white/90 dark:bg-slate-900/70 overflow-hidden shadow-2xs focus-within:border-brand-500/40 focus-within:ring-2 focus-within:ring-brand-500/10 transition-all duration-150">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 px-4 py-3 border-b border-slate-200/70 dark:border-slate-800/80 bg-slate-50/70 dark:bg-slate-950/40">
           <div className="flex items-center gap-2.5 flex-wrap">
             <span className="text-xs font-bold text-slate-800 dark:text-slate-200 flex items-center gap-2 tracking-tight">
@@ -66,7 +66,7 @@ export const GalleryLayout: React.FC<WorkspaceProps> = ({
             onChange={(e) => onInputChange(e.target.value)}
             placeholder={inputPlaceholder}
             rows={3}
-            className="w-full bg-transparent text-slate-900 dark:text-slate-100 placeholder-slate-400/90 dark:placeholder-slate-500 font-sans text-base sm:text-lg resize-y focus:outline-none leading-relaxed"
+            className="w-full bg-transparent text-slate-900 dark:text-slate-100 placeholder-slate-400/90 dark:placeholder-slate-500 font-sans text-base sm:text-lg resize-y focus:outline-hidden leading-relaxed"
           />
         </div>
 
@@ -78,7 +78,7 @@ export const GalleryLayout: React.FC<WorkspaceProps> = ({
 
       {/* 2. Gallery Filter & Search Controls */}
       {customControls && (
-        <div className="p-4 sm:p-5 rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white/70 dark:bg-slate-900/60 shadow-xs">
+        <div className="p-4 sm:p-5 rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white/70 dark:bg-slate-900/60 shadow-2xs">
           {customControls}
         </div>
       )}
